@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <link rel="stylesheet" id="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <title>
+        e-Bilet | Mobilny Katolik
+    </title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+<body>
+<center>
+<h1>e-Bilet</h1>
+<h2>Panel zarządzania</h2>
+</center>
+<hr>
+
+<div id="loading" style="display: block;"> <!--TUTAJ ZROBIC ZE MA SIE WYSWIETLAC-->
+<center>
+<h2>Trwa ładowanie...</h2>
+</center>
+</div>
+
+<div id="finder" style="display: none;">
+<center>
+<form onSubmit="return manage();">
+<input list="names" id="select-ticket-owner" autocomplete="off" placeholder="Imię i nazwisko zamawiąjacego" required>
+<datalist id="names">
+</datalist>
+<input type="submit" value="Zarządzaj">
+</form>
+</center>
+</div>
+
+<div id="manage-page" style="display: none;"><!--A TU USUNAC WYSWIETLANIE-->
+<h3>ID eventu</h3>
+<h4 id="eticket-eventid"></h4>
+<h3>Właściciel biletu</h3>
+<h4 id="eticket-owner"></h4>
+<h3>Cena biletu</h3>
+<h4 id="eticket-cost"></h4>
+<form onSubmit="return applyData()">
+<h3>Kwota opłacona</h3>
+<input type="number" id="eticket-paid" min="0" required>
+<h3>Zgoda dostarczona</h3>
+<select id="eticket-consent" required>
+    <option value="true">TAK</option>
+    <option value="false">NIE</option>
+</select>
+<center><input type="submit" value="Zatwierdź"></center>
+</form>
+</div>
+
+<div id="register-page" style="display: none;">
+<center>
+<h2>Zaloguj się za pomocą ICSU</h2>
+<form onSubmit="return logIn();">
+<input type="number" id="register-accesscode" placeholder="Kod dostępu" required>
+<input type="text" id="register-username" placeholder="Login" required>
+<input type="password" id="register-password" placeholder="Hasło" required>
+<input type="submit" id="register-submit" value="Zaloguj się">
+</form>
+</center>
+</div>
+
+<h3></h3>
+
+
+</body>
+
+</html>
+
+<script>
+//63880597
+var icsuData = localStorage.getItem("icsu");
+var accessCode;
+var jsonData;
+var toFind;
+var prevPaid;
+var email;
+if (icsuData == null) {
+    document.getElementById("register-page").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+} else {
+    accessCode = icsuData.split(";")[0];
+    accessCode = accessCode.split("");
+    var binId = `${accessCode[0]}${accessCode[1]}b4a${accessCode[4]}${accessCode[4]}${accessCode[1]}${accessCode[4]}1a${accessCode[7]}2b${accessCode[5]}${accessCode[6]}f24${accessCode[4]}2ee${accessCode[3]}`
+    let req = new XMLHttpRequest();
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        document.getElementById("finder").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        jsonData = JSON.parse(req.responseText);
+        for (ticket in jsonData) {
+            if (ticket != "NONE") {
+                var name = jsonData[ticket].owner;
+                var ticketId = ticket;
+                var opt = document.createElement('option');
+                opt.value = `${name} (${ticketId})`;
+                document.getElementById("names").appendChild(opt);
+            }
+        }
+    }
+    };
+    req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
+    req.setRequestHeader("X-Master-Key", "$2b$10$3x/3VAsD1CbEfvPX2dZfEOtqcbbrVoml.mzGNwmzyjMaQfXJGmVF6");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+
+}
+
+function logIn() {
+    var loginData = [document.getElementById("register-accesscode").value, document.getElementById("register-username").value, document.getElementById("register-password").value]
+    accessCode = loginData[0].split("");
+    var binId = `${accessCode[0]}${accessCode[1]}b${accessCode[2]}${accessCode[3]}fa${accessCode[4]}dfc${accessCode[0]}${accessCode[2]}e${accessCode[5]}${accessCode[6]}d${accessCode[5]}${accessCode[7]}b2e0b`
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        jsonResponse = JSON.parse(req.responseText);
+        if (jsonResponse[loginData[1]] != undefined) {
+            if (jsonResponse[loginData[1]].password == loginData[2]) {
+                //Pomyślnie zalogowano
+                console.log("Zalogowano pomyślnie!")
+                document.getElementById("loading").style.display = "none";
+                localStorage.setItem("icsu", `${loginData[0]};${loginData[1]};${loginData[2]};${jsonResponse[loginData[1]].fullname};${String(Math.floor(Date.now() / 1000))}`)
+                window.alert("Zalogowano pomyślnie! Odśwież stronę, aby załadować panel.")
+                return false;
+            }
+        }
+        //Błąd w logowaniu
+        console.log("Access denied")
+        window.alert("Błąd logowania!")
+        document.getElementById("register-accesscode").value = "";
+        document.getElementById("register-username").value = "";
+        document.getElementById("register-password").value = "";
+        document.getElementById("register-page").style.display = "block";
+        return false;
+    }
+    };
+
+    req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
+    req.setRequestHeader("X-Access-Key", "$2b$10$v1bIyrCKtRfKdH0mESZ1IO.SzT18lfEDB1KbV6iojB6TcsarSbIwu");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+    document.getElementById("register-page").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    return false;
+}
+
+function manage() {
+    toFind = document.getElementById("select-ticket-owner").value;
+    var selected;
+    try {
+        toFind = toFind.split(" ");
+        toFind = toFind[2]
+        toFind = toFind.substring(1);
+        toFind = toFind.slice(0,-1);
+    } catch (error) {
+        window.alert("Nie znaleziono takiego wyniku!")
+        return false;
+    }
+    var eTicketData = jsonData[toFind];
+    document.getElementById("eticket-eventid").innerHTML = eTicketData.eventid;
+    document.getElementById("eticket-owner").innerHTML = `${eTicketData.owner}, ${eTicketData.ownerclass}`;
+    document.getElementById("eticket-cost").innerHTML = `${eTicketData.cost} zł`;
+    document.getElementById("eticket-paid").value = parseInt(eTicketData.paid);
+    prevPaid = parseInt(eTicketData.paid);
+    document.getElementById("eticket-consent").value = String(eTicketData.consent);
+    document.getElementById("manage-page").style.display = "block";
+    document.getElementById("finder").style.display = "none";
+    email = eTicketData.email;
+    /*
+    eticket-eventid
+    eticket-owner
+    eticket-cost
+    eticket-paid
+    eticket-consent
+    */
+    return false;
+}
+
+function applyData() {
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("manage-page").style.display = "none";
+    var paid = document.getElementById("eticket-paid").value;
+    var consent = document.getElementById("eticket-consent").value;
+    //Pobieranie bazy danych
+    var binId = `${accessCode[0]}${accessCode[1]}b4a${accessCode[4]}${accessCode[4]}${accessCode[1]}${accessCode[4]}1a${accessCode[7]}2b${accessCode[5]}${accessCode[6]}f24${accessCode[4]}2ee${accessCode[3]}`
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        jsonData = JSON.parse(req.responseText);
+        sendData(toFind, paid, consent, binId);
+    }
+    };
+
+    req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
+    req.setRequestHeader("X-Master-Key", "$2b$10$3x/3VAsD1CbEfvPX2dZfEOtqcbbrVoml.mzGNwmzyjMaQfXJGmVF6");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+    return false;
+}
+
+function sendData(eticketid, paid, consent, binId) {
+    jsonData[eticketid].paid = parseInt(paid);
+    if (consent == "true") {
+        jsonData[eticketid].consent = true;
+    } else if (consent == "false") {
+        jsonData[eticketid].consent = false;
+    }
+    console.log(jsonData);
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        console.log(req.responseText);
+        if (req.status == 200) {
+            window.alert("Zmiany zostały zapisane w systemie!");
+            document.getElementById("select-ticket-owner").value = "";
+            sendMail(eticketid, paid, consent);
+        } else {
+            window.alert("Wystąpił problem z systemem. Sprawdź, czy wprowadzone zmiany zostały zapisane. Jeśli nie - ponów operację.")
+        }
+        document.getElementById("finder").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+    }
+    };
+
+    req.open("PUT", `https://api.jsonbin.io/v3/b/${binId}`, true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.setRequestHeader("X-Master-Key", "$2b$10$3x/3VAsD1CbEfvPX2dZfEOtqcbbrVoml.mzGNwmzyjMaQfXJGmVF6");
+    req.send(JSON.stringify(jsonData));
+}
+
+function sendMail(eticketid, paid, consent) {
+    if (prevPaid == paid) {
+        //Wpłata się nie zmieniła
+        return false;
+    }
+    var url = `https://maker.ifttt.com/trigger/eticket_payment/with/key/d_5aUHXP1jpVBVwG3aR4qX?value1=${email}&value2=${eticketid}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Content-Length", "0");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    xhr.send();
+
+}
+
+
+
+</script>
