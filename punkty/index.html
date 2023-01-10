@@ -87,10 +87,6 @@ var locked = false;
 var successAudio = new Audio('success.wav');
 var failureAudio = new Audio('failure.wav');
 
-const soundEffect = new Audio();
-soundEffect.autoplay = true;
-soundEffect.src = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
-
 if (icsuData == null) {
     document.getElementById("register-page").style.display = "block";
     document.getElementById("loading").style.display = "none";
@@ -137,7 +133,7 @@ function switchScanner() {
 }
 
 function showPopUp(name) {
-    soundEffect.src = "success.wav";
+    successAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
     document.getElementById("scanned-name").innerHTML = name.toUpperCase();
@@ -152,7 +148,7 @@ function showPopUp(name) {
 }
 
 function showPopUpFailure(errorText) {
-    soundEffect.src = "failure.wav"
+    failureAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
     document.getElementById("scanned-name").innerHTML = "Wystąpił błąd";
