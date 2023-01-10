@@ -1,30 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="pl">
 
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" id="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" href="icons/192.png">
-    <link rel="shortcut icon" href="icons/192.png">
-    <link rel="manifest" href="manifest.webmanifest" />
     <title>
-        Mobilny Katolik dla SU
+        Zarządzanie punktami | Mobilny Katolik
     </title>
     <link rel="icon" type="image/png" href="favicon.png" />
 </head>
 
 <body>
-    
-<video id="video" class="scanner"></video>
+<div id="select-event-page" style="display: none;">
+    <img src="favicon.png" width="50px" height="50px">
+    <h1>Zarządzanie punktami</h1>
+    <h2>Mobilny Katolik</h2>
+    <form onSubmit="return openScanner()">
+        <select id="event-id" required>
+            <option value="" selected disabled hidden>Wybierz wydarzenie</option>
+        </select>
+        <center>
+        <input type="submit" value="Uruchom skaner">
+        </center>
+    </form>
+</div>
 
+<div id="register-page" style="display: none;">
+    <center>
+    <h2>Zaloguj się za pomocą ICSU</h2>
+    <form onSubmit="return logIn();">
+    <input type="number" id="register-accesscode" placeholder="Kod dostępu" required>
+    <input type="text" id="register-username" placeholder="Login" required>
+    <input type="password" id="register-password" placeholder="Hasło" required>
+    <input type="submit" id="register-submit" value="Zaloguj się">
+    </form>
+    </center>
+</div>
 
+<div id="loading" style="display: block;"> <!--TUTAJ ZROBIC ZE MA SIE WYSWIETLAC-->
+    <center>
+    <h2>Trwa ładowanie...</h2>
+    </center>
+</div>
 
-<div class="container" id="container">
-    <div>
-        <a class="button" onClick="startReader()">Start</a>
-        <a class="button" onClick="resetReader()">Reset</a>
+<div id="scanner" style="display: none;">
+    <video id="video" class="scanner"></video>
+    <div class="steering-btn">
+        <div class="switch-btn" id="switch-btn" onClick="switchScanner()"></div>
+    </div>
+    <div class="popup-window" id="popup-window">
+        <div class="popup-content">
+            <img id="result" src="success.png" width="30px" height="30px">
+            <h1 id="scanned-name">JAKUB SAŁEK</h1>
+            <h2 id="scanned-points">+10 punktów</h2>
+        </div>
     </div>
 </div>
 
@@ -40,13 +72,132 @@
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
 
 <script type="text/javascript">
+var icsuData = localStorage.getItem("icsu");
+var accessCode;
+var jsonData;
+var toFind;
+var prevPaid;
+var email;
+var pointsCount = 0;
+var eventId;
+var scannerActive = false;
+var lastScan;
+var locked = false;
+if (icsuData == null) {
+    document.getElementById("register-page").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+} else {
+    accessCode = icsuData.split(";")[0];
+    accessCode = accessCode.split("");
+}
+
+function loadScannerEvents() {
+    if (icsuData == null) {
+        return false;
+    }
+    for (let event in events) {
+        var opt = document.createElement('option');
+        opt.value = event;
+        opt.innerHTML = `${events[event].title} (${events[event].date})`
+        if (events[event].points != undefined) {
+            document.getElementById("event-id").appendChild(opt);
+        }
+    }
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("select-event-page").style.display = "block";
+}
+
+function openScanner() {
+    eventId = document.getElementById("event-id").value;
+    pointsCount = events[eventId].points;
+    console.log(`Rozpoczynam skanowanie dla wydarzenia ID: ${eventId}, ilość punktów: ${pointsCount}`)
+    document.getElementById("select-event-page").style.display = "none";
+    document.getElementById("scanner").style.display = "block";
+    return false;
+}
+
+function switchScanner() {
+    if (scannerActive == false) {
+        startReader();
+        scannerActive = true;
+        document.getElementById("switch-btn").style.backgroundImage = `url("on.png")`
+    } else if (scannerActive == true) {
+        resetReader();
+        scannerActive = false;
+        document.getElementById("switch-btn").style.backgroundImage = `url("off.png")`
+    }
+}
+
+function showPopUp(name) {
+    locked = true;
+    document.getElementById("popup-window").className = "popup-window-showed";
+    document.getElementById("scanned-name").innerHTML = name.toUpperCase();
+    document.getElementById("scanned-points").innerHTML = `+${pointsCount} punktów`;
+    setTimeout(() => {
+        document.getElementById("popup-window").className = "popup-window";
+    }, 2000)
+    setTimeout(() => {
+        locked = false;
+    }, 2500)
+}
+
+function logIn() {
+    var loginData = [document.getElementById("register-accesscode").value, document.getElementById("register-username").value, document.getElementById("register-password").value]
+    accessCode = loginData[0].split("");
+    var binId = `${accessCode[0]}${accessCode[1]}b${accessCode[2]}${accessCode[3]}fa${accessCode[4]}dfc${accessCode[0]}${accessCode[2]}e${accessCode[5]}${accessCode[6]}d${accessCode[5]}${accessCode[7]}b2e0b`
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        jsonResponse = JSON.parse(req.responseText);
+        if (jsonResponse[loginData[1]] != undefined) {
+            if (jsonResponse[loginData[1]].password == loginData[2]) {
+                //Pomyślnie zalogowano
+                console.log("Zalogowano pomyślnie!")
+                document.getElementById("loading").style.display = "none";
+                localStorage.setItem("icsu", `${loginData[0]};${loginData[1]};${loginData[2]};${jsonResponse[loginData[1]].fullname};${String(Math.floor(Date.now() / 1000))}`)
+                window.alert("Zalogowano pomyślnie! Odśwież stronę, aby załadować panel.")
+                return false;
+            }
+        }
+        //Błąd w logowaniu
+        console.log("Access denied")
+        window.alert("Błąd logowania!")
+        document.getElementById("register-accesscode").value = "";
+        document.getElementById("register-username").value = "";
+        document.getElementById("register-password").value = "";
+        document.getElementById("register-page").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        return false;
+    }
+    };
+
+    req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
+    req.setRequestHeader("X-Access-Key", "$2b$10$v1bIyrCKtRfKdH0mESZ1IO.SzT18lfEDB1KbV6iojB6TcsarSbIwu");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+    document.getElementById("register-page").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    return false;
+}
+
+
+    //Działanie skanera
 
     function decodeContinuously(codeReader, selectedDeviceId) {
       codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result) {
-          console.log('Found QR code!', result)
-          window.alert(result.text)
-          document.getElementById('result').textContent = result.text
+            if (locked == false) {
+                if (result.text == lastScan) {
+                    //Ten sam kod QR
+                    return false;
+                }
+                lastScan = result.text;
+                var name = lastScan.split(";")
+                name = `${name[0]} ${name[1]}`;
+                showPopUp(name);
+            }
         }
       })
     }
@@ -68,6 +219,9 @@
     }
 
     function resetReader() {
+        lastScan = "";
         codeReader.reset()
     }
 </script>
+
+<script src="https://su.katoliktczew.repl.co/app/calendar.js"></script>
