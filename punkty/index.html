@@ -23,8 +23,11 @@
             <option value="" selected disabled hidden>Wybierz wydarzenie</option>
         </select>
         <br><br>
-        <input type="checkbox" id="reset-scanner-after-scan">
-        <span>Wyłączaj skaner po zeskanowaniu</span>
+        <select id="scanning-type" required>
+            <option value="" selected disabled hidden>Wybierz tryb skanowania</option>
+            <option value="1">Skanowanie ciągłe</option>
+            <option value="2">Skanowanie jednorazowe</option>
+        </select>
         <center>
         <input type="submit" value="Uruchom skaner">
         </center>
@@ -139,7 +142,7 @@ function switchScanner() {
 }
 
 function showPopUp(name) {
-    if (document.getElementById("reset-scanner-after-scan").checked) {
+    if (document.getElementById("scanning-type").value == "2") {
         switchScanner();
     } else {
         setTimeout(() => {
