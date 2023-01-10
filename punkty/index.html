@@ -83,6 +83,10 @@ var eventId;
 var scannerActive = false;
 var lastScan;
 var locked = false;
+
+var successAudio = new Audio('success.wav');
+var failureAudio = new Audio('failure.wav');
+
 if (icsuData == null) {
     document.getElementById("register-page").style.display = "block";
     document.getElementById("loading").style.display = "none";
@@ -129,10 +133,27 @@ function switchScanner() {
 }
 
 function showPopUp(name) {
+    successAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
     document.getElementById("scanned-name").innerHTML = name.toUpperCase();
     document.getElementById("scanned-points").innerHTML = `+${pointsCount} punktów`;
+    document.getElementById("result").src = "success.png";
+    setTimeout(() => {
+        document.getElementById("popup-window").className = "popup-window";
+    }, 2000)
+    setTimeout(() => {
+        locked = false;
+    }, 2500)
+}
+
+function showPopUpFailure(errorText) {
+    failureAudio.play();
+    locked = true;
+    document.getElementById("popup-window").className = "popup-window-showed";
+    document.getElementById("scanned-name").innerHTML = "Wystąpił błąd";
+    document.getElementById("scanned-points").innerHTML = errorText;
+    document.getElementById("result").src = "failure.png";
     setTimeout(() => {
         document.getElementById("popup-window").className = "popup-window";
     }, 2000)
@@ -195,6 +216,11 @@ function logIn() {
                 }
                 lastScan = result.text;
                 var name = lastScan.split(";")
+                if (name.length != 4) {
+                    showPopUpFailure("Nieprawidłowy kod QR");
+                    lastScan = "";
+                    return false
+                }
                 name = `${name[0]} ${name[1]}`;
                 showPopUp(name);
             }
