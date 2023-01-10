@@ -51,7 +51,7 @@ input:focus, select:focus, textarea:focus {
     outline: none;
 }
 
-input, select {
+input[type="submit"], select {
     width: 80%;
     height: 40px;
     border-radius: 10px;

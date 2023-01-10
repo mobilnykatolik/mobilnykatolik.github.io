@@ -22,6 +22,9 @@
         <select id="event-id" required>
             <option value="" selected disabled hidden>Wybierz wydarzenie</option>
         </select>
+        <br><br>
+        <input type="checkbox" id="reset-scanner-after-scan">
+        <span>Wyłączaj skaner po zeskanowaniu</span>
         <center>
         <input type="submit" value="Uruchom skaner">
         </center>
@@ -54,8 +57,8 @@
     <div class="popup-window" id="popup-window">
         <div class="popup-content">
             <img id="result" src="success.png" width="30px" height="30px">
-            <h1 id="scanned-name">JAKUB SAŁEK</h1>
-            <h2 id="scanned-points">+10 punktów</h2>
+            <h1 id="scanned-name"></h1>
+            <h2 id="scanned-points"></h2>
         </div>
     </div>
 </div>
@@ -124,6 +127,7 @@ function openScanner() {
 
 function switchScanner() {
     if (scannerActive == false) {
+        document.getElementById("popup-window").className = "popup-window";
         startReader();
         scannerActive = true;
         document.getElementById("switch-btn").style.backgroundImage = `url("on.png")`
@@ -135,15 +139,19 @@ function switchScanner() {
 }
 
 function showPopUp(name) {
+    if (document.getElementById("reset-scanner-after-scan").checked) {
+        switchScanner();
+    } else {
+        setTimeout(() => {
+            document.getElementById("popup-window").className = "popup-window";
+        }, 2000)
+    }
     successAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
     document.getElementById("scanned-name").innerHTML = name.toUpperCase();
     document.getElementById("scanned-points").innerHTML = `+${pointsCount} punktów`;
     document.getElementById("result").src = "success.png";
-    setTimeout(() => {
-        document.getElementById("popup-window").className = "popup-window";
-    }, 2000)
     setTimeout(() => {
         locked = false;
     }, 2500)
