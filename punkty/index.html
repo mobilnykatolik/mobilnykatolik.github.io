@@ -83,6 +83,7 @@ var eventId;
 var scannerActive = false;
 var lastScan;
 var locked = false;
+var icsuUser;
 
 var successAudio = new Audio('success.wav');
 var failureAudio = new Audio('failure.wav');
@@ -93,6 +94,7 @@ if (icsuData == null) {
 } else {
     accessCode = icsuData.split(";")[0];
     accessCode = accessCode.split("");
+    icsuUser = icsuData.split(";")[3];
 }
 
 function loadScannerEvents() {
@@ -210,6 +212,7 @@ function logIn() {
       codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result) {
             if (locked == false) {
+                var formattedReply = []
                 if (result.text == lastScan) {
                     //Ten sam kod QR
                     return false;
@@ -222,7 +225,13 @@ function logIn() {
                     return false
                 }
                 name = `${name[0]} ${name[1]}`;
+                var scanData = lastScan.split(";")
+                formattedReply = [scanData[3], name, scanData[2], String(pointsCount), eventId, icsuUser]
+                formattedReply = formattedReply.join("%7C%7C%7C");
+                sendToIfttt(formattedReply);
                 showPopUp(name);
+                console.log()
+                //ID uzytkownika;imie i nazwisko;klasa;punkty;id wydarzenia;uzytkownik icsu
             }
         }
       })
@@ -248,6 +257,22 @@ function logIn() {
         lastScan = "";
         codeReader.reset()
     }
+
+
+function sendToIfttt(data) {
+    var url = `https://maker.ifttt.com/trigger/add_points/with/key/d_5aUHXP1jpVBVwG3aR4qX?value1=${data}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    xhr.send();
+}
 </script>
 
 <script src="https://su.katoliktczew.repl.co/app/calendar.js"></script>
