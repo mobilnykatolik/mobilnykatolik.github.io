@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="app/icons/192.png">
+  <link rel="shortcut icon" sizes="196x196" href="app/icons/192.png">
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name=”theme-color” content=”#ffffff″>
+  <title>
+    Mobilny Katolik
+  </title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+<body onLoad="endLoading();">
+  <div class="background"></div>
+
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-logo"></div>
+    <div class="loading-circle"></div>
+    <div class="loading-footer"></div>
+  </div>
+
+  <div class="page-content">
+    <div class="app-visualization"></div>
+    <div class="app-credits">
+      <div class="app-logo"></div>
+      <div class="app-name">
+        Mobilny Katolik
+      </div>
+    </div>
+  </div>
+
+
+  <button class="install-help" id="install-help"
+    onClick="window.open('https://mobilnykatolik.notion.site/Centrum-pomocy-2411ca5a0b6148ce8b0586e88b8abe83', '_blank').focus();">Jak
+    zainstalować?</button>
+  <button class="app-install">Zainstaluj</button>
+  <div id="ios-install"></div>
+
+
+
+</body>
+
+</html>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+var lnkey = urlParams.get('key');
+
+if (lnkey != null) {
+  localStorage.setItem("lnkey", lnkey);
+}
+
+
+  
+  var isDownloadable = false;
+
+  function endLoading() {
+    setTimeout(() => {
+      document.getElementById("loading-screen").style.opacity = "0%";
+    }, 1000)
+    setTimeout(() => {
+      document.getElementById("loading-screen").style.display = "none";
+    }, 2100)
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('serviceWorker.js', {
+      scope: '/'
+    }).then((registration) => {
+      console.log('SW zarejestrowany! Scope:', registration.scope);
+    });
+  }
+
+  let deferredPrompt;
+  const installBtn = document.querySelector(".app-install");
+  installBtn.style.display = "none";
+  window.addEventListener("beforeinstallprompt", (e) => {
+    isDownloadable = true;
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update UI to notify the user they can add to home screen
+    installBtn.style.display = "block";
+
+    installBtn.addEventListener("click", (e) => {
+      // hide our user interface that shows our A2HS button
+      installBtn.style.display = "none";
+      // Show the prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the A2HS prompt");
+        } else {
+          console.log("User dismissed the A2HS prompt");
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+
+  function fnBrowserDetect() {
+    let userAgent = navigator.userAgent;
+
+    if (userAgent.match(/chrome|chromium|crios/i)) {
+      document.getElementById("install-help").style.display = "block";
+    } else if (userAgent.match(/firefox|fxios/i)) {
+      document.getElementById("install-help").style.display = "block";
+    } else if (userAgent.match(/safari/i)) {
+      document.getElementById("ios-install").innerHTML = '<br><p>Kliknij w <img src="ios.png" style="height: 25px; vertical-align: middle;"> i wybierz<br><b>Do ekranu początkowego</b>.</p>'
+    } else if (userAgent.match(/opr\//i)) {
+      document.getElementById("install-help").style.display = "block";
+    } else if (userAgent.match(/edg/i)) {
+      document.getElementById("install-help").style.display = "block";
+    } else {
+      document.getElementById("install-help").style.display = "block";
+    }
+  }
+
+
+  if (isDownloadable == false) {
+    fnBrowserDetect();
+  }
+</script>

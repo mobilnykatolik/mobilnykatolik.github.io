@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <link rel="stylesheet" id="stylesheet" href="themes/a80c2f/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" href="icons/192.png">
+    <link rel="shortcut icon" href="icons/192.png">
+    <link rel="manifest" id="manifest"/>
+    <meta name=”theme-color” content=”#d7e5ef″>
+    <title>
+        Mobilny Katolik
+    </title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+<body onLoad="endLoading();">
+
+<div class="background"></div>
+
+<div class="loading-screen" id="loading-screen">
+    <div class="loading-logo"></div>
+    <div class="loading-circle"></div>
+    <!--<div class="loading-footer"></div>-->
+</div>
+
+<div class="module-container" id="home">
+    <div class="module-content-container">
+        <div class="module-content">
+            <div class="welcome-container" id="welcome-container">
+                <h1 id="welcome-fname">Witaj!</h1>
+                <h2 id="smart-note">Miłego dnia! 😍</h2>
+                <div class="wrapper">
+                    <div class="shortcut-container" onClick="openShortcut(1);">
+                        <div class="shortcut" id="shortcut1"></div>
+                    </div>
+                    <div class="shortcut-container" onClick="openShortcut(2);">
+                        <div class="shortcut" id="shortcut2"></div>
+                    </div>
+                    <div class="shortcut-container" onClick="openShortcut(3);">
+                        <div class="shortcut" id="shortcut3"></div>
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <p id="shortcut1name">Dodaj</p>
+                    <p id="shortcut2name">Dodaj</p>
+                    <p id="shortcut3name">Dodaj</p>
+                </div>
+                </div>
+            
+                <div class="menu-container" id="menu-container">
+                    <div class="menu-content">
+                        <!--<div class="wide-box" onClick="openModule('notifications-module');" id="notifications-indicator">
+                            Nie masz nowych powiadomień
+                        </div>-->
+                        <div class="wide-box" id="wdg-points" style="display: none;">
+                            <div style="height: 50px;">
+                                <div style="float: left;">
+                                    <div class="points-circle-small">
+                                        <span id="points-count-wdg">0</span>
+                                        <div class="points-logo-small"></div>
+                                    </div>
+                                </div>
+                                <div style="float: right;">
+                                    <button class="qr-btn-small" onClick="openModule('qr');">Pokaż kod</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="more-box" onClick="openModule('eticket-module');" id="buy-eticket" style="display: none;">
+                            <img src="shortcuts/disco.png">
+                            <span>Neon Party</span>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="steering-btn">
+                    <div class="notifications-btn" onClick="openModule('notifications-module');" id="notifications-btn">
+                        <div class="notifications-indicator" id="notifications-indicator"></div>
+                    </div>
+                    <div class="more-btn" onClick="openModule('more-module');"></div>
+                    <div class="reload-btn" onClick="reload();"></div>
+                </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="notifications-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Powiadomienia</p>
+        </div>
+        <div class="module-content">
+            <div id="notifications">
+                <h2>Brak nowych powiadomień</h2>
+            </div>
+            <center>
+                <span style="color: #c1c1c1; top: 50px; position: relative;" id="show-old-notifications" onClick="toggleOldNotifications();">Wyświetl starsze powiadomienia</span>
+            </center>
+            <div id="viewed-notifications" style="display: none; margin-top: 10px; top: 50px; position: relative;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="notification">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p> </p>
+            <img src="unread.png" style="float: right; position: relative;" onClick="unreadNotification();">
+        </div>
+        <div class="module-content">
+            <div id="notification-info">
+                <img src="" id="notification-img" class="notification-img">
+                <h2 id="notification-title">[]</h2>
+                <h4 id="notification-desc">[]</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="introduction-module">
+    <div class="module-content-container">
+        <div class="module-content">
+            <h1><br><br>Witaj!👋</h1>
+            <h2>Utwórz swój profil mobilny</h2>
+            
+            <form onSubmit="return applyData();">
+                <center>
+                <input type="text" class="text-input" id="fname1" placeholder="Imię" autocomplete="off" required><br>
+                <input type="text" class="text-input" id="sname1" placeholder="Nazwisko" autocomplete="off" required><br>
+                <input type="text" class="text-input" id="activation-code" placeholder="Kod aktywacyjny" onChange="ifTeacher();" autocomplete="off" required><br>
+                <select class="select" id="class1" required>
+                    <option value="" selected hidden>- Wybierz klasę -</option><option value="7a">7a</option><option value="8a">8a</option><option value="8b">8b</option><option value="1lo">1 LO</option><option value="2lo">2 LO</option><option value="3lo">3 LO</option><option value="4lo">4 LO</option>
+                </select><br><br>
+                </center>
+                <input type="checkbox" id="rodo" required>
+                <span class="agreement">Wyrażam zgodę na przetwarzanie moich danych osobowych</span>
+                <center>
+                <br>
+                <span class="agreement">Administratorem danych osobowych jest Dyrektor Zespołu Szkół Katolickich im. Świętej Jadwigi Królowej w Tczewie</span>
+                <br>
+                <input type="submit" value="Rozpocznij" class="introduction-btn">
+                </center>
+            </form>
+            <p onClick="tryDebug();">Kliknij tutaj, aby zresetować</p>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="more-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Więcej</p>
+        </div>
+        <div class="module-content">
+            <!--<div class="more-box" onClick="openModule('profile-module');">Profil mobilny</div>-->
+            <!--<div class="more-box" onClick="openModule('timetable-module');">Plan lekcji</div>-->
+            <div class="more-box" onClick="openModule('calendar-module');" id="open-calendar-module">
+                <img src="shortcuts/calendar.png">
+                <span>Kalendarz</span>
+            </div>
+            <div class="more-box" onClick="openModule('lucky-module');" id="open-lucky-module">
+                <img src="shortcuts/lucky-numbers.png">
+                <span>Szczęśliwy numerek</span>
+            </div>
+            <div class="more-box" onClick="openModule('idea-module');" id="open-idea-module">
+                <img src="shortcuts/idea.png">
+                <span>Pomysł dla SU</span>
+            </div>
+            <div class="more-box" onClick="openModule('instagram');" id="open-instagram">
+                <img src="shortcuts/instagram.png">
+                <span>Profil SU na Instagramie</span>
+            </div>
+            <div class="more-box" onClick="openModule('points-module');" id="open-points-module">
+                <img src="shortcuts/points.png">
+                <span>Moje akwarium</span>
+            </div>
+            <div class="more-box" onClick="openModule('eticket-module');" id="open-eticket-module">
+                <img src="shortcuts/eticket.png">
+                <span>e-Bilet</span>
+            </div>
+            <div class="more-box" onClick="openModule('settings-module');" id="open-settings-module">
+                <img src="shortcuts/settings.png">
+                <span>Ustawienia</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="settings-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Ustawienia</p>
+        </div>
+        <div class="module-content">
+            <h3>Informacje o Tobie</h3>
+            <h4>Wyświetlane treści będą dopasowane do Ciebie</h4>
+            <h4 style="color: #ff0000;" id="invalid-data-error" onClick="window.open('https://mobilnykatolik.notion.site/Komunikaty-w-aplikacji-93ea47759fe841e1bbdf7ebb00eef51e');"></h4>
+            <form onSubmit="return changeData();">
+                <input type="text" class="text-input" id="nickname" placeholder="Pseudonim" autocomplete="off"><br>
+                <input type="text" class="text-input" id="fname" placeholder="Imię" autocomplete="off" required><br>
+                <input type="text" class="text-input" id="sname" placeholder="Nazwisko" autocomplete="off" required><br>
+                <select class="select" id="class" required>
+                    <option value="" selected hidden>- Wybierz klasę -</option><option value="7a">7a</option><option value="8a">8a</option><option value="8b">8b</option><option value="1lo">1 LO</option><option value="2lo">2 LO</option><option value="3lo">3 LO</option><option value="4lo">4 LO</option>
+                </select>
+                <center><input type="submit" value="Zapisz" class="save-btn"></center>
+            </form>
+            <div id="theme-section" style="display: none;">
+            <h3>Wygląd aplikacji</h3>
+            <h4>Wybierz motyw aplikacji</h4>
+            <div class="theme-circles">
+                <div class="theme-circle" style="background-color: #a80c2f" id="select-a80c2f" onClick="changeTheme('a80c2f');"></div>
+                <div class="theme-circle" style="background-color: #072657" id="select-072657" onClick="changeTheme('072657');"></div>
+                <div class="theme-circle" style="background-color: #6247aa" id="select-6247aa" onClick="changeTheme('6247aa');"></div>
+                <div class="theme-circle" style="background-color: #52796f" id="select-52796f" onClick="changeTheme('52796f');"></div>
+                <div class="theme-circle" style="background-color: #feb1c6" id="select-feb1c6" onClick="changeTheme('feb1c6');"></div>
+            </div>
+            <br>
+            </div>
+            <h3>Skróty</h3>
+            <h4>Dopasuj szybkie skróty wyświetlane na ekranie głównym</h4>
+            <select class="select" id="shortcut1-select" onChange="editShortcut(1)"></select>
+            <select class="select" id="shortcut2-select" onChange="editShortcut(2)"></select>
+            <select class="select" id="shortcut3-select" onChange="editShortcut(3)"></select>
+            <h3>Widget</h3>
+            <h4>Dostosuj widget wyświetlany na ekranie glównym</h4>
+            <select class="select" id="widget-select" onChange="changeWidget();">
+                <option value="none">Ukryj widget</option>
+            </select>
+            <h3>Dodatkowe opcje</h3>
+            <table>
+                <tr>
+                    <td class="table-check-col">
+                        <input type="checkbox" id="showSmartNote" onChange="changeAdditionalOptions()">
+                    </td>
+                    <td>Wyświetlaj inteligentne wskazówki na ekranie głównym</td>
+                </tr>
+                <!--<tr>
+                    <td class="table-check-col">
+                        <input type="checkbox" id="checkbox-debug" onClick="debugOptions();">
+                    </td>
+                    <td>Opcje programisty</td>
+                </tr>-->
+            </table>
+            <h3>Dodatkowe informacje</h3>
+            <h4 id="profile-id" style="display: block;">[id]</h4>
+            <h4 id="userrank"></h4>
+            <p onClick="resetData();">Zresetuj wszystkie dane</p><br><br>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="timetable-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Plan lekcji</p>
+        </div>
+        <div class="module-content">
+            <h3>Wkrótce!</h3>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="calendar-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Kalendarz</p>
+        </div>
+        <div class="module-content">
+            <center><input type="month" class="month-input" id="calendar-month-select" onChange="changeMonth();" min="2022-09" max="2023-08" required hidden></center>
+            <div class="calendar-upper-bar">
+                <div class="prev-month" id="prev-month" onClick="prevMonth();"></div>
+                <div class="next-month" id="next-month" onClick="nextMonth();"></div>
+                <center><h6 style="font-size: 23px; margin-bottom: 10px;" id="calendar-month"> </h6></center>
+            </div>
+            <table class="calendar" id="calendar">
+                <!--KALENDARZ-->
+            </table>
+            <h3 id="selected-day"></h3>
+            <div id="events-list">
+                <!--LISTA WYDARZEŃ-->
+            </div>
+            <div class="tag-list" id="tag-list"></div>
+            <div class="calendar-add-event-box">
+                <div class="add-event-btn" onClick="openModule('create-event');"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="tag-events">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+        </div>
+        <div class="module-content">
+            <center>
+            <div class="tag-display" id="tag-display">
+                <!--PODGLĄD TAGU-->
+            </div>
+            </center>
+            <div id="tag-events-list">
+                <!--LISTA WYDARZEŃ Z DANYM TAGIEM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="event">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p> </p>
+        </div>
+        <div class="module-content">
+            <div id="event-info">
+                <h2>Tytuł wydarzenia</h2>
+                <h3>Data</h3>
+                <h4 id="event-date">[event-date]</h4>
+                <h3>Godzina</h3>
+                <h4 id="event-time">[event-time]</h4>
+                <h3>Opis</h3>
+                <h4>[event-desc]</h4>
+            </div>
+            <div class="calendar-modify-event-box" style="display: none;" id="modify-event-box">
+                <div class="edit-event-btn" onClick="editEvent();"></div>
+                <div class="remove-event-btn" onClick="removeEvent();"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="create-event">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Dodaj wydarzenie</p>
+        </div>
+        <div class="module-content">
+            <div id="event-info">
+                <form id="event-creator" onSubmit="return addEvent();">
+                    <h3>Kategoria</h3>
+                    <select class="event-creator" id="event-creator-category" required>
+                        <option value="" disabled selected hidden>Wybierz kategorię</option>
+                        <option value="beta">BETA (UWAGA! Wydarzenia z tej kategorii zostaną usunięte wraz z zakończeniem testów)</option>
+                    </select>
+                    <h3>Tytuł wydarzenia</h3>
+                    <input type="text" class="event-creator" placeholder="Tytuł wydarzenia"  id="event-creator-title" required>
+                    <h3>Data</h3>
+                    <input type="date" class="event-creator" id="event-creator-date" required>
+                    <h3>Godzina</h3>
+                    <p style="font-size: 15px; font-weight: normal; color: #000000; text-align: left; margin: 0;">Jeśli wydarzenie jest całodniowe, zostaw pola puste</p>
+                    <input type="time" class="event-creator" id="event-creator-starttime"> - <input type="time" class="event-creator" id="event-creator-endtime">
+                    <h3>Opis</h3>
+                    <textarea class="event-creator" maxlength="200" placeholder="Opis wydarzenia (max. 200 znaków)" id="event-creator-desc"></textarea>
+                    <input type="hidden" value="" id="event-creator-id">
+                    <br><br><center><input type="submit" value="Dodaj do kalendarza" class="save-btn" id="event-creator-submit"></center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="module-container" id="lucky-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Szczęśliwy numerek</p>
+        </div>
+        <div class="module-content">
+            <div class="lucky-module">
+                <div id="lnToday"></div>
+                <div id="lnTomorrow"></div>
+                <center>
+                <br>
+                <h4 id="tomorrowsln">Szczęśliwe numerki na następny dzień<br>po godz. 15:00</h4>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="idea-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Pomysł do SU</p>
+        </div>
+        <div class="module-content">
+            <h3>Zgłoś swój pomysł do Samorządu Uczniowskiego</h3>
+            <form onSubmit="return sendIdea();">
+                <br>
+                <h4>Wybierz kategorię propozycji</h4>
+                <select id="idea-type" class="select" required>
+                    <option value="" selected hidden> - </option>
+                    <option value="Pomysł ogólny">Pomysł ogólny</option>
+                    <option value="Pomysł dotyczący aplikacji">Pomysł dotyczący aplikacji Mobilny Katolik</option>
+                </select>
+                <br><br>
+                <h4>Opisz swoją propozycję szczegółowo poniżej</h4>
+                <textarea class="idea-input" id="idea-input" maxlength="1000" required></textarea>
+                <input type="checkbox" id="sign-idea" checked>Podpisz pomysł imieniem i nazwiskiem
+                <center>
+                <input type="submit" class="save-btn" value="Wyślij">
+                </center>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="points-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Moje akwarium</p>
+        </div>
+        <div class="module-content">
+            <div class="points-circle" id="points-count">
+                0
+            </div>
+            <div class="points-logo"></div>
+            <center><button class="qr-btn" onClick="openModule('qr');">Pokaż kod</button></center>
+            <h3>Czym są Wirtualne Rybki?</h3>
+            <h4>Wirtualne Rybki to punkty zdobywane za udział w akcjach organizowanych przez Samorząd Uczniowski</h4>
+            <br>
+            <h4>Rybki są dodawane do 72 godzin po ich zdobyciu. Jeśli nie zostały naliczone, skontaktuj się z nami: mobilnykatolik@gmail.com</h4>
+            <h3>Historia</h3>
+            <table id="points-history"></table>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="eticket-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>e-Bilet</p>
+        </div>
+        <div class="module-content">
+            <h3 style="margin-top: 0px;">Moje e-Bilety</h3>
+            <div id="etickets-my-section"></div>
+            <h3>Dostępne e-Bilety</h3>
+            <div id="etickets-buy-section"></div>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="eticket">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+        </div>
+        <div class="module-content">
+            test
+        </div>
+    </div>
+</div>
+
+
+<div class="module-container" id="profile-module">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+            <p>Profil mobilny</p>
+        </div>
+        <div class="module-content">
+            <h3>Imię i nazwisko</h3>
+            <h4 id="profile-name">[name]</h4>
+        </div>
+    </div>
+</div>
+
+<div class="module-container" id="qr">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+        </div>
+        <div class="module-content">
+            <center>
+            <img src="" id="qr-code" class="qrcode">
+            <h5 id="qr-name">[name]</h5>
+            <h6 id="qr-class">[class]</h6>
+            <br>
+            <span>Okaż ten kod, aby zdobyć Wirtualne Rybki</span>
+            </center>
+        </div>
+    </div>
+</div>
+
+
+<div class="module-container" id="unavailable">
+    <div class="module-content-container">
+        <div class="module-heading">
+            <img src="back.png" onClick="closeModule();">
+        </div>
+        <div class="module-content">
+            <img src="unavailable.gif" class="notification-img">
+            <center>
+                <h2>Moduł niedostępny</h2>
+                <h4>Trwają prace nad tym modułem. Prosimy o cierpliwość!</h4>
+            </center>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+
+
+<script src="user-id.js"></script>
+<script src="theme.js"></script>
+
+
+<script>
+if (localStorage.getItem("version") == "BETA") {
+    localStorage.clear();
+    window.alert("Prywatne testy BETA zostały zakończone! Dziękujemy!\nTwoja aplikacja została zresetowana.")
+    window.reload();
+}
+
+var lnkey = localStorage.getItem("lnkey");
+var lnActualVersion;
+var lnInstalledVersion;
+
+if (lnkey != null) {
+    document.getElementById("activation-code").required = "";
+    document.getElementById("activation-code").style.display = "none";
+    lnActualVersion = "1.1";
+    lnInstalledVersion = localStorage.getItem("lnversion");
+}
+
+
+var openedModule = ["home"];
+var userfname;
+var usersname;
+var userclass;
+var usernickname;
+var userid;
+var userrank;
+var usertheme;
+var actualShortcuts = [];
+
+var luckyToday = false;
+var luckyTomorrow = false;
+
+var calendarSmartNote = "";
+
+
+//Dodatkowe opcje w ustawieniach
+const defaultAdditionalOptions =
+{
+    "showSmartNote": true
+}
+
+
+var additionalOptions = localStorage.getItem("options");
+if (additionalOptions == null || additionalOptions == "{}") {
+    additionalOptions = JSON.stringify(defaultAdditionalOptions);
+    localStorage.setItem("options", additionalOptions)
+}
+additionalOptions = JSON.parse(additionalOptions);
+for (let option in defaultAdditionalOptions) {
+    if (additionalOptions[option] == undefined) {
+        additionalOptions[option] = defaultAdditionalOptions[option]
+    }
+}
+localStorage.setItem("options", JSON.stringify(additionalOptions))
+
+for (let option in additionalOptions) {
+    if (additionalOptions[option]) {
+        document.getElementById(option).checked = "checked";
+    }
+}
+
+function changeAdditionalOptions() {
+    for (let option in additionalOptions) {
+        if (document.getElementById(option).checked) {
+            additionalOptions[option] = true;
+        } else {
+            additionalOptions[option] = false;
+        }
+    }
+    localStorage.setItem("options", JSON.stringify(additionalOptions))
+
+    //Restartowanie funkcji, których dotyczą opcje
+    updateSmartNote();
+}
+
+
+//Skróty ekranu głównego - START
+var shortcuts = ["Brak", "Kalendarz", "Pomysł dla SU", "SU na Instagramie", "Szczęśliwy numerek", "Moje akwarium", "e-Bilet", "Ustawienia"];
+var shortcutsModule = ["none", "calendar-module", "idea-module", "instagram", "lucky-module", "points-module", "eticket-module", "settings-module"];
+var shortcutsImg = ["none", "calendar", "idea", "instagram", "lucky-numbers", "points", "eticket", "settings"];
+
+var closedModules = ["calendar-module"];
+
+var hideForTeachers = ["lucky-module", "points-module"];
+
+//Czy pierwsze uruchomienie; dane osobowe - START
+if (localStorage.getItem("fname") == null || localStorage.getItem("sname") == null) {
+    /*document.getElementById("introduction-module").style.display = "block";
+    document.getElementById("main-screen").style.display = "none";
+    openedModule = "introduction-module"*/
+    openModule("introduction-module");
+    usertheme = "a80c2f";
+} else {
+    //Wypełnianie strony informacjami osobistymi
+    userfname = localStorage.getItem("fname");
+    usersname = localStorage.getItem("sname");
+    userclass = localStorage.getItem("class");
+    usernickname = localStorage.getItem("nickname");
+    userrank = localStorage.getItem("rank");
+    usertheme = localStorage.getItem("theme");
+    if (userrank == null) {
+        userrank = "USER";
+    }
+    if (usertheme == null) {
+        usertheme = "a80c2f";
+    }
+
+    if (userrank == "ADMIN") {
+        document.getElementById("userrank").innerHTML = "Status konta: Administrator"
+        closedModules = [];
+    } else if (userrank == "SU") {
+        document.getElementById("userrank").innerHTML = "Status konta: Członek SU"
+    }
+    if (usernickname != null) {
+        document.getElementById("welcome-fname").innerHTML = "Cześć, "+usernickname+"!";
+    } else {
+        document.getElementById("welcome-fname").innerHTML = "Cześć, "+userfname+"!";
+    }
+    document.getElementById("profile-name").innerHTML = userfname+" "+usersname;
+    document.getElementById("fname").value = userfname;
+    document.getElementById("sname").value = usersname;
+    document.getElementById("class").value = userclass;
+    document.getElementById("nickname").value = usernickname;
+    window.location.replace('#home');
+    if (userclass == "nauczyciel") {
+        document.getElementById('class').disabled = "disabled";
+        var opt = document.createElement('option');
+        opt.value = "nauczyciel";
+        opt.innerHTML = "Nauczyciel";
+        opt.selected = "selected"
+        document.getElementById('class').appendChild(opt);
+        hideForTeachers.forEach(function(element) {
+            var toDeleteIndex = shortcutsModule.indexOf(element);
+            shortcutsModule.splice(toDeleteIndex, 1);
+            shortcuts.splice(toDeleteIndex, 1);
+            shortcutsImg.splice(toDeleteIndex, 1);
+            document.getElementById("open-"+element).style.display = "none";
+        })
+    }
+
+    if (!localStorage.getItem("lndata").includes(usersname+" "+userfname) && userclass != "nauczyciel") {
+        document.getElementById("invalid-data-error").innerHTML = '<br>Wprowadzone przez Ciebie dane są nieprawidłowe! Kliknij tutaj, aby dowiedzieć się więcej.';
+    }
+
+    document.getElementById("qr-name").innerHTML = `${userfname} ${usersname}`
+    document.getElementById("qr-class").innerHTML = `${userclass}`
+
+
+
+}
+
+if (localStorage.getItem("id") == null) {
+    localStorage.setItem("id", generateID());
+    document.getElementById("profile-id").innerHTML = "#"+localStorage.getItem("id");
+    userid = localStorage.getItem("id");
+} else {
+    document.getElementById("profile-id").innerHTML = "#"+localStorage.getItem("id");
+    userid = localStorage.getItem("id");
+}
+
+loadTheme();
+
+
+document.getElementById("qr-code").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userfname};${usersname};${userclass};${userid}`
+
+
+//Czy pierwsze uruchomienie; dane osobowe - END
+
+if (userclass == "1lo" || userclass == "2lo" || userclass == "3lo" || userclass == "4lo") {
+    document.getElementById("buy-eticket").style.display = "block";
+}
+
+
+/*const shortcuts = ["Brak", "Szczęśliwy numerek", "Kalendarz wydarzeń", "Ustawienia"];
+const shortcutsModule = ["none", "lucky-module", "calendar-module", "settings-module"];
+const shortcutsImg = ["none", "lucky-numbers", "calendar", "settings"];*/
+
+shortcut1Select = document.getElementById('shortcut1-select');
+for (var i = 0; i < shortcuts.length; i++) {
+    var opt = document.createElement('option');
+    opt.value = shortcutsModule[i];
+    opt.innerHTML = shortcuts[i];
+    shortcut1Select.appendChild(opt);
+}
+
+shortcut2Select = document.getElementById('shortcut2-select');
+for (var i = 0; i < shortcuts.length; i++) {
+    var opt = document.createElement('option');
+    opt.value = shortcutsModule[i];
+    opt.innerHTML = shortcuts[i];
+    shortcut2Select.appendChild(opt);
+}
+
+shortcut3Select = document.getElementById('shortcut3-select');
+for (var i = 0; i < shortcuts.length; i++) {
+    var opt = document.createElement('option');
+    opt.value = shortcutsModule[i];
+    opt.innerHTML = shortcuts[i];
+    shortcut3Select.appendChild(opt);
+}
+
+if (!shortcutsModule.includes(localStorage.getItem("shortcut1"))) {
+    actualShortcuts[1] = "none";
+    localStorage.removeItem("shortcut1");
+} else if (localStorage.getItem("shortcut1") != null) {
+    generateShortcut("shortcut1", localStorage.getItem("shortcut1"))
+    actualShortcuts[1] = localStorage.getItem("shortcut1");
+    document.getElementById('shortcut1-select').value = actualShortcuts[1];
+} else {
+    actualShortcuts[1] = "none";
+}
+
+if (!shortcutsModule.includes(localStorage.getItem("shortcut2"))) {
+    actualShortcuts[2] = "none";
+    localStorage.removeItem("shortcut2");
+} else if (localStorage.getItem("shortcut2") != null) {
+    generateShortcut("shortcut2", localStorage.getItem("shortcut2"))
+    actualShortcuts[2] = localStorage.getItem("shortcut2");
+    document.getElementById('shortcut2-select').value = actualShortcuts[2];
+} else {
+    actualShortcuts[2] = "none";
+}
+
+if (!shortcutsModule.includes(localStorage.getItem("shortcut3"))) {
+    actualShortcuts[3] = "none";
+    localStorage.removeItem("shortcut3");
+} else if (localStorage.getItem("shortcut3") != null) {
+    generateShortcut("shortcut3", localStorage.getItem("shortcut3"))
+    actualShortcuts[3] = localStorage.getItem("shortcut3");
+    document.getElementById('shortcut3-select').value = actualShortcuts[3];
+} else {
+    actualShortcuts[3] = "none";
+}
+
+
+function generateShortcut(shortcutPlace, shortcutNumber) {
+    if (shortcutNumber == "none") {
+        document.getElementById(shortcutPlace+"name").innerHTML = "Dodaj";
+        document.getElementById(shortcutPlace).style.backgroundColor = "transparent";
+        document.getElementById(shortcutPlace).style.backgroundImage = `url('themes/${usertheme}/plus.png')`;
+        document.getElementById(shortcutPlace).style.backgroundSize = "40%";
+        document.getElementById(shortcutPlace).style.border = `3px dashed #${usertheme}`;
+    } else {
+        index = shortcutsModule.indexOf(shortcutNumber);
+        document.getElementById(shortcutPlace+"name").innerHTML = shortcuts[index];
+        document.getElementById(shortcutPlace).style.backgroundColor = `#${usertheme}`;
+        document.getElementById(shortcutPlace).style.backgroundImage = "url('shortcuts/"+shortcutsImg[index]+".png')";
+        document.getElementById(shortcutPlace).style.backgroundSize = "50%";
+    }
+}
+
+function openShortcut(shortcutPlace) {
+    if (actualShortcuts[shortcutPlace] == "none") {
+        openModule("settings-module");
+    } else {
+        openModule(actualShortcuts[shortcutPlace]);
+    }
+}
+
+function editShortcut(shortcutPlace) {
+    actualShortcuts[shortcutPlace] = document.getElementById('shortcut'+shortcutPlace+'-select').value;
+    localStorage.setItem("shortcut"+shortcutPlace, actualShortcuts[shortcutPlace]);
+    generateShortcut("shortcut"+shortcutPlace, actualShortcuts[shortcutPlace])
+}
+//Skróty ekranu głównego - END
+
+
+
+function endLoading() {
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "0%";
+    }, 1000)
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.display = "none";
+    }, 2100)
+}
+
+function openModule(moduleName) {
+    if (moduleName == "instagram") {
+        openInstagram();
+        return false;
+    } else if (moduleName == "create-event") {
+        createEvent();
+    }
+
+    if (closedModules.includes(moduleName)) {
+        moduleName = "unavailable"
+    }
+
+    openedModule.push(moduleName);
+    window.open('#'+moduleName,"_self");
+}
+
+function closeModule() {
+    history.back();
+    openedModule.pop();
+}
+
+function ifTeacher() {
+    lnkey = document.getElementById("activation-code").value;
+    if (lnkey.startsWith("N")) {
+        document.getElementById('class1').disabled = "disabled";
+        lnkey = lnkey.slice(1);
+        var opt = document.createElement('option');
+        opt.value = "nauczyciel";
+        opt.innerHTML = "Nauczyciel";
+        opt.selected = "selected"
+        document.getElementById('class1').appendChild(opt);
+    }
+}
+
+
+
+//Zapis, zmiana, reset danych osobowych - START
+function applyData() {
+    if (lnkey == null) {
+        lnkey = document.getElementById("activation-code").value;
+    }
+    localStorage.setItem("rodo", document.getElementById("rodo").checked);
+    localStorage.setItem("lnkey", lnkey);
+    lnkey = lnkey.split("");
+    lnkey = `${lnkey[0]}${lnkey[1]}7${lnkey[1]}b${lnkey[3]}142b${lnkey[1]}499${lnkey[1]}2${lnkey[1]}b00a${lnkey[2]}94`;
+    document.getElementById("loading-screen").style.display = "block";
+    var fname = document.getElementById("fname1").value.replaceAll(' ', '')
+    var sname = document.getElementById("sname1").value.replaceAll(' ', '')
+    var userclasstosend = document.getElementById("class1").value
+    localStorage.setItem("fname", fname);
+    localStorage.setItem("sname", sname);
+    localStorage.setItem("class", document.getElementById("class1").value);
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "100%";
+    }, 100)
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        if (req.status != 200) {
+            window.alert("Kod aktywacyjny jest niepoprawny.\nSprawdź kod na plakatach wywieszonych w szkole.\nJeśli problem się powtarza, napisz do nas (mobilnykatolik@gmail.com)");
+            localStorage.removeItem("fname");
+            localStorage.removeItem("sname");
+            localStorage.removeItem("class");
+            localStorage.removeItem("nickname");
+            localStorage.removeItem("id");
+            localStorage.removeItem("shortcut1");
+            localStorage.removeItem("shortcut2");
+            localStorage.removeItem("shortcut3");
+            localStorage.removeItem("wdg");
+            localStorage.removeItem("readnotify");
+            localStorage.removeItem("lndata");
+            localStorage.removeItem("lnversion");
+            localStorage.removeItem("rodo");
+            localStorage.removeItem("theme");
+            localStorage.removeItem("etickets");
+            localStorage.removeItem("options");
+            window.location.reload();
+            return false;
+        }
+
+        localStorage.setItem("lndata", req.responseText);
+        var lnData = JSON.parse(localStorage.getItem("lndata"));
+        var lnDataVersion = lnData.version;
+        localStorage.setItem("lnversion", lnDataVersion);
+
+
+        var url = `https://maker.ifttt.com/trigger/new_user/with/key/d_5aUHXP1jpVBVwG3aR4qX?value1=${fname}&value2=${sname}&value3=${userclasstosend}`;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Content-Length", "0");
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+            window.location.reload();
+        }};
+        xhr.send();
+    }
+    };
+
+    req.open("GET", `https://api.jsonbin.io/v3/b/${lnkey}/latest`, true);
+    req.setRequestHeader("X-Master-Key", "$2b$10$3x/3VAsD1CbEfvPX2dZfEOtqcbbrVoml.mzGNwmzyjMaQfXJGmVF6");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+
+
+    return false;
+}
+
+function changeData() {
+    document.getElementById("loading-screen").style.display = "block";
+    fname = document.getElementById("fname").value.replaceAll(' ', '')
+    sname = document.getElementById("sname").value.replaceAll(' ', '')
+    if (localStorage.getItem("lndata").includes(sname+" "+fname)) {
+        document.getElementById("invalid-data-error").innerHTML = '';
+    }
+    nickname = document.getElementById("nickname").value;
+    if (nickname != "") {
+        nickname = nickname.replaceAll(' ', '')
+        localStorage.setItem("nickname", nickname);
+    } else {
+        localStorage.removeItem("nickname");
+    }
+    localStorage.setItem("fname", fname);
+    localStorage.setItem("sname", sname);
+    localStorage.setItem("class", document.getElementById("class").value);
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "100%";
+    }, 100)
+    setTimeout(() => {
+        window.location.reload();
+    }, 1600)
+    return false;
+}
+
+function resetData() {
+    if (confirm("Czy na pewno chcesz zresetować aplikację?")) {
+        localStorage.removeItem("fname");
+        localStorage.removeItem("sname");
+        localStorage.removeItem("class");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("id");
+        localStorage.removeItem("shortcut1");
+        localStorage.removeItem("shortcut2");
+        localStorage.removeItem("shortcut3");
+        localStorage.removeItem("wdg");
+        localStorage.removeItem("readnotify");
+        localStorage.removeItem("lndata");
+        localStorage.removeItem("lnversion");
+        localStorage.removeItem("rodo");
+        localStorage.removeItem("theme");
+        localStorage.removeItem("etickets");
+        localStorage.removeItem("options");
+        document.getElementById("loading-screen").style.display = "block";
+        setTimeout(() => {
+            document.getElementById("loading-screen").style.opacity = "100%";
+        }, 100)
+        setTimeout(() => {
+            for(var i = 0; i < openedModule.length; i++){
+                closeModule();
+            }
+            window.location.reload();
+        }, 1600)
+    }
+}
+//Zapis, zmiana, reset danych osobowych - END
+
+function reload() {
+    document.getElementById("loading-screen").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "100%";
+    }, 100)
+    setTimeout(() => {
+        window.location.reload();
+    }, 1600)
+}
+
+function openStore(eid) {
+    document.getElementById("loading-screen").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "100%";
+    }, 100)
+    setTimeout(() => {
+        window.open(`https://ebilet.katoliktczew.repl.co/?eid=${eid}&name=${userfname} ${usersname}&class=${userclass}&uid=${userid}`, "_self");
+    }, 1600)
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "0%";
+    }, 1700)
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.display = "none";
+    }, 2700)
+}
+
+function openInstagram() {
+    window.location = 'instagram://user?username=katolik.su';
+    if (window.location.href == "https://su.katoliktczew.repl.co/app/#more-module") {
+        window.open("https://www.instagram.com/katolik.su/", "_self");
+    }
+}
+
+function tryDebug() {
+    localStorage.clear();
+    document.getElementById("loading-screen").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "100%";
+    }, 100)
+    setTimeout(() => {
+        window.location.reload();
+    }, 1600)
+}
+
+function sendIdea() {
+    document.getElementById("loading-screen").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.opacity = "100%";
+    }, 100)
+    var ideaName = "%23"+userid;
+    var addName = document.getElementById("sign-idea").checked;
+    if (addName) {
+        ideaName = userfname+" "+usersname+", "+userclass+" ("+userid+")";
+    }
+    var ideaType = document.getElementById("idea-type").value;
+    var ideaInput = document.getElementById("idea-input").value;
+
+    var url = `https://maker.ifttt.com/trigger/new_idea/with/key/d_5aUHXP1jpVBVwG3aR4qX?value1=${ideaName}&value2=${ideaType}&value3=${ideaInput}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        window.alert("Otrzymaliśmy Twój pomysł. Dziękujemy!");
+        document.getElementById("idea-type").value = "";
+        document.getElementById("idea-input").value = "";
+        document.getElementById("loading-screen").style.opacity = "0%";
+        setTimeout(() => {
+            document.getElementById("loading-screen").style.display = "none";
+        }, 1100)
+    }};
+
+    xhr.send();
+    return false;
+}
+
+function discoSend() {
+    var songs = document.getElementById("disco-songs").value;
+    songs = songs.replaceAll("\n", "<br>")
+    
+    var url = `https://maker.ifttt.com/trigger/discoaddsong/with/key/d_5aUHXP1jpVBVwG3aR4qX?value1=${songs}&value2=${userfname} ${usersname} ${userclass}, ${userid}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        window.alert("Twoje piosenki zostały dopisane do playlisty. Dziękujemy!")
+        closeModule()
+    }};
+
+    xhr.send();
+    document.getElementById("disco-songs").value = "";
+    return false;
+}
+
+function debugOptions() {
+    window.prompt("Konsola programisty");
+    document.getElementById("checkbox-debug").checked = "";
+}
+
+if (!betatesters.includes(userid) && userrank != "ADMIN") {
+    localStorage.removeItem("theme");
+}
+
+</script>
+<script src="notifications.js"></script>
+<script src="notifications-module.js"></script>
+<script src="lucky-module.js"></script>
+<script src="smart-note.js"></script>
+<script src="calendar.js"></script>
+<script src="calendar-module.js"></script>
+<script src="points.js"></script>
+<script src="points-module.js"></script>
+<script src="etickets.js"></script>
+<script src="eticket-module.js"></script>
+<script src="https://ebilet.katoliktczew.repl.co/eticket-events.js"></script>
+<script src="widgets.js"></script>
