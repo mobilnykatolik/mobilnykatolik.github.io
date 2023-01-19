@@ -4,7 +4,6 @@ body {
     font-weight: normal;
     margin: 20px;
     padding: 0;
-    overflow: hidden;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -60,4 +59,13 @@ h4 {
     margin: 0;
     font-weight: normal;
     font-size: 20px;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
 }

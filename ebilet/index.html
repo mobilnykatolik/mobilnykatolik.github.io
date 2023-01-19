@@ -34,6 +34,18 @@
 </datalist>
 <input type="submit" value="Zarządzaj">
 </form>
+<br><br>
+<h4 id="dane"></h4>
+<br><br>
+<table id="orders">
+    <tr>
+        <th>Numer zamówienia</th>
+        <th>Imię i nazwisko</th>
+        <th>Klasa</th>
+        <th>Opłata</th>
+        <th>Zgoda</th>
+    </tr>
+</table>
 </center>
 </div>
 
@@ -95,6 +107,9 @@ if (icsuData == null) {
         document.getElementById("finder").style.display = "block";
         document.getElementById("loading").style.display = "none";
         jsonData = JSON.parse(req.responseText);
+        var oplacone = 0;
+        var zezgoda = 0;
+        var ogolem = 0;
         for (ticket in jsonData) {
             if (ticket != "NONE") {
                 var name = jsonData[ticket].owner;
@@ -102,8 +117,24 @@ if (icsuData == null) {
                 var opt = document.createElement('option');
                 opt.value = `${name} (${ticketId})`;
                 document.getElementById("names").appendChild(opt);
+                /*
+                <td>123456789</td>
+                <td>Jakub Sałek</td>
+                <td>2lo</td>
+                <td>40</td>
+                <td>TAK</td>
+                */
+                if (jsonData[ticket].paid == jsonData[ticket].cost) {
+                    oplacone += 1
+                }
+                if (jsonData[ticket].consent == true) {
+                    zezgoda += 1
+                }
+                ogolem += 1
+                document.getElementById("orders").innerHTML += `<td>${ticketId}</td><td>${name}</td><td>${jsonData[ticket].ownerclass}</td><td>${jsonData[ticket].paid}</td><td>${jsonData[ticket].consent}</td>`
             }
         }
+        document.getElementById("dane").innerHTML = `Zamówień ogółem: ${ogolem}<br>Opłaconych: ${oplacone}<br>Ze zgodą: ${zezgoda}`;
     }
     };
     req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
