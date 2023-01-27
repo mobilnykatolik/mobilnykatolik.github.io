@@ -161,15 +161,19 @@ function showPopUp(name) {
 }
 
 function showPopUpFailure(errorText) {
+    if (document.getElementById("scanning-type").value == "2") {
+        switchScanner();
+    } else {
+        setTimeout(() => {
+            document.getElementById("popup-window").className = "popup-window";
+        }, 2000)
+    }
     failureAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
     document.getElementById("scanned-name").innerHTML = "Wystąpił błąd";
     document.getElementById("scanned-points").innerHTML = errorText;
     document.getElementById("result").src = "failure.png";
-    setTimeout(() => {
-        document.getElementById("popup-window").className = "popup-window";
-    }, 2000)
     setTimeout(() => {
         locked = false;
     }, 2500)
