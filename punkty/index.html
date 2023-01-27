@@ -240,8 +240,7 @@ function logIn() {
                 formattedReply = [scanData[3], name, scanData[2], String(pointsCount), eventId, icsuUser]
                 formattedReply = formattedReply.join("%7C%7C%7C");
                 sendToIfttt(formattedReply);
-                showPopUp(name);
-                console.log()
+                sendToAPI(scanData[3], eventId, String(pointsCount), name);
                 //ID uzytkownika;imie i nazwisko;klasa;punkty;id wydarzenia;uzytkownik icsu
             }
         }
@@ -284,6 +283,41 @@ function sendToIfttt(data) {
 
     xhr.send();
 }
+
+function sendToAPI(userid, eventid, points, name) {
+    console.log("Otrzymano prośbę wysłania do API")
+    var url = `https://api.katoliktczew.repl.co/points/${accessCode.join("")}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log("Wysłano do API")
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+        if (xhr.status == 200) {
+            showPopUp(name);
+        } else if (xhr.status == 208) {
+            showPopUpFailure("Punkty za to wydarzenie zostały już przyznane!");
+        } else {
+            showPopUpFailure("Wystąpił błąd");
+        }
+    }};
+
+    var data = `{
+    "user": "${userid}",
+    "event": "${eventid}",
+    "points": ${points}
+    }`;
+
+    xhr.send(data);
+
+}
+
+
 </script>
 
 <script src="https://su.katoliktczew.repl.co/app/calendar.js"></script>
