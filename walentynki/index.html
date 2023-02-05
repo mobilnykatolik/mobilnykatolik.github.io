@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <link rel="stylesheet" id="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <title>
+        Walentynki | Mobilny Katolik
+    </title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+<body>
+<center>
+<h1>Walentynki</h1>
+</center>
+<hr>
+
+<div id="loading" style="display: block;"> <!--TUTAJ ZROBIC ZE MA SIE WYSWIETLAC-->
+<center>
+<h2>Trwa ładowanie...</h2>
+</center>
+</div>
+
+<div id="main" style="display: none;">
+    <center>
+    <button onClick="addOrder();">Dodaj nowe zamówienie</button>
+    <button onClick="editOrder();">Edytuj zamówienie</button>
+    <!--<button>Wyświetl zamówienie</button>
+    <button>Podsumowanie</button>-->
+    </center>
+</div>
+
+<div id="success" style="display: none;" class="success">
+    <center>
+        <h2>Zamówienie nr</h2>
+        <h1 id="order-id-display">0001</h1>
+    </center>
+    <p id="order-content"></p>
+    <center>
+        <button onClick="home();">Zakończ</button>
+    </center>
+</div>
+
+
+<div id="edit-order" style="display: none;">
+    <h4>Numer zamówienia</h4>
+    <input type="text" placeholder="Nowe zamówienie" id="order-id" disabled>
+    <h4>Ilość kwiatów nr 1</h4>
+    <input type="number" id="order-flower1" onChange="calcOrder();">
+    <h4>Ilość kwiatów nr 2</h4>
+    <input type="number" id="order-flower2" onChange="calcOrder();">
+    <h4>Ilość kwiatów nr 3</h4>
+    <input type="number" id="order-flower3" onChange="calcOrder();">
+    <h4>Ilość kwiatów nr 4</h4>
+    <input type="number" id="order-flower4" onChange="calcOrder();">
+    <hr>
+    <h4>Ciasteczka</h4>
+    <input type="checkbox" id="order-cookies" onChange="calcOrder();">
+    <h4>Kartka</h4>
+    <select onChange="calcOrder();" id="order-card">
+        <option value="0" selected>Brak</option>
+        <option value="1">Kartka BASIC</option>
+        <option value="3">Kartka MID</option>
+        <option value="5">Kartka PREMIUM</option>
+    </select>
+    <hr>
+    <div style="text-align: right;" id="order-sum">
+        <h4>Do zapłaty: 0,00 zł</h4>
+        <p>Kwiaty: 0,00 zł</p>
+        <p>Kartka: 0,00 zł</p>
+        <p>Ciasteczka: 0,00 zł</p>
+    </div>
+    <center>
+    <button onClick="sendData();">Zatwierdź</button>
+    <button onClick="home();">Wyjdź</button>
+    </center>
+</div>
+
+<div id="register-page" style="display: none;">
+    <center>
+    <h2>Zaloguj się za pomocą ICSU</h2>
+    <form onSubmit="return logIn();">
+    <input type="number" id="register-accesscode" placeholder="Kod dostępu" required>
+    <input type="text" id="register-username" placeholder="Login" required>
+    <input type="password" id="register-password" placeholder="Hasło" required>
+    <input type="submit" id="register-submit" value="Zaloguj się">
+    </form>
+    </center>
+</div>
+
+<h3></h3>
+
+
+</body>
+
+</html>
+
+<script>
+var icsuData = localStorage.getItem("icsu");
+var accessCode;
+var jsonData;
+var toFind;
+var prevPaid;
+var email;
+if (icsuData == null) {
+    document.getElementById("register-page").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+} else {
+    accessCode = icsuData.split(";")[0];
+    accessCode = accessCode.split("");
+    document.getElementById("main").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+}
+
+function logIn() {
+    var loginData = [document.getElementById("register-accesscode").value, document.getElementById("register-username").value, document.getElementById("register-password").value]
+    accessCode = loginData[0].split("");
+    var binId = `${accessCode[0]}${accessCode[1]}b${accessCode[2]}${accessCode[3]}fa${accessCode[4]}dfc${accessCode[0]}${accessCode[2]}e${accessCode[5]}${accessCode[6]}d${accessCode[5]}${accessCode[7]}b2e0b`
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        jsonResponse = JSON.parse(req.responseText);
+        if (jsonResponse[loginData[1]] != undefined) {
+            if (jsonResponse[loginData[1]].password == loginData[2]) {
+                //Pomyślnie zalogowano
+                console.log("Zalogowano pomyślnie!")
+                document.getElementById("loading").style.display = "none";
+                localStorage.setItem("icsu", `${loginData[0]};${loginData[1]};${loginData[2]};${jsonResponse[loginData[1]].fullname};${String(Math.floor(Date.now() / 1000))}`)
+                window.alert("Zalogowano pomyślnie! Odśwież stronę, aby załadować panel.")
+                return false;
+            }
+        }
+        //Błąd w logowaniu
+        console.log("Access denied")
+        window.alert("Błąd logowania!")
+        document.getElementById("register-accesscode").value = "";
+        document.getElementById("register-username").value = "";
+        document.getElementById("register-password").value = "";
+        document.getElementById("register-page").style.display = "block";
+        return false;
+    }
+    };
+
+    req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
+    req.setRequestHeader("X-Access-Key", "$2b$10$v1bIyrCKtRfKdH0mESZ1IO.SzT18lfEDB1KbV6iojB6TcsarSbIwu");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+    document.getElementById("register-page").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    return false;
+}
+
+function manage() {
+    toFind = document.getElementById("select-ticket-owner").value;
+    var selected;
+    try {
+        toFind = toFind.split(" ");
+        toFind = toFind[2]
+        toFind = toFind.substring(1);
+        toFind = toFind.slice(0,-1);
+    } catch (error) {
+        window.alert("Nie znaleziono takiego wyniku!")
+        return false;
+    }
+    var eTicketData = jsonData[toFind];
+    document.getElementById("eticket-eventid").innerHTML = eTicketData.eventid;
+    document.getElementById("eticket-owner").innerHTML = `${eTicketData.owner}, ${eTicketData.ownerclass}`;
+    document.getElementById("eticket-cost").innerHTML = `${eTicketData.cost} zł`;
+    document.getElementById("eticket-paid").value = parseInt(eTicketData.paid);
+    prevPaid = parseInt(eTicketData.paid);
+    document.getElementById("eticket-consent").value = String(eTicketData.consent);
+    document.getElementById("manage-page").style.display = "block";
+    document.getElementById("finder").style.display = "none";
+    email = eTicketData.email;
+    /*
+    eticket-eventid
+    eticket-owner
+    eticket-cost
+    eticket-paid
+    eticket-consent
+    */
+    return false;
+}
+
+function addOrder() {
+    document.getElementById("edit-order").style.display = "block";
+    document.getElementById("main").style.display = "none";
+    document.getElementById("order-id").value = "";
+    document.getElementById("order-flower1").value = 0;
+    document.getElementById("order-flower2").value = 0;
+    document.getElementById("order-flower3").value = 0;
+    document.getElementById("order-flower4").value = 0;
+    document.getElementById("order-cookies").checked = "";
+    document.getElementById("order-card").value = "0";
+}
+
+function editOrder() {
+    var orderId = window.prompt("Podaj ID zamówienia");
+    if (orderId == "" || orderId == null) {
+        return false;
+    }
+    document.getElementById("main").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    var url = `https://api.katoliktczew.repl.co/walentynki/${accessCode.join("")}/${orderId}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        if (xhr.status == 404) {
+            window.alert("Nie znaleziono zamówienia o podanym ID!")
+            document.getElementById("main").style.display = "block";
+            document.getElementById("loading").style.display = "none";
+            return false;
+        }
+        if (xhr.status != 200) {
+            window.alert("Wystąpił błąd. Spróbuj ponownie!");
+            document.getElementById("main").style.display = "block";
+            document.getElementById("loading").style.display = "none";
+        }
+        var data = JSON.parse(xhr.responseText)
+        var orderContent = data.content.split(";");
+        if (orderContent[4] == "true") {
+            orderContent[4] = "checked"
+        } else {
+            orderContent[4] = ""
+        }
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("edit-order").style.display = "block";
+        document.getElementById("order-id").value = orderId;
+        document.getElementById("order-flower1").value = parseInt(orderContent[0]);
+        document.getElementById("order-flower2").value = parseInt(orderContent[1]);
+        document.getElementById("order-flower3").value = parseInt(orderContent[2]);
+        document.getElementById("order-flower4").value = parseInt(orderContent[3]);
+        document.getElementById("order-cookies").checked = orderContent[4];
+        document.getElementById("order-card").value = parseInt(orderContent[5]);
+        calcOrder();
+    }};
+    xhr.send();
+}
+
+function calcOrder() {
+    const flowerPrices = [2, 3, 4, 5]
+    var price = []
+    price[0] = parseInt(document.getElementById("order-flower1").value)*flowerPrices[0]
+    price[1] = parseInt(document.getElementById("order-flower2").value)*flowerPrices[1]
+    price[2] = parseInt(document.getElementById("order-flower3").value)*flowerPrices[2]
+    price[3] = parseInt(document.getElementById("order-flower4").value)*flowerPrices[3]
+    if (document.getElementById("order-cookies").checked) {
+        price[4] = 2
+    } else {
+        price[4] = 0
+    }
+    price[5] = parseInt(document.getElementById("order-card").value)
+    var fullPrice = 0;
+    for (let i in price) {
+        if (!isNaN(price[i])) {
+            fullPrice += price[i]
+        } else {
+            price[i] = 0;
+        }
+    }
+    var flowerPrice = price[0] + price[1] + price[2] + price[3]
+    document.getElementById("order-sum").innerHTML = `
+    <h4>Do zapłaty: ${fullPrice},00 zł</h4>
+    <p>Kwiaty: ${flowerPrice},00 zł</p>
+    <p>Kartka: ${price[5]},00 zł</p>
+    <p>Ciasteczka: ${price[4]},00 zł</p>
+    `
+    return;
+}
+
+function sendData() {
+    var orderCode = []
+    var orderType = "flowers"
+    var orderId = "none";
+    if (document.getElementById("order-id").value != "") {
+        orderId = document.getElementById("order-id").value;
+    }
+    orderCode.push(document.getElementById("order-flower1").value)
+    orderCode.push(document.getElementById("order-flower2").value)
+    orderCode.push(document.getElementById("order-flower3").value)
+    orderCode.push(document.getElementById("order-flower4").value)
+    orderCode.push(document.getElementById("order-cookies").checked)
+    orderCode.push(document.getElementById("order-card").value)
+    if (document.getElementById("order-card").value != "0") {
+        orderType = "box"
+    }
+    var orderCode = orderCode.join(";")
+    if (document.getElementById("order-card").value == "0" && document.getElementById("order-cookies").checked == true) {
+        window.alert("Sprzeczność danych -> brak kartki, zaznaczone ciasteczka")
+        return false;
+    }
+
+    document.getElementById("edit-order").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+
+    var url = `https://API.katoliktczew.repl.co/walentynki/${accessCode.join("")}`;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        if (xhr.status != 200) {
+            window.alert("Wystapił błąd. Spróbuj ponownie!")
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("edit-order").style.display = "block";
+            return false;
+        }
+        document.getElementById("success").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("order-id-display").innerHTML = xhr.responseText;
+        var orderContent = ""
+        orderCode = orderCode.split(";")
+        if (orderCode[0] != "0") {
+            orderContent += `${orderCode[0]}x Kwiat nr 1<br>`
+        }
+        if (orderCode[1] != "0") {
+            orderContent += `${orderCode[1]}x Kwiat nr 2<br>`
+        }
+        if (orderCode[2] != "0") {
+            orderContent += `${orderCode[2]}x Kwiat nr 3<br>`
+        }
+        if (orderCode[3] != "0") {
+            orderContent += `${orderCode[3]}x Kwiat nr 4<br>`
+        }
+        if (orderCode[4] == "true") {
+            orderContent += `+ Ciasteczka<br>`
+        }
+        document.getElementById("order-content").innerHTML = orderContent;
+    }};
+
+    var data = `{"type": "${orderType}", "content": "${orderCode}", "orderid": "${orderId}"}`;
+
+    xhr.send(data);
+
+
+}
+
+function home() {
+    document.getElementById("success").style.display = "none"; 
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("edit-order").style.display = "none"; 
+    document.getElementById("main").style.display = "block"; 
+}
+
+
+
+</script>
