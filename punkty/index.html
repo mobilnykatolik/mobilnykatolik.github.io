@@ -28,6 +28,10 @@
             <option value="1">Skanowanie ciągłe</option>
             <option value="2">Skanowanie jednorazowe</option>
         </select>
+        <br><br>
+        <select id="scanning-device" required>
+            <option value="" selected disabled hidden>Wybierz źródło obrazu</option>
+        </select>
         <center>
         <input type="submit" value="Uruchom skaner">
         </center>
@@ -125,6 +129,7 @@ function openScanner() {
     console.log(`Rozpoczynam skanowanie dla wydarzenia ID: ${eventId}, ilość punktów: ${pointsCount}`)
     document.getElementById("select-event-page").style.display = "none";
     document.getElementById("scanner").style.display = "block";
+    updateSelectedDevice();
     return false;
 }
 
@@ -257,11 +262,25 @@ function logIn() {
 
     codeReader.getVideoInputDevices()
         .then((videoInputDevices) => {
+            console.log(videoInputDevices)
+            for (let i in videoInputDevices) {
+                var opt = document.createElement('option');
+                opt.value = videoInputDevices[i].deviceId;
+                opt.innerHTML = videoInputDevices[i].label
+                document.getElementById("scanning-device").appendChild(opt);
+            }
             selectedDeviceId = videoInputDevices[0].deviceId
         })
         .catch((err) => {
           console.error(err)
         })
+
+    function updateSelectedDevice() {
+        selectedDeviceId = document.getElementById("scanning-device").value;
+        if (selectedDeviceId == "undefined") {
+            selectedDeviceId = undefined;
+        }
+    }
 
     function startReader() {
         decodeContinuously(codeReader, selectedDeviceId);
