@@ -163,6 +163,13 @@
 
         </div>
         <div id="step9" style="display: none;">
+            <h1>Dalsze instrukcje</h1>
+            <ul>
+                <li>Do formularza dołącz etykietę do kwiatów</li>
+                <li id="to-do-with-form">Formularz należy wypełnić i wrzucić do skrzynki walentynkowej</li>
+            </ul>
+        </div>
+        <div id="step10" style="display: none;">
             <center>
                 <br><br>
                 <img src="success.png" width="150px" height="150px">
@@ -216,7 +223,7 @@ const cardNames = [null, "Kartka BASIC", "Kartka PREMIUM"]
 
 var flowerAmount = [0, 0, 0, 0, 0]
 var step = 0;
-const steps = 9;
+const steps = 10;
 document.getElementById("wizard-progress-bar").style.width = String((step/steps)*100)+"%";
 
 var editedOrder = "none";
@@ -231,6 +238,7 @@ function home() {
     document.getElementById("step7").style.display = "none";
     document.getElementById("step8").style.display = "none";
     document.getElementById("step9").style.display = "none";
+    document.getElementById("step10").style.display = "none";
     document.getElementById("step-error").style.display = "none";
     document.getElementById("order-wizard").style.display = "none";
     document.getElementById("main-page").style.display = "block";
@@ -290,6 +298,19 @@ function prevStep() {
     //Ukrywanie przycisku DALEJ
     if (step == 2) {
         document.getElementById("wizard-button-next").style.display = "none";
+    } else if (step == 7) {
+        document.getElementById("wizard-button-prev").style.display = "none";
+        document.getElementById("wizard-button-next").style.display = "none";
+        endOrder();
+    } else if (step == 8) {
+        document.getElementById("wizard-button-prev").style.display = "none";
+        document.getElementById("wizard-button-next").style.display = "block";
+    } else if (step == 9) {
+        document.getElementById("wizard-button-prev").style.display = "block";
+        document.getElementById("wizard-button-next").style.display = "block";
+    } else if (step == 10) {
+        document.getElementById("wizard-button-prev").style.display = "none";
+        document.getElementById("wizard-button-next").style.display = "none";
     } else {
         document.getElementById("wizard-button-prev").style.display = "block";
         document.getElementById("wizard-button-next").style.display = "block";
@@ -331,6 +352,9 @@ function nextStep(skip) {
         document.getElementById("wizard-button-prev").style.display = "none";
         document.getElementById("wizard-button-next").style.display = "block";
     } else if (step == 9) {
+        document.getElementById("wizard-button-prev").style.display = "block";
+        document.getElementById("wizard-button-next").style.display = "block";
+    } else if (step == 10) {
         document.getElementById("wizard-button-prev").style.display = "none";
         document.getElementById("wizard-button-next").style.display = "none";
     } else {
@@ -411,9 +435,11 @@ function endOrder() {
     if (document.getElementById("card-select").value == "0") {
         form = "1"
         type = "flowers"
+        document.getElementById("to-do-with-form").innerHTML = "Formularz należy wypełnić i wrzucić <b>do skrzynki walentynkowej</b>"
     } else {
         form = "2"
         type = "package"
+        document.getElementById("to-do-with-form").innerHTML = "Formularz należy wypełnić i przynieść wraz z kartką <b>do stoiska walentynkowego</b>"
     }
 
     for (let flower in flowerAmount) {
