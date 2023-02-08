@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <link rel="stylesheet" id="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <title>
+        Weryfikator biletów | Mobilny Katolik
+    </title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+</head>
+
+<body>
+<div id="select-event-page" style="display: none;">
+    <img src="favicon.png" width="50px" height="50px">
+    <h1>Weryfikator biletów</h1>
+    <h2>Mobilny Katolik</h2>
+    <form onSubmit="return openScanner()">
+        <select id="scanning-type" required>
+            <!--<option value="" selected disabled hidden>Wybierz tryb skanowania</option>-->
+            <option value="1" selected>Skanowanie ciągłe</option>
+            <!--<option value="2">Skanowanie jednorazowe</option>-->
+        </select>
+        <br><br>
+        <select id="scanning-device" required>
+            <option value="" selected disabled hidden>Wybierz źródło obrazu</option>
+        </select>
+        <center>
+        <input type="submit" value="Uruchom skaner">
+        </center>
+    </form>
+</div>
+
+<div id="register-page" style="display: none;">
+    <center>
+    <h2>Zaloguj się za pomocą ICSU</h2>
+    <form onSubmit="return logIn();">
+    <input type="number" id="register-accesscode" placeholder="Kod dostępu" required>
+    <input type="text" id="register-username" placeholder="Login" required>
+    <input type="password" id="register-password" placeholder="Hasło" required>
+    <input type="submit" id="register-submit" value="Zaloguj się">
+    </form>
+    </center>
+</div>
+
+<div id="loading" style="display: block;"> <!--TUTAJ ZROBIC ZE MA SIE WYSWIETLAC-->
+    <center>
+    <h2>Trwa ładowanie...</h2>
+    </center>
+</div>
+
+<div id="scanner" style="display: none;">
+    <video id="video" class="scanner"></video>
+    <div class="steering-btn">
+        <div class="switch-btn" id="switch-btn" onClick="switchScanner()"></div>
+    </div>
+    <div class="popup-window" id="popup-window">
+        <div class="popup-content">
+            <img id="result" src="success.png" width="30px" height="30px">
+            <h1 id="scanned-name"></h1>
+            <h2 id="scanned-points"></h2>
+        </div>
+    </div>
+</div>
+
+
+
+  
+
+</body>
+
+</html>
+
+
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+
+<script type="text/javascript">
+var icsuData = localStorage.getItem("icsu");
+var accessCode;
+var jsonData;
+var toFind;
+var prevPaid;
+var email;
+var pointsCount = 0;
+var eventId;
+var scannerActive = false;
+var lastScan;
+var locked = false;
+var icsuUser;
+
+var successAudio = new Audio('success.wav');
+var failureAudio = new Audio('failure.wav');
+
+if (icsuData == null) {
+    document.getElementById("register-page").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+} else {
+    accessCode = icsuData.split(";")[0];
+    accessCode = accessCode.split("");
+    icsuUser = icsuData.split(";")[3];
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("select-event-page").style.display = "block";
+}
+
+function openScanner() {
+    document.getElementById("select-event-page").style.display = "none";
+    document.getElementById("scanner").style.display = "block";
+    updateSelectedDevice();
+    return false;
+}
+
+function switchScanner() {
+    if (scannerActive == false) {
+        document.getElementById("popup-window").className = "popup-window";
+        startReader();
+        scannerActive = true;
+        document.getElementById("switch-btn").style.backgroundImage = `url("on.png")`
+    } else if (scannerActive == true) {
+        resetReader();
+        scannerActive = false;
+        document.getElementById("switch-btn").style.backgroundImage = `url("off.png")`
+    }
+}
+
+function showPopUp(response) {
+    if (document.getElementById("scanning-type").value == "2") {
+        switchScanner();
+    } else {
+        setTimeout(() => {
+            document.getElementById("popup-window").className = "popup-window";
+        }, 2000)
+    }
+    successAudio.play();
+    locked = true;
+    document.getElementById("popup-window").className = "popup-window-showed";
+    document.getElementById("scanned-name").innerHTML = response[0];
+    document.getElementById("scanned-points").innerHTML = response[1];
+    document.getElementById("result").src = "success.png";
+    setTimeout(() => {
+        locked = false;
+    }, 2500)
+}
+
+function showPopUpFailure(response) {
+    switchScanner();
+    failureAudio.play();
+    locked = true;
+    document.getElementById("popup-window").className = "popup-window-showed";
+    document.getElementById("scanned-name").innerHTML = response[0];
+    document.getElementById("scanned-points").innerHTML = response[1];
+    document.getElementById("result").src = "failure.png";
+    setTimeout(() => {
+        locked = false;
+    }, 2500)
+}
+
+function logIn() {
+    var loginData = [document.getElementById("register-accesscode").value, document.getElementById("register-username").value, document.getElementById("register-password").value]
+    accessCode = loginData[0].split("");
+    var binId = `${accessCode[0]}${accessCode[1]}b${accessCode[2]}${accessCode[3]}fa${accessCode[4]}dfc${accessCode[0]}${accessCode[2]}e${accessCode[5]}${accessCode[6]}d${accessCode[5]}${accessCode[7]}b2e0b`
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        jsonResponse = JSON.parse(req.responseText);
+        if (jsonResponse[loginData[1]] != undefined) {
+            if (jsonResponse[loginData[1]].password == loginData[2]) {
+                //Pomyślnie zalogowano
+                console.log("Zalogowano pomyślnie!")
+                document.getElementById("loading").style.display = "none";
+                localStorage.setItem("icsu", `${loginData[0]};${loginData[1]};${loginData[2]};${jsonResponse[loginData[1]].fullname};${String(Math.floor(Date.now() / 1000))}`)
+                window.alert("Zalogowano pomyślnie! Odśwież stronę, aby załadować panel.")
+                return false;
+            }
+        }
+        //Błąd w logowaniu
+        console.log("Access denied")
+        window.alert("Błąd logowania!")
+        document.getElementById("register-accesscode").value = "";
+        document.getElementById("register-username").value = "";
+        document.getElementById("register-password").value = "";
+        document.getElementById("register-page").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+        return false;
+    }
+    };
+
+    req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest`, true);
+    req.setRequestHeader("X-Access-Key", "$2b$10$v1bIyrCKtRfKdH0mESZ1IO.SzT18lfEDB1KbV6iojB6TcsarSbIwu");
+    req.setRequestHeader("X-Bin-Meta", "false");
+    req.send();
+    document.getElementById("register-page").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    return false;
+}
+
+
+    //Działanie skanera
+
+    function decodeContinuously(codeReader, selectedDeviceId) {
+      codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+        if (result) {
+            if (locked == false) {
+                var formattedReply = []
+                if (result.text == lastScan) {
+                    //Ten sam kod QR
+                    return false;
+                }
+                lastScan = result.text;
+
+                var url = `https://api.katoliktczew.repl.co/ebilet/${accessCode.join("")}/${lastScan}`;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", url);
+
+                xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var response = xhr.responseText.split(";")
+                    if (xhr.status == 200) {
+                        showPopUp(response);
+                    } else {
+                        showPopUpFailure(response);
+                    }
+                }};
+
+                xhr.send();
+                return false;
+            }
+        }
+      })
+    }
+
+    let selectedDeviceId;
+    const codeReader = new ZXing.BrowserQRCodeReader()
+    console.log('ZXing code reader initialized')
+
+    codeReader.getVideoInputDevices()
+        .then((videoInputDevices) => {
+            console.log(videoInputDevices)
+            for (let i in videoInputDevices) {
+                var opt = document.createElement('option');
+                opt.value = videoInputDevices[i].deviceId;
+                opt.innerHTML = videoInputDevices[i].label
+                document.getElementById("scanning-device").appendChild(opt);
+            }
+            selectedDeviceId = videoInputDevices[0].deviceId
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+
+    function updateSelectedDevice() {
+        selectedDeviceId = document.getElementById("scanning-device").value;
+        if (selectedDeviceId == "undefined") {
+            selectedDeviceId = undefined;
+        }
+    }
+
+    function startReader() {
+        decodeContinuously(codeReader, selectedDeviceId);
+    }
+
+    function resetReader() {
+        lastScan = "";
+        codeReader.reset()
+    }
+
+
+
+</script>

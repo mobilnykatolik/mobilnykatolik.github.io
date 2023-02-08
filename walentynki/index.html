@@ -40,6 +40,37 @@
     </div>
 </div>
 
+<div id="order-display" class="page" style="display: none;">
+    <div class="heading">
+        <div class="logo"></div>
+    </div>
+    <div class="page-content">
+        <div id="order-loading">
+            <center><br><br><br><br><br>
+                Proszę czekać...
+            </center>
+        </div>
+        <div id="order-display-details">
+            <!--<h1>Podsumowanie</h1>
+            <hr>
+            <div id="flowers-summary" style="display: none;">
+                <h2>Kwiaty</h2>
+                <h3 id="flowers-summary-list"></h3>
+                <h3 style="text-align: right;"><span id="flowers-summary-sum">0.00</span> zł</h3>
+                <hr>
+            </div>
+            <div id="others-summary" style="display: none;">
+                <h2>Dodatki</h2>
+                <h3 id="others-summary-list"></h3>
+                <h3 style="text-align: right;"><span id="others-summary-sum">0.00</span> zł</h3>
+                <hr>
+            </div>
+            <h4>Inne szczegóły: <span id="order-details">-</span></h4>
+            <h2 style="font-weight: bold; text-align: right;">Do zapłaty: <span id="summary-sum">0.00</span> zł</h2>-->
+        </div>
+    </div>
+</div>
+
 <div id="order-wizard" class="page" style="display: none;">
     <div class="heading">
         <div class="logo"></div>
@@ -79,6 +110,7 @@
                 <img src="info.png" width="150px" height="150px">
                 <br><br>
                 <h1>Zapytaj, czy skompletować Zestaw Amora?</h1>
+                <h3>TYLKO DZISIAJ PROMOCJA - W ZESTAWIE AMORA CIASTECZKA GRATIS</h3>
                 <button class="choice-button" style="background-color: #589d7c; color: #ffffff" onClick="nextStep();">TAK, skompletuj Zestaw Amora</button>
                 <button class="choice-button" style="background-color: #ffffff; color: #ff0000" onClick="nextStep(1)">NIE, przejdź dalej</button>
             </center>
@@ -96,8 +128,8 @@
                 <br><br>
                 <img src="info.png" width="150px" height="150px">
                 <br><br>
-                <h1>Zapytaj, czy dołączyć ciasteczka? (+2.00 zł)</h1>
-                <input type="checkbox" id="cookies-select" onClick="countPrice();"><span> Dodaj ciasteczka (+2.00 zł)</span>
+                <h1 id="promo">Zapytaj, czy dołączyć ciasteczka? (+2.00 zł)</h1>
+                <input type="checkbox" id="cookies-select" onClick="countPrice();"><span id="promo2"> Dodaj ciasteczka (+2.00 zł)</span>
             </center>
         </div>
         <div id="step5" style="display: none;">
@@ -226,6 +258,9 @@ var step = 0;
 const steps = 10;
 document.getElementById("wizard-progress-bar").style.width = String((step/steps)*100)+"%";
 
+//PROMOCJA
+var promo = "";
+
 var editedOrder = "none";
 
 function home() {
@@ -241,11 +276,25 @@ function home() {
     document.getElementById("step10").style.display = "none";
     document.getElementById("step-error").style.display = "none";
     document.getElementById("order-wizard").style.display = "none";
+    document.getElementById("order-display").style.display = "none";
     document.getElementById("main-page").style.display = "block";
     document.getElementById("cookies-select").checked = "";
     document.getElementById("card-select").value = "0";
     document.getElementById("wizard-button-prev").style.display = "block";
     document.getElementById("wizard-button-next").style.display = "block";
+}
+
+function showOrder() {
+    window.prompt("Podaj numer zamówienia");
+    document.getElementById("order-loading").style.display = "block";
+    document.getElementById("main-page").style.display = "none";
+    document.getElementById("order-display").style.display = "block";
+    document.getElementById("order-display-details").style.display = "block";
+    document.getElementById("order-loading").style.display = "none";
+
+
+
+
 }
 
 function changeAmount(sign, index) {
@@ -374,9 +423,25 @@ function countPrice() {
     }
     //Kartka
     othersPrice += cardPrices[parseInt(document.getElementById("card-select").value)];
+    //PROMOCJA
+    if (document.getElementById("card-select").value == "0") {
+        document.getElementById("promo").innerHTML = "Zapytaj, czy dołączyć ciasteczka? (+2.00 zł)"
+        document.getElementById("promo2").innerHTML = " Dodaj ciasteczka (+2.00 zł)"
+    } else {
+        document.getElementById("promo").innerHTML = "Zapytaj, czy dołączyć ciasteczka? (+0.00 zł)"
+        document.getElementById("promo2").innerHTML = " Dodaj ciasteczka (+0.00 zł)"
+    }
     //Ciasteczka
     if (document.getElementById("cookies-select").checked) {
-        othersPrice += 2;
+        //PROMOCJA
+        if (document.getElementById("card-select").value == "0") {
+            othersPrice += 2;
+            promo = "";
+        } else {
+            promo = ";promo";
+        }
+    } else {
+        promo = "";
     }
     fullPrice = flowerPrice + othersPrice;
     flowerPrice = (Math.round(flowerPrice * 100) / 100).toFixed(2)
@@ -465,8 +530,8 @@ function endOrder() {
     document.getElementById(`form${form}`).style.display = "block";
 
     //Wysyłka danych do API
-    var data = flowerAmount.join(";")+";"+String(document.getElementById("cookies-select").checked)+";"+String(document.getElementById("card-select").value)
-    
+    var data = flowerAmount.join(";")+";"+String(document.getElementById("cookies-select").checked)+";"+String(document.getElementById("card-select").value)+promo
+
     console.log(data);
 
 
