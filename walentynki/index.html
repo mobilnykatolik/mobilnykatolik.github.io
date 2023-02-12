@@ -306,6 +306,9 @@ function home() {
 
 function showOrder() {
     var orderId = window.prompt("Podaj numer zamówienia");
+    if (orderId == undefined || orderId == "") {
+        return false;
+    }
     document.getElementById("main-page").style.display = "none";
     document.getElementById("order-display").style.display = "block";
     document.getElementById("order-loading").style.display = "block";
