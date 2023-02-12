@@ -35,6 +35,7 @@
             <br><br><br>
             <h1>Zarządzanie zamówieniami</h1>
             <button class="menu-button" onClick="createOrder();">➕ Nowe zamówienie</button><br>
+            <button class="menu-button" onClick="showOrder();">📄 Wyświetl zamówienie</button><br>
             <!--<button class="menu-button">✏️ Edytuj zamówienie</button>-->
         </center>
     </div>
@@ -45,28 +46,45 @@
         <div class="logo"></div>
     </div>
     <div class="page-content">
-        <div id="order-loading">
+        <div id="order-loading" style="display: none;">
             <center><br><br><br><br><br>
                 Proszę czekać...
             </center>
         </div>
-        <div id="order-display-details">
-            <!--<h1>Podsumowanie</h1>
+        <div id="order-display-details" style="display: none;">
+            <h1 id="display-order-id">Zamówienie nr XXXX</h1>
             <hr>
-            <div id="flowers-summary" style="display: none;">
+            <div id="display-flowers-summary" style="display: none;">
                 <h2>Kwiaty</h2>
-                <h3 id="flowers-summary-list"></h3>
-                <h3 style="text-align: right;"><span id="flowers-summary-sum">0.00</span> zł</h3>
+                <h3 id="display-flowers-summary-list"></h3>
                 <hr>
             </div>
-            <div id="others-summary" style="display: none;">
+            <div id="display-others-summary" style="display: none;">
                 <h2>Dodatki</h2>
-                <h3 id="others-summary-list"></h3>
-                <h3 style="text-align: right;"><span id="others-summary-sum">0.00</span> zł</h3>
+                <h3 id="display-others-summary-list"></h3>
                 <hr>
             </div>
-            <h4>Inne szczegóły: <span id="order-details">-</span></h4>
-            <h2 style="font-weight: bold; text-align: right;">Do zapłaty: <span id="summary-sum">0.00</span> zł</h2>-->
+            <br><br>
+            <div id="display-form1" class="small-form" style="display: none;">
+                <span style="top: 64px; left: 16px;" id="display-form1-flower0">0</span>
+                <span style="top: 70px; left: 16px;" id="display-form1-flower1">0</span>
+                <span style="top: 77px; left: 16px;" id="display-form1-flower2">0</span>
+                <span style="top: 7px; left: 119px;" id="display-form1-flower3">0</span>
+                <span style="top: 14px; left: 119px;" id="display-form1-flower4">0</span>
+                <span style="top: 18px; left: 119px;" id="display-form1-cookies">✓</span>
+            </div>
+
+            <div id="display-form2" class="big-form" style="display: none;">
+                <span style="top: 59px; left: 11px;" id="display-form2-flower0">0</span>
+                <span style="top: 65px; left: 11px;" id="display-form2-flower1">0</span>
+                <span style="top: 72px; left: 11px;" id="display-form2-flower2">0</span>
+                <span style="top: 2px; left: 105px;" id="display-form2-flower3">0</span>
+                <span style="top: 7px; left: 105px;" id="display-form2-flower4">0</span>
+                <span style="top: 11px; left: 105px;" id="display-form2-cookies">✓</span>
+            </div>
+            <center>
+                <button class="menu-button" onClick="home();">Wyjdź</button>
+            </center>
         </div>
     </div>
 </div>
@@ -110,17 +128,18 @@
                 <img src="info.png" width="150px" height="150px">
                 <br><br>
                 <h1>Zapytaj, czy skompletować Zestaw Amora?</h1>
-                <h3>TYLKO DZISIAJ PROMOCJA - W ZESTAWIE AMORA CIASTECZKA GRATIS</h3>
+                <h3>Promocja LAST MINUTE - w Zestawie Amora ciasteczka ZA ZŁOTÓWKĘ</h3>
                 <button class="choice-button" style="background-color: #589d7c; color: #ffffff" onClick="nextStep();">TAK, skompletuj Zestaw Amora</button>
                 <button class="choice-button" style="background-color: #ffffff; color: #ff0000" onClick="nextStep(1)">NIE, przejdź dalej</button>
             </center>
         </div>
         <div id="step3" style="display: none;">
             <h2>Zestaw Amora - kartka</h2>
+            <h3>Promocja LAST MINUTE - w Zestawie Amora Kartka PREMIUM ZA ZŁOTÓWKĘ</h3>
             <select onChange="countPrice();" id="card-select">
                 <option value="0" selected>Brak kartki</option>
                 <option value="1">Kartka BASIC (+1.00 zł)</option>
-                <option value="2">Kartka PREMIUM (+2.00 zł)</option>
+                <option value="2">Kartka PREMIUM (+1.00 zł)</option>
             </select>
         </div>
         <div id="step4" style="display: none;">
@@ -249,7 +268,7 @@ if (icsuData == null) {
 
 const flowerPrices = [4.00, 4.00, 4.00, 4.00, 3.50]
 const flowerNames = ["Róża czerwona", "Róża różowa", "Róża biała", "Róża żółta/pomarańczowa", "Tulipan czerwony/różowy"]
-const cardPrices = [0.00, 1.00, 2.00]
+const cardPrices = [0.00, 1.00, 1.00]
 const cardNames = [null, "Kartka BASIC", "Kartka PREMIUM"]
 
 
@@ -277,6 +296,7 @@ function home() {
     document.getElementById("step-error").style.display = "none";
     document.getElementById("order-wizard").style.display = "none";
     document.getElementById("order-display").style.display = "none";
+    document.getElementById("order-display-details").style.display = "none";
     document.getElementById("main-page").style.display = "block";
     document.getElementById("cookies-select").checked = "";
     document.getElementById("card-select").value = "0";
@@ -285,13 +305,76 @@ function home() {
 }
 
 function showOrder() {
-    window.prompt("Podaj numer zamówienia");
-    document.getElementById("order-loading").style.display = "block";
+    var orderId = window.prompt("Podaj numer zamówienia");
     document.getElementById("main-page").style.display = "none";
     document.getElementById("order-display").style.display = "block";
-    document.getElementById("order-display-details").style.display = "block";
-    document.getElementById("order-loading").style.display = "none";
+    document.getElementById("order-loading").style.display = "block";
+    
+    var url = `https://api.katoliktczew.repl.co/walentynki/${accessCode}/${orderId}`;
 
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        if (xhr.status != 200) {
+            window.alert("Wystąpił błąd! Upewnij się, że wpisujesz numer zamówienia w formacie XXXX");
+            home();
+            return false;
+        }
+        var jsonData = JSON.parse(xhr.responseText);
+        var form;
+
+        //Pokazywanie podsumowania i wyglądu formularza
+        if (jsonData.type == "flowers") {
+            document.getElementById("display-form1").style.display = "block";
+            document.getElementById("display-form2").style.display = "none";
+            form = "1";
+        } else if (jsonData.type == "package") {
+            document.getElementById("display-form2").style.display = "block";
+            document.getElementById("display-form1").style.display = "none";
+            form = "2";
+        }
+
+        var orderData = jsonData.content;
+        flowerAmount = orderData.split(";").slice(0, 5);
+        var flowersList = [];
+        var othersList = [];
+
+        document.getElementById("display-flowers-summary").style.display = "none";
+        document.getElementById("display-others-summary").style.display = "none";
+
+        for (let flower in flowerAmount) {
+            if (flowerAmount[flower] == 0) {
+                document.getElementById(`display-form${form}-flower${flower}`).innerHTML = "X"
+            } else {
+                document.getElementById(`display-form${form}-flower${flower}`).innerHTML = flowerAmount[flower]
+                flowersList.push(`${flowerAmount[flower]}x ${flowerNames[flower]}`)
+                document.getElementById("display-flowers-summary").style.display = "block";
+            }
+        }
+        document.getElementById("display-flowers-summary-list").innerHTML = flowersList.join("<br>");
+
+
+        if (orderData.split(";")[5] == "true") {
+            document.getElementById(`display-form${form}-cookies`).innerHTML = "✓";
+            othersList.push("Ciasteczka")
+            document.getElementById("display-others-summary").style.display = "block";
+        } else {
+            document.getElementById(`display-form${form}-cookies`).innerHTML = "X";
+        }
+
+        if (orderData.split(";")[6] != "0") {
+            othersList.push(cardNames[parseInt(orderData.split(";")[6])]);
+            document.getElementById("display-others-summary").style.display = "block";
+        }
+        document.getElementById("display-others-summary-list").innerHTML = othersList.join("<br>");
+        document.getElementById("display-order-id").innerHTML = `Zamówienie nr <b>${orderId}</b>`;
+        document.getElementById("order-display-details").style.display = "block";
+        document.getElementById("order-loading").style.display = "none";
+    }};
+
+    xhr.send();
 
 
 
@@ -423,13 +506,16 @@ function countPrice() {
     }
     //Kartka
     othersPrice += cardPrices[parseInt(document.getElementById("card-select").value)];
+    if (parseInt(document.getElementById("card-select").value) == 2) {
+        promo = ";promo3"
+    }
     //PROMOCJA
     if (document.getElementById("card-select").value == "0") {
         document.getElementById("promo").innerHTML = "Zapytaj, czy dołączyć ciasteczka? (+2.00 zł)"
         document.getElementById("promo2").innerHTML = " Dodaj ciasteczka (+2.00 zł)"
     } else {
-        document.getElementById("promo").innerHTML = "Zapytaj, czy dołączyć ciasteczka? (+0.00 zł)"
-        document.getElementById("promo2").innerHTML = " Dodaj ciasteczka (+0.00 zł)"
+        document.getElementById("promo").innerHTML = "Zapytaj, czy dołączyć ciasteczka? (+1.00 zł)"
+        document.getElementById("promo2").innerHTML = " Dodaj ciasteczka (+1.00 zł)"
     }
     //Ciasteczka
     if (document.getElementById("cookies-select").checked) {
@@ -437,11 +523,13 @@ function countPrice() {
         if (document.getElementById("card-select").value == "0") {
             othersPrice += 2;
             promo = "";
-        } else {
-            promo = ";promo";
+        } else if (document.getElementById("card-select").value == "1") {
+            promo = ";promo2";
+            othersPrice += 1;
+        } else if (document.getElementById("card-select").value == "2") {
+            promo = ";promo4"
+            othersPrice += 1;
         }
-    } else {
-        promo = "";
     }
     fullPrice = flowerPrice + othersPrice;
     flowerPrice = (Math.round(flowerPrice * 100) / 100).toFixed(2)
@@ -535,7 +623,7 @@ function endOrder() {
     console.log(data);
 
 
-    var url = "https://api.katoliktczew.repl.co/walentynki/63880597";
+    var url = `https://api.katoliktczew.repl.co/walentynki/${accessCode}`;
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
