@@ -272,8 +272,17 @@
         <p style="font-size: 18px; margin-bottom: 10px;" id="order-price">135,00 zł</p>
         <p style="font-size: 15px;">Pozostało do zapłaty</p>
         <p style="font-size: 18px; margin-bottom: 10px;" id="order-cost">135,00 zł</p>
-        <table class="order-details" style="width: 100%; font-size: 15px;" id="order-details">
+        <table class="order-details" style="width: 100%; font-size: 15px; margin-bottom: 10px;" id="order-details">
         </table>
+        <p style="font-size: 15px;">Inne informacje</p>
+        <p style="font-size: 18px; margin-bottom: 10px;">
+            Wpłaty przyjmujemy do 27 października. W innym wypadku zamówienie zostanie anulowane.<br><br>
+            Gotówka<br>Wpłaty przyjmuje Kuba Sałek<br><br>Przelew<br>Wykonaj przelew na ponisze dane:<br><br>
+            <b>Zespół Szkół Katolickich</b><br>
+            <b>78 8345 0006 2002 0027 7864 0002</b><br>
+            tytułem <b id="order-payment-title"></b>
+
+        </p>
     </div>
 </div>
 
@@ -1117,6 +1126,7 @@ function loadOrder(orderID) {
         `
     }
     document.getElementById("order-details").innerHTML = orderDetails;
+    document.getElementById("order-payment-title").innerHTML = `Zamówienie SU nr ${orderID}`
 }
 
 function showOrder(orderID) {
