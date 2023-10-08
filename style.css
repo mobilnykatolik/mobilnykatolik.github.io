@@ -75,7 +75,7 @@ div#ios-install {
 }
 
 .app-logo {
-    background-image: url("app/icons/192.png");
+    background-image: url("src/icons/192.png");
     background-position: center;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -163,7 +163,7 @@ div#ios-install {
 .loading-screen {
     height: 100%;
     width: 100%;
-    background-color: #a80c2f;
+    background-color: #f9f9f9;
     z-index: 2;
     position: absolute;
     top: 0;
@@ -184,7 +184,7 @@ div#ios-install {
     right: 0;
     z-index: 3;
     margin: auto;
-    background-image: url("app/loading-logo.png");
+    background-image: url("src/icons/logo.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
