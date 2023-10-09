@@ -747,6 +747,13 @@ window.addEventListener(
 );
 
 function switchNotifications() {
+    var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
+    if (NotificationIsSupported == false) {
+        document.getElementById("notificationssettings-switch").checked = "";
+        document.getElementById("notificationssettings-details").style.display = "none";
+        window.alert("Urządzenie nie obsługuje powiadomień!");
+        return false;
+    }
     if (document.getElementById("notificationssettings-switch").checked) { //Przełącznik został włączony
         if (Notification.permission == "denied") {
             document.getElementById("notificationssettings-switch").checked = "";
@@ -828,7 +835,10 @@ function switchNotifications() {
 function askForPermission() {
     document.getElementById("introduction-ask-for-permission").style.display = "none";
     var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
-    console.log(NotificationIsSupported);
+    if (NotificationIsSupported == false) {
+        window.alert("Urządzenie nie obsługuje powiadomień!");
+        return false;
+    }
     navigator.serviceWorker.getRegistration().then(registration => {
         registration.pushManager.subscribe({
             applicationServerKey: applicationServerKey,
@@ -1144,7 +1154,10 @@ function checkNotifications(endpoint) {
     var apiEndpoint = endpoint;
     console.log("Sprawdzanie działania powiadomień")
     var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
-    console.log(NotificationIsSupported);
+    if (NotificationIsSupported == false) {
+        console.log("Urządzenie nie obsługuje powiadomień!");
+        return false;
+    }
     if (Notification.permission === "granted") {
         console.log("Uprawnienia do powiadomień przyznane")
         navigator.serviceWorker.getRegistration().then(registration => {
