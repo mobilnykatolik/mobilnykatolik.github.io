@@ -827,10 +827,8 @@ function switchNotifications() {
 
 function askForPermission() {
     document.getElementById("introduction-ask-for-permission").style.display = "none";
-    if (!("Notification" in window)) { 
-        window.alert("Urządzenie nie obsługuje powiadomień");
-        return false;
-    }
+    var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
+    console.log(NotificationIsSupported);
     navigator.serviceWorker.getRegistration().then(registration => {
         registration.pushManager.subscribe({
             applicationServerKey: applicationServerKey,
@@ -1145,10 +1143,8 @@ function checkNotifications(endpoint) {
     var deviceEndpoint;
     var apiEndpoint = endpoint;
     console.log("Sprawdzanie działania powiadomień")
-    if (!("Notification" in window)) { 
-        console.log("Urządzenie nie obsługuje powiadomień");
-        return false;
-    }
+    var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
+    console.log(NotificationIsSupported);
     if (Notification.permission === "granted") {
         console.log("Uprawnienia do powiadomień przyznane")
         navigator.serviceWorker.getRegistration().then(registration => {
