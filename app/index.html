@@ -827,6 +827,10 @@ function switchNotifications() {
 
 function askForPermission() {
     document.getElementById("introduction-ask-for-permission").style.display = "none";
+    if (!("Notification" in window)) { 
+        window.alert("Urządzenie nie obsługuje powiadomień");
+        return false;
+    }
     navigator.serviceWorker.getRegistration().then(registration => {
         registration.pushManager.subscribe({
             applicationServerKey: applicationServerKey,
@@ -944,9 +948,9 @@ function startIntroduction() {
 
 //Start application
 function startApplication() {
-    window.alert("Trwają prace serwisowe. Dostęp do aplikacji tymczasowo niemożliwy.");
+    /*window.alert("Trwają prace serwisowe. Dostęp do aplikacji tymczasowo niemożliwy.");
     location.reload();
-    return false;
+    return false;*/
     console.log("Uruchamiam aplikację");
     window.location.href = "#home";
     var url = `https://api.mobilnykatolik.repl.co/sync/${loginid}`;
@@ -1141,6 +1145,10 @@ function checkNotifications(endpoint) {
     var deviceEndpoint;
     var apiEndpoint = endpoint;
     console.log("Sprawdzanie działania powiadomień")
+    if (!("Notification" in window)) { 
+        console.log("Urządzenie nie obsługuje powiadomień");
+        return false;
+    }
     if (Notification.permission === "granted") {
         console.log("Uprawnienia do powiadomień przyznane")
         navigator.serviceWorker.getRegistration().then(registration => {
