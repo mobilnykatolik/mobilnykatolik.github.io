@@ -474,3 +474,9 @@ table.order-details, table.order-details tr, table.order-details td {
 table, tr, td {
     padding: 5px;
 }
+
+table.luckynumber, table.luckynumber tr, table.luckynumber td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 5px;
+}

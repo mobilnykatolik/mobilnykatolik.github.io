@@ -205,10 +205,9 @@
                 <aside>🛒</aside>
                 <span>Sklep</span>
             </div>
-            <div type="ind">
+            <div type="ind" onclick="window.open('#luckyapp', '_self')">
                 <aside>🏅</aside>
                 <span>Szczęśliwy numerek</span>
-                <container>#WKRÓTCE</container>
             </div>
             <div type="ind">
                 <aside>💡</aside>
@@ -229,6 +228,30 @@
                 <span>Bilety i kupony</span>
                 <container>#WKRÓTCE</container>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="page" id="luckyapp">
+    <div class="page-name">
+        <svg onClick="history.back();" version="1.0" xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px; position: absolute; left: 15px; margin-top: 2px;" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" style="fill: var(--theme-color); transition: fill 0.5s ease;" stroke="none">
+            <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
+            </g>
+        </svg>
+        Szczęśliwy numerek
+    </div>
+    <div class="page-content">
+        <p style="font-size: 18px; text-align: center; display: none;" id="no-luckynumber">Aktualnie nie ma szczęśliwego numerka.</p>
+        <div id="ln-today" style="margin-bottom: 20px; display: none;">
+            <p style="font-size: 18px; text-align: center;" id="ln-today-date"></p>
+            <table class="luckynumber" style="width: 100%; margin-top: 10px;" id="ln-today-table">
+            </table>
+        </div>
+        <div id="ln-tomorrow" style="display: none;">
+            <p style="font-size: 18px; text-align: center;" id="ln-tomorrow-date"></p>
+            <table class="luckynumber" style="width: 100%; margin-top: 10px;" id="ln-tomorrow-table">
+            </table>
         </div>
     </div>
 </div>
@@ -991,6 +1014,44 @@ function startApplication() {
             userFirstName = userFirstName.charAt(0).toUpperCase() + userFirstName.slice(1).toLowerCase();
             userSurname = userSurname.charAt(0).toUpperCase() + userSurname.slice(1).toLowerCase();
             //
+
+            //Lucky number
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+
+            const todayDate = `${String(today.getDate()).padStart(2, '0')}.${String(today.getMonth() + 1).padStart(2, '0')}.${today.getFullYear()}`;
+            const tomorrowDate = `${String(tomorrow.getDate()).padStart(2, '0')}.${String(tomorrow.getMonth() + 1).padStart(2, '0')}.${tomorrow.getFullYear()}`;
+            console.log(data.luckynumber);
+            if (data.luckynumber.today != undefined) {
+                document.getElementById("ln-today").style.display = "block";
+                document.getElementById("ln-today-date").innerHTML = `${todayDate} (dziś)`
+                for (group in data.luckynumber.today) {
+                    document.getElementById("ln-today-table").innerHTML += `
+                    <tr>
+                        <td style="text-align: center; vertical-align: middle;">${group.toUpperCase()}</td>
+                        <td>${data.luckynumber.today[group].join("<br>")}</td>
+                    </tr>`
+                }
+            }
+
+            if (data.luckynumber.tomorrow != undefined) {
+                document.getElementById("ln-tomorrow").style.display = "block";
+                document.getElementById("ln-tomorrow-date").innerHTML = `${tomorrowDate} (jutro)`
+                for (group in data.luckynumber.tomorrow) {
+                    document.getElementById("ln-tomorrow-table").innerHTML += `
+                    <tr>
+                        <td style="text-align: center; vertical-align: middle;">${group.toUpperCase()}</td>
+                        <td>${data.luckynumber.tomorrow[group].join("<br>")}</td>
+                    </tr>`
+                }
+            }
+
+            if (data.luckynumber.today == undefined && data.luckynumber.tomorrow == undefined) {
+                document.getElementById("no-luckynumber").style.display = "block";
+            }
+
+
             document.getElementById("profile-pic").innerHTML = `${userFirstName.charAt(0)}${userSurname.charAt(0)}`
             document.getElementById("widget-points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ececec")`
             loadUIdata();
@@ -999,7 +1060,11 @@ function startApplication() {
             localStorage.clear();
             location.reload();
         } else {
-            window.confirm("Wystąpił problem komunikacji z API. Czy chcesz spróbować ponownie?");
+            if (window.confirm("Wystąpił problem komunikacji z API. Czy chcesz spróbować ponownie?")) {
+                location.reload();
+            } else {
+                location.reload();
+            }
         }
         setTimeout(function() {
             hideSplash();
