@@ -1232,7 +1232,7 @@ function checkNotifications(endpoint) {
     var deviceEndpoint;
     var apiEndpoint = endpoint;
     console.log("Sprawdzanie działania powiadomień")
-    var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
+    var NotificationIsSupported = !!(window.Notification || window.webkitNotifications || navigator.mozNotification)  
     if (NotificationIsSupported == false) {
         console.log("Urządzenie nie obsługuje powiadomień!");
         return false;
