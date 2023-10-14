@@ -213,10 +213,9 @@
                 <aside>💡</aside>
                 <span>Pomysł dla SU</span>
             </div>
-            <div type="ind">
+            <div type="ind" onClick="openInstagram();">
                 <aside>📸</aside>
                 <span>Profil SU na Instagramie</span>
-                <container>#WKRÓTCE</container>
             </div>
             <div type="ind" onclick="window.open('#pointsapp', '_self')">
                 <aside>🐟</aside>
@@ -1138,6 +1137,13 @@ function nicknameChange() {
         document.getElementById("usersettings-save").disabled = "disabled";
     }
 };
+
+function openInstagram() {
+    window.location = 'instagram://user?username=katolik.su';
+    if (window.location.href == "https://mobilnykatolik.github.io/app/index.html#app" || window.location.href == "https://mobilnykatolik.github.io/app/index.html#home") {
+        window.open("https://www.instagram.com/katolik.su/", "_self");
+    }
+}
 
 function userSettingsSave() {
     var data = {
