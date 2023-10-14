@@ -777,7 +777,7 @@ window.addEventListener(
 );
 
 function switchNotifications() {
-    var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
+    var NotificationIsSupported = !!(window.Notification || window.webkitNotifications || navigator.mozNotification)  
     if (NotificationIsSupported == false) {
         document.getElementById("notificationssettings-switch").checked = "";
         document.getElementById("notificationssettings-details").style.display = "none";
@@ -864,7 +864,7 @@ function switchNotifications() {
 
 function askForPermission() {
     document.getElementById("introduction-ask-for-permission").style.display = "none";
-    var NotificationIsSupported = !!(window.Notification || win.webkitNotifications || navigator.mozNotification)  
+    var NotificationIsSupported = !!(window.Notification || window.webkitNotifications || navigator.mozNotification)  
     if (NotificationIsSupported == false) {
         window.alert("Urządzenie nie obsługuje powiadomień!");
         return false;
