@@ -292,33 +292,13 @@
     <div class="page-content">
         <p style="font-size: 18px;">Twoje bilety</p>
         <div style="margin-top: 10px;" class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
-            <ul id="home-slider" class="slider-container py-4">
-                <li class="slide-visible" style="display: none;">
-                    <div style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
-                        <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
-                            <div style="height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat; background-image: url('https://i.imgur.com/LUw9eul.png')"></div>
-                            <div style="position: absolute; top: 50%; translate: 0 -50%; width: calc(100% - 40px);">
-                                <p style="color: #ffffff;">Crime Party</p>
-                                <p style="font-size: 15px; color: #52796f;">Bilet aktywny</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="slide-visible">
-                    <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px;">
-                        <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px); text-align: center;">
-                            <div style="position: absolute; width: 100%; left: 0; top: 50%; translate: 0 -50%;">
-                            <p style="font-size: 15px;">Nie masz żadnych biletów/kuponów</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+            <ul id="my-tickets" class="slider-container py-4">
             </ul>
         </div>
         <p style="font-size: 18px;">Dostępne bilety</p>
         <div style="margin-top: 10px;" class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
-            <ul id="home-slider" class="slider-container py-4">
-                <li class="slide-visible">
+            <ul id="available-tickets" class="slider-container py-4">
+                <li class="slide-visible" id="crime-party-available" style="display: none;">
                     <div style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
                         <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
                             <div style="height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat; background-image: url('https://i.imgur.com/LUw9eul.png')"></div>
@@ -1153,6 +1133,40 @@ function startApplication() {
 
             if (data.luckynumber.today == undefined && data.luckynumber.tomorrow == undefined) {
                 document.getElementById("no-luckynumber").style.display = "block";
+            }
+
+            //Tickets and coupons
+            for (ticket in data.usertickets) {
+                var ticketState, ticketStateColor;
+                if (data.usertickets[ticket].cost == data.usertickets[ticket].paid) {
+                    ticketState = "Bilet aktywny"
+                    ticketStateColor = "#00ff00"
+                    if (data.usertickets[ticket].consent_required == true && data.usertickets[ticket].consent == false) {
+                        ticketState = "Niedostarczona zgoda"
+                        ticketStateColor = "#ff0000"
+                    }
+                } else {
+                    ticketState = "Bilet nieopłacony"
+                    ticketStateColor = "#ff0000"
+                }
+                var ticketData = `<li class="slide-visible">
+                    <div style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
+                        <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
+                            <div style="height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat; background-image: url('https://i.imgur.com/LUw9eul.png')"></div>
+                            <div style="position: absolute; top: 50%; translate: 0 -50%; width: calc(100% - 40px);">
+                                <p style="color: #ffffff;">${data.usertickets[ticket].name}</p>
+                                <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>`
+                document.getElementById("my-tickets").innerHTML += ticketData;
+            }
+
+            const timestamp = Math.floor(Date.now() / 1000)
+
+            if (["1lo", "2lo", "3lo", "4lo", "n"].includes(userClass) && timestamp >= 1698045300) {
+                document.getElementById("crime-party-available").style.display = "block";
             }
 
 
