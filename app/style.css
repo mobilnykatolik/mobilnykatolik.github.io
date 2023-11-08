@@ -492,7 +492,7 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
 .ticket {
     width: 90%;
     max-width: 475px;
-    background-color: #ffffff;
+    background-color: var(--additional);
     margin: auto;
     padding-bottom: 20px;
 }
@@ -510,9 +510,11 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example");
     width: 45%;
     aspect-ratio: 1/1;
-    background-size: 100%;
+    background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
     margin: auto;
     margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
 }
