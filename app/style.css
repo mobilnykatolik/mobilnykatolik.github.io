@@ -488,3 +488,31 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     border-collapse: collapse;
     padding: 5px;
 }
+
+.ticket {
+    width: 90%;
+    max-width: 475px;
+    background-color: #ffffff;
+    height: 80%;
+    margin: auto;
+}
+
+.ticket-banner {
+    width: 100%;
+    background-image: url("https://i.imgur.com/BDbMJzp.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 125px;
+}
+
+.ticket-qr {
+    background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example");
+    width: 45%;
+    aspect-ratio: 1/1;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    margin-top: 20px;
+}
