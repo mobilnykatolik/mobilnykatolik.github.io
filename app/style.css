@@ -493,8 +493,8 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     width: 90%;
     max-width: 475px;
     background-color: #ffffff;
-    height: 80%;
     margin: auto;
+    padding-bottom: 20px;
 }
 
 .ticket-banner {
