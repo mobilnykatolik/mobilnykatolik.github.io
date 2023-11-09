@@ -36,13 +36,14 @@
 
 <div id="register-page" style="display: none;">
     <center>
-    <h2>Zaloguj się za pomocą ICSU</h2>
+        <h2>Użytkownik niezalogowany</h2>
+    <!--<h2>Zaloguj się za pomocą ICSU</h2>
     <form onSubmit="return logIn();">
     <input type="number" id="register-accesscode" placeholder="Kod dostępu" required>
     <input type="text" id="register-username" placeholder="Login" required>
     <input type="password" id="register-password" placeholder="Hasło" required>
     <input type="submit" id="register-submit" value="Zaloguj się">
-    </form>
+    </form>-->
     </center>
 </div>
 
@@ -78,29 +79,36 @@
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
 
 <script type="text/javascript">
-var icsuData = localStorage.getItem("icsu");
-var accessCode;
-var jsonData;
-var toFind;
-var prevPaid;
-var email;
-var pointsCount = 0;
-var eventId;
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+var userid = sessionStorage.getItem("userid")
+var loginid = sessionStorage.getItem("loginid")
+
+if (userid == undefined) {
+    userid = urlParams.get('userid');
+}
+if (loginid == undefined) {
+    loginid = urlParams.get('loginid');
+}
+
 var scannerActive = false;
 var lastScan;
 var locked = false;
-var icsuUser;
 
 var successAudio = new Audio('success.wav');
 var failureAudio = new Audio('failure.wav');
 
-if (icsuData == null) {
+if (userid == undefined) {
+    document.getElementById("register-page").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+} else if (loginid == undefined) {
     document.getElementById("register-page").style.display = "block";
     document.getElementById("loading").style.display = "none";
 } else {
-    accessCode = icsuData.split(";")[0];
-    accessCode = accessCode.split("");
-    icsuUser = icsuData.split(";")[3];
+    sessionStorage.setItem("userid", userid);
+    sessionStorage.setItem("loginid", loginid);
     document.getElementById("loading").style.display = "none";
     document.getElementById("select-event-page").style.display = "block";
 }
@@ -136,8 +144,8 @@ function showPopUp(response) {
     successAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
-    document.getElementById("scanned-name").innerHTML = response[0];
-    document.getElementById("scanned-points").innerHTML = response[1];
+    document.getElementById("scanned-name").innerHTML = response.owner;
+    document.getElementById("scanned-points").innerHTML = response.state;
     document.getElementById("result").src = "success.png";
     setTimeout(() => {
         locked = false;
@@ -149,8 +157,8 @@ function showPopUpFailure(response) {
     failureAudio.play();
     locked = true;
     document.getElementById("popup-window").className = "popup-window-showed";
-    document.getElementById("scanned-name").innerHTML = response[0];
-    document.getElementById("scanned-points").innerHTML = response[1];
+    document.getElementById("scanned-name").innerHTML = response.owner;
+    document.getElementById("scanned-points").innerHTML = response.state;
     document.getElementById("result").src = "failure.png";
     setTimeout(() => {
         locked = false;
@@ -205,6 +213,7 @@ function logIn() {
       codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result) {
             if (locked == false) {
+            console.log(result.text);
                 var formattedReply = []
                 if (result.text == lastScan) {
                     //Jeśli ten sam kod QR
@@ -212,22 +221,33 @@ function logIn() {
                 }
                 lastScan = result.text;
 
-                var url = `https://api.katoliktczew.repl.co/ebilet/${accessCode.join("")}/${lastScan}`;
+                if (sessionStorage.getItem("userid") == undefined) {
+                    window.alert("Użytkownik niezalogowany");
+                }
 
+                var data = {
+                    "userid": sessionStorage.getItem("userid"),
+                    "loginid": sessionStorage.getItem("loginid"),
+                    "ticketid": lastScan
+                }
+                var url = `https://api.mobilnykatolik.repl.co/tickets/scan`;
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", url);
+                xhr.open("POST", url);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
                 xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    var response = xhr.responseText.split(";")
-                    if (xhr.status == 200) {
-                        showPopUp(response);
-                    } else {
-                        showPopUpFailure(response);
+                    if (xhr.readyState === 4) {
+                        if (xhr.status == 200) {
+                            showPopUp(JSON.parse(xhr.responseText));
+                            return false;
+                        } else {
+                            showPopUpFailure(JSON.parse(xhr.responseText));
+                            return false;
+                        }
                     }
-                }};
-
-                xhr.send();
+                };
+                xhr.send(JSON.stringify(data));
                 return false;
             }
         }
