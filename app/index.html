@@ -568,7 +568,7 @@
     </div>
     <div class="page-content">
         <div class="buttons-section" type="people">
-            <div type="top">
+            <div type="top" onClick="window.open(`https://mobilnykatolik.github.io/tickets/index?userid=${userID}&loginid=${loginID}`, '_self')">
                 <aside style="background-image: url('https://i.imgur.com/udhPKa2.png');"></aside>
                 <span>
                     Kuba Sałek
@@ -750,6 +750,7 @@
 <script>
 //User variables
 var userID = localStorage.getItem("userid");
+var loginID = localStorage.getItem("loginid");
 var userFirstName = localStorage.getItem("userfname");  
 var userSurname = localStorage.getItem("usersname");
 var userNickname = localStorage.getItem("usernickname");
