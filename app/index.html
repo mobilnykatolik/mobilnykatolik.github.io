@@ -903,7 +903,7 @@ function switchNotifications() {
                         "userid": localStorage.getItem("id"),
                         "loginid": localStorage.getItem("loginid")
                     }
-                    var url = `https://apimobilnykatolik.glitch.me/push/register`;
+                    var url = `https://api.mobilnykatolik.repl.co/push/register`;
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", url);
                     xhr.setRequestHeader("Content-Type", "application/json");
@@ -941,7 +941,7 @@ function switchNotifications() {
             "userid": localStorage.getItem("id"),
             "loginid": localStorage.getItem("loginid")
         }
-        var url = `https://apimobilnykatolik.glitch.me/push/register`;
+        var url = `https://api.mobilnykatolik.repl.co/push/register`;
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -986,7 +986,7 @@ function askForPermission() {
             if (document.getElementById("introduction-nickname").value != "") {
                 data.nickname = document.getElementById("introduction-nickname").value;
             }
-            var url = `https://apimobilnykatolik.glitch.me/push/register`;
+            var url = `https://api.mobilnykatolik.repl.co/push/register`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1092,7 +1092,7 @@ function startApplication() {
     return false;*/
     console.log("Uruchamiam aplikację");
     window.location.href = "#home";
-    var url = `https://apimobilnykatolik.glitch.me/sync/${loginid}`;
+    var url = `https://api.mobilnykatolik.repl.co/sync/${loginid}`;
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -1295,7 +1295,7 @@ function userSettingsSave() {
         "loginid": loginid
     }
     data.nickname = document.getElementById("UInickname").value;
-    var url = `https://apimobilnykatolik.glitch.me/data/update`;
+    var url = `https://api.mobilnykatolik.repl.co/data/update`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -1406,7 +1406,7 @@ function buyTicket(ticketEventID) {
         "userid": userID,
         "ticket_event_id": "y6w6z19y"
     }
-    var url = `https://apimobilnykatolik.glitch.me/tickets/add`;
+    var url = `https://api.mobilnykatolik.repl.co/tickets/add`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
