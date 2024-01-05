@@ -1220,12 +1220,14 @@ function startApplication() {
 var loginid = localStorage.getItem("loginid");
 if (loginid == null) {
     window.location.href = "#";
-    startIntroduction();
+    window.alert("Trwają prace techniczne. Prosimy o cierpliwość!");
+    //startIntroduction();
 } else {
     console.log("Użytkownik zalogowany jako:");
     loginid = localStorage.getItem("loginid");
     console.log({loginid});
-    startApplication();
+    window.alert("Trwają prace techniczne. Prosimy o cierpliwość!");
+    //startApplication();
 }
 
 function urlB64ToUint8Array(base64String) {
