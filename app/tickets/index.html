@@ -230,7 +230,7 @@ function logIn() {
                     "loginid": sessionStorage.getItem("loginid"),
                     "ticketid": lastScan
                 }
-                var url = `https://api.mobilnykatolik.repl.co/tickets/scan`;
+                var url = `https://apimobilnykatolik.glitch.me/tickets/scan`;
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", url);
                 xhr.setRequestHeader("Content-Type", "application/json");
