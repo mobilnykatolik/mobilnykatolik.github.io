@@ -1037,7 +1037,7 @@ function openLoginPopup() {
     waitForLogin = true;
     var left = (screen.width/2)-(500/2);
     var top = (screen.height/2)-(650/2);
-    loginPopup = window.open("https://auth.mobilnykatolik.repl.co/", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
+    loginPopup = window.open("auth/index.html", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
 }
 
 function changeColor(color) {
@@ -1223,8 +1223,8 @@ function startApplication() {
 var loginid = localStorage.getItem("loginid");
 if (loginid == null) {
     window.location.href = "#";
-    window.alert("Trwają prace techniczne. Prosimy o cierpliwość!");
-    //startIntroduction();
+    //window.alert("Trwają prace techniczne. Prosimy o cierpliwość!");
+    startIntroduction();
 } else {
     console.log("Użytkownik zalogowany jako:");
     loginid = localStorage.getItem("loginid");
