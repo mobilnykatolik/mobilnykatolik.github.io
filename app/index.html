@@ -374,10 +374,25 @@
                 <p style="margin-top: 5px; opacity: 75%; font-size: 15px;">Miejsce</p>
                 <h3 id="ticket-place">-</h3>
                 <p style="margin-top: 5px; opacity: 75%; font-size: 15px;">Dodatkowe informacje</p>
-                <h3>Bilet można opłacić u Moniki Dudzińskiej, Ady Czyzewskiej lub Filipa Zalewskiego</h3>
+                <h3>Więcej informacji znajduje się pod kodem QR</h3>
             </div>
             <div class="ticket-qr" id="ticket-qr"></div>
         </div>
+        <br>
+        <p style="margin-top: 5px; opacity: 75%; font-size: 15px;">Jak opłacić bilet?</p>
+        <br>
+        <h3>
+            <b>Gotówką</b>
+            <br>
+            Bilet można opłacić gotówką u Moniki Dudzińskiej, Ady Czyzewskiej lub Filipa Zalewskiego
+            <br><br>
+            <b>Przelewem</b>
+            <br>
+            Wykonaj przelew w wysokości <b>20,00 zł</b> na ponizsze dane:
+            <br><br>
+            53 1090 2620 0000 0001 5667 7985
+            <br>tytułem: <b id="payment-title">Bilet nr []</b>
+        </h3>
     </div>
 </div>
 
@@ -1387,6 +1402,7 @@ function loadTicket(ticketID) {
     document.getElementById("ticket-place").innerHTML = ticketData.place;
     document.getElementById("ticket-banner").style.backgroundImage = `url("${ticketData.banner_url}")`
     document.getElementById("ticket-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticketID}")`
+    document.getElementById("payment-title").innerHTML = `Bilet nr ${ticketID}`
 
     var ticketState, ticketStateColor;
     if (ticketData.cost == ticketData.paid) {
