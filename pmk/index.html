@@ -111,7 +111,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Użytkownicy</h6>
-                        <a class="collapse-item" href="tables.html">Lista użytkowników</a>
+                        <a class="collapse-item" href="#">Lista użytkowników</a>
                         <a class="collapse-item" href="#">Zarządzaj użytkownikiem</a>
                         <h6 class="collapse-header">Dostęp do aplikacji</h6>
                         <a class="collapse-item" href="#">Ustawienia klas</a>
@@ -173,7 +173,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Twój profil
                                 </a>
@@ -309,6 +309,33 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
                     <a class="btn btn-primary" href="login.html">Wyloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile info Modal-->
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Twój profil</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Imię i nazwisko
+                    <br>
+                    <b>Jakub Sałek</b>
+                    <br><br>
+                    Poziom uprawnień
+                    <br>
+                    <b>5</b>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
                 </div>
             </div>
         </div>
