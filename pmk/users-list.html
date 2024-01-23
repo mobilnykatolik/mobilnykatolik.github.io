@@ -513,22 +513,22 @@
         reloadDB();
         
 
-        function openManageUserModal(userID) {
-            document.getElementById("manageUserID").value = userID;
+        function openManageUserModal(userid) {
+            document.getElementById("manageUserID").value = userid;
 
-            document.getElementById("manageUserFirstname").placeholder = userdb[userID].firstname;
+            document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;
             document.getElementById("manageUserFirstname").value = "";
 
-            document.getElementById("manageUserLastname").placeholder = userdb[userID].lastname;
+            document.getElementById("manageUserLastname").placeholder = userdb[userid].lastname;
             document.getElementById("manageUserLastname").value = "";
 
-            document.getElementById("manageUserNickname").placeholder = userdb[userID].nickname;
+            document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
             document.getElementById("manageUserNickname").value = "";
 
-            document.getElementById("manageUserClass").placeholder = userdb[userID].class;
+            document.getElementById("manageUserClass").placeholder = userdb[userid].class;
             document.getElementById("manageUserClass").value = "";
 
-            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userID].access}`
+            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
             document.getElementById("manageUserAccess").value = "";
 
             if (userAccess >= 5) {
@@ -536,7 +536,8 @@
             } else {
                 document.getElementById("manageUserAccess").disabled = "disabled";
             }
-            if (userAccess >= userdb[userID].access && userAccess >= 4) {
+
+            if ((userAccess > userdb[userid].access || userID == userid) && userAccess >= 4) {
                 $('#manageUserModal').modal('show')
             } else {
                 $('#insufficientPermissionsModal').modal('show')
@@ -591,9 +592,9 @@
             xhr.send(JSON.stringify(data));
         }
 
-        function openSendNotificationModal(userID) {
-            document.getElementById("sendNotificationUsers").value = userID;
-            document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userID].firstname} ${userdb[userID].lastname}`;
+        function openSendNotificationModal(userid) {
+            document.getElementById("sendNotificationUsers").value = userid;
+            document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid].firstname} ${userdb[userid].lastname}`;
             $('#sendNotificationModal').modal('show')
         }
 
