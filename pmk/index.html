@@ -229,7 +229,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Liczba użytkowników</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="usersCount">-</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -350,6 +350,10 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
+    <script>
+        document.getElementById("usersCount").innerHTML = usersCount;
+    </script>
 
 </body>
 

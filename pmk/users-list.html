@@ -263,7 +263,7 @@
                 <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" href="login.html">Wyloguj się</a>
+                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
                 </div>
             </div>
         </div>
@@ -485,10 +485,12 @@
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
                     userdb = data;
+                    usersCount = Object.keys(userdb).length;
+                    sessionStorage.setItem("userscount", usersCount);
                     var dataTable = $('#dataTable').DataTable();
                     dataTable.clear();
                     for (entry in data) {
-                        dataTable.row.add([data[entry].firstname, data[entry].lastname, data[entry].class.toUpperCase(), entry, data[entry].access, `
+                        dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, `
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Zarządzaj

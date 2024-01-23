@@ -62,6 +62,7 @@ var userLoginID = sessionStorage.getItem("loginid");
 var userFirstName = sessionStorage.getItem("userfname");
 var userlastName = sessionStorage.getItem("userlname");
 var userAccess = parseInt(sessionStorage.getItem("useraccess"));
+var usersCount = sessionStorage.getItem("userscount");
 
   
 if (userID == undefined) {
