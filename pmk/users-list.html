@@ -554,7 +554,7 @@
             if (document.getElementById("manageUserNickname").value != "") {data.nickname = document.getElementById("manageUserNickname").value}
             if (document.getElementById("manageUserClass").value != "") {data.class = document.getElementById("manageUserClass").value}
             if (document.getElementById("manageUserAccess").value != "") {data.access = document.getElementById("manageUserAccess").value}
-            if (data.length == 1) {
+            if (Object.keys(data).length == 1) {
                 return false;
             }
 
