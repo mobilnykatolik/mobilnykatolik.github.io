@@ -54,3 +54,21 @@
   });
 
 })(jQuery); // End of use strict
+
+
+
+var userID = sessionStorage.getItem("userid");
+var userLoginID = sessionStorage.getItem("loginid");
+var userFirstName = sessionStorage.getItem("userfname");
+var userlastName = sessionStorage.getItem("userlname");
+var userAccess = parseInt(sessionStorage.getItem("useraccess"));
+
+  
+if (userID == undefined) {
+    window.location = "auth.html";
+}
+if (userLoginID == undefined) {
+    window.location = "auth.html";
+}
+
+document.getElementById("profile-fullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;

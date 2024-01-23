@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Strona główna</title>
+    <title>Panel Mobilny Katolik - Lista użytkowników</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 </head>
 
@@ -100,16 +102,16 @@
             </div>
 
             <!-- Nav Item - User management Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Zarządzaj</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Użytkownicy</h6>
-                        <a class="collapse-item" href="users-list.html">Lista użytkowników</a>
+                        <a class="collapse-item active" href="users-list.html">Lista użytkowników</a>
                         <h6 class="collapse-header">Dostęp do aplikacji</h6>
                         <a class="collapse-item" href="#">Ustawienia klas</a>
                     </div>
@@ -192,72 +194,32 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Panel sterowania</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie użytkownikami</h1>
                     </div>
 
-                    <div class="row">
-
-                        <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Witaj w Panelu Mobilny Katolik</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample">
-                                    <div class="card-body">
-                                        W razie problemów z systemem prosimy o kontakt z administratorem:
-                                        <br>
-                                        <b>Kuba Sałek (kuba.salek@icloud.com)</b>
-                                    </div>
-                                </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Lista użytkowników</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Imię</th>
+                                            <th>Nazwisko</th>
+                                            <th>Klasa</th>
+                                            <th>ID</th>
+                                            <th>Uprawnienia</th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-list-table">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Users count -->
-                        <div class="col-xl-4 col-md-5 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Liczba użytkowników</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Next event from calendar -->
-                        <div class="col-xl-8 col-md-7 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Następne wydarzenie z kalendarza</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        
                     </div>
 
                 </div>
@@ -334,6 +296,103 @@
         </div>
     </div>
 
+    <!-- Manage User Modal-->
+    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modyfikacja użytkownika</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="manageUserFirstname">Imię</label>
+                            <input type="text" class="form-control" id="manageUserFirstname" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageUserLastname">Nazwisko</label>
+                            <input type="text" class="form-control" id="manageUserLastname" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageUserNickname">Pseudonim</label>
+                            <input type="text" class="form-control" id="manageUserNickname" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageUserClass">Klasa</label>
+                            <input type="text" class="form-control" id="manageUserClass" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageUserAccess">Poziom uprawnień</label>
+                            <select class="form-control" id="manageUserAccess" aria-describedby="manageUserAccessHelp" disabled>
+                                <option value=0>0 - użytkownik</option>
+                                <option value=1>1 - członek SU</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5 - administrator aplikacji</option>
+                            </select>
+                            <small id="manageUserAccessHelp" class="form-text text-muted">Obecny poziom uprawnień: </small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-primary" data-dismiss="modal" href="#" data-toggle="modal" data-target="#loadingModal">Zapisz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fas fa-cloud-upload-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Proszę czekać...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insufficient Permissions Modal-->
+    <div class="modal fade" id="insufficientPermissionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Brak uprawnień</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Nie posiadasz wystarczającego poziomu uprawnień, aby tego dokonać!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Error Modal-->
+    <div class="modal fade" id="apiErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Błąd komunikacji z API</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Wystąpił błąd połączenia z API. Odśwież panel i spróbuj ponownie!</div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -345,11 +404,69 @@
     <script src="js/sb-admin-2.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
+
+    <script>
+        var userdb;
+        var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                userdb = data;
+                var tableData = ``
+                for (entry in data) {
+                    var dataTable = $('#dataTable').DataTable();
+                    dataTable.row.add([data[entry].firstname, data[entry].lastname, data[entry].class.toUpperCase(), entry, data[entry].access, `
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Zarządzaj
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" onClick="manageUser('${entry}')">Modyfikuj</a>
+                            <a class="dropdown-item" href="#">Wyślij powiadomienie</a>
+                        </div>
+                    </div>
+                    `]).draw();
+                }          
+            } else if (xhr.status == 403) {
+                $('#insufficientPermissionsModal').modal('show')
+            } else {
+                $('#apiErrorModal').modal('show')
+            }
+        }};
+
+        xhr.send();
+
+        function manageUser(userID) {
+            document.getElementById("manageUserFirstname").placeholder = userdb[userID].firstname;
+            document.getElementById("manageUserLastname").placeholder = userdb[userID].lastname;
+            document.getElementById("manageUserNickname").placeholder = userdb[userID].nickname;
+            document.getElementById("manageUserClass").placeholder = userdb[userID].class;
+            document.getElementById("manageUserAccess").value = userdb[userID].access;
+            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userID].access}`
+            if (userAccess >= 5) {
+                document.getElementById("manageUserAccess").disabled = "";
+            } else {
+                document.getElementById("manageUserAccess").disabled = "disabled";
+            }
+            if (userAccess >= userdb[userID].access && userAccess >= 4) {
+                $('#manageUserModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+            
+        }
+
+    </script>
 
 </body>
 
