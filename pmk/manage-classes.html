@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Lista użytkowników</title>
+    <title>Panel Mobilny Katolik - Zarządzanie klasami</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -111,9 +111,9 @@
                 <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Użytkownicy</h6>
-                        <a class="collapse-item active" href="users-list.html">Lista użytkowników</a>
+                        <a class="collapse-item" href="users-list.html">Lista użytkowników</a>
                         <h6 class="collapse-header">Dostęp do aplikacji</h6>
-                        <a class="collapse-item" href="manage-classes.html">Ustawienia klas</a>
+                        <a class="collapse-item active" href="manage-classes.html">Ustawienia klas</a>
                     </div>
                 </div>
             </li>
@@ -193,33 +193,31 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie użytkownikami</h1>
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie klasami</h1>
                     </div>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0">Lista użytkowników</h6>
+                    <!--<div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie klasami</h1>
+                    </div>-->
+
+                    <div class="row justify-content-end mb-4 mt-4 mr-0">
+                        <a href="#" onClick="openManageClassModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Dodaj klasę</span>
+                        </a>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Collapsable Card Example -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6" id="manageClassCards">
+                            
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Imię</th>
-                                            <th>Nazwisko</th>
-                                            <th>Klasa</th>
-                                            <th>ID</th>
-                                            <th>Uprawnienia</th>
-                                            <th>Akcje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="users-list-table">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        
+
                     </div>
 
                 </div>
@@ -296,69 +294,71 @@
         </div>
     </div>
 
-    <!-- Manage User Modal-->
-    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Manage Class Modal-->
+    <div class="modal fade" id="manageClassModal" tabindex="-1" role="dialog" aria-labelledby="manageClassModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modyfikacja użytkownika</h5>
+                    <h5 class="modal-title" id="manageClassModalLabel">Dodaj/modyfikuj klasę</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group" style="display: none;">
-                            <label for="manageUserID">ID</label>
-                            <input type="text" class="form-control" id="manageUserID">
+                        <div class="form-group">
+                            <label for="manageClassName">Nazwa klasy</label>
+                            <input type="text" class="form-control" id="manageClassName" aria-describedby="manageClassNameHelp">
+                            <small id="manageClassNameHelp" class="form-text text-muted">Nazwa klasy powinna zawierać wyłącznie cyfry i małe litery</small>
                         </div>
                         <div class="form-group">
-                            <label for="manageUserFirstname">Imię</label>
-                            <input type="text" class="form-control" id="manageUserFirstname">
+                            <label for="manageClassLuckyNumber">Szczęśliwy numerek</label>
+                            <input type="number" class="form-control" id="manageClassLuckyNumber" aria-describedby="manageClassLuckyNumberHelp">
+                            <small id="manageClassLuckyNumberHelp" class="form-text text-muted">Ilość uczniów wybierana codziennie do Szczęśliwgo numerka</small>
                         </div>
                         <div class="form-group">
-                            <label for="manageUserLastname">Nazwisko</label>
-                            <input type="text" class="form-control" id="manageUserLastname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserNickname">Pseudonim</label>
-                            <input type="text" class="form-control" id="manageUserNickname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserClass">Klasa</label>
-                            <input type="text" class="form-control" id="manageUserClass">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserAccess">Poziom uprawnień</label>
-                            <select class="form-control" id="manageUserAccess" aria-describedby="manageUserAccessHelp">
-                                <option value="">Bez zmian</option>
-                                <option value=0>0 - użytkownik</option>
-                                <option value=1>1 - członek SU</option>
-                                <option value=2>2</option>
-                                <option value=3>3</option>
-                                <option value=4>4</option>
-                                <option value=5>5 - administrator aplikacji</option>
-                            </select>
-                            <small id="manageUserAccessHelp" class="form-text text-muted">Obecny poziom uprawnień: </small>
+                            <label for="manageClassList">Lista uczniów</label>
+                            <textarea class="form-control" id="manageClassList" aria-describedby="manageClassListHelp"></textarea>
+                            <small id="manageClassListHelp" class="form-text text-muted">W kolejności: NAZWISKO IMIĘ, każde w osobnym wierszu</small>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" data-dismiss="modal" href="#" onclick="manageUser();">Zapisz</a>
+                    <a class="btn btn-success" data-dismiss="modal" href="#" data-toggle="modal" data-target="#confirmModal">Zapisz</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Send Notification Modal-->
-    <div class="modal fade" id="sendNotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Confirm Modal-->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="sendNotificationTo">Wyślij powiadomienie do</h5>
+                    <h5 class="modal-title" id="confirmModalLabel">Czy na pewno chcesz wprowadzić zmiany?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Kliknij potwierdź, aby zapisać zmiany.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-success" data-dismiss="modal" href="#" onclick="manageClass();">Potwierdź</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal-->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć klasę?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -366,22 +366,15 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group" style="display: none;">
-                            <label for="sendNotificationUsers">Adresat</label>
-                            <input type="text" class="form-control" id="sendNotificationUsers" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="sendNotificationTitle">Tytuł</label>
-                            <input type="text" class="form-control" id="sendNotificationTitle">
-                        </div>
-                        <div class="form-group">
-                            <label for="sendNotificationContent">Treść</label>
-                            <textarea class="form-control" id="sendNotificationContent"></textarea>
+                            <label for="deleteClassName">Nazwa klasy</label>
+                            <input type="text" class="form-control" id="deleteClassName">
                         </div>
                     </form>
+                    Kliknij potwierdź, aby potwierdzić usunięcie.
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <button class="btn btn-primary" data-dismiss="modal" onclick="sendNotification();">Wyślij</button>
+                    <a class="btn btn-success" data-dismiss="modal" href="#" onclick="manageClass();">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -472,10 +465,11 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var userdb;
+        var peopledb;
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+            document.getElementById("manageClassCards").innerHTML = "";
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/people`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -484,27 +478,36 @@
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
-                    userdb = data;
-                    usersCount = Object.keys(userdb).length;
-                    sessionStorage.setItem("userscount", usersCount);
-                    var dataTable = $('#dataTable').DataTable();
-                    dataTable.clear();
-                    for (entry in data) {
-                        if (entry == "aynqcj8mnzt2o0xh") {
-                            continue;
-                        }
-                        dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, `
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Zarządzaj
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
-                                <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
+                    peopledb = data;
+                    for (x in peopledb) {
+                        document.getElementById("manageClassCards").innerHTML += `
+                        <div class="card shadow mb-4">
+                            <a href="#manageClass${x.toLowerCase()}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="manageClass${x.toLowerCase()}">
+                                <h6 class="m-0 font-weight-bold text-primary">${x.toUpperCase()}</h6>
+                            </a>
+
+                            <div class="collapse" id="manageClass${x.toLowerCase()}">
+                                <div class="card-body">
+                                    <div class="row ml-0 mr-0 mb-2">
+                                        <a href="#" onclick="openManageClassModal('${x}')" class="btn btn-secondary btn-icon-split btn-sm ml-0 mb-1">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            <span class="text">Edytuj klasę</span>
+                                        </a>
+                                        <a href="#" onclick="deleteClassModal('${x}')" class="btn btn-danger btn-icon-split btn-sm ml-1 mb-1">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-ban"></i>
+                                            </span>
+                                            <span class="text">Usuń klasę</span>
+                                        </a>
+                                    </div>
+                                    ${peopledb[x].list.join("<br>")}
+                                </div>
                             </div>
                         </div>
-                        `]).draw();
-                    }          
+                        `
+                    }
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -518,55 +521,51 @@
         reloadDB();
         
 
-        function openManageUserModal(userid) {
-            document.getElementById("manageUserID").value = userid;
-
-            document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;
-            document.getElementById("manageUserFirstname").value = "";
-
-            document.getElementById("manageUserLastname").placeholder = userdb[userid].lastname;
-            document.getElementById("manageUserLastname").value = "";
-
-            document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
-            document.getElementById("manageUserNickname").value = "";
-
-            document.getElementById("manageUserClass").placeholder = userdb[userid].class;
-            document.getElementById("manageUserClass").value = "";
-
-            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
-            document.getElementById("manageUserAccess").value = "";
+        function openManageClassModal(className) {
+            if (className != undefined) {
+                document.getElementById("manageClassName").value = className;
+                document.getElementById("manageClassLuckyNumber").value = peopledb[className].luckycount;
+                document.getElementById("manageClassList").value = peopledb[className].list.join("\n");
+                document.getElementById("manageClassModalLabel").innerHTML = "Modyfikuj klasę"
+            } else {
+                document.getElementById("manageClassName").value = "";
+                document.getElementById("manageClassLuckyNumber").value = 0;
+                document.getElementById("manageClassList").value = "";
+                document.getElementById("manageClassModalLabel").innerHTML = "Dodaj klasę"
+            }
+            
 
             if (userAccess >= 5) {
-                document.getElementById("manageUserAccess").disabled = "";
-            } else {
-                document.getElementById("manageUserAccess").disabled = "disabled";
-            }
-
-            if ((userAccess > userdb[userid].access || userID == userid) && userAccess >= 4) {
-                $('#manageUserModal').modal('show')
+                $('#manageClassModal').modal('show')
             } else {
                 $('#insufficientPermissionsModal').modal('show')
             }
             
         }
 
-        function manageUser() {
-            var data = {
-                "users": document.getElementById("manageUserID").value.split(", ")
-            }
-            if (document.getElementById("manageUserFirstname").value != "") {data.firstname = document.getElementById("manageUserFirstname").value}
-            if (document.getElementById("manageUserLastname").value != "") {data.lastname = document.getElementById("manageUserLastname").value}
-            if (document.getElementById("manageUserNickname").value != "") {data.nickname = document.getElementById("manageUserNickname").value}
-            if (document.getElementById("manageUserClass").value != "") {data.class = document.getElementById("manageUserClass").value}
-            if (document.getElementById("manageUserAccess").value != "") {data.access = document.getElementById("manageUserAccess").value}
-            if (Object.keys(data).length == 1) {
+        function manageClass() {
+            var classname = document.getElementById("manageClassName").value
+            var luckycount = document.getElementById("manageClassLuckyNumber").value
+            var list = document.getElementById("manageClassList").value
+            var data = {}
+
+            if (classname != "") {
+                data.classname = classname
+            } else {
                 return false;
+            }
+            if (luckycount == "") {
+                luckycount = 0
+            }
+            data.luckycount = luckycount;
+            if (list != "") {
+                data.list = list.replaceAll("\n", ";");
             }
 
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/${userID}/${userLoginID}`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/manageclass/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -597,56 +596,14 @@
             xhr.send(JSON.stringify(data));
         }
 
-        function openSendNotificationModal(userid) {
-            document.getElementById("sendNotificationUsers").value = userid;
-            document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid].firstname} ${userdb[userid].lastname}`;
-            $('#sendNotificationModal').modal('show')
-        }
 
-        function sendNotification() {
-            var data = {
-                "users": document.getElementById("sendNotificationUsers").value.split(", "),
-                "title": document.getElementById("sendNotificationTitle").value,
-                "content": document.getElementById("sendNotificationContent").value.replaceAll("\n", " ")
-            }
-            console.log(data);
-            if (document.getElementById("sendNotificationTitle").value == "") {
-                return false;
-            } else if (document.getElementById("sendNotificationContent").value == "") {
-                return false;
-            } else if (document.getElementById("sendNotificationUsers").value == "") {
-                return false;
-            }
-            $('#loadingModal').modal('show')
-            
-            var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)    
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(data));
+        function deleteClassModal(className) {
+            document.getElementById("confirmDeleteModalLabel").innerHTML = `Czy na pewno chcesz usunąć klasę ${className.toUpperCase()}?`
+            document.getElementById("manageClassName").value = className;
+            document.getElementById("manageClassLuckyNumber").value = "";
+            document.getElementById("manageClassList").value = "";
+            $('#confirmDeleteModal').modal('show')
         }
 
     </script>
