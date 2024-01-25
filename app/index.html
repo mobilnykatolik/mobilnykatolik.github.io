@@ -895,7 +895,7 @@ window.addEventListener(
     console.log(event.data);
     var data = JSON.parse(event.data);
     if (data.login == "success") {
-        localStorage.setItem("loginid", data.userloginid);
+        localStorage.setItem("loginid", data.loginid);
         localStorage.setItem("id", data.userid);
         loginPopup.close();
         introductionNextStep();
