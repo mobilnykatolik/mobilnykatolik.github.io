@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Zarządzanie klasami</title>
+    <title>Panel Mobilny Katolik - Szkolna Liga Sportowa</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,6 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
-    <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 </head>
@@ -59,7 +58,7 @@
                     <i class="fas fa-calendar fa-fw"></i>
                     <span>Wydarzenia</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
                         <a class="collapse-item" href="#">Wyświetl</a>
@@ -68,7 +67,7 @@
                         <a class="collapse-item" href="#">Zarządzaj biletami</a>
                         <a class="collapse-item" href="#">Wydarzenia biletowane</a>
                         <h6 class="collapse-header">SLS</h6>
-                        <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
+                        <a class="collapse-item active" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
                 </div>
             </li>
@@ -104,18 +103,18 @@
             </div>
 
             <!-- Nav Item - User management Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Zarządzaj</span>
                 </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Użytkownicy</h6>
                         <a class="collapse-item" href="users-list.html">Lista użytkowników</a>
                         <h6 class="collapse-header">Dostęp do aplikacji</h6>
-                        <a class="collapse-item active" href="manage-classes.html">Ustawienia klas</a>
+                        <a class="collapse-item" href="manage-classes.html">Ustawienia klas</a>
                     </div>
                 </div>
             </li>
@@ -195,32 +194,92 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie klasami</h1>
-                    </div>
-
-                    <!--<div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie klasami</h1>
-                    </div>-->
-
-                    <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="openManageClassModal()" class="btn btn-primary btn-icon-split justify-content-end">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span class="text">Dodaj klasę</span>
-                        </a>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Szkolna Liga Sportowa</h1>
                     </div>
 
                     <div class="row">
 
                         <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6" id="manageClassCards">
-                            
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Accordion -->
+                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
+                                    <h6 class="m-0 font-weight-bold text-primary">Jak zaktualizować dane w tabeli?</h6>
+                                </a>
+                                <!-- Card Content - Collapse -->
+                                <div class="collapse" id="collapseCardExample">
+                                    <div class="card-body">
+                                        Pobierz plik .csv arkusza klasyfikacji generalnej i wgraj go do PMK
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        
 
                     </div>
+
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-8">
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Klasyfikacja generalna</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Imię</th>
+                                                    <th>Nazwisko</th>
+                                                    <th>Klasa</th>
+                                                    <th>Punkty</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="users-list-table"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Donut Chart -->
+                        <div class="col-xl-4 col-lg-4">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Aktualizuj tabelę</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <center>
+                                    <input type="file" id="csvFileInput" accept=".csv" hidden>
+                                    <a href="#" id="csvFileUploadBtn" class="btn btn-primary btn-icon-split ml-1 mb-1">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-upload"></i>
+                                        </span>
+                                        <span class="text">Wgraj tabelę</span>
+                                    </a>
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Statystyki</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <h6 class="m-0" id="chartNoData">Brak danych do wyświetlenia</h6>
+                                    <div class="chart-pie" id="chartCard" style="display: none;">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -263,7 +322,7 @@
                 <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
+                    <a class="btn btn-primary" href="login.html">Wyloguj się</a>
                 </div>
             </div>
         </div>
@@ -291,92 +350,6 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Class Modal-->
-    <div class="modal fade" id="manageClassModal" tabindex="-1" role="dialog" aria-labelledby="manageClassModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="manageClassModalLabel">Dodaj/modyfikuj klasę</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="manageClassName">Nazwa klasy</label>
-                            <input type="text" class="form-control" id="manageClassName" aria-describedby="manageClassNameHelp">
-                            <small id="manageClassNameHelp" class="form-text text-muted">Nazwa klasy powinna zawierać wyłącznie cyfry i małe litery</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageClassLuckyNumber">Szczęśliwy numerek</label>
-                            <input type="number" class="form-control" id="manageClassLuckyNumber" aria-describedby="manageClassLuckyNumberHelp">
-                            <small id="manageClassLuckyNumberHelp" class="form-text text-muted">Ilość uczniów wybierana codziennie do Szczęśliwgo numerka</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageClassList">Lista uczniów</label>
-                            <textarea class="form-control" id="manageClassList" aria-describedby="manageClassListHelp"></textarea>
-                            <small id="manageClassListHelp" class="form-text text-muted">W kolejności: NAZWISKO IMIĘ, każde w osobnym wierszu</small>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-success" data-dismiss="modal" href="#" data-toggle="modal" data-target="#confirmModal">Zapisz</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirm Modal-->
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Czy na pewno chcesz wprowadzić zmiany?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Kliknij potwierdź, aby zapisać zmiany.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-success" data-dismiss="modal" href="#" onclick="manageClass();">Potwierdź</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirm Delete Modal-->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć klasę?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group" style="display: none;">
-                            <label for="deleteClassName">Nazwa klasy</label>
-                            <input type="text" class="form-control" id="deleteClassName">
-                        </div>
-                    </form>
-                    Kliknij potwierdź, aby potwierdzić usunięcie.
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-success" data-dismiss="modal" href="#" onclick="manageClass();">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -448,7 +421,6 @@
         </div>
     </div>
 
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -460,18 +432,33 @@
     <script src="js/sb-admin-2.js"></script>
 
     <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var peopledb;
+        //Wgrywanie pliku .csv
+        document.getElementById('csvFileUploadBtn').addEventListener('click', function() {
+            if (userAccess >= 3) {
+                document.getElementById('csvFileInput').click();
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+        });
+        document.getElementById('csvFileInput').addEventListener('change', function() {
+            var wybranyPlik = document.getElementById('csvFileInput').files[0];
+            if (wybranyPlik) {
+                handleFile();
+            }
+        });
 
         function reloadDB() {
-            document.getElementById("manageClassCards").innerHTML = "";
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/people`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/sls`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -479,37 +466,22 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    var data = JSON.parse(xhr.responseText);
-                    peopledb = data;
-                    for (x in peopledb) {
-                        document.getElementById("manageClassCards").innerHTML += `
-                        <div class="card shadow mb-4">
-                            <a href="#manageClass${x.toLowerCase()}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="manageClass${x.toLowerCase()}">
-                                <h6 class="m-0 font-weight-bold text-primary">${x.toUpperCase()}</h6>
-                            </a>
-
-                            <div class="collapse" id="manageClass${x.toLowerCase()}">
-                                <div class="card-body">
-                                    <div class="row ml-0 mr-0 mb-2">
-                                        <a href="#" onclick="openManageClassModal('${x}')" class="btn btn-secondary btn-icon-split btn-sm ml-0 mb-1">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Edytuj klasę</span>
-                                        </a>
-                                        <a href="#" onclick="deleteClassModal('${x}')" class="btn btn-danger btn-icon-split btn-sm ml-1 mb-1">
-                                            <span class="icon text-white-50">
-                                                <i class="fa fa-ban"></i>
-                                            </span>
-                                            <span class="text">Usuń klasę</span>
-                                        </a>
-                                    </div>
-                                    ${peopledb[x].list.join("<br>")}
-                                </div>
-                            </div>
-                        </div>
-                        `
+                    var slsData = JSON.parse(xhr.responseText);
+                    var dataTable = $('#dataTable').DataTable();
+                    dataTable.clear();
+                    chartData = {}
+                    slsData = slsData.participants;
+                    for (entry in slsData) {
+                        entry = slsData[entry]
+                        dataTable.row.add([entry.firstname, entry.lastname, entry.class, entry.points]);
+                        if (chartData[entry.class] == undefined) {
+                            chartData[entry.class] = 1
+                        } else {
+                            chartData[entry.class] += 1
+                        }
                     }
+                    dataTable.order([3, 'desc']).draw();
+                    updateChart(chartData);    
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -521,53 +493,62 @@
         }
 
         reloadDB();
-        
 
-        function openManageClassModal(className) {
-            if (className != undefined) {
-                document.getElementById("manageClassName").value = className;
-                document.getElementById("manageClassLuckyNumber").value = peopledb[className].luckycount;
-                document.getElementById("manageClassList").value = peopledb[className].list.join("\n");
-                document.getElementById("manageClassModalLabel").innerHTML = "Modyfikuj klasę"
-            } else {
-                document.getElementById("manageClassName").value = "";
-                document.getElementById("manageClassLuckyNumber").value = 0;
-                document.getElementById("manageClassList").value = "";
-                document.getElementById("manageClassModalLabel").innerHTML = "Dodaj klasę"
-            }
-            
+        //Aktualizowanie tabeli na podstawie wgranego pliku .csv
+        function handleFile() {
+            const input = document.getElementById('csvFileInput');
+            const file = input.files[0];
 
-            if (userAccess >= 5) {
-                $('#manageClassModal').modal('show')
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const csv = e.target.result;
+                    const data = csv;
+                    createTable(data);
+                };
+
+                reader.readAsText(file);
             } else {
-                $('#insufficientPermissionsModal').modal('show')
+                alert("Please select a CSV file.");
             }
-            
         }
 
-        function manageClass() {
-            var classname = document.getElementById("manageClassName").value
-            var luckycount = document.getElementById("manageClassLuckyNumber").value
-            var list = document.getElementById("manageClassList").value
-            var data = {}
-
-            if (classname != "") {
-                data.classname = classname
-            } else {
-                return false;
-            }
-            if (luckycount == "") {
-                luckycount = 0
-            }
-            data.luckycount = luckycount;
-            if (list != "") {
-                data.list = list.replaceAll("\n", ";");
-            }
-
+        function createTable(data) {
             $('#loadingModal').modal('show')
-            console.log(data);
+            //NAZWISKO, IMIE, KLASA, PUNKTY
+            //Tworzenie obiektu JSON, który będzie zapisany w PMK
+            data = data.split("\n");
+            delete data[0]; //Usunięcie nagłówka
+
+            var slsData = {"participants": {}}
+
+            for (entry in data) {
+                entry = data[entry].split(",");
+                slsData.participants[`${entry[1].toUpperCase()} ${entry[0].toUpperCase()}, ${entry[2].toUpperCase()}`] = {
+                    "points": parseInt(entry[3]),
+                    "firstname": entry[1].toUpperCase(),
+                    "lastname": entry[0].toUpperCase(),
+                    "class": entry[2].toUpperCase()
+                }
+            }
+
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            chartData = {}
+            slsData = slsData.participants;
+            for (entry in slsData) {
+                entry = slsData[entry]
+                dataTable.row.add([entry.firstname, entry.lastname, entry.class, entry.points]);
+                if (chartData[entry.class] == undefined) {
+                    chartData[entry.class] = 1
+                } else {
+                    chartData[entry.class] += 1
+                }
+            }
+            slsData = {participants: slsData};
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageclass/${userID}/${userLoginID}`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -576,12 +557,11 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        dataTable.order([3, 'desc']).draw();
+                        updateChart(chartData);  
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)
-                        reloadDB();
                     } else if (xhr.status == 403) {
                         $('#insufficientPermissionsModal').modal('show')
                         setTimeout(function() {
@@ -595,17 +575,55 @@
                     }
                 }
             };
-            xhr.send(JSON.stringify(data));
+            xhr.send(JSON.stringify(slsData));
         }
 
-
-
-        function deleteClassModal(className) {
-            document.getElementById("confirmDeleteModalLabel").innerHTML = `Czy na pewno chcesz usunąć klasę ${className.toUpperCase()}?`
-            document.getElementById("manageClassName").value = className;
-            document.getElementById("manageClassLuckyNumber").value = "";
-            document.getElementById("manageClassList").value = "";
-            $('#confirmDeleteModal').modal('show')
+        function updateChart(data) {
+            /*Example data:
+            {
+                "1LO": 1,
+                "2LO": 2,
+                "3LO", 3
+            }
+            */
+            var chart = {
+                labels: [],
+                data: []
+            }
+            for (label in data) {
+                chart.labels.push(label)
+                chart.data.push(data[label])
+            }
+            var ctx = document.getElementById("myPieChart");
+            document.getElementById("chartCard").style.display = "block";
+            document.getElementById("chartNoData").style.display = "none";
+            var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: chart.labels,
+                datasets: [{
+                data: chart.data,
+                backgroundColor: ["#A80C2F", "#D03C4C", "#F8616B", "#FF868B", "#FFAAAD"],
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+                },
+                legend: {
+                display: true
+                },
+                cutoutPercentage: 80,
+            },
+            });
         }
 
     </script>
