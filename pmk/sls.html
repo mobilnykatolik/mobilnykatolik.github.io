@@ -199,49 +199,59 @@
                     </div>
 
                     <div class="row">
-
-                        <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Jak zaktualizować dane w tabeli?</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample">
-                                    <div class="card-body">
-                                        Pobierz plik .csv arkusza klasyfikacji generalnej i wgraj go do PMK
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
                         <div class="col-xl-8 col-lg-8">
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
+                                <a href="#slsMainTable" class="d-block card-header py-3" data-toggle="collapse"
+                                    role="button" aria-expanded="false" aria-controls="slsMainTable">
                                     <h6 class="m-0 font-weight-bold text-primary">Klasyfikacja generalna</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Imię</th>
-                                                    <th>Nazwisko</th>
-                                                    <th>Klasa</th>
-                                                    <th>Punkty</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="users-list-table"></tbody>
-                                        </table>
+                                </a>
+                                <div class="collapse show" id="slsMainTable">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Imię</th>
+                                                        <th>Nazwisko</th>
+                                                        <th>Klasa</th>
+                                                        <th>Punkty</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="users-list-table"></tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Accordion -->
+                                <a href="#slsAppPageModify" class="d-block card-header py-3" data-toggle="collapse"
+                                    role="button" aria-expanded="false" aria-controls="slsAppPageModify">
+                                    <h6 class="m-0 font-weight-bold text-primary">Edycja strony</h6>
+                                </a>
+                                <!-- Card Content - Collapse -->
+                                <div class="collapse show" id="slsAppPageModify">
+                                    <div class="card-body">
+                                        Treść zawarta w poniższych polach będzie wyświetlana w zakładce <b>Szkolna Liga Sportowa</b> w aplikacji <b>Mobilny Katolik</b>.
+                                        <br>
+                                        <b>UWAGA! </b>Poniższe ustawienia nie mają wpływu na wyświetlanie rankingu. W polach można stosować formatowanie HTML.
+                                        <form class="mt-2">
+                                            <div class="form-group">
+                                                <label for="sendNotificationContent">Zawartość strony</label>
+                                                <textarea class="form-control" id="sendNotificationContent" disabled>
+Planowany schemat budowy zakładki SLS:
+-> Jesteś #1 w rankingu
+-> Zawartość strony z PMK
+-> Ranking (RODO)
+                                                </textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <!-- Donut Chart -->
@@ -279,6 +289,7 @@
                             </div>
                         </div>
                     </div>
+
 
 
                 </div>
@@ -505,6 +516,11 @@
                 reader.onload = function (e) {
                     const csv = e.target.result;
                     const data = csv;
+                    if (!data.startsWith("Nazwisko,Imię,Klasa,Punkty")) {
+                        document.getElementById("apiResponse").innerHTML = "Wprowadzona tabela jest nieprawidłowa! Sprawdź, czy została pobrana z oryginalnego źródła."
+                        $('#apiResponseModal').modal('show')
+                        return false;
+                    }
                     createTable(data);
                 };
 
@@ -525,6 +541,9 @@
 
             for (entry in data) {
                 entry = data[entry].split(",");
+                if (entry[3] == undefined || entry[3] == "") {
+                    continue;
+                }
                 slsData.participants[`${entry[1].toUpperCase()} ${entry[0].toUpperCase()}, ${entry[2].toUpperCase()}`] = {
                     "points": parseInt(entry[3]),
                     "firstname": entry[1].toUpperCase(),
