@@ -242,7 +242,7 @@
                                                 <label for="sendNotificationContent">Zawartość strony</label>
                                                 <textarea class="form-control" id="sendNotificationContent" disabled>
 Planowany schemat budowy zakładki SLS:
--> Jesteś #1 w rankingu
+-> Indywiudalne miejsce w rankingu/"Nie bierzesz udziału w SLS (?)"
 -> Zawartość strony z PMK
 -> Ranking (RODO)
                                                 </textarea>
@@ -607,11 +607,17 @@ Planowany schemat budowy zakładki SLS:
             */
             var chart = {
                 labels: [],
-                data: []
+                values: []
             }
             for (label in data) {
                 chart.labels.push(label)
-                chart.data.push(data[label])
+                chart.values.push(data[label])
+            }
+            console.log(chart);
+            if (chart.labels.length == 0) {
+                document.getElementById("chartCard").style.display = "none";
+                document.getElementById("chartNoData").style.display = "block";
+                return false;
             }
             var ctx = document.getElementById("myPieChart");
             document.getElementById("chartCard").style.display = "block";
@@ -621,7 +627,7 @@ Planowany schemat budowy zakładki SLS:
             data: {
                 labels: chart.labels,
                 datasets: [{
-                data: chart.data,
+                data: chart.values,
                 backgroundColor: ["#A80C2F", "#D03C4C", "#F8616B", "#FF868B", "#FFAAAD"],
                 }],
             },
