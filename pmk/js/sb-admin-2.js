@@ -73,3 +73,5 @@ if (userLoginID == undefined) {
 }
 
 document.getElementById("profile-fullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
+document.getElementById("profileModalFullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
+document.getElementById("profileModalAccess").innerHTML = sessionStorage.useraccess;
