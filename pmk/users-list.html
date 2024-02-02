@@ -62,7 +62,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
-                        <a class="collapse-item" href="#">Wyświetl</a>
+                        <a class="collapse-item" href="events.html">Wyświetl</a>
                         <a class="collapse-item" href="#">Dodaj wydarzenie</a>
                         <h6 class="collapse-header">Bilety</h6>
                         <a class="collapse-item" href="#">Zarządzaj biletami</a>
@@ -497,7 +497,7 @@
                         }
                         dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, `
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Zarządzaj
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -649,6 +649,17 @@
                 }
             };
             xhr.send(JSON.stringify(data));
+        }
+
+        function getIds() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var multipleID = []
+            for (user in filteredRows) {
+                multipleID.push(filteredRows[user][3])
+            }
+            //console.log(multipleID);
+            return multipleID;
         }
 
     </script>
