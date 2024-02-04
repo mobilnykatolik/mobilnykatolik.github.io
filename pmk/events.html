@@ -319,17 +319,21 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form onSubmit="return manageEvent();">
+                    <div class="modal-body">
+                        <div class="form-group" style="display: none;">
+                            <label for="manageEventID">ID wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventID">
+                        </div>
                         <div class="form-group">
                             <label for="manageEventName">Nazwa wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventName">
+                            <input type="text" class="form-control" id="manageEventName" required>
                         </div>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="manageEventStartDate">Data rozpoczęcia</label>
-                                    <input type="date" class="form-control" id="manageEventStartDate">
+                                    <input type="date" class="form-control" id="manageEventStartDate" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -359,22 +363,50 @@
                         </div>
                         <div class="form-group">
                             <label for="manageEventDescription">Typ</label>
-                            <select class="form-control" id="manageEventType">
+                            <select class="form-control" id="manageEventType" required>
                                 <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
-                                <option value="szkolne">Wydarzenie szkolne</option>
+                                <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="manageEventFor">Odbiorcy</label>
                             <select class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp" multiple>
                             </select>
-                            <small id="manageEventForHelp">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
+                            <small id="manageEventForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                         </div>
-                    </form>
+                        <div class="form-group">
+                            <label for="manageEventBy">Koordynatorzy</label>
+                            <input type="text" class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" required>
+                            <small id="manageEventByHelp" class="form-text text-muted">ID użytkowników oddzielone średnikiem (;)</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal-->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć to wydarzenie?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="deleteEventID" style="display: none;">
+                    Kliknij <b>Potwierdź</b>, aby usunąć.
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <!--<a class="btn btn-primary" data-dismiss="modal" href="#" data-toggle="modal" data-target="#confirmModal">Zapisz</a>-->
+                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEvent(true);">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -478,6 +510,7 @@
                 if (xhrB.status == 200) {
                     var classes = xhrB.responseText;
                     classes = classes.split(";")
+                    document.getElementById("manageEventFor").innerHTML = "";
                     for (x in classes) {
                         document.getElementById("manageEventFor").innerHTML += `
                         <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
@@ -501,11 +534,12 @@
                     eventsdb = data;
                     const sortedEvents = Object.fromEntries(
                         Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
-                            const date1 = new Date(event1.date);
-                            const date2 = new Date(event2.date);
+                            const date1 = new Date(event1.startdate);
+                            const date2 = new Date(event2.startdate);
                             return date1 - date2;
                         })
                     );
+                    document.getElementById("events-list-table").innerHTML = "";
 
                     //Wyświeltanie wydarzeń chronologicznie
                     for (event in sortedEvents) {
@@ -519,16 +553,19 @@
                         document.getElementById("events-list-table").innerHTML += `
                         <tr>
                             <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div> ${sortedEvents[event].name}</td>
-                            <td style="vertical-align: middle;">${sortedEvents[event].date}</td>
+                            <td style="vertical-align: middle;">${sortedEvents[event].startdate}</td>
                             <td style="vertical-align: middle;">
-                                <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                <a href="#" class="btn btn-primary btn-circle btn-sm disabled">
                                     <i class="fas fa-info"></i>
                                 </a>
-                                <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                <a href="#" onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
                                     <i class="fas fa-pen"></i>
                                 </a>
-                                <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                <a href="#" class="btn btn-primary btn-circle btn-sm disabled">
                                     <i class="fas fa-ticket-alt"></i>
+                                </a>
+                                <a href="#" onclick="confirmDelete('${event}')" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
@@ -545,59 +582,106 @@
         }
 
         reloadDB();
+
+        function getManageEventFor() {
+            console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
+            return false;
+        }
         
 
         function openManageEventModal(eventid) {
+            if (eventid != undefined) { //Modifying event
+                if (eventsdb[eventid].by.includes(userID) || userAccess >= 4) {
+                    //
+                } else {
+                    $('#insufficientPermissionsModal').modal('show')
+                    return false;
+                }
+                document.getElementById("manageEventID").value = eventid;
+                document.getElementById("manageEventName").value = eventsdb[eventid].name;
+                document.getElementById("manageEventStartDate").value = eventsdb[eventid].startdate.split("T")[0];
+                if (eventsdb[eventid].startdate.split("T")[1] != undefined) {
+                    document.getElementById("manageEventStartTime").value = eventsdb[eventid].startdate.split("T")[1];
+                }
+                if (eventsdb[eventid].enddate != undefined) {
+                    document.getElementById("manageEventEndDate").value = eventsdb[eventid].enddate.split("T")[0];
+                    if (eventsdb[eventid].enddate.split("T")[1] != undefined) {
+                        document.getElementById("manageEventEndTime").value = eventsdb[eventid].enddate.split("T")[1];
+                    }
+                }
+                document.getElementById("manageEventDescription").value = eventsdb[eventid].description;
+                document.getElementById("manageEventType").value = eventsdb[eventid].type;
+                document.getElementById("manageEventType").disabled = "disabled";
+                Array.from(document.getElementById("manageEventFor").options).forEach(option => {
+                if (eventsdb[eventid].for.includes(option.value)) {
+                    option.selected = true;
+                }});
+                document.getElementById("manageEventBy").value = eventsdb[eventid].by.join(";");
+                
+            } else { //New event
+                if (userAccess < 1) {
+                    $('#insufficientPermissionsModal').modal('show')
+                    return false;
+                }
+                document.getElementById("manageEventID").value = "";
+                document.getElementById("manageEventName").value = "";
+                document.getElementById("manageEventStartDate").value = "";
+                document.getElementById("manageEventStartTime").value = "";
+                document.getElementById("manageEventEndDate").value = "";
+                document.getElementById("manageEventEndTime").value = "";
+                document.getElementById("manageEventDescription").value = "";
+                document.getElementById("manageEventType").value = "su";
+                document.getElementById("manageEventType").disabled = "";
+                document.getElementById("manageEventFor").value = "";
+                document.getElementById("manageEventBy").value = userID;
+                if (userAccess >= 4) {
+                    document.getElementById("manageEventTypeSzkolne").disabled = ""
+                } else {
+                    document.getElementById("manageEventTypeSzkolne").disabled = "disabled"
+                }
+            }
+            
             $('#manageEventModal').modal('show')
-            return false;
-            document.getElementById("manageUserID").value = userid;
-
-            document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;
-            document.getElementById("manageUserFirstname").value = "";
-
-            document.getElementById("manageUserLastname").placeholder = userdb[userid].lastname;
-            document.getElementById("manageUserLastname").value = "";
-
-            document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
-            document.getElementById("manageUserNickname").value = "";
-
-            document.getElementById("manageUserClass").placeholder = userdb[userid].class;
-            document.getElementById("manageUserClass").value = "";
-
-            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
-            document.getElementById("manageUserAccess").value = "";
-
-            if (userAccess >= 5) {
-                document.getElementById("manageUserAccess").disabled = "";
-            } else {
-                document.getElementById("manageUserAccess").disabled = "disabled";
-            }
-
-            if ((userAccess > userdb[userid].access || userID == userid) && userAccess >= 4) {
-                $('#manageUserModal').modal('show')
-            } else {
-                $('#insufficientPermissionsModal').modal('show')
-            }
             
         }
 
-        function manageUser() {
-            var data = {
-                "users": document.getElementById("manageUserID").value.split(", ")
-            }
-            if (document.getElementById("manageUserFirstname").value != "") {data.firstname = document.getElementById("manageUserFirstname").value}
-            if (document.getElementById("manageUserLastname").value != "") {data.lastname = document.getElementById("manageUserLastname").value}
-            if (document.getElementById("manageUserNickname").value != "") {data.nickname = document.getElementById("manageUserNickname").value}
-            if (document.getElementById("manageUserClass").value != "") {data.class = document.getElementById("manageUserClass").value}
-            if (document.getElementById("manageUserAccess").value != "") {data.access = document.getElementById("manageUserAccess").value}
-            if (Object.keys(data).length == 1) {
-                return false;
+        function manageEvent(remove) {
+            $('#manageEventModal').modal('hide')
+
+            if (remove == true) {
+                var data = {
+                    "event_id": document.getElementById("deleteEventID").value,
+                    "delete": true
+                }
+            } else {
+                var data = {
+                    "event_id": document.getElementById("manageEventID").value,
+                    "name": document.getElementById("manageEventName").value,
+                    "startdate": document.getElementById("manageEventStartDate").value+"T"+document.getElementById("manageEventStartTime").value,
+                    "enddate": document.getElementById("manageEventEndDate").value+"T"+document.getElementById("manageEventEndTime").value,
+                    "description": document.getElementById("manageEventDescription").value,
+                    "type": document.getElementById("manageEventType").value,
+                    "for": Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value),
+                    "by": document.getElementById("manageEventBy").value.split(";")
+                }
+                if (data.event_id == "") {
+                    delete data.event_id;
+                }
+                if (document.getElementById("manageEventStartTime").value == "") {
+                    data.startdate = document.getElementById("manageEventStartDate").value;
+                }
+                if (document.getElementById("manageEventEndDate").value == "") {
+                    document.getElementById("manageEventEndTime").value = ""
+                }
+                if (document.getElementById("manageEventEndTime").value == "") {
+                    data.enddate = document.getElementById("manageEventEndDate").value;
+                }
             }
 
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/${userID}/${userLoginID}`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/events/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -625,7 +709,19 @@
                     }
                 }
             };
+
             xhr.send(JSON.stringify(data));
+            return false;
+        }
+
+        function confirmDelete(eventID) {
+            if (eventsdb[eventID].by.includes(userID) || userAccess >= 4) {
+                document.getElementById("deleteEventID").value = eventID;
+                $('#confirmDeleteModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+            
         }
 
     </script>
