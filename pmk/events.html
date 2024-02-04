@@ -199,7 +199,40 @@
                         <h1 class="h3 mb-0 text-gray-800">Kalendarz wydarzeń</h1>
                     </div>
 
-                    <input type="datetime-local" class="form-control" id="selectDate">
+                    <div class="row justify-content-end mb-4 mt-4 mr-0">
+                        <a href="#" onClick="openManageEventModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Dodaj wydarzenie</span>
+                        </a>
+                    </div>
+
+                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Lista wydarzeń</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa wydarzenia</th>
+                                            <th>Data</th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="events-list-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
 
                 </div>
                 <!-- /.container-fluid -->
@@ -275,57 +308,77 @@
         </div>
     </div>
 
-    <!-- Manage User Modal-->
-    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Manage Event Modal-->
+    <div class="modal fade" id="manageEventModal" tabindex="-1" role="dialog" aria-labelledby="manageEventModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modyfikacja użytkownika</h5>
+                    <h5 class="modal-title" id="manageEventModalLabel">Dodaj/modyfikuj wydarzenie</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group" style="display: none;">
-                            <label for="manageUserID">ID</label>
-                            <input type="text" class="form-control" id="manageUserID">
+                        <div class="form-group">
+                            <label for="manageEventName">Nazwa wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventName">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="manageEventStartDate">Data rozpoczęcia</label>
+                                    <input type="date" class="form-control" id="manageEventStartDate">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="manageEventStartTime">Godzina</label>
+                                    <input type="time" class="form-control" id="manageEventStartTime">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="manageEventEndDate">Data zakończenia</label>
+                                    <input type="date" class="form-control" id="manageEventEndDate">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="manageEventEndTime">Godzina</label>
+                                    <input type="time" class="form-control" id="manageEventEndTime">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="manageUserFirstname">Imię</label>
-                            <input type="text" class="form-control" id="manageUserFirstname">
+                            <label for="manageEventDescription">Opis</label>
+                            <textarea class="form-control" id="manageEventDescription"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="manageUserLastname">Nazwisko</label>
-                            <input type="text" class="form-control" id="manageUserLastname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserNickname">Pseudonim</label>
-                            <input type="text" class="form-control" id="manageUserNickname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserClass">Klasa</label>
-                            <input type="text" class="form-control" id="manageUserClass">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserAccess">Poziom uprawnień</label>
-                            <select class="form-control" id="manageUserAccess" aria-describedby="manageUserAccessHelp">
-                                <option value="">Bez zmian</option>
-                                <option value=0>0 - użytkownik</option>
-                                <option value=1>1 - członek SU</option>
-                                <option value=2>2</option>
-                                <option value=3>3</option>
-                                <option value=4>4</option>
-                                <option value=5>5 - administrator aplikacji</option>
+                            <label for="manageEventDescription">Typ</label>
+                            <select class="form-control" id="manageEventType">
+                                <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
+                                <option value="szkolne">Wydarzenie szkolne</option>
                             </select>
-                            <small id="manageUserAccessHelp" class="form-text text-muted">Obecny poziom uprawnień: </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventFor">Odbiorcy</label>
+                            <input type="text" class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp">
+                            <small id="manageEventForHelp">Wprowadź klasy oddzielone przecinkiem (np. 1lo;2lo). Nauczyciele = N.</small>
+                            <select class="form-control" id="testtest" multiple>
+                                <option value="1lo">1LO</option>
+                                <option value="2lo">2LO</option>
+                                <option value="3lo">3LO</option>
+                            </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" data-dismiss="modal" href="#" onclick="manageUser();">Zapisz</a>
+                    <!--<a class="btn btn-primary" data-dismiss="modal" href="#" data-toggle="modal" data-target="#confirmModal">Zapisz</a>-->
                 </div>
             </div>
         </div>
@@ -416,10 +469,10 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var eventsdb;
+        var eventsdb = {}
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -428,27 +481,42 @@
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
-                    userdb = data;
-                    usersCount = Object.keys(userdb).length;
-                    sessionStorage.setItem("userscount", usersCount);
-                    var dataTable = $('#dataTable').DataTable();
-                    dataTable.clear();
-                    for (entry in data) {
-                        if (entry == "aynqcj8mnzt2o0xh") {
-                            continue;
+                    eventsdb = data;
+                    const sortedEvents = Object.fromEntries(
+                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
+                            const date1 = new Date(event1.date);
+                            const date2 = new Date(event2.date);
+                            return date1 - date2;
+                        })
+                    );
+
+                    //Wyświeltanie wydarzeń chronologicznie
+                    for (event in sortedEvents) {
+                        var badgeColor = "primary";
+                        if (sortedEvents[event].type.toUpperCase() == "SU") {
+                            badgeColor = "primary";
                         }
-                        dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, `
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Zarządzaj
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
-                                <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
-                            </div>
-                        </div>
-                        `]).draw();
-                    }          
+                        if (sortedEvents[event].type.toUpperCase() == "SZKOLNE") {
+                            badgeColor = "dark";
+                        }
+                        document.getElementById("events-list-table").innerHTML += `
+                        <tr>
+                            <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div> ${sortedEvents[event].name}</td>
+                            <td style="vertical-align: middle;">${sortedEvents[event].date}</td>
+                            <td style="vertical-align: middle;">
+                                <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-info"></i>
+                                </a>
+                                <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a href="#" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        `
+                    }       
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -459,10 +527,12 @@
             xhr.send();
         }
 
-        //reloadDB();
+        reloadDB();
         
 
-        function openManageUserModal(userid) {
+        function openManageEventModal(eventid) {
+            $('#manageEventModal').modal('show')
+            return false;
             document.getElementById("manageUserID").value = userid;
 
             document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;

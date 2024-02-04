@@ -4851,6 +4851,8 @@ input[type="button"].btn-block {
   vertical-align: baseline;
   border-radius: 0.35rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  position: relative;
+  top: -2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -9762,6 +9764,8 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .badge {
     border: 1px solid #000;
+    position: relative;
+    top: -2px;
   }
   .table {
     border-collapse: collapse !important;
