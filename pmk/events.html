@@ -375,13 +375,8 @@
                             <small id="manageEventForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventBy">Koordynatorzy</label>
-                            <input type="text" class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" required>
-                            <small id="manageEventByHelp" class="form-text text-muted">ID użytkowników oddzielone średnikiem (;)</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageEventByTest">Koordynatorzy (BETA)</label>
-                            <select class="form-control" id="manageEventByTest" multiple>
+                            <label for="manageEventBy">Koordynatorzy (BETA)</label>
+                            <select class="form-control" id="manageEventBy" multiple>
                                 <option value="abc123">SZYMON SZULC</option>
                                 <option value="def456">ROBERT KOLBERG</option>
                                 <option value="ghi789">ALEKSANDRA KLAJDA</option>
@@ -510,6 +505,27 @@
         var eventsdb = {}
 
         function reloadDB() {
+            //Pobieranie listy członków SU
+            var url = `https://apimobilnykatolik.glitch.me/pmk/su/userlist/${userID}/${userLoginID}`;
+            var xhrA = new XMLHttpRequest();
+            xhrA.open("GET", url);
+
+            xhrA.onreadystatechange = function () {
+            if (xhrA.readyState === 4) {
+                if (xhrA.status == 200) {
+                    var userList = JSON.parse(xhrA.responseText);
+                    document.getElementById("manageEventBy").innerHTML = "";
+                    for (x in userList) {
+                        document.getElementById("manageEventBy").innerHTML += `
+                        <option value="${x}">${userList[x].firstname} ${userList[x].lastname}</option>
+                        `
+                    }
+                    document.getElementById("manageEventFor").innerHTML += '<option value="n">Nauczyciele</option>'
+                }
+            }};
+
+            xhrA.send();
+
             //Pobieranie klas
             var url = `https://apimobilnykatolik.glitch.me/getclasses`;
             var xhrB = new XMLHttpRequest();
@@ -622,11 +638,16 @@
                 document.getElementById("manageEventDescription").value = eventsdb[eventid].description;
                 document.getElementById("manageEventType").value = eventsdb[eventid].type;
                 document.getElementById("manageEventType").disabled = "disabled";
+                document.getElementById("manageEventFor").value = "";
                 Array.from(document.getElementById("manageEventFor").options).forEach(option => {
                 if (eventsdb[eventid].for.includes(option.value)) {
                     option.selected = true;
                 }});
-                document.getElementById("manageEventBy").value = eventsdb[eventid].by.join(";");
+                document.getElementById("manageEventBy").value = "";
+                Array.from(document.getElementById("manageEventBy").options).forEach(option => {
+                if (eventsdb[eventid].by.includes(option.value)) {
+                    option.selected = true;
+                }});
                 
             } else { //New event
                 if (userAccess < 1) {
@@ -672,7 +693,7 @@
                     "description": document.getElementById("manageEventDescription").value,
                     "type": document.getElementById("manageEventType").value,
                     "for": Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value),
-                    "by": document.getElementById("manageEventBy").value.split(";")
+                    "by": Array.from(document.getElementById("manageEventBy").selectedOptions).map(option => option.value)
                 }
                 if (data.event_id == "") {
                     delete data.event_id;
