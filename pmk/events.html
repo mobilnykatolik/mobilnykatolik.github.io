@@ -366,13 +366,9 @@
                         </div>
                         <div class="form-group">
                             <label for="manageEventFor">Odbiorcy</label>
-                            <input type="text" class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp">
-                            <small id="manageEventForHelp">Wprowadź klasy oddzielone przecinkiem (np. 1lo;2lo). Nauczyciele = N.</small>
-                            <select class="form-control" id="testtest" multiple>
-                                <option value="1lo">1LO</option>
-                                <option value="2lo">2LO</option>
-                                <option value="3lo">3LO</option>
+                            <select class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp" multiple>
                             </select>
+                            <small id="manageEventForHelp">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                         </div>
                     </form>
                 </div>
@@ -472,6 +468,27 @@
         var eventsdb = {}
 
         function reloadDB() {
+            //Pobieranie klas
+            var url = `https://apimobilnykatolik.glitch.me/getclasses`;
+            var xhrB = new XMLHttpRequest();
+            xhrB.open("GET", url);
+
+            xhrB.onreadystatechange = function () {
+            if (xhrB.readyState === 4) {
+                if (xhrB.status == 200) {
+                    var classes = xhrB.responseText;
+                    classes = classes.split(";")
+                    for (x in classes) {
+                        document.getElementById("manageEventFor").innerHTML += `
+                        <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
+                        `
+                    }
+                    document.getElementById("manageEventFor").innerHTML += '<option value="n">Nauczyciele</option>'
+                }
+            }};
+
+            xhrB.send();
+
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
