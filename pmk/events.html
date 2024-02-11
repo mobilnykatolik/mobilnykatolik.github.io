@@ -63,7 +63,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
                         <a class="collapse-item active" href="events.html">Wyświetl</a>
-                        <a class="collapse-item" href="#">Dodaj wydarzenie</a>
                         <h6 class="collapse-header">Bilety</h6>
                         <a class="collapse-item" href="#">Zarządzaj biletami</a>
                         <a class="collapse-item" href="#">Wydarzenia biletowane</a>
@@ -362,7 +361,7 @@
                             <textarea class="form-control" id="manageEventDescription"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventDescription">Typ</label>
+                            <label for="manageEventType">Typ</label>
                             <select class="form-control" id="manageEventType" required>
                                 <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
                                 <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
@@ -378,6 +377,11 @@
                             <label for="manageEventBy">Koordynatorzy</label>
                             <select class="form-control" id="manageEventBy" multiple>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="custom-checkbox" id="manageEventSpecialSuit" aria-describedby="manageEventSpecialSuitHelp">
+                            <label for="manageEventSpecialSuit" style="margin-bottom: 0;">Specjalny strój</label>
+                            <small id="manageEventSpecialSuitHelp" class="form-text text-muted">Zaznacz, jeśli na to wydarzenie jest wymagany strój galowy</small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -622,14 +626,18 @@
                 document.getElementById("manageEventStartDate").value = eventsdb[eventid].startdate.split("T")[0];
                 if (eventsdb[eventid].startdate.split("T")[1] != undefined) {
                     document.getElementById("manageEventStartTime").value = eventsdb[eventid].startdate.split("T")[1];
+                } else {
+                    document.getElementById("manageEventStartTime").value = "";
                 }
                 if (eventsdb[eventid].enddate != undefined) {
                     document.getElementById("manageEventEndDate").value = eventsdb[eventid].enddate.split("T")[0];
                     if (eventsdb[eventid].enddate.split("T")[1] != undefined) {
                         document.getElementById("manageEventEndTime").value = eventsdb[eventid].enddate.split("T")[1];
+                    } else {
+                        document.getElementById("manageEventEndTime").value = "";
                     }
                 }
-                document.getElementById("manageEventDescription").value = eventsdb[eventid].description;
+                document.getElementById("manageEventDescription").value = eventsdb[eventid].description.replaceAll("<br>", "\n");
                 document.getElementById("manageEventType").value = eventsdb[eventid].type;
                 document.getElementById("manageEventType").disabled = "disabled";
                 document.getElementById("manageEventFor").value = "";
@@ -647,6 +655,11 @@
                     document.getElementById("manageEventBy").disabled = "disabled";
                 } else {
                     document.getElementById("manageEventBy").disabled = "";
+                }
+                if (eventsdb[eventid].specialsuit == true) {
+                    document.getElementById("manageEventSpecialSuit").checked = "checked";
+                } else {
+                    document.getElementById("manageEventSpecialSuit").checked = "";
                 }
                 
             } else { //New event
@@ -666,6 +679,7 @@
                 document.getElementById("manageEventFor").value = "";
                 document.getElementById("manageEventBy").value = userID;
                 document.getElementById("manageEventBy").disabled = "";
+                document.getElementById("manageEventSpecialSuit").checked = "";
                 if (userAccess >= 4) {
                     document.getElementById("manageEventTypeSzkolne").disabled = ""
                 } else {
@@ -691,7 +705,7 @@
                     "name": document.getElementById("manageEventName").value,
                     "startdate": document.getElementById("manageEventStartDate").value+"T"+document.getElementById("manageEventStartTime").value,
                     "enddate": document.getElementById("manageEventEndDate").value+"T"+document.getElementById("manageEventEndTime").value,
-                    "description": document.getElementById("manageEventDescription").value,
+                    "description": document.getElementById("manageEventDescription").value.replaceAll("\n", "<br>"),
                     "type": document.getElementById("manageEventType").value,
                     "for": Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value),
                     "by": Array.from(document.getElementById("manageEventBy").selectedOptions).map(option => option.value)
@@ -707,6 +721,11 @@
                 }
                 if (document.getElementById("manageEventEndTime").value == "") {
                     data.enddate = document.getElementById("manageEventEndDate").value;
+                }
+                if (document.getElementById("manageEventSpecialSuit").checked) {
+                    data.specialsuit = true;
+                } else {
+                    data.specialsuit = false;
                 }
             }
 
