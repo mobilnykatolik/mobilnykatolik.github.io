@@ -236,7 +236,7 @@
                                         Treść zawarta w poniższych polach będzie wyświetlana w zakładce <b>Szkolna Liga Sportowa</b> w aplikacji <b>Mobilny Katolik</b>.
                                         <br>
                                         <b>UWAGA! </b>Poniższe ustawienia nie mają wpływu na wyświetlanie rankingu. W polach można stosować formatowanie HTML.
-                                        <form class="mt-2">
+                                        <form class="mt-2" onsubmit="return modifySlsPage();">
                                             <div class="form-group">
                                                 <label for="sendNotificationContent">Zawartość strony</label>
                                                 <textarea class="form-control" id="slsPageContent"></textarea>
@@ -249,7 +249,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <center><button class="btn btn-primary" onclick="modifySlsPage();">Zapisz</button></center>
+                                            <center><input type="submit" class="btn btn-primary" value="Zapisz"></center>
                                         </form>
                                     </div>
                                 </div>
@@ -657,8 +657,9 @@
         }
 
         function modifySlsPage() {
-            $('#loadingModal').modal('show')
+            $('#loadingModal').modal('show');
             var data = {page: document.getElementById("slsPageContent").value.replaceAll("\n", "<NL>")}
+            console.log(data);
             
             var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
