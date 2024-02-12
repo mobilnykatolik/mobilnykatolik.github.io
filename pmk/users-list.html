@@ -90,7 +90,7 @@
 
             <!-- Nav Item - Ideas -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="#" onclick="openSendNotificationModal('GLOBAL')">
                     <i class="fas fa-fw fa-bell"></i>
                     <span>Wyślij powiadomienie</span></a>
             </li>
@@ -600,8 +600,13 @@
         }
 
         function openSendNotificationModal(userid) {
-            document.getElementById("sendNotificationUsers").value = userid;
-            document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid].firstname} ${userdb[userid].lastname}`;
+            if (userid == "GLOBAL") {
+                document.getElementById("sendNotificationUsers").value = "GLOBAL";
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
+            } else {
+                document.getElementById("sendNotificationUsers").value = userid;
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid].firstname} ${userdb[userid].lastname}`;
+            }
             $('#sendNotificationModal').modal('show')
         }
 
@@ -622,6 +627,9 @@
             $('#loadingModal').modal('show')
             
             var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
+            if (data.users == "GLOBAL") {
+                url = `https://apimobilnykatolik.glitch.me/pmk/pushall/${userID}/${userLoginID}`;
+            }
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
