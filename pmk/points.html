@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Szkolna Liga Sportowa</title>
+    <title>Panel Mobilny Katolik - Wydarzenia</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,16 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <style>
+        td[colspan="3"] {
+            text-align: center;
+        }
+        tr, td {
+            vertical-align: middle!important;
+        }
+    </style>
 
 </head>
 
@@ -66,9 +75,9 @@
                         <a class="collapse-item" href="#">Zarządzaj biletami</a>
                         <a class="collapse-item" href="#">Wydarzenia biletowane</a>
                         <h6 class="collapse-header">Wirtualne rybki</h6>
-                        <a class="collapse-item" href="points.html">Zarządzaj</a>
+                        <a class="collapse-item active" href="points.html">Zarządzaj</a>
                         <h6 class="collapse-header">SLS</h6>
-                        <a class="collapse-item active" href="sls.html">Szkolna Liga Sportowa</a>
+                        <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
                 </div>
             </li>
@@ -193,106 +202,71 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Szkolna Liga Sportowa</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie Wirtualnymi Rybkami</h1>
                     </div>
 
                     <div class="row">
-                        <div class="col-xl-8 col-lg-8">
-                            <!-- DataTales Example -->
-                            <div class="card shadow mb-4">
-                                <a href="#slsMainTable" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="slsMainTable">
-                                    <h6 class="m-0 font-weight-bold text-primary">Klasyfikacja generalna</h6>
-                                </a>
-                                <div class="collapse show" id="slsMainTable">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Imię</th>
-                                                        <th>Nazwisko</th>
-                                                        <th>Klasa</th>
-                                                        <th>Punkty</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="users-list-table"></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <!-- Collapsable Card Example -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Accordion -->
-                                <a href="#slsAppPageModify" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="slsAppPageModify">
-                                    <h6 class="m-0 font-weight-bold text-primary">Edycja strony</h6>
+                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
+                                    <h6 class="m-0 font-weight-bold text-primary">Pomoc</h6>
                                 </a>
                                 <!-- Card Content - Collapse -->
-                                <div class="collapse show" id="slsAppPageModify">
+                                <div class="collapse" id="collapseCardExample">
                                     <div class="card-body">
-                                        Treść zawarta w poniższych polach będzie wyświetlana w zakładce <b>Szkolna Liga Sportowa</b> w aplikacji <b>Mobilny Katolik</b>.
+                                        W tej zakładce możesz dodać Wirtualne Rybki do wydarzeń.
                                         <br>
-                                        <b>UWAGA! </b>Poniższe ustawienia nie mają wpływu na wyświetlanie rankingu. W polach można stosować formatowanie HTML.
-                                        <form class="mt-2" onsubmit="return modifySlsPage();">
-                                            <div class="form-group">
-                                                <label for="sendNotificationContent">Zawartość strony</label>
-                                                <textarea class="form-control" id="slsPageContent"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck" checked disabled>
-                                                    <label class="custom-control-label" for="customCheck">
-                                                        Widoczność modułu
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <center><input type="submit" class="btn btn-primary" value="Zapisz"></center>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Donut Chart -->
-                        <div class="col-xl-4 col-lg-4">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Aktualizuj tabelę</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <center>
-                                    <input type="file" id="csvFileInput" accept=".csv" hidden>
-                                    <a href="#" id="csvFileUploadBtn" class="btn btn-primary btn-icon-split ml-1 mb-1">
-                                        <span class="icon text-white-50">
-                                            <i class="fa fa-upload"></i>
-                                        </span>
-                                        <span class="text">Wgraj tabelę</span>
-                                    </a>
-                                    </center>
-                                </div>
-                            </div>
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Statystyki</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <h6 class="m-0" id="chartNoData">Brak danych do wyświetlenia</h6>
-                                    <div class="chart-pie" id="chartCard" style="display: none;">
-                                        <canvas id="myPieChart"></canvas>
+                                        Aby dodać Wirtualne Rybki do kont użytkowników, skorzystaj z zakładki <b>Zarządzanie użytkownikami <i class="fas fa-long-arrow-alt-right"></i> Modyfikuj WR</b>.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="row justify-content-end mb-4 mt-4 mr-0">
+                        <a href="#" onClick="openManageEventPointsModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Dodaj punkty do wydarzenia</span>
+                        </a>
+                    </div>
 
+                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Lista wydarzeń</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-checkbox" id="hidePastEvents" aria-describedby="manageEventSpecialSuitHelp" onchange="generateTable()">
+                                <label for="hidePastEvents" style="margin-bottom: 0;">Ukryj minione wydarzenia</label>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fc;">
+                                            <th colspan="3" style="text-align: center;">Nazwa wydarzenia</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Nazwa</th>
+                                            <th>Ilość punktów</th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="event-points-list">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
 
                 </div>
                 <!-- /.container-fluid -->
@@ -335,7 +309,7 @@
                 <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" href="login.html">Wyloguj się</a>
+                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
                 </div>
             </div>
         </div>
@@ -363,6 +337,69 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Event Modal-->
+    <div class="modal fade" id="manageEventPointsModal" tabindex="-1" role="dialog" aria-labelledby="manageEventPointsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageEventPointsModalLabel">Modyfikuj/dodaj punkty do wydarzenia</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageEventPoints();">
+                    <div class="modal-body">
+                        <div class="form-group" style="display: none;">
+                            <label for="manageEventPointsID">ID wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventPointsID">
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventPointsEventID">Wydarzenie</label>
+                            <select type="text" class="form-control" id="manageEventPointsEventID" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventPointsName">Nazwa wyświetlana</label>
+                            <input type="text" class="form-control" id="manageEventPointsName" aria-describedby="manageEventPointsNameHelp" required>
+                            <small id="manageEventPointsNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w historii punktów użytkowników</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventPointsAmount">Liczba punktów</label>
+                            <input type="number" class="form-control" id="manageEventPointsAmount" min="1">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal-->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć punkty z wydarzenia?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="deleteEventPointsID" style="display: none;">
+                    Kliknij <b>Potwierdź</b>, aby usunąć.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventPoints(true);">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -434,6 +471,7 @@
         </div>
     </div>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -445,33 +483,18 @@
     <script src="js/sb-admin-2.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        //Wgrywanie pliku .csv
-        document.getElementById('csvFileUploadBtn').addEventListener('click', function() {
-            if (userAccess >= 3) {
-                document.getElementById('csvFileInput').click();
-            } else {
-                $('#insufficientPermissionsModal').modal('show')
-            }
-        });
-        document.getElementById('csvFileInput').addEventListener('change', function() {
-            var wybranyPlik = document.getElementById('csvFileInput').files[0];
-            if (wybranyPlik) {
-                handleFile();
-            }
-        });
+        var eventsdb = {}
+        var eventPointsDB = {}
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/sls`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -479,23 +502,42 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    var slsData = JSON.parse(xhr.responseText);
-                    var dataTable = $('#dataTable').DataTable();
-                    dataTable.clear();
-                    chartData = {}
-                    document.getElementById("slsPageContent").value = slsData.page.replaceAll("<NL>", "\n");
-                    slsData = slsData.participants;
-                    for (entry in slsData) {
-                        entry = slsData[entry]
-                        dataTable.row.add([entry.firstname, entry.lastname, entry.class, entry.points]);
-                        if (chartData[entry.class] == undefined) {
-                            chartData[entry.class] = 1
-                        } else {
-                            chartData[entry.class] += 1
-                        }
+                    var data = JSON.parse(xhr.responseText);
+                    eventsdb = data;
+                    eventsdb = Object.fromEntries(
+                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
+                            const date1 = new Date(event1.startdate);
+                            const date2 = new Date(event2.startdate);
+                            return date1 - date2;
+                        })
+                    );
+                    document.getElementById("manageEventPointsEventID").innerHTML = `<option value="" selected disabled>Wybierz wydarzenie</option>`;
+                    for (event in eventsdb) {
+                        if (eventsdb[event].type.toUpperCase() == "SZKOLNE") {continue;}
+                        document.getElementById("manageEventPointsEventID").innerHTML += `
+                        <option value="${event}">${eventsdb[event].name} (${eventsdb[event].startdate.split("T")[0]})</option>
+                        `
                     }
-                    dataTable.order([3, 'desc']).draw();
-                    updateChart(chartData);    
+
+                    //Pobieranie listy wydarzeń z Wirtualnymi Rybkami
+                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+                    var xhrA = new XMLHttpRequest();
+                    xhrA.open("GET", url);
+
+                    xhrA.onreadystatechange = function () {
+                    if (xhrA.readyState === 4) {
+                        if (xhrA.status == 200) {
+                            eventPointsDB = JSON.parse(xhrA.responseText);
+                            generateTable();
+                        } else if (xhrA.status == 403) {
+                            $('#insufficientPermissionsModal').modal('show')
+                        } else {
+                            $('#apiErrorModal').modal('show')
+                        }
+                    }};
+
+                    xhrA.send();
+                    
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -506,72 +548,110 @@
             xhr.send();
         }
 
-        reloadDB();
-
-        //Aktualizowanie tabeli na podstawie wgranego pliku .csv
-        function handleFile() {
-            const input = document.getElementById('csvFileInput');
-            const file = input.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    const csv = e.target.result;
-                    const data = csv;
-                    if (!data.startsWith("Nazwisko,Imię,Klasa,Punkty")) {
-                        document.getElementById("apiResponse").innerHTML = "Wprowadzona tabela jest nieprawidłowa! Sprawdź, czy została pobrana z oryginalnego źródła."
-                        $('#apiResponseModal').modal('show')
-                        return false;
-                    }
-                    createTable(data);
-                };
-
-                reader.readAsText(file);
-            } else {
-                alert("Please select a CSV file.");
+        function generateTable() {
+            var today = new Date();
+            today = today.toISOString().split('T')[0];
+            document.getElementById("event-points-list").innerHTML = "";
+            var hidePast = false;
+            if (document.getElementById("hidePastEvents").checked) {
+                hidePast = true;
             }
-            document.getElementById('csvFileInput').value = "";
+            for (x in eventsdb) {
+                if (hidePast == true) {
+                    if (eventsdb[x].enddate != undefined) {
+                        if (eventsdb[x].enddate.split('T')[0] < today) {
+                            continue;
+                        }
+                    } else {
+                        if (eventsdb[x].startdate.split('T')[0] < today) {
+                            continue;
+                        }
+                    }
+                }
+                var eventPoints = "";
+                for (i in eventPointsDB) {
+                    if (eventPointsDB[i].eventid == x) {
+                        eventPoints += `
+                        <tr>
+                            <td>${eventPointsDB[i].name}</td>
+                            <td>${eventPointsDB[i].amount}</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
+                                    Zarządzaj
+                                </button>
+                                <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
+                                    Usuń
+                                </button>
+                            </td>
+                        </tr>`
+                    }
+                }
+                if (eventPoints != "") {
+                    document.getElementById("event-points-list").innerHTML += `
+                    <tr style="background-color: #f8f9fc;">
+                        <td colspan="3"><b>${eventsdb[x].name}</b></td>
+                    </tr>
+                    ${eventPoints}`
+                }
+            }
         }
 
-        function createTable(data) {
-            $('#loadingModal').modal('show')
-            //NAZWISKO, IMIE, KLASA, PUNKTY
-            //Tworzenie obiektu JSON, który będzie zapisany w PMK
-            data = data.split("\n");
-            delete data[0]; //Usunięcie nagłówka
+        reloadDB();
 
-            var slsData = {"participants": {}}
+        function getManageEventFor() {
+            console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
+            return false;
+        }
+        
 
-            for (entry in data) {
-                entry = data[entry].split(",");
-                if (entry[3] == undefined || entry[3] == "") {
-                    continue;
-                }
-                slsData.participants[`${entry[1].toUpperCase()} ${entry[0].toUpperCase()}, ${entry[2].toUpperCase()}`] = {
-                    "points": parseInt(entry[3]),
-                    "firstname": entry[1].toUpperCase(),
-                    "lastname": entry[0].toUpperCase(),
-                    "class": entry[2].toUpperCase()
-                }
+        function openManageEventPointsModal(eventid) {
+            if (userAccess < 3) {
+                $('#insufficientPermissionsModal').modal('show')
+                return false;
+            } else {
+                $('#manageEventPointsModal').modal('show')
             }
-
-            var dataTable = $('#dataTable').DataTable();
-            dataTable.clear();
-            chartData = {}
-            slsData = slsData.participants;
-            for (entry in slsData) {
-                entry = slsData[entry]
-                dataTable.row.add([entry.firstname, entry.lastname, entry.class, entry.points]);
-                if (chartData[entry.class] == undefined) {
-                    chartData[entry.class] = 1
-                } else {
-                    chartData[entry.class] += 1
-                }
+            if (eventid != undefined) { //Modifying event
+                document.getElementById("manageEventPointsID").value = eventid;
+                document.getElementById("manageEventPointsName").value = eventPointsDB[eventid].name;
+                document.getElementById("manageEventPointsAmount").value = parseInt(eventPointsDB[eventid].amount);
+                document.getElementById("manageEventPointsEventID").value = eventPointsDB[eventid].eventid;
+                
+            } else { //New event
+                document.getElementById("manageEventPointsID").value = "";
+                document.getElementById("manageEventPointsName").value = "";
+                document.getElementById("manageEventPointsAmount").value = 0;
+                document.getElementById("manageEventPointsEventID").value = "";
             }
-            slsData = {participants: slsData};
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
+            
+            
+        }
+
+        function manageEventPoints(remove) {
+            $('#manageEventPointsModal').modal('hide')
+
+            if (remove == true) {
+                var data = {
+                    "id": document.getElementById("deleteEventPointsID").value,
+                    "delete": true
+                }
+            } else {
+                var data = {
+                    "id": document.getElementById("manageEventPointsID").value,
+                    "name": document.getElementById("manageEventPointsName").value,
+                    "amount": document.getElementById("manageEventPointsAmount").value,
+                    "eventid": document.getElementById("manageEventPointsEventID").value
+                }
+                if (data.id == "") {
+                    delete data.id;
+                }
+            }
+
+            $('#loadingModal').modal('show')
+            console.log(data);
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/eventpoints/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -580,99 +660,12 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
-                        dataTable.order([3, 'desc']).draw();
-                        updateChart(chartData);  
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(slsData));
-        }
-
-        function updateChart(data) {
-            /*Example data:
-            {
-                "1LO": 1,
-                "2LO": 2,
-                "3LO", 3
-            }
-            */
-            var chart = {
-                labels: [],
-                values: []
-            }
-            for (label in data) {
-                chart.labels.push(label)
-                chart.values.push(data[label])
-            }
-            console.log(chart);
-            if (chart.labels.length == 0) {
-                document.getElementById("chartCard").style.display = "none";
-                document.getElementById("chartNoData").style.display = "block";
-                return false;
-            }
-            var ctx = document.getElementById("myPieChart");
-            document.getElementById("chartCard").style.display = "block";
-            document.getElementById("chartNoData").style.display = "none";
-            var myPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: chart.labels,
-                datasets: [{
-                data: chart.values,
-                backgroundColor: ["#A80C2F", "#D03C4C", "#F8616B", "#FF868B", "#FFAAAD"],
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-                },
-                legend: {
-                display: true
-                },
-                cutoutPercentage: 80,
-            },
-            });
-        }
-
-        function modifySlsPage() {
-            $('#loadingModal').modal('show');
-            var data = {page: document.getElementById("slsPageContent").value.replaceAll("\n", "<NL>")}
-            console.log(data);
-            
-            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
                         reloadDB();
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
                     } else if (xhr.status == 403) {
                         $('#insufficientPermissionsModal').modal('show')
                         setTimeout(function() {
@@ -689,6 +682,11 @@
 
             xhr.send(JSON.stringify(data));
             return false;
+        }
+
+        function confirmDelete(eventPointsID) {
+            document.getElementById("deleteEventPointsID").value = eventPointsID;
+            $('#confirmDeleteModal').modal('show')
         }
 
     </script>

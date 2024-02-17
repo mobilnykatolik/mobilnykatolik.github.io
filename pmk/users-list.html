@@ -63,14 +63,22 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
                         <a class="collapse-item" href="events.html">Wyświetl</a>
-                        <a class="collapse-item" href="#">Dodaj wydarzenie</a>
                         <h6 class="collapse-header">Bilety</h6>
                         <a class="collapse-item" href="#">Zarządzaj biletami</a>
                         <a class="collapse-item" href="#">Wydarzenia biletowane</a>
+                        <h6 class="collapse-header">Wirtualne rybki</h6>
+                        <a class="collapse-item" href="points.html">Zarządzaj</a>
                         <h6 class="collapse-header">SLS</h6>
                         <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
                 </div>
+            </li>
+
+            <!-- Nav Item - Lucky number -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-gem fa-fw"></i>
+                    <span>Szczęśliwy numerek</span></a>
             </li>
 
             <!-- Divider -->
@@ -103,30 +111,19 @@
                 Użytkownicy
             </div>
 
-            <!-- Nav Item - User management Collapse Menu -->
+            <!-- Nav Item - User management -->
             <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Zarządzaj</span>
-                </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Użytkownicy</h6>
-                        <a class="collapse-item active" href="users-list.html">Lista użytkowników</a>
-                        <h6 class="collapse-header">Dostęp do aplikacji</h6>
-                        <a class="collapse-item" href="manage-classes.html">Ustawienia klas</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="users-list.html">
+                    <i class="fas fa-fw fa-user-cog"></i>
+                    <span>Zarządzaj</span></a>
             </li>
 
-            <!-- Nav Item - Points -->
+            <!-- Nav Item - Class management -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-fish"></i>
-                    <span>Wirtualne Rybki</span></a>
+                <a class="nav-link" href="manage-classes.html">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Ustawienia klas</span></a>
             </li>
-
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -503,6 +500,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
                                 <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
+                                <a class="dropdown-item" href="#">Modyfikuj WR</a>
                             </div>
                         </div>
                         `]).draw();
