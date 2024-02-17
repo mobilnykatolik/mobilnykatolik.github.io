@@ -386,6 +386,62 @@
         </div>
     </div>
 
+    <!-- Manage User Points Modal-->
+    <div class="modal fade" id="managePointsModal" tabindex="-1" role="dialog" aria-labelledby="managePointsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="managePointsModalLabel">Zarządzanie punktami użytkownika</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="managePointsID">Zdarzenie</label>
+                                    <select class="form-control" id="managePointsID" onchange="getDefaultPointsAmount();">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="managePointsAmount">Ilość</label>
+                                    <input type="number" class="form-control" id="managePointsAmount">
+                                </div>
+                            </div>
+                        </div>
+                        Historia punktów
+                        <table class="table table-bordered mt-2 small">
+                            <thead>
+                                <tr>
+                                    <th>Zdarzenie</th>
+                                    <th>Ilość</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Udział w Zimowym Koncercie Charytatywnym</td>
+                                    <td>25</td>
+                                    <td>2023-12-01 18:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-primary" data-dismiss="modal" href="#">Zapisz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Modal -->
     <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -472,6 +528,7 @@
 
     <script>
         var userdb;
+        var eventPointsDB;
 
         function reloadDB() {
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
@@ -482,6 +539,24 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
+                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+                    var xhrA = new XMLHttpRequest();
+                    xhrA.open("GET", url);
+
+                    xhrA.onreadystatechange = function () {
+                    if (xhrA.readyState === 4) {
+                        if (xhrA.status == 200) {
+                            eventPointsDB = JSON.parse(xhrA.responseText);
+                            document.getElementById("managePointsID").innerHTML = `<option value="">Modyfikacja punktów</option>`;
+                            for (event in eventPointsDB) {
+                                document.getElementById("managePointsID").innerHTML += `
+                                    <option value="${event}">${eventPointsDB[event].name}</option>
+                                `
+                            }
+                        }
+                    }};
+
+                    xhrA.send();
                     var data = JSON.parse(xhr.responseText);
                     userdb = data;
                     usersCount = Object.keys(userdb).length;
@@ -500,7 +575,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
                                 <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
-                                <a class="dropdown-item" href="#">Modyfikuj WR</a>
+                                <a class="dropdown-item" href="#" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
                             </div>
                         </div>
                         `]).draw();
@@ -655,6 +730,23 @@
                 }
             };
             xhr.send(JSON.stringify(data));
+        }
+
+        function openManagePointsModal(userid) {
+
+            if (userAccess >= 3) {
+                $('#managePointsModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+            
+        }
+
+        function getDefaultPointsAmount() {
+            eventPointsID = document.getElementById("managePointsID").value;
+            if (eventPointsDB != "") {
+                document.getElementById("managePointsAmount").value = eventPointsDB[eventPointsID].amount;
+            }
         }
 
         function getIds() {
