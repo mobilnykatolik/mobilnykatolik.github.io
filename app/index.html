@@ -240,14 +240,9 @@
                 <span>Szkolna Liga Sportowa</span>
                 <!--<container>#WKRÓTCE</container>-->
             </div>
-            <div type="ind" id="pmk-button" style="display: none;" onclick="window.open(`https://panelmobilnykatolik.glitch.me/app/auth.html?lid=${loginID}`, '_self')">
+            <div type="ind" id="pmk-button" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/pmk/auth.html?lid=${loginID}`, '_self')">
                 <aside>🔧</aside>
                 <span>Panel Mobilny Katolik</span>
-                <!--<container>#WKRÓTCE</container>-->
-            </div>
-            <div type="ind" id="pmk2-button" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/pmk/auth.html?lid=${loginID}`, '_self')">
-                <aside>🔧</aside>
-                <span>Panel Mobilny Katolik 2.0</span>
                 <!--<container>#WKRÓTCE</container>-->
             </div>
         </div>
@@ -1210,7 +1205,6 @@ function startApplication() {
             loadSLS(data.sls);
             if (data.access > 0) {
                 document.getElementById("pmk-button").style.display = "block";
-                document.getElementById("pmk2-button").style.display = "block";
             }
             if (["1lo", "2lo", "3lo", "4lo"].includes(userClass)) {
                 document.getElementById("crime-party-available").style.display = "none";
