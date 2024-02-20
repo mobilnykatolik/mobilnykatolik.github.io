@@ -546,7 +546,7 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
 }
 
 .calendar-event {
-    width: calc(100% - 45px);
+    width: calc(100% - 89px);
     background-color: var(--additional);
     margin: 10px 0 10px 0;
     border-radius: 15px;
