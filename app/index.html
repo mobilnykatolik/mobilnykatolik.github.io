@@ -1596,6 +1596,13 @@ function loadCalendar() {
     var today = new Date();
     today = today.toISOString().split('T')[0];
     console.log(today);
+    var actMonth;
+    const miesiace = [
+        "Styczeń", "Luty", "Marzec",
+        "Kwiecień", "Maj", "Czerwiec",
+        "Lipiec", "Sierpień", "Wrzesień",
+        "Październik", "Listopad", "Grudzień"
+    ];
     for (event in eventsdb) {
         var eventID = event;
         var event = eventsdb[event];
@@ -1627,6 +1634,18 @@ function loadCalendar() {
         if (event.type == "szkolne") {
             event.name = `<container class="badge">SZKOLNE</container>`+event.name;
         }
+        const data = new Date(event.startdate);
+        if (data.getMonth() != actMonth) {
+            document.getElementById("event-list").innerHTML += `
+            <element>
+                <div class="calendar-line">
+                </div>
+                <h1>${miesiace[data.getMonth()]}</h1>
+            </element>
+            `
+            actMonth = data.getMonth();
+        }
+
         document.getElementById("event-list").innerHTML += `
         <element id="calendar-event-${eventID}">
             <div class="calendar-line">
