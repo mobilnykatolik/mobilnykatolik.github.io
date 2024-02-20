@@ -1605,14 +1605,17 @@ function loadCalendar() {
             event.date = zamienNaSlowa(event.startdate)
         }
         var past = "100%";
+        var pastDot = "var(--background)"
         var descriptionVisibility = "block";
         if (event.enddate != "") {
             if (event.enddate.split('T')[0] < today) {
                 past = "40%";
+                pastDot = "var(--theme-color)";
             }
         } else {
             if (event.startdate.split('T')[0] < today) {
                 past = "40%";
+                pastDot = "var(--theme-color)";
             }
         }
         if (past == "100%" && nextEventID == undefined) {
@@ -1624,9 +1627,9 @@ function loadCalendar() {
         document.getElementById("event-list").innerHTML += `
         <element id="calendar-event-${eventID}">
             <div class="calendar-line">
-                <div class="calendar-dot"></div>
+                <div class="calendar-dot" style="background-color: ${pastDot};"></div>
             </div>
-            <div class="calendar-event" style="opacity: ${past}">
+            <div class="calendar-event" style="opacity: ${past};">
                 <h1>${event.name}</h1>
                 <p>${event.date}</p>
                 <span style="display: ${descriptionVisibility}">${event.description}</span>
