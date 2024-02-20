@@ -518,3 +518,57 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     background-color: #ffffff;
     border-radius: 20px;
 }
+
+.calendar { 
+    width: 100%;
+}
+
+.calendar element {
+    display: flex;
+}
+
+.calendar-line {
+    background-color: var(--theme-color);
+    width: 5px;
+    margin: 0 20px 0 20px;
+}
+
+.calendar-dot {
+    background-color: var(--background);
+    width: 10px;
+    height: 10px;
+    position: relative;
+    border: 5px var(--theme-color) solid;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+
+.calendar-event {
+    width: calc(100% - 45px);
+    background-color: var(--additional);
+    margin: 10px 0 10px 0;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.calendar h1 {
+    color: var(--theme-color);
+    margin: 0;
+    font-weight: bold;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.calendar p {
+    color: var(--text);
+    margin: 0;
+    opacity: 80%;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
