@@ -1624,6 +1624,9 @@ function loadCalendar() {
         if (event.description == "") {
             descriptionVisibility = "none";
         }
+        if (event.type == "szkolne") {
+            event.name = `<container class="badge">SZKOLNE</container>`+event.name;
+        }
         document.getElementById("event-list").innerHTML += `
         <element id="calendar-event-${eventID}">
             <div class="calendar-line">

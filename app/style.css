@@ -580,3 +580,17 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     font-size: 13px;
     display: block;
 }
+
+container.badge {
+    display: inline-block;
+    width: fit-content;
+    position: relative;
+    background-color: var(--theme-color);
+    padding: 2px 3px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 10px;
+    vertical-align: middle;
+    margin: -3px 5px 0 0;
+    height: auto;
+}
