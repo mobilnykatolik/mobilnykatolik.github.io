@@ -524,31 +524,8 @@
         Kalendarz BETA
     </div>
     <div class="page-content">
-        <div class="calendar">
-            <element>
-                <div class="calendar-line"></div>
-                <h1>Luty</h1>
-            </element>
-            <element>
-                <div class="calendar-line">
-                    <div class="calendar-dot"></div>
-                </div>
-                <div class="calendar-event">
-                    <h1>Walentynki</h1>
-                    <p>14 lutego 2024 r.</p>
-                    <span>Poczta walentynkowa w szkole to tradycyjny sposób na wyrażenie uczucia w dniu zakochanych. Uczniowie mogą wysyłać sobie kartki z życzeniami i słodkimi wiadomościami, co tworzy atmosferę miłości i przyjaźni w całej szkole. To również doskonała okazja do budowania więzi społecznych i integracji wśród uczniów.</span>
-                </div>
-            </element>
-            <element>
-                <div class="calendar-line">
-                    <div class="calendar-dot"></div>
-                </div>
-                <div class="calendar-event">
-                    <h1>Szkolna Liga Sportowa: szachy</h1>
-                    <p>23 lutego 2024 r.</p>
-                    <span>Wydarzenie jest przeznaczone dla uczniów UKLO. Wymagane zapisy poprzez zakładkę Szkolna Liga Sportowa.</span>
-                </div>
-            </element>
+        <div class="calendar" id="event-list">
+
         </div>
     </div>
 </div>
@@ -899,6 +876,9 @@ var userClass = localStorage.getItem("userclass");
 
 var ordersdb;
 var ticketsdb;
+var eventsdb;
+
+var nextEventID;
 
 //Colors
 
@@ -916,6 +896,10 @@ window.addEventListener("hashchange", function(event) {
             } else {
                 document.getElementById(`menubar-${menubarPages[x]}`).classList.remove("selected");
             }
+        }
+        if (window.location.href.endsWith("calendar")) {
+            const element = document.getElementById("calendar-event-"+nextEventID);
+            element.scrollIntoView();
         }
     }, 10);
 });
@@ -1236,7 +1220,9 @@ function startApplication() {
             userSurname = data.lastname;
             userNickname = data.nickname;
             userClass = data.class;
+            eventsdb = data.events;
             loadSLS(data.sls);
+            loadCalendar();
             if (data.access > 0) {
                 document.getElementById("pmk-button").style.display = "block";
             }
@@ -1597,6 +1583,86 @@ function loadSLS(slsData) {
         }
     }
     return false;
+}
+
+function loadCalendar() {
+    eventsdb = Object.fromEntries(
+        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
+            const date1 = new Date(event1.startdate);
+            const date2 = new Date(event2.startdate);
+            return date1 - date2;
+        })
+    );
+    var today = new Date();
+    today = today.toISOString().split('T')[0];
+    console.log(today);
+    for (event in eventsdb) {
+        var eventID = event;
+        var event = eventsdb[event];
+        if (event.enddate != "") {
+            event.date = `${zamienNaSlowa(event.startdate)}<br>- ${zamienNaSlowa(event.enddate)}`
+        } else {
+            event.date = zamienNaSlowa(event.startdate)
+        }
+        var past = "100%";
+        var descriptionVisibility = "block";
+        if (event.enddate != "") {
+            if (event.enddate.split('T')[0] < today) {
+                past = "40%";
+            }
+        } else {
+            if (event.startdate.split('T')[0] < today) {
+                past = "40%";
+            }
+        }
+        if (past == "100%" && nextEventID == undefined) {
+            nextEventID = eventID;
+        }
+        if (event.description == "") {
+            descriptionVisibility = "none";
+        }
+        document.getElementById("event-list").innerHTML += `
+        <element id="calendar-event-${eventID}">
+            <div class="calendar-line">
+                <div class="calendar-dot"></div>
+            </div>
+            <div class="calendar-event" style="opacity: ${past}">
+                <h1>${event.name}</h1>
+                <p>${event.date}</p>
+                <span style="display: ${descriptionVisibility}">${event.description}</span>
+            </div>
+        </element>
+        `
+    }
+}
+
+function zamienNaSlowa(dataStr) {
+    const miesiace = [
+        "stycznia", "lutego", "marca",
+        "kwietnia", "maja", "czerwca",
+        "lipca", "sierpnia", "września",
+        "października", "listopada", "grudnia"
+    ];
+
+    const dniTygodnia = [
+        "ndz.", "pon.", "wt.",
+        "śr.", "czw.", "pt.", "sob."
+    ];
+
+    const data = new Date(dataStr);
+    const dzien = data.getDate();
+    const miesiac = miesiace[data.getMonth()];
+    const rok = data.getFullYear();
+    const dzienTygodnia = dniTygodnia[data.getDay()];
+
+    // Pobieramy godzinę i minutę z daty
+    if (dataStr.split("T")[1] != undefined) {
+        const godzina = String(data.getHours()).padStart(2, '0'); // dodajemy zero wiodące, jeśli godzina ma tylko jedną cyfrę
+        const minuta = String(data.getMinutes()).padStart(2, '0');
+        return `${dzienTygodnia}, ${dzien} ${miesiac} ${rok} r., ${godzina}:${minuta}`;
+    } else {
+        return `${dzienTygodnia}, ${dzien} ${miesiac} ${rok} r.`;
+    }
 }
 
 function checkNotifications(endpoint) {
