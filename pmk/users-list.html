@@ -530,6 +530,7 @@
     <script>
         var userdb;
         var eventPointsDB;
+        var pointsDB;
 
         function reloadDB() {
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
@@ -558,6 +559,20 @@
                     }};
 
                     xhrA.send();
+
+                    var urlB = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/points`;
+                    var xhrB = new XMLHttpRequest();
+                    xhrB.open("GET", urlB);
+
+                    xhrB.onreadystatechange = function () {
+                    if (xhrB.readyState === 4) {
+                        if (xhrB.status == 200) {
+                            pointsDB = JSON.parse(xhrB.responseText);
+                        }
+                    }};
+
+                    xhrB.send();
+
                     var data = JSON.parse(xhr.responseText);
                     userdb = data;
                     usersCount = Object.keys(userdb).length;
