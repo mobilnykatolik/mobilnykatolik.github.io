@@ -557,6 +557,7 @@
             if (document.getElementById("hidePastEvents").checked) {
                 hidePast = true;
             }
+            const eventPointsDBCopy = eventPointsDB;
             for (x in eventsdb) {
                 if (hidePast == true) {
                     if (eventsdb[x].enddate != undefined) {
@@ -594,6 +595,32 @@
                     </tr>
                     ${eventPoints}`
                 }
+            }
+            eventPoints = "";
+            for (i in eventPointsDB) {
+                if (Object.keys(eventsdb).includes(eventPointsDB[i].eventid)) {
+                    continue;
+                }
+                eventPoints += `
+                    <tr>
+                        <td>${eventPointsDB[i].name}</td>
+                        <td>${eventPointsDB[i].amount}</td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
+                                Zarządzaj
+                            </button>
+                            <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
+                                Usuń
+                            </button>
+                        </td>
+                    </tr>`
+            }
+            if (eventPoints != "") {
+                document.getElementById("event-points-list").innerHTML += `
+                <tr style="background-color: #f8f9fc;">
+                    <td colspan="3"><b>Wydarzenia usunięte</b></td>
+                </tr>
+                ${eventPoints}`
             }
         }
 
