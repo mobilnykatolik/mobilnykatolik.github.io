@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Lista użytkowników</title>
+    <title>Panel Mobilny Katolik - Bilety</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -54,18 +54,18 @@
             </div>
 
             <!-- Nav Item - Project management Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-calendar fa-fw"></i>
                     <span>Wydarzenia</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
                         <a class="collapse-item" href="events.html">Wyświetl</a>
                         <h6 class="collapse-header">Bilety</h6>
-                        <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
+                        <a class="collapse-item active" href="tickets-list.html">Zarządzaj biletami</a>
                         <a class="collapse-item" href="#">Wydarzenia biletowane</a>
                         <h6 class="collapse-header">Wirtualne rybki</h6>
                         <a class="collapse-item" href="points.html">Zarządzaj</a>
@@ -113,7 +113,7 @@
             </div>
 
             <!-- Nav Item - User management -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="users-list.html">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Zarządzaj</span></a>
@@ -194,33 +194,83 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie użytkownikami</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie biletami</h1>
+                    </div>
+
+                    <div class="row justify-content-end mb-4 mt-4 mr-0">
+                        <a onClick="reloadDB();" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-cloud-download-alt"></i>
+                            </span>
+                            <span class="text">Odśwież</span>
+                        </a>
                     </div>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0">Lista użytkowników</h6>
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-9">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Bilety</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="ticketsListEvent">Wydarzenie</label>
+                                        <select class="form-control" id="ticketsListEvent" onChange="drawTable();" required>
+                                            <option value="" selected disabled hidden>Proszę czekać...</option>
+                                        </select>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>ID</th>
+                                                    <th>Właściciel</th>
+                                                    <th>Wpłata</th>
+                                                    <th>Akcje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="users-list-table">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Imię</th>
-                                            <th>Nazwisko</th>
-                                            <th>Klasa</th>
-                                            <th>ID</th>
-                                            <th>Uprawnienia</th>
-                                            <th>Akcje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="users-list-table">
-                                    </tbody>
-                                </table>
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Statystyki</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <h6 class="m-0" id="chartNoData">Brak danych do wyświetlenia</h6>
+                                    <div class="chart-pie" id="chartCard" style="display: none;">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div id="chartLegend" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Akcje</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <a class="btn btn-primary btn-icon-split justify-content-end" href="#" data-toggle="modal" data-target="#addTicketModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                        <span class="text">Utwórz bilet</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
 
                 </div>
                 <!-- /.container-fluid -->
@@ -296,149 +346,138 @@
         </div>
     </div>
 
-    <!-- Manage User Modal-->
-    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Manage Ticket Modal-->
+    <div class="modal fade" id="manageTicketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modyfikacja użytkownika</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Zarządzanie biletem</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageTicket();">
+                    <div class="modal-body">
+                        <div class="form-group" style="display: block;">
+                            <label for="manageTicketID">ID biletu</label>
+                            <input type="text" class="form-control" id="manageTicketID" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageUserFirstname">Właściciel biletu</label>
+                            <input type="text" class="form-control" id="manageTicketOwner" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageTicketPaid">Wpłata</label>
+                            <input type="number" class="form-control" id="manageTicketPaid" min=0 step="0.01" required>
+                            <center>
+                                <button type="button" class="btn btn-sm btn-success mt-2" onClick='document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[document.getElementById("manageTicketID").value].cost).toFixed(2)'>Oznacz jako opłacony</button>
+                            </center>
+                        </div>
+                        <div class="form-group" id="manageTicketConsentGroup">
+                            <input type="checkbox" class="custom-checkbox" id="manageTicketConsent">
+                            <label for="manageTicketConsent" style="margin-bottom: 0;">Zgoda dostarczona</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="custom-checkbox" id="manageTicketUsed">
+                            <label for="manageTicketUsed" style="margin-bottom: 0;">Bilet wykorzystany</label>
+                        </div>
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Accordion -->
+                            <a href="#manageTicketQRShow" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="false" aria-controls="smanageTicketQRShow">
+                                <h6 class="m-0 font-weight-bold text-primary">Kod QR</h6>
+                            </a>
+                            <!-- Card Content - Collapse -->
+                            <div class="collapse" id="manageTicketQRShow">
+                                <div class="card-body">
+                                    <center>
+                                        <img id="manageTicketQR">
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <center>
+                            <a onClick="deleteTicketModal();" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                                <span class="text">Usuń bilet</span>
+                            </a>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal-->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć ten bilet?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group" style="display: none;">
-                            <label for="manageUserID">ID</label>
-                            <input type="text" class="form-control" id="manageUserID">
-                        </div>
+                    Kliknij potwierdź, aby usunąć bilet
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-success" data-dismiss="modal" href="#" onclick="manageTicket(true);">Potwierdź</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Ticket Modal-->
+    <div class="modal fade" id="addTicketModal" tabindex="-1" role="dialog" aria-labelledby="addTicketModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTicketModalLabel">Utwórz bilet</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return addTicket();">
+                    <div class="modal-body">
                         <div class="form-group">
-                            <label for="manageUserFirstname">Imię</label>
-                            <input type="text" class="form-control" id="manageUserFirstname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserLastname">Nazwisko</label>
-                            <input type="text" class="form-control" id="manageUserLastname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserNickname">Pseudonim</label>
-                            <input type="text" class="form-control" id="manageUserNickname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserClass">Klasa</label>
-                            <input type="text" class="form-control" id="manageUserClass">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserAccess">Poziom uprawnień</label>
-                            <select class="form-control" id="manageUserAccess" aria-describedby="manageUserAccessHelp">
-                                <option value="">Bez zmian</option>
-                                <option value=0>0 - użytkownik</option>
-                                <option value=1>1 - członek SU</option>
-                                <option value=2>2</option>
-                                <option value=3>3</option>
-                                <option value=4>4</option>
-                                <option value=5>5 - administrator aplikacji</option>
+                            <label for="addTicketEventID">Wydarzenie biletowane</label>
+                            <select id="addTicketEventID" class="form-control" required>
+                                <option value="" hidden selected disabled>Proszę czekać...</option>
                             </select>
-                            <small id="manageUserAccessHelp" class="form-text text-muted">Obecny poziom uprawnień: </small>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" data-dismiss="modal" href="#" onclick="manageUser();">Zapisz</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Send Notification Modal-->
-    <div class="modal fade" id="sendNotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="sendNotificationTo">Wyślij powiadomienie do</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group" style="display: none;">
-                            <label for="sendNotificationUsers">Adresat</label>
-                            <input type="text" class="form-control" id="sendNotificationUsers" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="sendNotificationTitle">Tytuł</label>
-                            <input type="text" class="form-control" id="sendNotificationTitle">
+                            <label for="addTicketOwner">Właściciel biletu</label>
+                            <input type="text" class="form-control" id="addTicketOwner" aria-describedby="addTicketOwnerHelp" required>
+                            <small id="addTicketOwnerHelp" class="form-text text-muted">ID użytkownika lub imię, nazwisko i klasa (np. JAN KOWALSKI, 1LO)</small>
                         </div>
                         <div class="form-group">
-                            <label for="sendNotificationContent">Treść</label>
-                            <textarea class="form-control" id="sendNotificationContent"></textarea>
+                            <label for="addTicketPaid">Wpłata</label>
+                            <input type="number" class="form-control" id="addTicketPaid" min=0 step="0.01" value="0.00" required>
+                            <center>
+                                <button type="button" class="btn btn-sm btn-success mt-2" onClick='document.getElementById("addTicketPaid").value = parseFloat(ticketEventsDB[document.getElementById("addTicketEventID").value].cost).toFixed(2)'>Oznacz jako opłacony</button>
+                            </center>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <button class="btn btn-primary" data-dismiss="modal" onclick="sendNotification();">Wyślij</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage User Points Modal-->
-    <div class="modal fade" id="managePointsModal" tabindex="-1" role="dialog" aria-labelledby="managePointsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="managePointsModalLabel">Zarządzanie punktami użytkownika</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label for="managePointsID">Zdarzenie</label>
-                                    <select class="form-control" id="managePointsID" onchange="getDefaultPointsAmount();">
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="managePointsAmount">Ilość</label>
-                                    <input type="number" class="form-control" id="managePointsAmount">
-                                </div>
-                            </div>
+                        <div class="form-group" id="addTicketConsentGroup">
+                            <input type="checkbox" class="custom-checkbox" id="addTicketConsent">
+                            <label for="addTicketConsent" style="margin-bottom: 0;">Zgoda dostarczona</label>
                         </div>
-                        Historia punktów
-                        <table class="table table-bordered mt-2 small">
-                            <thead>
-                                <tr>
-                                    <th>Zdarzenie</th>
-                                    <th>Ilość</th>
-                                    <th>Data</th>
-                                </tr>
-                            </thead>
-                            <tbody id="points-history">
-                                <tr>
-                                    <td>Udział w Zimowym Koncercie Charytatywnym</td>
-                                    <td>25</td>
-                                    <td>2023-12-01 18:00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" data-dismiss="modal" href="#">Zapisz</a>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -521,19 +560,32 @@
     <script src="js/sb-admin-2.js"></script>
 
     <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var userdb;
-        var eventPointsDB;
-        var pointsDB;
+        var ticketsDB;
+        var ticketEventsDB;
+        var selectedEvent = "";
+
+        var badgeColors = ["danger", "secondary-warning", "warning", "success", "secondary"];
+        var statusNames = ["NIEAKTYWNY", "BRAK WPŁATY", "BRAK ZGODY", "AKTYWNY", "WYKORZYSTANY"];
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            dataTable.draw();
+
+            document.getElementById("chartCard").style.display = "none";
+            document.getElementById("chartNoData").style.display = "block";
+
+            var url = `https://apimobilnykatolik.glitch.me/pmk/tickets/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -541,61 +593,23 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
-                    var xhrA = new XMLHttpRequest();
-                    xhrA.open("GET", url);
-
-                    xhrA.onreadystatechange = function () {
-                    if (xhrA.readyState === 4) {
-                        if (xhrA.status == 200) {
-                            eventPointsDB = JSON.parse(xhrA.responseText);
-                            document.getElementById("managePointsID").innerHTML = `<option value="">Modyfikacja punktów</option>`;
-                            for (event in eventPointsDB) {
-                                document.getElementById("managePointsID").innerHTML += `
-                                    <option value="${event}">${eventPointsDB[event].name}</option>
-                                `
-                            }
-                        }
-                    }};
-
-                    xhrA.send();
-
-                    var urlB = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/points`;
-                    var xhrB = new XMLHttpRequest();
-                    xhrB.open("GET", urlB);
-
-                    xhrB.onreadystatechange = function () {
-                    if (xhrB.readyState === 4) {
-                        if (xhrB.status == 200) {
-                            pointsDB = JSON.parse(xhrB.responseText);
-                        }
-                    }};
-
-                    xhrB.send();
-
                     var data = JSON.parse(xhr.responseText);
-                    userdb = data;
-                    usersCount = Object.keys(userdb).length;
-                    sessionStorage.setItem("userscount", usersCount);
-                    var dataTable = $('#dataTable').DataTable();
-                    dataTable.clear();
-                    for (entry in data) {
-                        if (entry == "aynqcj8mnzt2o0xh") {
-                            continue;
-                        }
-                        dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, `
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Zarządzaj
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
-                                <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
-                                <a class="dropdown-item" href="#" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
-                            </div>
-                        </div>
-                        `]).draw();
-                    }          
+                    ticketEventsDB = data.eventTickets;
+                    delete data.eventTickets;
+                    ticketsDB = data;
+                    document.getElementById("ticketsListEvent").innerHTML = `
+                        <option value="" selected disabled>Wybierz wydarzenie</option>
+                        <option value="ALL" disabled hidden>Wszystkie wydarzenia</option>
+                    `
+                    document.getElementById("addTicketEventID").innerHTML = `
+                        <option value="" selected disabled>Wybierz wydarzenie</option>
+                    `
+                    for (event in ticketEventsDB) {
+                        document.getElementById("ticketsListEvent").innerHTML += `<option value="${event}">${ticketEventsDB[event].name}</option>`
+                        document.getElementById("addTicketEventID").innerHTML += `<option value="${event}">${ticketEventsDB[event].name}</option>`
+                    }
+                    document.getElementById("ticketsListEvent").value = selectedEvent;
+                    drawTable();
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -607,57 +621,179 @@
         }
 
         reloadDB();
-        
 
-        function openManageUserModal(userid) {
-            document.getElementById("manageUserID").value = userid;
+        function drawTable() {
+            var data = ticketsDB;
 
-            document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;
-            document.getElementById("manageUserFirstname").value = "";
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            dataTable.draw();
 
-            document.getElementById("manageUserLastname").placeholder = userdb[userid].lastname;
-            document.getElementById("manageUserLastname").value = "";
-
-            document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
-            document.getElementById("manageUserNickname").value = "";
-
-            document.getElementById("manageUserClass").placeholder = userdb[userid].class;
-            document.getElementById("manageUserClass").value = "";
-
-            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
-            document.getElementById("manageUserAccess").value = "";
-
-            if (userAccess >= 5) {
-                document.getElementById("manageUserAccess").disabled = "";
-            } else {
-                document.getElementById("manageUserAccess").disabled = "disabled";
+            selectedEvent = document.getElementById("ticketsListEvent").value;
+            if (selectedEvent == "") {
+                return false;
             }
 
-            if ((userAccess > userdb[userid].access || userID == userid) && userAccess >= 4) {
-                $('#manageUserModal').modal('show')
+            var statusStats = {"all": 0}
+
+            for (x in statusNames) {
+                statusStats[statusNames[x]] = 0;
+            }
+
+            for (entry in data) {
+                //STATUS, ID, WŁAŚCICIEL, WPŁATA, AKCJE
+                if (selectedEvent != "ALL" && selectedEvent != data[entry].ticket_event_id) {
+                    continue;
+                }
+                dataTable.row.add([`
+                <div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>
+                `,
+                entry, data[entry].owner, `${parseFloat(data[entry].paid).toFixed(2)} zł`, `
+                <button class="btn btn-sm btn-primary" type="button" onclick="openManageTicketModal('${entry}')">Zarządzaj</button>
+                `]).draw();
+                statusStats[statusNames[data[entry].status]] += 1;
+                statusStats.all += 1;
+            }   
+            dataTable.draw();
+            if (statusStats.all  == 0) {
+                delete statusStats.all;
+                updateChart();
+            } else {
+                delete statusStats.all;
+                updateChart(statusStats);
+            }
+            
+        }
+
+        function showAll() {
+            document.getElementById("ticketsListEvent").value = "ALL"
+            drawTable();
+        }
+
+        function updateChart(data) {
+            if (data == undefined) {
+                document.getElementById("chartCard").style.display = "none";
+                document.getElementById("chartNoData").style.display = "block";
+                document.getElementById("chartLegend").style.display = "none";
+                return false;
+            }
+
+            var counter = 0;
+            document.getElementById("chartLegend").innerHTML = "";
+            var legendElements = []
+            for (x in data) {
+                legendElements.push(`<div class="badge badge-${badgeColors[counter]}">${x}: ${data[x]}</div>`)
+                counter += 1
+            }
+            document.getElementById("chartLegend").innerHTML = legendElements.join("<br>");
+            document.getElementById("chartLegend").style.display = "block";
+
+            /*Example data:
+            {
+                "1LO": 1,
+                "2LO": 2,
+                "3LO", 3
+            }
+            */
+            var chart = {
+                labels: [],
+                values: []
+            }
+            for (label in data) {
+                chart.labels.push(label)
+                chart.values.push(data[label])
+            }
+            if (chart.labels.length == 0) {
+                document.getElementById("chartCard").style.display = "none";
+                document.getElementById("chartNoData").style.display = "block";
+                return false;
+            }
+            var ctx = document.getElementById("myPieChart");
+            document.getElementById("chartCard").style.display = "block";
+            document.getElementById("chartNoData").style.display = "none";
+            var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: chart.labels,
+                datasets: [{
+                data: chart.values,
+                backgroundColor: ["#E74A3B", "#FFA500", "#F6C23E", "#1CC88A", "#858796"],
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                animation: {
+                    animateScale: true
+                },
+                tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+                },
+                legend: {
+                display: false,
+                align: "start",
+                position: "bottom"
+                },
+                cutoutPercentage: 80,
+            },
+            });
+        }
+        
+
+        function openManageTicketModal(ticketID) {
+            document.getElementById("manageTicketID").value = ticketID;
+            document.getElementById("manageTicketOwner").value = ticketsDB[ticketID].owner;
+            document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[ticketID].paid).toFixed(2);
+            document.getElementById("manageTicketQR").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticketID}`
+            
+            if (ticketsDB[ticketID].consent_required == true) {
+                document.getElementById("manageTicketConsentGroup").style.display = "block"
+                if (ticketsDB[ticketID].consent == true) {
+                    document.getElementById("manageTicketConsent").checked = "checked"
+                } else {
+                    document.getElementById("manageTicketConsent").checked = "" 
+                }
+            } else {
+                document.getElementById("manageTicketConsentGroup").style.display = "none"
+            }
+
+            if (ticketsDB[ticketID].used == true) {
+                document.getElementById("manageTicketUsed").checked = "checked"
+            } else {
+                document.getElementById("manageTicketUsed").checked = "" 
+            }
+
+            if (userAccess >= 3) {
+                $('#manageTicketModal').modal('show')
             } else {
                 $('#insufficientPermissionsModal').modal('show')
             }
             
         }
 
-        function manageUser() {
+        function manageTicket(del) {
+            document.getElementById("manageTicketQRShow").classList.remove("show");
+            $('#manageTicketModal').modal('hide')
+
             var data = {
-                "users": document.getElementById("manageUserID").value.split(", ")
+                "ticketid": document.getElementById("manageTicketID").value,
+                "paid": parseFloat(document.getElementById("manageTicketPaid").value),
+                "consent": false,
+                "used": false
             }
-            if (document.getElementById("manageUserFirstname").value != "") {data.firstname = document.getElementById("manageUserFirstname").value}
-            if (document.getElementById("manageUserLastname").value != "") {data.lastname = document.getElementById("manageUserLastname").value}
-            if (document.getElementById("manageUserNickname").value != "") {data.nickname = document.getElementById("manageUserNickname").value}
-            if (document.getElementById("manageUserClass").value != "") {data.class = document.getElementById("manageUserClass").value}
-            if (document.getElementById("manageUserAccess").value != "") {data.access = document.getElementById("manageUserAccess").value}
-            if (Object.keys(data).length == 1) {
-                return false;
-            }
+            if (document.getElementById("manageTicketConsent").checked) {data.consent = true}
+            if (document.getElementById("manageTicketUsed").checked) {data.used = true}
+            if (del) {data.delete = true}
 
             $('#loadingModal').modal('show')
-            console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/${userID}/${userLoginID}`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/tickets/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -686,39 +822,28 @@
                 }
             };
             xhr.send(JSON.stringify(data));
+            return false;
         }
 
-        function openSendNotificationModal(userid) {
-            if (userid == "GLOBAL") {
-                document.getElementById("sendNotificationUsers").value = "GLOBAL";
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
-            } else {
-                document.getElementById("sendNotificationUsers").value = userid;
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid].firstname} ${userdb[userid].lastname}`;
-            }
-            $('#sendNotificationModal').modal('show')
+        function deleteTicketModal() {
+            $('#manageTicketModal').modal('hide')
+            $('#confirmDeleteModal').modal('show')
         }
 
-        function sendNotification() {
+        function addTicket() {
+            $('#addTicketModal').modal('hide')
+
             var data = {
-                "users": document.getElementById("sendNotificationUsers").value.split(", "),
-                "title": document.getElementById("sendNotificationTitle").value,
-                "content": document.getElementById("sendNotificationContent").value.replaceAll("\n", " ")
+                "paid": parseFloat(document.getElementById("addTicketPaid").value),
+                "consent": false,
+                "owner": document.getElementById("addTicketOwner").value,
+                "ticket_event_id": document.getElementById("addTicketEventID").value
             }
-            console.log(data);
-            if (document.getElementById("sendNotificationTitle").value == "") {
-                return false;
-            } else if (document.getElementById("sendNotificationContent").value == "") {
-                return false;
-            } else if (document.getElementById("sendNotificationUsers").value == "") {
-                return false;
-            }
+            if (document.getElementById("addTicketConsent").checked) {data.consent = true}
+
             $('#loadingModal').modal('show')
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
-            if (data.users == "GLOBAL") {
-                url = `https://apimobilnykatolik.glitch.me/pmk/pushall/${userID}/${userLoginID}`;
-            }
+            var url = `https://apimobilnykatolik.glitch.me/pmk/tickets/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -731,7 +856,11 @@
                         document.getElementById("apiResponse").innerHTML = xhr.responseText;
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)    
+                        }, 500)
+                        reloadDB();
+                        document.getElementById("addTicketOwner").value = "";
+                        document.getElementById("addTicketPaid").value = "0.00";
+                        document.getElementById("addTicketConsent").checked = "";
                     } else if (xhr.status == 403) {
                         $('#insufficientPermissionsModal').modal('show')
                         setTimeout(function() {
@@ -746,72 +875,7 @@
                 }
             };
             xhr.send(JSON.stringify(data));
-        }
-
-        function openManagePointsModal(userid) {
-
-            //Displaying user's points history
-            var pointsData = pointsDB[userid];
-            document.getElementById("points-history").innerHTML = "";
-            if (pointsData == undefined) {
-                //
-            } else {
-                for (x in pointsData.history) {
-                    var element = pointsData.history[x];
-                    if (element.name == undefined) {
-                        if (element.id == undefined || eventPointsDB[element.id] == undefined) {
-                            element.name = "Modyfikacja punktów"
-                        } else {
-                            element.name = eventPointsDB[element.id].name;
-                        }
-                    }
-                    element.date = formatDate(parseInt(element.ts));
-                    document.getElementById("points-history").innerHTML += `
-                    <tr>
-                        <td>${element.name}</td>
-                        <td>${element.amount}</td>
-                        <td>${element.date}</td>
-                    </tr>
-                    `;
-                } 
-            }
-
-            if (userAccess >= 3) {
-                $('#managePointsModal').modal('show')
-            } else {
-                $('#insufficientPermissionsModal').modal('show')
-            }
-            
-        }
-
-        function getDefaultPointsAmount() {
-            eventPointsID = document.getElementById("managePointsID").value;
-            if (eventPointsDB != "") {
-                document.getElementById("managePointsAmount").value = eventPointsDB[eventPointsID].amount;
-            }
-        }
-
-        function formatDate(date) {
-            date = new Date(date);
-            console.log(date);
-            var day = date.getDate();
-            var month = date.getMonth() + 1; // Miesiące są indeksowane od 0, dlatego dodajemy 1
-            var year = date.getFullYear();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
-
-            // Dodanie wiodących zer, jeśli wartość jest mniejsza niż 10
-            day = day < 10 ? '0' + day : day;
-            month = month < 10 ? '0' + month : month;
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            // Złożenie wszystkich składników w łańcuch tekstowy
-            var formattedDate = day + '.' + month + '.' + year + ' ' + hours + ':' + minutes + ':' + seconds;
-
-            return formattedDate;
+            return false;
         }
 
         function getIds() {

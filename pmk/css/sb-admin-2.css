@@ -30,6 +30,7 @@
   --success: #1cc88a;
   --info: #36b9cc;
   --warning: #f6c23e;
+  --secondary-warning: #ffa500;
   --danger: #e74a3b;
   --light: #f8f9fc;
   --dark: #5a5c69;
@@ -4951,6 +4952,21 @@ a.badge-warning:hover, a.badge-warning:focus {
 }
 
 a.badge-warning:focus, a.badge-warning.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(246, 194, 62, 0.5);
+}
+
+.badge-secondary-warning {
+  color: #fff;
+  background-color: #ffa500;
+}
+
+a.badge-secondary-warning:hover, a.badge-secondary-warning:focus {
+  color: #fff;
+  background-color: #f4b30d;
+}
+
+a.badge-secondary-warning:focus, a.badge-secondary-warning.focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(246, 194, 62, 0.5);
 }
