@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Wirtualne Rybki</title>
+    <title>Panel Mobilny Katolik - Wydarzenia biletowane</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -74,9 +74,9 @@
                         <a class="collapse-item" href="events.html">Wyświetl</a>
                         <h6 class="collapse-header">Bilety</h6>
                         <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
-                        <a class="collapse-item" href="ticketed-events.html">Wydarzenia biletowane</a>
+                        <a class="collapse-item active" href="ticketed-events.html">Wydarzenia biletowane</a>
                         <h6 class="collapse-header">Wirtualne rybki</h6>
-                        <a class="collapse-item active" href="points.html">Zarządzaj</a>
+                        <a class="collapse-item" href="points.html">Zarządzaj</a>
                         <h6 class="collapse-header">SLS</h6>
                         <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
@@ -203,7 +203,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie Wirtualnymi Rybkami</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Wydarzenia biletowane</h1>
                     </div>
 
                     <div class="row">
@@ -218,9 +218,11 @@
                                 <!-- Card Content - Collapse -->
                                 <div class="collapse" id="collapseCardExample">
                                     <div class="card-body">
-                                        W tej zakładce możesz dodać Wirtualne Rybki do wydarzeń.
+                                        W tej zakładce możesz dodać bilety do wydarzeń utworzonych w zakładce <b>Kalendarz</b>.
+                                        Jeśli jeszcze nie utworzyłeś/-aś wydarzenia, zrób to przed generowaniem biletu.
+                                        Aby dodać bilet do konta użytkownika, skorzystaj z zakładki <b>Bilety <i class="fas fa-long-arrow-alt-right"></i> Zarządzaj biletami</b>.
                                         <br>
-                                        Aby dodać Wirtualne Rybki do kont użytkowników, skorzystaj z zakładki <b>Zarządzanie użytkownikami <i class="fas fa-long-arrow-alt-right"></i> Modyfikuj WR</b>.
+                                        W celu zachowania porządku systemu, zaleca się usuwanie minionych wydarzeń biletowanych.
                                     </div>
                                 </div>
                             </div>
@@ -228,11 +230,11 @@
                     </div>
 
                     <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="openManageEventPointsModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                        <a href="#" onClick="openmanageEventTicketModal()" class="btn btn-primary btn-icon-split justify-content-end">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Dodaj punkty do wydarzenia</span>
+                            <span class="text">Dodaj wydarzenie biletowane</span>
                         </a>
                     </div>
 
@@ -344,34 +346,83 @@
     </div>
 
     <!-- Manage Event Modal-->
-    <div class="modal fade" id="manageEventPointsModal" tabindex="-1" role="dialog" aria-labelledby="manageEventPointsModalLabel"
+    <div class="modal fade" id="manageEventTicketModal" tabindex="-1" role="dialog" aria-labelledby="manageEventTicketModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="manageEventPointsModalLabel">Modyfikuj/dodaj punkty do wydarzenia</h5>
+                    <h5 class="modal-title" id="manageEventTicketModalLabel">Dodaj wydarzenie biletowane</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form onSubmit="return manageEventPoints();">
+                <form onSubmit="return manageEventTicket();">
                     <div class="modal-body">
                         <div class="form-group" style="display: none;">
-                            <label for="manageEventPointsID">ID wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventPointsID">
+                            <label for="manageEventTicketID">ID wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventTicketID">
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsEventID">Wydarzenie</label>
-                            <select type="text" class="form-control" id="manageEventPointsEventID" required></select>
+                            <label for="manageEventTicketName">Nazwa biletu</label>
+                            <input type="text" class="form-control" id="manageEventTicketName" aria-describedby="manageEventTicketNameHelp" required>
+                            <small id="manageEventTicketNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w aplikacji</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketDate">Data</label>
+                                    <input type="text" class="form-control" id="manageEventTicketDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketTime">Godzina</label>
+                                    <input type="text" class="form-control" id="manageEventTicketTime" required>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsName">Nazwa wyświetlana</label>
-                            <input type="text" class="form-control" id="manageEventPointsName" aria-describedby="manageEventPointsNameHelp" required>
-                            <small id="manageEventPointsNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w historii punktów użytkowników</small>
+                            <label for="manageEventTicketPlace">Miejsce</label>
+                            <input type="text" class="form-control" id="manageEventTicketPlace" required>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsAmount">Liczba punktów</label>
-                            <input type="number" class="form-control" id="manageEventPointsAmount" min="1">
+                            <label for="manageEventTicketPlace">Dodatkowe informacje</label>
+                            <textarea class="form-control" id="manageEventTicketInfo"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketBgColor">Tło</label>
+                                    <input type="color" class="form-control" id="manageEventTicketBgColor" value="#000000" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketTextColor">Tekst</label>
+                                    <input type="color" class="form-control" id="manageEventTicketTextColor" value="#ffffff" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketIconURL">Ikona biletu</label>
+                            <input type="url" class="form-control" id="manageEventTicketIconURL" aria-describedby="manageEventTicketIconURLHelp" placeholder="URL grafiki" required>
+                            <small id="manageEventTicketIconURLHelp" class="form-text text-muted">Aspect ratio: 1/1</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketThumbnailURL">Tło biletu</label>
+                            <input type="url" class="form-control" id="manageEventTicketThumbnailURL" placeholder="URL grafiki" required>
+                        </div>
+                        <label>Podgląd</label>
+                        <div>
+                            <div id="manageEventTicketDisplayColor" style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
+                                <div style="padding-left: 20px;height: calc(100% - 40px);width: 100%;position: relative;float: left;transform: translateY(-50%);top: 50%;">
+                                    <div id="manageEventTicketDisplayIcon" style="height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
+                                    <div style="position: relative;top: 50%;translate: 0 -50%;width: calc(100% - 40px);">
+                                        <p id="manageEventTicketDisplayName" style="font-size: 18px; color: #ffffff; margin: 0;"></p>
+                                        <p style="font-size: 15px; margin: 0; color: #00ff00;">BILET AKTYWNY</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -400,7 +451,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventPoints(true);">Potwierdź</a>
+                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventTicket(true);">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -494,7 +545,20 @@
         var eventsdb = {}
         var eventPointsDB = {}
 
+        const updateEventTicketDisplay = function() {
+            document.getElementById("manageEventTicketDisplayColor").style.backgroundColor = document.getElementById('manageEventTicketBgColor').value;
+            document.getElementById("manageEventTicketDisplayName").innerHTML = document.getElementById('manageEventTicketName').value;
+            document.getElementById("manageEventTicketDisplayName").style.color = document.getElementById('manageEventTicketTextColor').value;
+            document.getElementById("manageEventTicketDisplayIcon").style.backgroundImage = `url("${document.getElementById('manageEventTicketIconURL').value}")`
+        }
+
+        document.getElementById('manageEventTicketName').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageEventTicketBgColor').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageEventTicketTextColor').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageEventTicketIconURL').addEventListener('input', updateEventTicketDisplay);
+
         function reloadDB() {
+            return false;
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
@@ -512,10 +576,10 @@
                             return date1 - date2;
                         })
                     );
-                    document.getElementById("manageEventPointsEventID").innerHTML = `<option value="" selected disabled>Wybierz wydarzenie</option>`;
+                    document.getElementById("manageEventTicketEventID").innerHTML = `<option value="" selected disabled>Wybierz wydarzenie</option>`;
                     for (event in eventsdb) {
                         if (eventsdb[event].type.toUpperCase() == "SZKOLNE") {continue;}
-                        document.getElementById("manageEventPointsEventID").innerHTML += `
+                        document.getElementById("manageEventTicketEventID").innerHTML += `
                         <option value="${event}">${eventsdb[event].name} (${eventsdb[event].startdate.split("T")[0]})</option>
                         `
                     }
@@ -578,7 +642,7 @@
                             <td>${eventPointsDB[i].name}</td>
                             <td>${eventPointsDB[i].amount}</td>
                             <td>
-                                <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
+                                <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openmanageEventTicketModal('${i}')">
                                     Zarządzaj
                                 </button>
                                 <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
@@ -606,7 +670,7 @@
                         <td>${eventPointsDB[i].name}</td>
                         <td>${eventPointsDB[i].amount}</td>
                         <td>
-                            <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
+                            <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openmanageEventTicketModal('${i}')">
                                 Zarządzaj
                             </button>
                             <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
@@ -632,32 +696,33 @@
         }
         
 
-        function openManageEventPointsModal(eventid) {
+        function openmanageEventTicketModal(eventid) {
             if (userAccess < 3) {
                 $('#insufficientPermissionsModal').modal('show')
                 return false;
             } else {
-                $('#manageEventPointsModal').modal('show')
+                $('#manageEventTicketModal').modal('show')
             }
             if (eventid != undefined) { //Modifying event
-                document.getElementById("manageEventPointsID").value = eventid;
-                document.getElementById("manageEventPointsName").value = eventPointsDB[eventid].name;
-                document.getElementById("manageEventPointsAmount").value = parseInt(eventPointsDB[eventid].amount);
-                document.getElementById("manageEventPointsEventID").value = eventPointsDB[eventid].eventid;
+                document.getElementById("manageEventTicketID").value = eventid;
+                document.getElementById("manageEventTicketName").value = eventPointsDB[eventid].name;
+                document.getElementById("manageEventTicketAmount").value = parseInt(eventPointsDB[eventid].amount);
+                document.getElementById("manageEventTicketEventID").value = eventPointsDB[eventid].eventid;
                 
             } else { //New event
-                document.getElementById("manageEventPointsID").value = "";
-                document.getElementById("manageEventPointsName").value = "";
-                document.getElementById("manageEventPointsAmount").value = 0;
-                document.getElementById("manageEventPointsEventID").value = "";
+                document.getElementById("manageEventTicketID").value = "";
+                document.getElementById("manageEventTicketName").value = "";
+                document.getElementById("manageEventTicketAmount").value = 0;
+                document.getElementById("manageEventTicketEventID").value = "";
             }
             
             
             
         }
 
-        function manageEventPoints(remove) {
-            $('#manageEventPointsModal').modal('hide')
+        function manageEventTicket(remove) {
+            $('#manageEventTicketModal').modal('hide')
+            return false;
 
             if (remove == true) {
                 var data = {
@@ -666,10 +731,10 @@
                 }
             } else {
                 var data = {
-                    "id": document.getElementById("manageEventPointsID").value,
-                    "name": document.getElementById("manageEventPointsName").value,
-                    "amount": document.getElementById("manageEventPointsAmount").value,
-                    "eventid": document.getElementById("manageEventPointsEventID").value
+                    "id": document.getElementById("manageEventTicketID").value,
+                    "name": document.getElementById("manageEventTicketName").value,
+                    "amount": document.getElementById("manageEventTicketAmount").value,
+                    "eventid": document.getElementById("manageEventTicketEventID").value
                 }
                 if (data.id == "") {
                     delete data.id;
