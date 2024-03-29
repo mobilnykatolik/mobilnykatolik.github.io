@@ -206,6 +206,27 @@
                         <h1 class="h3 mb-0 text-gray-800">Wydarzenia biletowane</h1>
                     </div>
 
+                    <div class="row justify-content-end mb-4 mt-4 mr-0">
+                        <a href="#" onClick="openmanageEventTicketModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Dodaj wydarzenie biletowane</span>
+                        </a>
+                    </div>
+
+                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Lista wydarzeń biletowanych</h6>
+                        </div>
+                        <div class="card-body" id="ticketEventsList">
+                            
+                        </div>
+                    </div>
+
                     <div class="row">
                         <!-- Collapsable Card Example -->
                         <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
@@ -225,27 +246,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="openmanageEventTicketModal()" class="btn btn-primary btn-icon-split justify-content-end">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span class="text">Dodaj wydarzenie biletowane</span>
-                        </a>
-                    </div>
-
-                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0">Lista wydarzeń biletowanych</h6>
-                        </div>
-                        <div class="card-body" id="ticketEventsList">
-                            
                         </div>
                     </div>
 
@@ -394,7 +394,8 @@
                         </div>
                         <div class="form-group">
                             <label for="manageEventTicketQuantity">Dostępna ilość biletów</label>
-                            <input type="number" class="form-control" id="manageEventTicketQuantity" min="-1" required>
+                            <input type="number" class="form-control" aria-describedby="manageEventTicketQuantityHelp" id="manageEventTicketQuantity" min="-1" required>
+                            <small id="manageEventTicketQuantityHelp" class="form-text text-muted">Dla nieskończonej ilości biletów wprowadź -1</small>
                         </div>
                         <div class="form-group">
                             <label for="manageEventTicketFor">Odbiorcy</label>
@@ -462,13 +463,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie biletowane?</h5>
+                    <h5 class="modal-title text-danger" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie biletowane?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Kliknij <b>Potwierdź</b>, aby usunąć.
+                    <div class="text-danger">
+                        <i class="fas fa-exclamation-triangle fa-fw"></i> Uwaga!
+                        <br>
+                        Upewnij się, że wszystkie bilety zostały rozliczone. Usunięcie wydarzenia biletowanego spowoduje usunięcie biletów z nim powiązanych!
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
