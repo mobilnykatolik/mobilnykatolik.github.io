@@ -463,14 +463,14 @@
         Kup bilet/kupon
     </div>
     <div class="page-content">
-        <p style="text-align: center; margin-bottom: 10px;">Hollywood Party</p>
+        <p style="text-align: center; margin-bottom: 10px;" id="getTicketName">Hollywood Party</p>
         <p style="font-size: 18px;">Informacje o wydarzeniu</p>
-        <p style="font-size: 15px; margin-bottom: 10px;">25 stycznia, godz. 17:30-22:30<br>Aula ZSK, ul. Wodna 6, Tczew</p>
-        <p style="font-size: 15px; margin-bottom: 10px;">Ze względu na charakter wydarzenia, wymagana jest zgoda rodzica/opiekuna prawnego.</p>
-        <p style="font-size: 15px; margin-bottom: 10px;">Dostępne sposoby płatności: Gotówka</p>
+        <p style="font-size: 15px; margin-bottom: 10px;" id="getTicketInfo">25 stycznia, godz. 17:30-22:30<br>Aula ZSK, ul. Wodna 6, Tczew</p>
+        <p style="font-size: 15px; margin-bottom: 10px;" id="getTicketConsent">Ze względu na charakter wydarzenia, wymagana jest zgoda rodzica/opiekuna prawnego.</p>
+        <p style="font-size: 15px; margin-bottom: 10px;" id="getTicketAdditionalInfo">Dostępne sposoby płatności: Gotówka</p>
         <p style="font-size: 15px; margin-bottom: 10px; color: #ff0000; text-align: center; font-weight: bold;">JEDEN BILET UPOWAŻNIA WYŁĄCZNIE JEDNĄ OSOBĘ DO WSTĘPU NA WYDARZENIE</p>
-        <p style="font-size: 18px; margin-bottom: 10px; margin-top: 20px; text-align: center;">Do zapłaty: 20,00 zł</p>
-        <button type="button" id="buy-ticket-button" onClick="buyTicket('a')">Zamawiam z obowiązkiem zapłaty</button>
+        <p style="font-size: 18px; margin-bottom: 10px; margin-top: 20px; text-align: center;" id="getTicketCost">Do zapłaty: 20,00 zł</p>
+        <button type="button" id="buy-ticket-button" onClick="buyTicket()">Zamawiam z obowiązkiem zapłaty</button>
     </div>
 </div>
 
@@ -850,6 +850,9 @@ var userClass = localStorage.getItem("userclass");
 var ordersdb;
 var ticketsdb;
 var eventsdb;
+
+var ticketEventsDB;
+var selectedTicketToBuy;
 
 var nextEventID;
 
@@ -1289,6 +1292,22 @@ function startApplication() {
                 document.getElementById("home-slider").innerHTML = ticketData + document.getElementById("home-slider").innerHTML;
             }
 
+            ticketEventsDB = data.tickets;
+            for (ticket in data.tickets) {
+                var ticketData = `<li class="slide-visible">
+                    <div style="height: 130px; background-color: ${data.tickets[ticket].colors[0]}; width: 100%; border-radius: 20px;">
+                        <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
+                            <div style="background-image: url('${data.tickets[ticket].icon_url}'); height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat;"></div>
+                            <div style="position: absolute; top: 50%; translate: 0 -50%; width: calc(100% - 40px);">
+                                <p style="color: ${data.tickets[ticket].colors[1]};">${data.tickets[ticket].name}</p>
+                                <button type="button" style="margin: unset; margin-top: 15px;" onclick="showBuyTicket('${ticket}');">${parseFloat(data.tickets[ticket].cost).toFixed(2)} zł</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>`
+                document.getElementById("available-tickets").innerHTML += ticketData;
+            }
+
             const timestamp = Math.floor(Date.now() / 1000)
 
 
@@ -1503,7 +1522,25 @@ function showTicket(ticketID) {
     loadTicket(ticketID);
 }
 
-function buyTicket(ticketEventID) {
+function showBuyTicket(ticketEventID) {
+    window.open("#getticketapp", "_self");
+    document.getElementById("getTicketName").innerHTML = ticketEventsDB[ticketEventID].name;
+    document.getElementById("getTicketInfo").innerHTML = `${ticketEventsDB[ticketEventID].date}, ${ticketEventsDB[ticketEventID].time}<br>${ticketEventsDB[ticketEventID].place}`;
+    document.getElementById("getTicketAdditionalInfo").innerHTML = ticketEventsDB[ticketEventID].info;
+    document.getElementById("getTicketCost").innerHTML = `Do zapłaty: ${parseFloat(ticketEventsDB[ticketEventID].cost).toFixed(2)} zł`
+    if (ticketEventsDB[ticketEventID].consent) {
+        document.getElementById("getTicketConsent").style.display = "block";
+    } else {
+        document.getElementById("getTicketConsent").style.display = "none";
+    }
+    selectedTicketToBuy = ticketEventID;
+}
+
+function buyTicket() {
+    ticketEventID = selectedTicketToBuy;
+    if (ticketEventID == undefined) {
+        return false;
+    }
     if (!window.confirm("Czy na pewno chcesz zakupić bilet?")) {
        return false;
     }
@@ -1511,7 +1548,7 @@ function buyTicket(ticketEventID) {
     document.getElementById("buy-ticket-button").innerHTML = "Przetwarzanie...";
     var data = {
         "userid": userID,
-        "ticket_event_id": "y6w6z19y"
+        "ticket_event_id": ticketEventID
     }
     var url = `https://apimobilnykatolik.glitch.me/tickets/add`;
     var xhr = new XMLHttpRequest();

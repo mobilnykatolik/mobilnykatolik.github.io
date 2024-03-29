@@ -382,21 +382,6 @@
                             <input type="checkbox" class="custom-checkbox" id="manageTicketUsed">
                             <label for="manageTicketUsed" style="margin-bottom: 0;">Bilet wykorzystany</label>
                         </div>
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Accordion -->
-                            <a href="#manageTicketQRShow" class="d-block card-header py-3" data-toggle="collapse"
-                                role="button" aria-expanded="false" aria-controls="smanageTicketQRShow">
-                                <h6 class="m-0 font-weight-bold text-primary">Kod QR</h6>
-                            </a>
-                            <!-- Card Content - Collapse -->
-                            <div class="collapse" id="manageTicketQRShow">
-                                <div class="card-body">
-                                    <center>
-                                        <img id="manageTicketQR">
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
                         <center>
                             <a onClick="deleteTicketModal();" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
                                 <span class="icon text-white-50">
@@ -751,7 +736,6 @@
             document.getElementById("manageTicketID").value = ticketID;
             document.getElementById("manageTicketOwner").value = ticketsDB[ticketID].owner;
             document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[ticketID].paid).toFixed(2);
-            document.getElementById("manageTicketQR").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticketID}`
             
             if (ticketsDB[ticketID].consent_required == true) {
                 document.getElementById("manageTicketConsentGroup").style.display = "block"
@@ -779,7 +763,6 @@
         }
 
         function manageTicket(del) {
-            document.getElementById("manageTicketQRShow").classList.remove("show");
             $('#manageTicketModal').modal('hide')
 
             var data = {
