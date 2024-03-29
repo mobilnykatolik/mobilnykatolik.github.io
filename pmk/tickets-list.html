@@ -597,6 +597,7 @@
                     ticketEventsDB = data.eventTickets;
                     delete data.eventTickets;
                     ticketsDB = data;
+                    console.log(ticketsDB);
                     document.getElementById("ticketsListEvent").innerHTML = `
                         <option value="" selected disabled>Wybierz wydarzenie</option>
                         <option value="ALL" disabled hidden>Wszystkie wydarzenia</option>

@@ -219,7 +219,6 @@
                                 <div class="collapse" id="collapseCardExample">
                                     <div class="card-body">
                                         W tej zakładce możesz dodać bilety do wydarzeń utworzonych w zakładce <b>Kalendarz</b>.
-                                        Jeśli jeszcze nie utworzyłeś/-aś wydarzenia, zrób to przed generowaniem biletu.
                                         Aby dodać bilet do konta użytkownika, skorzystaj z zakładki <b>Bilety <i class="fas fa-long-arrow-alt-right"></i> Zarządzaj biletami</b>.
                                         <br>
                                         W celu zachowania porządku systemu, zaleca się usuwanie minionych wydarzeń biletowanych.
@@ -243,29 +242,10 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0">Lista wydarzeń</h6>
+                            <h6 class="m-0">Lista wydarzeń biletowanych</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <input type="checkbox" class="custom-checkbox" id="hidePastEvents" aria-describedby="manageEventSpecialSuitHelp" onchange="generateTable()">
-                                <label for="hidePastEvents" style="margin-bottom: 0;">Ukryj minione wydarzenia</label>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr style="background-color: #f8f9fc;">
-                                            <th colspan="3" style="text-align: center;">Nazwa wydarzenia</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Nazwa</th>
-                                            <th>Ilość punktów</th>
-                                            <th>Akcje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="event-points-list">
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="card-body" id="ticketEventsList">
+                            
                         </div>
                     </div>
 
@@ -386,8 +366,40 @@
                             <input type="text" class="form-control" id="manageEventTicketPlace" required>
                         </div>
                         <div class="form-group">
+                            <label for="manageEventTicketCost">Cena</label>
+                            <input type="number" class="form-control" id="manageEventTicketCost" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="custom-checkbox" id="manageEventTicketConsent">
+                            <label for="manageEventTicketConsent" style="margin-bottom: 0;">Wymagana zgoda</label>
+                        </div>
+                        <div class="form-group">
                             <label for="manageEventTicketPlace">Dodatkowe informacje</label>
                             <textarea class="form-control" id="manageEventTicketInfo"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketSalesStart">Rozp. sprzedaży</label>
+                                    <input type="datetime-local" class="form-control" id="manageEventTicketSalesStart" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketSalesEnd">Zak. sprzedaży</label>
+                                    <input type="datetime-local" class="form-control" id="manageEventTicketSalesEnd" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketQuantity">Dostępna ilość biletów</label>
+                            <input type="number" class="form-control" id="manageEventTicketQuantity" min="-1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketFor">Odbiorcy</label>
+                            <select class="form-control" id="manageEventTicketFor" aria-describedby="manageEventTicketForHelp" multiple>
+                            </select>
+                            <small id="manageEventTicketForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -413,7 +425,7 @@
                             <input type="url" class="form-control" id="manageEventTicketThumbnailURL" placeholder="URL grafiki" required>
                         </div>
                         <label>Podgląd</label>
-                        <div>
+                        <div style="margin-bottom: 15px;">
                             <div id="manageEventTicketDisplayColor" style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
                                 <div style="padding-left: 20px;height: calc(100% - 40px);width: 100%;position: relative;float: left;transform: translateY(-50%);top: 50%;">
                                     <div id="manageEventTicketDisplayIcon" style="height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
@@ -424,6 +436,14 @@
                                 </div>
                             </div>
                         </div>
+                        <center>
+                            <a onClick="deleteTicketEventModal();" id="manageEventTicketDelete" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                                <span class="text">Usuń bilet</span>
+                            </a>
+                        </center>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
@@ -440,13 +460,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć punkty z wydarzenia?</h5>
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie biletowane?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="deleteEventPointsID" style="display: none;">
                     Kliknij <b>Potwierdź</b>, aby usunąć.
                 </div>
                 <div class="modal-footer">
@@ -543,7 +562,8 @@
 
     <script>
         var eventsdb = {}
-        var eventPointsDB = {}
+        var ticketEventsDB = {}
+        var classes;
 
         const updateEventTicketDisplay = function() {
             document.getElementById("manageEventTicketDisplayColor").style.backgroundColor = document.getElementById('manageEventTicketBgColor').value;
@@ -558,7 +578,6 @@
         document.getElementById('manageEventTicketIconURL').addEventListener('input', updateEventTicketDisplay);
 
         function reloadDB() {
-            return false;
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
@@ -576,23 +595,16 @@
                             return date1 - date2;
                         })
                     );
-                    document.getElementById("manageEventTicketEventID").innerHTML = `<option value="" selected disabled>Wybierz wydarzenie</option>`;
-                    for (event in eventsdb) {
-                        if (eventsdb[event].type.toUpperCase() == "SZKOLNE") {continue;}
-                        document.getElementById("manageEventTicketEventID").innerHTML += `
-                        <option value="${event}">${eventsdb[event].name} (${eventsdb[event].startdate.split("T")[0]})</option>
-                        `
-                    }
 
-                    //Pobieranie listy wydarzeń z Wirtualnymi Rybkami
-                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+                    //Pobieranie listy wydarzeń biletowanych
+                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventTickets`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
 
                     xhrA.onreadystatechange = function () {
                     if (xhrA.readyState === 4) {
                         if (xhrA.status == 200) {
-                            eventPointsDB = JSON.parse(xhrA.responseText);
+                            ticketEventsDB = JSON.parse(xhrA.responseText);
                             generateTable();
                         } else if (xhrA.status == 403) {
                             $('#insufficientPermissionsModal').modal('show')
@@ -602,6 +614,27 @@
                     }};
 
                     xhrA.send();
+
+                    //Pobieranie listy klas
+                    var url = `https://apimobilnykatolik.glitch.me/getclasses`;
+                    var xhrB = new XMLHttpRequest();
+                    xhrB.open("GET", url);
+
+                    xhrB.onreadystatechange = function () {
+                    if (xhrB.readyState === 4) {
+                        if (xhrB.status == 200) {
+                            classes = xhrB.responseText.split(";");
+                            document.getElementById("manageEventTicketFor").innerHTML = "";
+                            for (i in classes) {
+                                document.getElementById("manageEventTicketFor").innerHTML += `
+                                <option value="${classes[i]}">${classes[i].toUpperCase()}</option>
+                                `
+                            }
+                            document.getElementById("manageEventTicketFor").innerHTML += `<option value="n">Nauczyciele</option>`
+                        }
+                    }};
+
+                    xhrB.send();
                     
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
@@ -614,77 +647,23 @@
         }
 
         function generateTable() {
-            var today = new Date();
-            today = today.toISOString().split('T')[0];
-            document.getElementById("event-points-list").innerHTML = "";
-            var hidePast = false;
-            if (document.getElementById("hidePastEvents").checked) {
-                hidePast = true;
-            }
-            const eventPointsDBCopy = eventPointsDB;
-            for (x in eventsdb) {
-                if (hidePast == true) {
-                    if (eventsdb[x].enddate != undefined) {
-                        if (eventsdb[x].enddate.split('T')[0] < today) {
-                            continue;
-                        }
-                    } else {
-                        if (eventsdb[x].startdate.split('T')[0] < today) {
-                            continue;
-                        }
-                    }
-                }
-                var eventPoints = "";
-                for (i in eventPointsDB) {
-                    if (eventPointsDB[i].eventid == x) {
-                        eventPoints += `
-                        <tr>
-                            <td>${eventPointsDB[i].name}</td>
-                            <td>${eventPointsDB[i].amount}</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openmanageEventTicketModal('${i}')">
-                                    Zarządzaj
-                                </button>
-                                <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
-                                    Usuń
-                                </button>
-                            </td>
-                        </tr>`
-                    }
-                }
-                if (eventPoints != "") {
-                    document.getElementById("event-points-list").innerHTML += `
-                    <tr style="background-color: #f8f9fc;">
-                        <td colspan="3"><b>${eventsdb[x].name}</b></td>
-                    </tr>
-                    ${eventPoints}`
-                }
-            }
-            eventPoints = "";
-            for (i in eventPointsDB) {
-                if (Object.keys(eventsdb).includes(eventPointsDB[i].eventid)) {
-                    continue;
-                }
-                eventPoints += `
-                    <tr>
-                        <td>${eventPointsDB[i].name}</td>
-                        <td>${eventPointsDB[i].amount}</td>
-                        <td>
-                            <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openmanageEventTicketModal('${i}')">
-                                Zarządzaj
-                            </button>
-                            <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
-                                Usuń
-                            </button>
-                        </td>
-                    </tr>`
-            }
-            if (eventPoints != "") {
-                document.getElementById("event-points-list").innerHTML += `
-                <tr style="background-color: #f8f9fc;">
-                    <td colspan="3"><b>Wydarzenia usunięte</b></td>
-                </tr>
-                ${eventPoints}`
+            document.getElementById("ticketEventsList").innerHTML = "";
+            for (x in ticketEventsDB) {
+                var teData = ticketEventsDB[x]
+                console.log(teData)
+                document.getElementById("ticketEventsList").innerHTML += `
+                <div style="margin: 10px 0 10px 0;" onClick="openmanageEventTicketModal('${x}')">
+                    <div style="height: 130px; background-color: ${teData.colors[0]}; width: 100%; border-radius: 20px; cursor: pointer;">
+                        <div style="padding-left: 20px;height: calc(100% - 40px);width: 100%;position: relative;float: left;transform: translateY(-50%);top: 50%;">
+                            <div style="background-image: url('${teData.icon_url}'); height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
+                            <div style="position: relative;top: 50%;translate: 0 -50%;width: calc(100% - 40px);">
+                                <p style="font-size: 18px; color: ${teData.colors[1]}; margin: 0;">${teData.name}</p>
+                                <div class="badge badge-success" style="display: none;">- BILETÓW DOSTĘPNYCH</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
             }
         }
 
@@ -695,25 +674,66 @@
             return false;
         }
         
+        function deleteTicketEventModal() {
+            $('#manageEventTicketModal').modal('hide')
+            $('#confirmDeleteModal').modal('show')
+        }
 
-        function openmanageEventTicketModal(eventid) {
-            if (userAccess < 3) {
+        function openmanageEventTicketModal(teid) {
+            if (userAccess < 4) {
                 $('#insufficientPermissionsModal').modal('show')
                 return false;
             } else {
                 $('#manageEventTicketModal').modal('show')
             }
-            if (eventid != undefined) { //Modifying event
-                document.getElementById("manageEventTicketID").value = eventid;
-                document.getElementById("manageEventTicketName").value = eventPointsDB[eventid].name;
-                document.getElementById("manageEventTicketAmount").value = parseInt(eventPointsDB[eventid].amount);
-                document.getElementById("manageEventTicketEventID").value = eventPointsDB[eventid].eventid;
-                
+            if (teid != undefined) { //Modifying event
+                document.getElementById("manageEventTicketDelete").style.display = "inline-flex";
+                document.getElementById("manageEventTicketModalLabel").innerHTML = "Modyfikuj wydarzenie biletowane"
+                document.getElementById("manageEventTicketID").value = teid;
+                document.getElementById("manageEventTicketName").value = ticketEventsDB[teid].name;
+                document.getElementById("manageEventTicketDate").value = ticketEventsDB[teid].date;
+                document.getElementById("manageEventTicketTime").value = ticketEventsDB[teid].time;
+                document.getElementById("manageEventTicketPlace").value = ticketEventsDB[teid].place;
+                document.getElementById("manageEventTicketInfo").value = ticketEventsDB[teid].info.replaceAll("<br>", "\n");
+                document.getElementById("manageEventTicketSalesStart").value = ticketEventsDB[teid].sales_start;
+                document.getElementById("manageEventTicketSalesEnd").value = ticketEventsDB[teid].sales_end;
+                document.getElementById("manageEventTicketBgColor").value = ticketEventsDB[teid].colors[0];
+                document.getElementById("manageEventTicketTextColor").value = ticketEventsDB[teid].colors[1];
+                document.getElementById("manageEventTicketIconURL").value = ticketEventsDB[teid].icon_url;
+                document.getElementById("manageEventTicketThumbnailURL").value = ticketEventsDB[teid].banner_url;
+                document.getElementById("manageEventTicketQuantity").value = ticketEventsDB[teid].quantity;
+                document.getElementById("manageEventTicketCost").value = ticketEventsDB[teid].cost;
+                if (ticketEventsDB[teid].consent) {
+                    document.getElementById("manageEventTicketConsent").checked = "checked"
+                } else {
+                    document.getElementById("manageEventTicketConsent").checked = ""
+                }
+                document.getElementById("manageEventTicketFor").value = "";
+                Array.from(document.getElementById("manageEventTicketFor").options).forEach(option => {
+                if (ticketEventsDB[teid].for.includes(option.value)) {
+                    option.selected = true;
+                }});
+                updateEventTicketDisplay();
             } else { //New event
+                document.getElementById("manageEventTicketDelete").style.display = "none";
+                document.getElementById("manageEventTicketModalLabel").innerHTML = "Nowe wydarzenie biletowane"
                 document.getElementById("manageEventTicketID").value = "";
-                document.getElementById("manageEventTicketName").value = "";
-                document.getElementById("manageEventTicketAmount").value = 0;
-                document.getElementById("manageEventTicketEventID").value = "";
+                document.getElementById("manageEventTicketName").value = "Nowe wydarzenie biletowane 1";
+                document.getElementById("manageEventTicketDate").value = "";
+                document.getElementById("manageEventTicketTime").value = "";
+                document.getElementById("manageEventTicketPlace").value = "";
+                document.getElementById("manageEventTicketInfo").value = "";
+                document.getElementById("manageEventTicketSalesStart").value = "";
+                document.getElementById("manageEventTicketSalesEnd").value = "";
+                document.getElementById("manageEventTicketBgColor").value = "#000000";
+                document.getElementById("manageEventTicketTextColor").value = "#ffffff";
+                document.getElementById("manageEventTicketIconURL").value = "";
+                document.getElementById("manageEventTicketThumbnailURL").value = "";
+                document.getElementById("manageEventTicketQuantity").value = 0;
+                document.getElementById("manageEventTicketCost").value = 0;
+                document.getElementById("manageEventTicketFor").value = "";
+                document.getElementById("manageEventTicketConsent").checked = ""
+                updateEventTicketDisplay();
             }
             
             
@@ -722,29 +742,43 @@
 
         function manageEventTicket(remove) {
             $('#manageEventTicketModal').modal('hide')
-            return false;
 
             if (remove == true) {
                 var data = {
-                    "id": document.getElementById("deleteEventPointsID").value,
+                    "teid": document.getElementById("manageEventTicketID").value,
                     "delete": true
                 }
             } else {
+                //["consent", "name", "date", "time", "place", "for", "banner_url", "icon_url", "cost", "sales_start", "sales_end", "quantity"]
                 var data = {
-                    "id": document.getElementById("manageEventTicketID").value,
+                    "teid": document.getElementById("manageEventTicketID").value,
                     "name": document.getElementById("manageEventTicketName").value,
-                    "amount": document.getElementById("manageEventTicketAmount").value,
-                    "eventid": document.getElementById("manageEventTicketEventID").value
+                    "date": document.getElementById("manageEventTicketDate").value,
+                    "time": document.getElementById("manageEventTicketTime").value,
+                    "place": document.getElementById("manageEventTicketPlace").value,
+                    "for": Array.from(document.getElementById("manageEventTicketFor").selectedOptions).map(option => option.value),
+                    "banner_url": document.getElementById("manageEventTicketThumbnailURL").value,
+                    "icon_url": document.getElementById("manageEventTicketIconURL").value,
+                    "colors": [document.getElementById("manageEventTicketBgColor").value, document.getElementById("manageEventTicketTextColor").value],
+                    "sales_start": document.getElementById("manageEventTicketSalesStart").value,
+                    "sales_end": document.getElementById("manageEventTicketSalesEnd").value,
+                    "quantity": document.getElementById("manageEventTicketQuantity").value,
+                    "consent": false,
+                    "cost": document.getElementById("manageEventTicketCost").value,
+                    "info": document.getElementById("manageEventTicketInfo").value.replaceAll("\n", "<br>")
                 }
-                if (data.id == "") {
-                    delete data.id;
+                if (data.teid == "") {
+                    delete data.teid;
+                }
+                if (document.getElementById("manageEventTicketConsent").checked) {
+                    data.consent = true
                 }
             }
 
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/eventpoints/modify/${userID}/${userLoginID}`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/tickets/events/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -775,11 +809,6 @@
 
             xhr.send(JSON.stringify(data));
             return false;
-        }
-
-        function confirmDelete(eventPointsID) {
-            document.getElementById("deleteEventPointsID").value = eventPointsID;
-            $('#confirmDeleteModal').modal('show')
         }
 
     </script>
