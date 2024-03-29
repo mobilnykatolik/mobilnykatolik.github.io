@@ -418,11 +418,12 @@
                         <div class="form-group">
                             <label for="manageEventTicketIconURL">Ikona biletu</label>
                             <input type="url" class="form-control" id="manageEventTicketIconURL" aria-describedby="manageEventTicketIconURLHelp" placeholder="URL grafiki" required>
-                            <small id="manageEventTicketIconURLHelp" class="form-text text-muted">Aspect ratio: 1/1</small>
+                            <small id="manageEventTicketIconURLHelp" class="form-text text-muted">Wymiary grafiki: 500x500 px (1:1)<br>Grafika widnieje na okładce biletu</small>
                         </div>
                         <div class="form-group">
                             <label for="manageEventTicketThumbnailURL">Tło biletu</label>
-                            <input type="url" class="form-control" id="manageEventTicketThumbnailURL" placeholder="URL grafiki" required>
+                            <input type="url" class="form-control" id="manageEventTicketThumbnailURL" aria-describedby="manageEventTicketThumbnailURLHelp" placeholder="URL grafiki" required>
+                            <small id="manageEventTicketThumbnailURLHelp" class="form-text text-muted">Wymiary grafiki: 1920x1080 px (16:9)<br>Grafika pojawia się po otwarciu biletu</small>
                         </div>
                         <label>Podgląd</label>
                         <div style="margin-bottom: 15px;">
@@ -718,7 +719,7 @@
                 document.getElementById("manageEventTicketDelete").style.display = "none";
                 document.getElementById("manageEventTicketModalLabel").innerHTML = "Nowe wydarzenie biletowane"
                 document.getElementById("manageEventTicketID").value = "";
-                document.getElementById("manageEventTicketName").value = "Nowe wydarzenie biletowane 1";
+                document.getElementById("manageEventTicketName").value = "Nowe wydarzenie biletowane";
                 document.getElementById("manageEventTicketDate").value = "";
                 document.getElementById("manageEventTicketTime").value = "";
                 document.getElementById("manageEventTicketPlace").value = "";
