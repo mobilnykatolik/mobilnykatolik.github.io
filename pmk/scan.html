@@ -417,8 +417,8 @@
     <script src="js/qr/qr-scanner.umd.min.js"></script>
 
 <script>
-    var TEID = sessionStorage.getItem("teid");
-    var PEID = sessionStorage.getItem("peid");
+    var TEID = sessionStorage.getItem("teid"); //Points Event ID
+    var PEID = sessionStorage.getItem("peid"); //Ticket Event ID
     if (TEID == undefined && PEID == undefined) {
         window.location = "index.html";
     }
