@@ -392,7 +392,7 @@
                     <b id="ticketResponseEvent">-</b>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" onClick="startTicketScan();">Zamknij</button>
                 </div>
             </div>
         </div>
@@ -438,8 +438,9 @@
     //Sources list
     
 
+    
 
-    // Start QR scanner
+function startTicketScan() {
     qrScanner.start().then(() => {
         document.getElementById("qrScanSourceSelect").innerHTML = `<option value="" selected disabled hidden>Wybierz</option>`
         QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
@@ -447,6 +448,9 @@
         })
         );
     });
+}
+
+startTicketScan();
 
 function updateSource() {
     qrScanner.setCamera(document.getElementById("qrScanSourceSelect").value);
