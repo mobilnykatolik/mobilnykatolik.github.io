@@ -772,7 +772,7 @@
                             element.name = eventPointsDB[element.id].name;
                         }
                     }
-                    element.date = formatDate(parseInt(element.ts));
+                    element.date = element.ts;
                     document.getElementById("points-history").innerHTML += `
                     <tr>
                         <td>${element.name}</td>
