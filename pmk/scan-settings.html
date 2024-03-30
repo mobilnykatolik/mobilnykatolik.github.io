@@ -218,7 +218,7 @@
                         <select class="form-control" id="scannerMode" onChange="updateEIDselect();">
                             <option value="" disabled selected>Wybierz</option>
                             <option value="tickets">Skaner biletów</option>
-                            <option value="points" disabled>Skaner Wirutalnych Rybek</option>
+                            <option value="points">Skaner Wirtualnych Rybek</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -545,7 +545,7 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var eventsdb = {}
+        var eventsDB = {}
         var ticketEventsDB = {}
         var pointsEventsDB = {}
 
@@ -583,6 +583,23 @@
                 }
             }};
             xhrA.send();
+
+            //Pobieranie listy wydarzeń
+            var urlB = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+            var xhrB = new XMLHttpRequest();
+            xhrB.open("GET", urlB);
+
+            xhrB.onreadystatechange = function () {
+            if (xhrB.readyState === 4) {
+                if (xhrB.status == 200) {
+                    eventsDB = JSON.parse(xhrB.responseText);
+                } else if (xhrB.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
+            xhrB.send();
         }
 
 
@@ -602,8 +619,11 @@
 
             if (selectedMode == "points") {
                 for (x in pointsEventsDB) {
+                    if (userAccess < 3 && !eventsDB[pointsEventsDB[x].eventid].by.includes(userID)) {
+                        continue;
+                    }
                     document.getElementById("scannerEID").innerHTML += `
-                    <option value="${x}">${pointsEventsDB[x].name}</option>
+                    <option value="${x}">${pointsEventsDB[x].name} (${eventsDB[pointsEventsDB[x].eventid].name})</option>
                     `
                 }
             }
