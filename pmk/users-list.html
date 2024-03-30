@@ -768,7 +768,7 @@
             document.getElementById("points-history").innerHTML = "";
             document.getElementById("managePointsUserID").value = userid;
             if (pointsData == undefined) {
-                //
+                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: 0`
             } else {
                 document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
                 for (x in pointsData.history) {
