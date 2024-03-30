@@ -430,8 +430,8 @@
         // Handle the scanned QR code data
         // You can perform any action here with the scanned data
         if (result.length == 9) {
-            scanTicket(result);
             qrScanner.stop();
+            scanTicket(result);
         }
     });
 
@@ -486,7 +486,6 @@ function scanTicket(ticketID) {
                     document.getElementById("ticketResponseEvent").innerHTML = response.event;
                 }
                 $('#ticketResponseModal').modal('show')
-                qrScanner.start();
             } else if (xhr.status == 403) {
                 $('#insufficientPermissionsModal').modal('show')
             } else {
