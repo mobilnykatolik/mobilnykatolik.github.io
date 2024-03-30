@@ -1372,7 +1372,7 @@ var applicationServerKey = urlB64ToUint8Array("BKYA3uX7SGiQ0YeC-CxulKo66lsFHm1tE
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('../serviceWorker.js', {
-      scope: '/'
+      scope: '/app/'
     }).then((registration) => {
         console.log('SW zarejestrowany! Scope:', registration.scope);
     });
