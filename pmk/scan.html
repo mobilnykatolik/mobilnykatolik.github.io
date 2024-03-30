@@ -418,7 +418,8 @@
 
 <script>
     var TEID = sessionStorage.getItem("teid");
-    if (TEID == undefined) {
+    var PEID = sessionStorage.getItem("peid");
+    if (TEID == undefined && PEID == undefined) {
         window.location = "index.html";
     }
 
