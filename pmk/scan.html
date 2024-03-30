@@ -207,7 +207,7 @@
 
                     <div class="row">
                         <div class="col-xl-4 col-md-6 mb-4">
-                            <div style="width: 100%; aspect-ratio: 1/1; position: relative; background-color: #000000; border-radius: 1rem;">
+                            <div style="width: 100%; aspect-ratio: 1/1; position: relative; border-radius: 1rem;">
                                 <video id="qr-scanner" style="position: relative; height: 100%; width: 100%; top: 0; left: 0; object-fit: cover; border-radius: 1rem;"></video>
                             </div>
                         </div>
@@ -392,7 +392,7 @@
                     <b id="ticketResponseEvent">-</b>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal" onClick="qrScanner.start()">Zamknij</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
                 </div>
             </div>
         </div>
@@ -452,6 +452,10 @@ function startTicketScan() {
 }
 
 startTicketScan();
+
+$("#ticketResponseModal").on("hidden.bs.modal", function () {
+    qrScanner.start()
+});
 
 function updateSource() {
     qrScanner.setCamera(document.getElementById("qrScanSourceSelect").value);
