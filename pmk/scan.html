@@ -166,10 +166,6 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
 
 
                     <!-- Topbar Navbar -->
@@ -211,7 +207,7 @@
 
                     <div class="row">
                         <div class="col-xl-4 col-md-6 mb-4">
-                            <div style="width: 100%; aspect-ratio: 1/1; position: relative;">
+                            <div style="width: 100%; aspect-ratio: 1/1; position: relative; background-color: #000000; border-radius: 1rem;">
                                 <video id="qr-scanner" style="position: relative; height: 100%; width: 100%; top: 0; left: 0; object-fit: cover; border-radius: 1rem;"></video>
                             </div>
                         </div>
@@ -343,6 +339,65 @@
         </div>
     </div>
 
+    <!-- Insufficient Permissions Modal-->
+    <div class="modal fade" id="insufficientPermissionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Brak uprawnień</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Nie posiadasz wystarczającego poziomu uprawnień, aby tego dokonać!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Error Modal-->
+    <div class="modal fade" id="apiErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Błąd komunikacji z API</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Wystąpił błąd połączenia z API. Odśwież panel i spróbuj ponownie!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Response Modal-->
+    <div class="modal fade" id="ticketResponseModal" tabindex="-1" role="dialog" aria-labelledby="ticketResponseModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketResponseModalLabel">Odpowiedź z serwera</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Imię i nazwisko
+                    <br>
+                    <b id="ticketResponseOwner">-</b>
+                    <br><br>
+                    Wydarzenie
+                    <br>
+                    <b id="ticketResponseEvent">-</b>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -362,6 +417,11 @@
     <script src="js/qr/qr-scanner.umd.min.js"></script>
 
 <script>
+    var TEID = sessionStorage.getItem("teid");
+    if (TEID == undefined) {
+        window.location = "index.html";
+    }
+
     const video = document.getElementById('qr-scanner');
 
     // Load the QR scanner
@@ -369,6 +429,10 @@
         console.log('QR Code detected:', result);
         // Handle the scanned QR code data
         // You can perform any action here with the scanned data
+        if (result.length == 9) {
+            scanTicket(result);
+            qrScanner.stop();
+        }
     });
 
     //Sources list
@@ -386,6 +450,47 @@
 
 function updateSource() {
     qrScanner.setCamera(document.getElementById("qrScanSourceSelect").value);
+}
+
+function scanTicket(ticketID) {
+    var data = {
+        "teid": TEID,
+        "ticketid": ticketID
+    }
+
+    var url = `https://apimobilnykatolik.glitch.me/pmk/tickets/scan/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText)
+                if (response.success) {
+                    document.getElementById("ticketResponseModalLabel").innerHTML = `<i class="far fa-check-circle fa-fw"></i> ${response.state}`
+                    document.getElementById("ticketResponseModalLabel").classList.add("text-success");
+                    document.getElementById("ticketResponseModalLabel").classList.remove("text-danger");
+                    document.getElementById("ticketResponseOwner").innerHTML = response.owner;
+                    document.getElementById("ticketResponseEvent").innerHTML = response.event;
+                } else {
+                    document.getElementById("ticketResponseModalLabel").innerHTML = `<i class="far fa-times-circle fa-fw"></i> ${response.state}`
+                    document.getElementById("ticketResponseModalLabel").classList.remove("text-success");
+                    document.getElementById("ticketResponseModalLabel").classList.add("text-danger");
+                    document.getElementById("ticketResponseOwner").innerHTML = response.owner;
+                    document.getElementById("ticketResponseEvent").innerHTML = response.event;
+                }
+                $('#ticketResponseModal').modal('show')
+                qrScanner.start();
+            } else if (xhr.status == 403) {
+                $('#insufficientPermissionsModal').modal('show')
+            } else {
+                $('#apiErrorModal').modal('show')
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
 }
 
 
