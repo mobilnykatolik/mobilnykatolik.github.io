@@ -241,8 +241,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="qrScanSourceSelect">Poziom uprawnień</label>
-                        <select class="form-control" id="qrScanSourceSelect">
+                        <label for="qrScanSourceSelect">Wybierz źrodło obrazu</label>
+                        <select class="form-control" id="qrScanSourceSelect" onChange="updateSource();">
                         </select>
                     </div>
                     
@@ -382,7 +382,6 @@
     <script src="js/qr/qr-scanner.umd.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('qr-scanner');
 
     // Load the QR scanner
@@ -405,7 +404,9 @@
         }));
     });
 
-});
+function changeSource() {
+    qrScanner.setCamera(document.getElementById("qrScanSourceSelect").value);
+}
 
 
 
