@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Wirtualne Rybki</title>
+    <title>Panel Mobilny Katolik - Ustawienia skanera</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -62,13 +62,13 @@
             </div>
 
             <!-- Nav Item - Project management Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-calendar fa-fw"></i>
                     <span>Wydarzenia</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
                         <a class="collapse-item" href="events.html">Wyświetl</a>
@@ -76,7 +76,7 @@
                         <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
                         <a class="collapse-item" href="ticketed-events.html">Wydarzenia biletowane</a>
                         <h6 class="collapse-header">Wirtualne rybki</h6>
-                        <a class="collapse-item active" href="points.html">Zarządzaj</a>
+                        <a class="collapse-item" href="points.html">Zarządzaj</a>
                         <h6 class="collapse-header">SLS</h6>
                         <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
@@ -99,7 +99,7 @@
             </div>
 
             <!-- Nav Item - Scanner -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="scan-settings.html">
                     <i class="fas fa-qrcode fa-fw"></i>
                     <span>Skaner</span></a>
@@ -210,72 +210,23 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie Wirtualnymi Rybkami</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Ustawienia skanera</h1>
                     </div>
 
-
-                    <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="openManageEventPointsModal()" class="btn btn-primary btn-icon-split justify-content-end">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span class="text">Dodaj punkty do wydarzenia</span>
-                        </a>
+                    <div class="form-group">
+                        <label for="scannerMode">Tryb skanowania</label>
+                        <select class="form-control" id="scannerMode" onChange="updateEIDselect();">
+                            <option value="" disabled selected>Wybierz</option>
+                            <option value="tickets">Skaner biletów</option>
+                            <option value="points">Skaner Wirutalnych Rybek</option>
+                        </select>
                     </div>
-
-                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0">Lista wydarzeń</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <input type="checkbox" class="custom-checkbox" id="hidePastEvents" aria-describedby="manageEventSpecialSuitHelp" onchange="generateTable()">
-                                <label for="hidePastEvents" style="margin-bottom: 0;">Ukryj minione wydarzenia</label>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr style="background-color: #f8f9fc;">
-                                            <th colspan="3" style="text-align: center;">Nazwa wydarzenia</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Nazwa</th>
-                                            <th>Ilość punktów</th>
-                                            <th>Akcje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="event-points-list">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="scannerEID">Wydarzenie</label>
+                        <select class="form-control" id="scannerEID" onChange="openScanner();">
+                            <option value="" disabled selected>Wybierz</option>
+                        </select>
                     </div>
-
-                    <div class="row">
-                        <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Pomoc</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample">
-                                    <div class="card-body">
-                                        W tej zakładce możesz dodać Wirtualne Rybki do wydarzeń.
-                                        <br>
-                                        Aby dodać Wirtualne Rybki do kont użytkowników, skorzystaj z zakładki <b>Zarządzanie użytkownikami <i class="fas fa-long-arrow-alt-right"></i> Modyfikuj WR</b>.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
 
                 </div>
                 <!-- /.container-fluid -->
@@ -352,35 +303,127 @@
     </div>
 
     <!-- Manage Event Modal-->
-    <div class="modal fade" id="manageEventPointsModal" tabindex="-1" role="dialog" aria-labelledby="manageEventPointsModalLabel"
+    <div class="modal fade" id="manageEventTicketModal" tabindex="-1" role="dialog" aria-labelledby="manageEventTicketModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="manageEventPointsModalLabel">Modyfikuj/dodaj punkty do wydarzenia</h5>
+                    <h5 class="modal-title" id="manageEventTicketModalLabel">Dodaj wydarzenie biletowane</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form onSubmit="return manageEventPoints();">
+                <form onSubmit="return manageEventTicket();">
                     <div class="modal-body">
                         <div class="form-group" style="display: none;">
-                            <label for="manageEventPointsID">ID wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventPointsID">
+                            <label for="manageEventTicketID">ID wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventTicketID">
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsEventID">Wydarzenie</label>
-                            <select type="text" class="form-control" id="manageEventPointsEventID" required></select>
+                            <label for="manageEventTicketName">Nazwa biletu</label>
+                            <input type="text" class="form-control" id="manageEventTicketName" aria-describedby="manageEventTicketNameHelp" required>
+                            <small id="manageEventTicketNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w aplikacji</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketDate">Data</label>
+                                    <input type="text" class="form-control" id="manageEventTicketDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketTime">Godzina</label>
+                                    <input type="text" class="form-control" id="manageEventTicketTime" required>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsName">Nazwa wyświetlana</label>
-                            <input type="text" class="form-control" id="manageEventPointsName" aria-describedby="manageEventPointsNameHelp" required>
-                            <small id="manageEventPointsNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w historii punktów użytkowników</small>
+                            <label for="manageEventTicketPlace">Miejsce</label>
+                            <input type="text" class="form-control" id="manageEventTicketPlace" required>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsAmount">Liczba punktów</label>
-                            <input type="number" class="form-control" id="manageEventPointsAmount" min="1">
+                            <label for="manageEventTicketCost">Cena</label>
+                            <input type="number" class="form-control" id="manageEventTicketCost" min="0" step="0.01" required>
                         </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="custom-checkbox" id="manageEventTicketConsent">
+                            <label for="manageEventTicketConsent" style="margin-bottom: 0;">Wymagana zgoda</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketInfo">Dodatkowe informacje</label>
+                            <textarea class="form-control" aria-describedby="manageEventTicketInfoHelp" id="manageEventTicketInfo"></textarea>
+                            <small id="manageEventTicketInfoHelp" class="form-text text-muted">Informacje będą wyświetlanie przed i po zakupie biletu.<br>Zamieść informacje o sposobach płatności i innych ważnych szczegółach.</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketSalesStart">Rozp. sprzedaży</label>
+                                    <input type="datetime-local" class="form-control" id="manageEventTicketSalesStart" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketSalesEnd">Zak. sprzedaży</label>
+                                    <input type="datetime-local" class="form-control" id="manageEventTicketSalesEnd" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketQuantity">Dostępna ilość biletów</label>
+                            <input type="number" class="form-control" aria-describedby="manageEventTicketQuantityHelp" id="manageEventTicketQuantity" min="-1" required>
+                            <small id="manageEventTicketQuantityHelp" class="form-text text-muted">Dla nieskończonej ilości biletów wprowadź -1</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketFor">Odbiorcy</label>
+                            <select class="form-control" id="manageEventTicketFor" aria-describedby="manageEventTicketForHelp" multiple>
+                            </select>
+                            <small id="manageEventTicketForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketBgColor">Tło</label>
+                                    <input type="color" class="form-control" id="manageEventTicketBgColor" value="#000000" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manageEventTicketTextColor">Tekst</label>
+                                    <input type="color" class="form-control" id="manageEventTicketTextColor" value="#ffffff" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketIconURL">Ikona biletu</label>
+                            <input type="url" class="form-control" id="manageEventTicketIconURL" aria-describedby="manageEventTicketIconURLHelp" placeholder="URL grafiki" required>
+                            <small id="manageEventTicketIconURLHelp" class="form-text text-muted">Wymiary grafiki: 500x500 px (1:1)<br>Grafika widnieje na okładce biletu</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketThumbnailURL">Tło biletu</label>
+                            <input type="url" class="form-control" id="manageEventTicketThumbnailURL" aria-describedby="manageEventTicketThumbnailURLHelp" placeholder="URL grafiki" required>
+                            <small id="manageEventTicketThumbnailURLHelp" class="form-text text-muted">Wymiary grafiki: 1920x1080 px (16:9)<br>Grafika pojawia się po otwarciu biletu</small>
+                        </div>
+                        <label>Podgląd</label>
+                        <div style="margin-bottom: 15px;">
+                            <div id="manageEventTicketDisplayColor" style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
+                                <div style="padding-left: 20px;height: calc(100% - 40px);width: 100%;position: relative;float: left;transform: translateY(-50%);top: 50%;">
+                                    <div id="manageEventTicketDisplayIcon" style="height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
+                                    <div style="position: relative;top: 50%;translate: 0 -50%;width: calc(100% - 40px);">
+                                        <p id="manageEventTicketDisplayName" style="font-size: 18px; color: #ffffff; margin: 0;"></p>
+                                        <p style="font-size: 15px; margin: 0; color: #00ff00;">BILET AKTYWNY</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <center>
+                            <a onClick="deleteTicketEventModal();" id="manageEventTicketDelete" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                                <span class="text">Usuń bilet</span>
+                            </a>
+                        </center>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
@@ -397,18 +440,21 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć punkty z wydarzenia?</h5>
+                    <h5 class="modal-title text-danger" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie biletowane?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="deleteEventPointsID" style="display: none;">
-                    Kliknij <b>Potwierdź</b>, aby usunąć.
+                    <div class="text-danger">
+                        <i class="fas fa-exclamation-triangle fa-fw"></i> Uwaga!
+                        <br>
+                        Upewnij się, że wszystkie bilety zostały rozliczone. Usunięcie wydarzenia biletowanego spowoduje usunięcie biletów z nim powiązanych!
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventPoints(true);">Potwierdź</a>
+                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventTicket(true);">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -500,229 +546,87 @@
 
     <script>
         var eventsdb = {}
-        var eventPointsDB = {}
+        var ticketEventsDB = {}
+        var pointsEventsDB = {}
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
-
+            //Pobieranie listy wydarzeń biletowanych
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventTickets`;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
 
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    var data = JSON.parse(xhr.responseText);
-                    eventsdb = data;
-                    eventsdb = Object.fromEntries(
-                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
-                            const date1 = new Date(event1.startdate);
-                            const date2 = new Date(event2.startdate);
-                            return date1 - date2;
-                        })
-                    );
-                    document.getElementById("manageEventPointsEventID").innerHTML = `<option value="" selected disabled>Wybierz wydarzenie</option>`;
-                    for (event in eventsdb) {
-                        if (eventsdb[event].type.toUpperCase() == "SZKOLNE") {continue;}
-                        document.getElementById("manageEventPointsEventID").innerHTML += `
-                        <option value="${event}">${eventsdb[event].name} (${eventsdb[event].startdate.split("T")[0]})</option>
-                        `
-                    }
-
-                    //Pobieranie listy wydarzeń z Wirtualnymi Rybkami
-                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
-                    var xhrA = new XMLHttpRequest();
-                    xhrA.open("GET", url);
-
-                    xhrA.onreadystatechange = function () {
-                    if (xhrA.readyState === 4) {
-                        if (xhrA.status == 200) {
-                            eventPointsDB = JSON.parse(xhrA.responseText);
-                            generateTable();
-                        } else if (xhrA.status == 403) {
-                            $('#insufficientPermissionsModal').modal('show')
-                        } else {
-                            $('#apiErrorModal').modal('show')
-                        }
-                    }};
-
-                    xhrA.send();
-                    
+                    ticketEventsDB = JSON.parse(xhr.responseText);
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
                     $('#apiErrorModal').modal('show')
                 }
             }};
-
             xhr.send();
+
+            //Pobieranie listy wydarzeń z punktami
+            var urlA = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+            var xhrA = new XMLHttpRequest();
+            xhrA.open("GET", urlA);
+
+            xhrA.onreadystatechange = function () {
+            if (xhrA.readyState === 4) {
+                if (xhrA.status == 200) {
+                    pointsEventsDB = JSON.parse(xhrA.responseText);
+                } else if (xhrA.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
+            xhrA.send();
         }
 
-        function generateTable() {
-            var today = new Date();
-            today = today.toISOString().split('T')[0];
-            document.getElementById("event-points-list").innerHTML = "";
-            var hidePast = false;
-            if (document.getElementById("hidePastEvents").checked) {
-                hidePast = true;
-            }
-            const eventPointsDBCopy = eventPointsDB;
-            for (x in eventsdb) {
-                if (hidePast == true) {
-                    if (eventsdb[x].enddate != undefined) {
-                        if (eventsdb[x].enddate.split('T')[0] < today) {
-                            continue;
-                        }
-                    } else {
-                        if (eventsdb[x].startdate.split('T')[0] < today) {
-                            continue;
-                        }
-                    }
-                }
-                var eventPoints = "";
-                for (i in eventPointsDB) {
-                    if (eventPointsDB[i].eventid == x) {
-                        eventPoints += `
-                        <tr>
-                            <td>${eventPointsDB[i].name}</td>
-                            <td>${eventPointsDB[i].amount}</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
-                                    Zarządzaj
-                                </button>
-                                <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
-                                    Usuń
-                                </button>
-                            </td>
-                        </tr>`
-                    }
-                }
-                if (eventPoints != "") {
-                    document.getElementById("event-points-list").innerHTML += `
-                    <tr style="background-color: #f8f9fc;">
-                        <td colspan="3"><b>${eventsdb[x].name}</b></td>
-                    </tr>
-                    ${eventPoints}`
-                }
-            }
-            eventPoints = "";
-            for (i in eventPointsDB) {
-                if (Object.keys(eventsdb).includes(eventPointsDB[i].eventid)) {
-                    continue;
-                }
-                eventPoints += `
-                    <tr>
-                        <td>${eventPointsDB[i].name}</td>
-                        <td>${eventPointsDB[i].amount}</td>
-                        <td>
-                            <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
-                                Zarządzaj
-                            </button>
-                            <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
-                                Usuń
-                            </button>
-                        </td>
-                    </tr>`
-            }
-            if (eventPoints != "") {
-                document.getElementById("event-points-list").innerHTML += `
-                <tr style="background-color: #f8f9fc;">
-                    <td colspan="3"><b>Wydarzenia usunięte</b></td>
-                </tr>
-                ${eventPoints}`
-            }
-        }
 
         reloadDB();
 
-        function getManageEventFor() {
-            console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
-            return false;
-        }
-        
+        function updateEIDselect() {
+            var selectedMode = document.getElementById("scannerMode").value;
+            document.getElementById("scannerEID").innerHTML = "<option value='' selected disabled>Wybierz</option>";
+            
+            if (selectedMode == "tickets") {
+                for (x in ticketEventsDB) {
+                    document.getElementById("scannerEID").innerHTML += `
+                    <option value="${x}">${ticketEventsDB[x].name}</option> 
+                    `
+                }
+            }
 
-        function openManageEventPointsModal(eventid) {
-            if (userAccess < 3) {
-                $('#insufficientPermissionsModal').modal('show')
+            if (selectedMode == "points") {
+                for (x in pointsEventsDB) {
+                    document.getElementById("scannerEID").innerHTML += `
+                    <option value="${x}">${pointsEventsDB[x].name}</option>
+                    `
+                }
+            }
+            sessionStorage.removeItem("teid");
+            sessionStorage.removeItem("peid");
+        }
+
+        sessionStorage.removeItem("teid");
+        sessionStorage.removeItem("peid");
+
+        function openScanner() {
+            var selectedMode = document.getElementById("scannerMode").value;
+            var EID = document.getElementById("scannerEID").value;
+            if (EID == "" || selectedMode == "") {
                 return false;
-            } else {
-                $('#manageEventPointsModal').modal('show')
             }
-            if (eventid != undefined) { //Modifying event
-                document.getElementById("manageEventPointsID").value = eventid;
-                document.getElementById("manageEventPointsName").value = eventPointsDB[eventid].name;
-                document.getElementById("manageEventPointsAmount").value = parseInt(eventPointsDB[eventid].amount);
-                document.getElementById("manageEventPointsEventID").value = eventPointsDB[eventid].eventid;
-                
-            } else { //New event
-                document.getElementById("manageEventPointsID").value = "";
-                document.getElementById("manageEventPointsName").value = "";
-                document.getElementById("manageEventPointsAmount").value = 0;
-                document.getElementById("manageEventPointsEventID").value = "";
+            if (selectedMode == "tickets") {
+                sessionStorage.setItem("teid", EID)
             }
-            
-            
-            
-        }
-
-        function manageEventPoints(remove) {
-            $('#manageEventPointsModal').modal('hide')
-
-            if (remove == true) {
-                var data = {
-                    "id": document.getElementById("deleteEventPointsID").value,
-                    "delete": true
-                }
-            } else {
-                var data = {
-                    "id": document.getElementById("manageEventPointsID").value,
-                    "name": document.getElementById("manageEventPointsName").value,
-                    "amount": document.getElementById("manageEventPointsAmount").value,
-                    "eventid": document.getElementById("manageEventPointsEventID").value
-                }
-                if (data.id == "") {
-                    delete data.id;
-                }
+            if (selectedMode == "points") {
+                sessionStorage.setItem("peid", EID)
             }
-
-            $('#loadingModal').modal('show')
-            console.log(data);
-            
-            var url = `https://apimobilnykatolik.glitch.me/pmk/eventpoints/modify/${userID}/${userLoginID}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)
-                        reloadDB();
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
-                }
-            };
-
-            xhr.send(JSON.stringify(data));
-            return false;
-        }
-
-        function confirmDelete(eventPointsID) {
-            document.getElementById("deleteEventPointsID").value = eventPointsID;
-            $('#confirmDeleteModal').modal('show')
+            window.open("scan.html", "_self")
         }
 
     </script>
