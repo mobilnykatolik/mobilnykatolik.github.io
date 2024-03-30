@@ -407,6 +407,10 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <div class="form-group">
+                            <label for="managePointsAmount">ID użytkownika</label>
+                            <input type="text" class="form-control" id="managePointsUserID" disabled>
+                        </div>
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="form-group">
@@ -423,7 +427,11 @@
                                 </div>
                             </div>
                         </div>
+                        <center>
+                            <a class="btn btn-primary btn-sm" onclick="managePoints();">Modyfikuj</a>
+                        </center>
                         Historia punktów
+                        <small id="managePointsAll" class="form-text text-muted">Stan aktualny: </small>
                         <table class="table table-bordered mt-2 small">
                             <thead>
                                 <tr>
@@ -433,18 +441,12 @@
                                 </tr>
                             </thead>
                             <tbody id="points-history">
-                                <tr>
-                                    <td>Udział w Zimowym Koncercie Charytatywnym</td>
-                                    <td>25</td>
-                                    <td>2023-12-01 18:00</td>
-                                </tr>
                             </tbody>
                         </table>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" data-dismiss="modal" href="#">Zapisz</a>
                 </div>
             </div>
         </div>
@@ -539,7 +541,7 @@
         var eventPointsDB;
         var pointsDB;
 
-        function reloadDB() {
+        function reloadDB(managePoints) {
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
 
             var xhr = new XMLHttpRequest();
@@ -557,6 +559,7 @@
                         if (xhrA.status == 200) {
                             eventPointsDB = JSON.parse(xhrA.responseText);
                             document.getElementById("managePointsID").innerHTML = `<option value="">Modyfikacja punktów</option>`;
+                            document.getElementById("managePointsAmount").value = "";
                             for (event in eventPointsDB) {
                                 document.getElementById("managePointsID").innerHTML += `
                                     <option value="${event}">${eventPointsDB[event].name}</option>
@@ -575,6 +578,9 @@
                     if (xhrB.readyState === 4) {
                         if (xhrB.status == 200) {
                             pointsDB = JSON.parse(xhrB.responseText);
+                            if (managePoints != undefined) {
+                                openManagePointsModal(managePoints);
+                            }
                         }
                     }};
 
@@ -760,6 +766,8 @@
             //Displaying user's points history
             var pointsData = pointsDB[userid];
             document.getElementById("points-history").innerHTML = "";
+            document.getElementById("managePointsUserID").value = userid;
+            document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
             if (pointsData == undefined) {
                 //
             } else {
@@ -789,6 +797,55 @@
                 $('#insufficientPermissionsModal').modal('show')
             }
             
+        }
+
+        function managePoints() {
+            $('#managePointsModal').modal('hide')
+            var data = {
+                "peid": document.getElementById("managePointsID").value,
+                "amount": document.getElementById("managePointsAmount").value,
+                "userid": document.getElementById("managePointsUserID").value
+            }
+            if (data.peid == "") {
+                delete data.peid;
+            }
+            if (data.amount == "") {
+                delete data.amount;
+            }
+
+            $('#loadingModal').modal('show')
+            console.log(data);
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        //$('#apiResponseModal').modal('show')
+                        //document.getElementById("apiResponse").innerHTML = `Operacja zakończona pomyślnie!<br>Aktualny stan punktów użytkownika ${response.owner}: ${response.points}`;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB(data.userid);
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
         }
 
         function getDefaultPointsAmount() {
