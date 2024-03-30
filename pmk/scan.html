@@ -208,43 +208,23 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Panel sterowania</h1>
-                    </div>
 
                     <div class="row">
-
-                        <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Witaj w Panelu Mobilny Katolik</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample">
-                                    <div class="card-body">
-                                        W razie problemów z systemem prosimy o kontakt z administratorem:
-                                        <br>
-                                        <b>Kuba Sałek (kuba.salek@icloud.com)</b>
-                                    </div>
-                                </div>
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div style="width: 100%; aspect-ratio: 1/1; position: relative;">
+                                <video id="qr-scanner" style="position: relative; height: 100%; width: 100%; top: 0; left: 0; object-fit: cover; border-radius: 0.35rem;"></video>
                             </div>
                         </div>
-
+                        <div class="col-xl-8 col-md-6">
+                            <div class="form-group">
+                                <label for="qrScanSourceSelect">Wybierz źrodło obrazu</label>
+                                <select class="form-control" id="qrScanSourceSelect" onChange="updateSource();">
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div style="height: 500px; width: 500px; position: relative;">
-                        <video id="qr-scanner" style="position: absolute; height: 100%; width: 100%; top: 0; left: 0; object-fit: cover;"></video>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="qrScanSourceSelect">Wybierz źrodło obrazu</label>
-                        <select class="form-control" id="qrScanSourceSelect" onChange="updateSource();">
-                        </select>
-                    </div>
+                    
                     
                     <!-- Content Row -->
 
