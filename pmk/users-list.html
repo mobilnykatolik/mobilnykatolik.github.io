@@ -767,10 +767,10 @@
             var pointsData = pointsDB[userid];
             document.getElementById("points-history").innerHTML = "";
             document.getElementById("managePointsUserID").value = userid;
-            document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
             if (pointsData == undefined) {
                 //
             } else {
+                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
                 for (x in pointsData.history) {
                     var element = pointsData.history[x];
                     if (element.name == undefined) {
