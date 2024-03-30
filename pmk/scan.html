@@ -378,10 +378,11 @@
 
     // Start QR scanner
     qrScanner.start().then(() => {
-        document.getElementById("qrScanSourceSelect").innerHTML = ""
+        document.getElementById("qrScanSourceSelect").innerHTML = `<option value="" selected disabled hidden>Wybierz</option>`
         QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
             document.getElementById("qrScanSourceSelect").innerHTML += `<option value="${camera.id}">${camera.label}</option>`
-        }));
+        })
+        );
     });
 
 function updateSource() {
