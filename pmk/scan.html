@@ -447,6 +447,9 @@ startScan();
 $("#ticketResponseModal").on("hidden.bs.modal", function () {
     qrScanner.start()
 });
+$("#pointsResponseModal").on("hidden.bs.modal", function () {
+    qrScanner.start()
+});
 
 function updateSource() {
     qrScanner.setCamera(document.getElementById("qrScanSourceSelect").value);
