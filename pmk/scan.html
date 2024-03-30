@@ -239,6 +239,12 @@
                     <div style="height: 500px; width: 500px; position: relative;">
                         <video id="qr-scanner" style="position: absolute; height: 100%; width: 100%; top: 0; left: 0; object-fit: cover;"></video>
                     </div>
+
+                    <div class="form-group">
+                        <label for="qrScanSourceSelect">Poziom uprawnień</label>
+                        <select class="form-control" id="qrScanSourceSelect">
+                        </select>
+                    </div>
                     
                     <!-- Content Row -->
 
@@ -393,12 +399,9 @@
 
     // Start QR scanner
     qrScanner.start().then(() => {
+        document.getElementById("qrScanSourceSelect").innerHTML = ""
         QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
-            //const option = document.createElement('option');
-            //option.value = camera.id;
-            //option.text = camera.label;
-            //camList.add(option);
-            console.log(camera);
+            document.getElementById("qrScanSourceSelect").innerHTML += `<option value="${camera.id}">${camera.label}</option>`
         }));
     });
 
