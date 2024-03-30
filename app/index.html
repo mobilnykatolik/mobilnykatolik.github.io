@@ -695,10 +695,16 @@
     </div>
     <div class="page-content">
         <div class="buttons-section" type="text">
-            <div type="ind">
+            <div type="top">
                 <span>
                     <i>Wersja aplikacji</i>
-                    <br>2.0.4
+                    <br>2.1.0
+                </span>
+            </div>
+            <div type="bottom">
+                <span>
+                    <i>ID użytkownika</i>
+                    <br><a id="settingsUserID"></a>
                 </span>
             </div>
         </div>
@@ -1314,6 +1320,7 @@ function startApplication() {
             document.getElementById("profile-pic").innerHTML = `${userFirstName.charAt(0)}${userSurname.charAt(0)}`
             document.getElementById("widget-points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ececec")`
             document.getElementById("points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
+            document.getElementById("settingsUserID").innerHTML = userID;
             if (data.points != undefined) {
                 document.getElementById("widget-points-amount").innerHTML = `${data.points.points}`;
                 document.getElementById("points-amount").innerHTML = data.points.points;
