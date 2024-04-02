@@ -920,6 +920,7 @@ document.getElementById('usersettings-profilepic-input').addEventListener('chang
             document.getElementById("usersettings-profilepic").style.backgroundImage = `url(${xhr.responseText})`
             document.getElementById("profile-pic").style.backgroundImage = `url(${xhr.responseText})`
         } else {
+            document.getElementById("usersettings-profilepic").classList.remove("change")
             window.alert("Wystąpił problem ze zmianą zdjęcia profilowego! Spróbuj załadować inne zdjęcie.")
         }
     };
