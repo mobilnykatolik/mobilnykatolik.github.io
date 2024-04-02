@@ -565,7 +565,7 @@
             <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
             </g>
         </svg>
-        Twoje dane
+        Twój Profil Mobilny
     </div>
     <div class="page-content">
         <p style="font-size: 18px;">Zdjęcie profilowe</p>
@@ -896,12 +896,37 @@ document.getElementById('usersettings-profilepic').addEventListener('click', fun
 });
 
 document.getElementById('usersettings-profilepic-input').addEventListener('change', function() {
+    document.getElementById("usersettings-profilepic").classList.add("change")
     var wybranyPlik = document.getElementById('usersettings-profilepic-input').files[0];
-    window.alert("Opcja dostępna wkrótce!")
-    return false;
-    if (wybranyPlik) {
-        handleFile();
+    if (!wybranyPlik) {
+        return false;
     }
+    var file = wybranyPlik;
+
+    var jsonData = {
+        userID,
+        loginID
+    }
+    
+    var formData = new FormData();
+    formData.append('image', file);
+    formData.append('json', JSON.stringify(jsonData));
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://apimobilnykatolik.glitch.me/profilepic/upload', true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            document.getElementById("usersettings-profilepic").classList.remove("change")
+            document.getElementById("usersettings-profilepic").style.backgroundImage = `url(${xhr.responseText})`
+            document.getElementById("profile-pic").style.backgroundImage = `url(${xhr.responseText})`
+        } else {
+            window.alert("Wystąpił problem ze zmianą zdjęcia profilowego! Spróbuj załadować inne zdjęcie.")
+        }
+    };
+    xhr.onerror = function() {
+        console.error('Error uploading image. Network error.');
+    };
+    xhr.send(formData);
 });
 
 //Colors
