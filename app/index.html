@@ -572,6 +572,7 @@
         <p style="font-size: 14px; opacity: 60%; margin-bottom: 10px;">Ustaw zdjęcie profilowe</p>
         <input type="file" id="usersettings-profilepic-input" accept="image/*" hidden>
         <div class="profile-pic settings" id="usersettings-profilepic" style="margin-bottom: 10px;" onclick="window.open('#usersettings', '_self')"></div>
+        <button type="button" id="usersettings-deleteprofilepic" style="margin-bottom: 10px;" onclick="deleteProfilePic();">Usuń</button>
         <p style="font-size: 18px;">Pseudonim</p>
         <p style="font-size: 14px; opacity: 60%; margin-bottom: 10px;">Nazwa wyświetlana w aplikacji</p>
         <input type="text" placeholder="Pseudonim/imię" id="UInickname" maxlength="15" onchange="nicknameChange();">
@@ -897,11 +898,13 @@ document.getElementById('usersettings-profilepic').addEventListener('click', fun
 
 document.getElementById('usersettings-profilepic-input').addEventListener('change', function() {
     document.getElementById("usersettings-profilepic").classList.add("change")
+    document.getElementById("usersettings-deleteprofilepic").disabled = "disabled";
     var wybranyPlik = document.getElementById('usersettings-profilepic-input').files[0];
     if (!wybranyPlik) {
         return false;
     }
     var file = wybranyPlik;
+    document.getElementById('usersettings-profilepic-input').value = "";
 
     var jsonData = {
         userID,
@@ -921,8 +924,12 @@ document.getElementById('usersettings-profilepic-input').addEventListener('chang
             document.getElementById("profile-pic").style.backgroundImage = `url(${xhr.responseText})`
             document.getElementById("usersettings-profilepic").innerHTML = "";
             document.getElementById("profile-pic").innerHTML = "";
+            document.getElementById("usersettings-deleteprofilepic").style.display = "block";
+            document.getElementById("usersettings-deleteprofilepic").disabled = "";
         } else {
             document.getElementById("usersettings-profilepic").classList.remove("change")
+            document.getElementById("usersettings-deleteprofilepic").style.display = "none";
+            document.getElementById("usersettings-deleteprofilepic").disabled = "";
             window.alert("Wystąpił problem ze zmianą zdjęcia profilowego! Spróbuj załadować inne zdjęcie.")
         }
     };
@@ -931,6 +938,42 @@ document.getElementById('usersettings-profilepic-input').addEventListener('chang
     };
     xhr.send(formData);
 });
+
+function deleteProfilePic() {
+    if (!window.confirm("Czy na pewno chcesz usunąć zdjęcie profilowe?")) {
+        return false;
+    }
+    document.getElementById("usersettings-profilepic").classList.add("change")
+    document.getElementById("usersettings-deleteprofilepic").disabled = "disabled";
+    var data = {userID, loginID}
+    console.log(data);
+    var url = `https://apimobilnykatolik.glitch.me/profilepic/delete`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            document.getElementById("usersettings-deleteprofilepic").disabled = "";
+            if (xhr.status == 200) {
+                document.getElementById("profile-pic").innerHTML = `${userFirstName.charAt(0)}${userSurname.charAt(0)}`
+                document.getElementById("usersettings-profilepic").innerHTML = `${userFirstName.charAt(0)}${userSurname.charAt(0)}`;
+                document.getElementById("profile-pic").style.backgroundImage = "";
+                document.getElementById("usersettings-profilepic").style.backgroundImage = "";
+                document.getElementById("usersettings-profilepic").classList.remove("change")
+                document.getElementById("usersettings-deleteprofilepic").style.display = "none";
+                return false;
+            } else {
+                document.getElementById("usersettings-profilepic").classList.remove("change")
+                document.getElementById("usersettings-deleteprofilepic").style.display = "block";
+                window.alert("Wystąpił błąd. Spróbuj ponownie!");
+                return false;
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
 
 //Colors
 
@@ -1389,9 +1432,11 @@ function startApplication() {
             if (data.profilepic != undefined) {
                 document.getElementById("profile-pic").style.backgroundImage = `url("${data.profilepic}")`
                 document.getElementById("usersettings-profilepic").style.backgroundImage = `url("${data.profilepic}")`
+                document.getElementById("usersettings-deleteprofilepic").style.display = "block";
             } else {
                 document.getElementById("profile-pic").innerHTML = `${userFirstName.charAt(0)}${userSurname.charAt(0)}`
                 document.getElementById("usersettings-profilepic").innerHTML = `${userFirstName.charAt(0)}${userSurname.charAt(0)}`;
+                document.getElementById("usersettings-deleteprofilepic").style.display = "none";
             }
             document.getElementById("widget-points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ececec")`
             document.getElementById("points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
