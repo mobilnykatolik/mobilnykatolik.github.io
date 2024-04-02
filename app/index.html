@@ -726,7 +726,7 @@
             <div type="top">
                 <span>
                     <i>Wersja aplikacji</i>
-                    <br>2.1.0
+                    <br>2.1.2
                 </span>
             </div>
             <div type="bottom">
@@ -881,9 +881,6 @@ function preloadImage(url)
 }
 
 const madeBy = ['https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv', 'https://apimobilnykatolik.glitch.me/profilepic/get/ibyfmb1stmrimw3a', 'https://apimobilnykatolik.glitch.me/profilepic/get/8fpfqif147ocy12o']
-for (x in madeBy) {
-    preloadImage(madeBy[x])
-}
 
 //User variables
 var userID = localStorage.getItem("userid");
@@ -1277,6 +1274,9 @@ function startApplication() {
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
         if (xhr.status == 200) {
+            for (x in madeBy) {
+                preloadImage(madeBy[x])
+            }
             console.log(JSON.parse(xhr.responseText));
             var data = JSON.parse(xhr.responseText);
             userID = data.id;
