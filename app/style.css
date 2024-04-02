@@ -436,6 +436,17 @@ p {
     text-align: center;
     font-size: 20px;
     color: var(--theme-color);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.profile-pic.settings {
+    height: 200px;
+    margin: auto;
+    line-height: 200px;
+    font-size: 75px;
+    position: relative;
 }
 
 input[type="checkbox"] {
@@ -593,4 +604,58 @@ container.badge {
     vertical-align: middle;
     margin: -3px 5px 0 0;
     height: auto;
+}
+
+/* Kupony */
+.coupon {
+    height: calc(100% - 4px)!important;
+    width: calc(100% - 4px)!important;
+    /*background-color: var(--additional);*/
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed var(--theme-color);
+    flex-direction: column;
+}
+
+.coupon.disabled {
+    border: 2px dashed #555555;
+}
+
+.coupon-icon {
+    width: 75%;
+    aspect-ratio: 1/1;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/025/067/649/original/waffle-with-ai-generated-free-png.png");
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.coupon-name {
+    font-size: 3.5cqw;
+    text-align: center;
+    width: 80%;
+}
+
+.coupon-btn {
+    background-color: var(--theme-color);
+    border-radius: 4cqw;
+    padding: 5px 15px;
+    margin: 5px;
+    font-size: 3.5cqw;
+    color: #ffffff;
+}
+
+.coupon.disabled .coupon-btn {
+    background-color: #555555;
+}
+
+@media (min-width:55rem) {
+    .coupon-name {
+        font-size: 1.5cqw;
+    }
+    .coupon-btn {
+        font-size: 1.5cqw;
+    }
 }
