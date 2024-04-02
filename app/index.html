@@ -873,6 +873,18 @@
 </html>
 
 <script>
+//Preload twórców
+function preloadImage(url)
+{
+    var img=new Image();
+    img.src=url;
+}
+
+const madeBy = ['https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv', 'https://apimobilnykatolik.glitch.me/profilepic/get/ibyfmb1stmrimw3a', 'https://apimobilnykatolik.glitch.me/profilepic/get/8fpfqif147ocy12o']
+for (x in madeBy) {
+    preloadImage(madeBy[x])
+}
+
 //User variables
 var userID = localStorage.getItem("userid");
 var loginID = localStorage.getItem("loginid");
