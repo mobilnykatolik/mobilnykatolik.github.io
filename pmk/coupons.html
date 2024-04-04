@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Wydarzenia biletowane</title>
+    <title>Panel Mobilny Katolik - Zarządzanie kuponami</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -23,7 +23,7 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <style>
-        td[colspan="3"] {
+        td[colspan="4"] {
             text-align: center;
         }
         tr, td {
@@ -74,10 +74,10 @@
                         <a class="collapse-item" href="events.html">Wyświetl</a>
                         <h6 class="collapse-header">Bilety</h6>
                         <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
-                        <a class="collapse-item active" href="ticketed-events.html">Wydarzenia biletowane</a>
+                        <a class="collapse-item" href="ticketed-events.html">Wydarzenia biletowane</a>
                         <h6 class="collapse-header">Wirtualne rybki</h6>
                         <a class="collapse-item" href="points.html">Zarządzaj</a>
-                        <a class="collapse-item" href="coupons.html">Kupony</a>
+                        <a class="collapse-item active" href="coupons.html">Kupony</a>
                         <h6 class="collapse-header">SLS</h6>
                         <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
@@ -210,15 +210,15 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Wydarzenia biletowane</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie kuponami</h1>
                     </div>
 
                     <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="openmanageEventTicketModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                        <a href="#" onClick="//openmanageEventTicketModal()" class="btn btn-primary btn-icon-split justify-content-end">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Dodaj wydarzenie biletowane</span>
+                            <span class="text">Stwórz nowy kupon</span>
                         </a>
                     </div>
 
@@ -227,10 +227,28 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0">Lista wydarzeń biletowanych</h6>
+                            <h6 class="m-0">Lista kuponów</h6>
                         </div>
-                        <div class="card-body" id="ticketEventsList">
-                            
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-checkbox" id="hidePastEvents" onchange="generateTable()">
+                                <label for="hidePastEvents" style="margin-bottom: 0;">Ukryj minione wydarzenia</label>
+                            </div>
+                            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr style="background-color: #f8f9fc;">
+                                        <th colspan="4" style="text-align: center;">Nazwa wydarzenia</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Nazwa</th>
+                                        <th>Koszt</th>
+                                        <th>Status</th>
+                                        <th>Akcje</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="available-coupons-list">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
@@ -333,21 +351,22 @@
     </div>
 
     <!-- Manage Event Modal-->
-    <div class="modal fade" id="manageEventTicketModal" tabindex="-1" role="dialog" aria-labelledby="manageEventTicketModalLabel"
+    <div class="modal fade" id="manageCouponModal" tabindex="-1" role="dialog" aria-labelledby="manageCouponModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="manageEventTicketModalLabel">Dodaj wydarzenie biletowane</h5>
+                    <h5 class="modal-title" id="manageCouponModalLabel">Stwórz nowy kupon</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form onSubmit="return manageEventTicket();">
+                <form onSubmit="return manageCoupon();">
                     <div class="modal-body">
-                        <div class="form-group" style="display: none;">
-                            <label for="manageEventTicketID">ID wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventTicketID">
+                        <div class="form-group">
+                            <label for="manageEventTicketName">Powiązane wydarzenie</label>
+                            <input type="text" class="form-control" id="manageEventTicketName" aria-describedby="manageEventTicketNameHelp" required>
+                            <small id="manageEventTicketNameHelp" class="form-text text-muted">Kupon będzie można wykorzystać <b>tylko w trakcie trwania wybranego wydarzenia</b></small>
                         </div>
                         <div class="form-group">
                             <label for="manageEventTicketName">Nazwa biletu</label>
@@ -575,6 +594,7 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
+        $('#insufficientPermissionsModal').modal('show')
         var eventsdb = {}
         var ticketEventsDB = {}
         var classes;
@@ -611,7 +631,7 @@
                     );
 
                     //Pobieranie listy wydarzeń biletowanych
-                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventTickets`;
+                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
 
@@ -661,6 +681,7 @@
         }
 
         function generateTable() {
+        return false;
             document.getElementById("ticketEventsList").innerHTML = "";
             for (x in ticketEventsDB) {
                 var teData = ticketEventsDB[x]
@@ -681,7 +702,7 @@
             }
         }
 
-        reloadDB();
+        //reloadDB();
 
         function getManageEventFor() {
             console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
@@ -756,6 +777,7 @@
 
         function manageEventTicket(remove) {
             $('#manageEventTicketModal').modal('hide')
+            return false;
 
             if (remove == true) {
                 var data = {
