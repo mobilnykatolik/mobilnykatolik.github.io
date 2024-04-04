@@ -76,3 +76,12 @@ document.getElementById("profile-fullname").innerHTML = `${sessionStorage.userfn
 document.getElementById("profileModalFullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
 document.getElementById("profileModalAccess").innerHTML = sessionStorage.useraccess;
 document.getElementById("img-profile").src = `https://apimobilnykatolik.glitch.me/profilepic/get/${userID}`
+
+var imgProfile = document.getElementById("img-profile")
+
+imgProfile.onload = function() {
+  this.setAttribute('loading', 'lazy'); // Dodaj lazy loading dla lepszego ładowania obrazków
+  this.setAttribute('decoding', 'async'); // Dekodowanie asynchroniczne dla szybszego renderowania
+  this.setAttribute('crossorigin', 'anonymous'); // Ustaw crossorigin na anonymous, jeśli obrazek jest hostowany na innym serwerze
+  this.setAttribute('loading', 'lazy'); // Lazy loading dla obrazka
+};
