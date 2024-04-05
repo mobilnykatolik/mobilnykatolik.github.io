@@ -1778,7 +1778,8 @@ function loadCalendar() {
         })
     );
     var today = new Date();
-    today = today.toISOString().split('T')[0];
+    today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`
+    today = new Date(today).getTime();
     console.log(today);
     var actMonth;
     const miesiace = [
@@ -1799,12 +1800,12 @@ function loadCalendar() {
         var pastDot = "var(--background)"
         var descriptionVisibility = "none";
         if (event.enddate != "") {
-            if (event.enddate.split('T')[0] < today) {
+            if (new Date(event.enddate.split('T')[0]).getTime() < today) {
                 past = "40%";
                 pastDot = "var(--theme-color)";
             }
         } else {
-            if (event.startdate.split('T')[0] < today) {
+            if (new Date(event.startdate.split('T')[0]).getTime() < today) {
                 past = "40%";
                 pastDot = "var(--theme-color)";
             }
