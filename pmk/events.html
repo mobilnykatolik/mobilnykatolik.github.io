@@ -206,7 +206,7 @@
                     </div>
 
                     <div class="row justify-content-end mb-4 mt-4 mr-0 d-print-none">
-                        <a href="#" onClick="openManageEventModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                        <a onClick="openManageEventModal()" class="btn btn-primary btn-icon-split justify-content-end">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
@@ -434,7 +434,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć to wydarzenie?</h5>
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie []?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -445,7 +445,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEvent(true);">Potwierdź</a>
+                    <a class="btn btn-danger" data-dismiss="modal" onclick="manageEvent(true);">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -633,13 +633,13 @@
                                 <!--<a href="#" class="btn btn-primary btn-circle btn-sm disabled">
                                     <i class="fas fa-info"></i>
                                 </a>-->
-                                <a href="#" onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
+                                <a onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
                                     <i class="fas fa-pen"></i>
                                 </a>
                                 <!--<a href="#" class="btn btn-primary btn-circle btn-sm disabled">
                                     <i class="fas fa-ticket-alt"></i>
                                 </a>-->
-                                <a href="#" onclick="confirmDelete('${event}')" class="btn btn-danger btn-circle btn-sm">
+                                <a onclick="confirmDelete('${event}')" class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
@@ -835,6 +835,7 @@
         function confirmDelete(eventID) {
             if (eventsdb[eventID].by.includes(userID) || userAccess >= 4) {
                 document.getElementById("deleteEventID").value = eventID;
+                document.getElementById("confirmDeleteModalLabel").innerHTML = `Czy na pewno chcesz usunąć wydarzenie <b>${eventsdb[eventID].name}</b>?`
                 $('#confirmDeleteModal').modal('show')
             } else {
                 $('#insufficientPermissionsModal').modal('show')
