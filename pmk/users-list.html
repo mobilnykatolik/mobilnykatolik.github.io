@@ -218,7 +218,8 @@
                                             <th>Nazwisko</th>
                                             <th>Klasa</th>
                                             <th>ID</th>
-                                            <th>Uprawnienia</th>
+                                            <th>Upr.</th>
+                                            <th>WR</th>
                                             <th>Akcje</th>
                                         </tr>
                                     </thead>
@@ -581,34 +582,38 @@
                             if (managePoints != undefined) {
                                 openManagePointsModal(managePoints);
                             }
+                            var data = JSON.parse(xhr.responseText);
+                            userdb = data;
+                            usersCount = Object.keys(userdb).length;
+                            sessionStorage.setItem("userscount", usersCount);
+                            var dataTable = $('#dataTable').DataTable();
+                            dataTable.clear();
+                            for (entry in data) {
+                                if (entry == "aynqcj8mnzt2o0xh") {
+                                    continue;
+                                }
+                                if (entry in pointsDB) {
+                                    var points = pointsDB[entry].points
+                                } else {
+                                    var points = 0
+                                }
+                                dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, points, `
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Zarządzaj
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
+                                        <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
+                                        <a class="dropdown-item" href="#" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
+                                    </div>
+                                </div>
+                                `]).draw();
+                            }      
                         }
                     }};
 
-                    xhrB.send();
-
-                    var data = JSON.parse(xhr.responseText);
-                    userdb = data;
-                    usersCount = Object.keys(userdb).length;
-                    sessionStorage.setItem("userscount", usersCount);
-                    var dataTable = $('#dataTable').DataTable();
-                    dataTable.clear();
-                    for (entry in data) {
-                        if (entry == "aynqcj8mnzt2o0xh") {
-                            continue;
-                        }
-                        dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, `
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Zarządzaj
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
-                                <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
-                                <a class="dropdown-item" href="#" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
-                            </div>
-                        </div>
-                        `]).draw();
-                    }          
+                    xhrB.send();    
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {

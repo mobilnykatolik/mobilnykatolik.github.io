@@ -1,706 +1,175 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" id="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-    <title>
-        Panel Mobilny Katolik
-    </title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>-->
-    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
-    <style>
-      :root {
-    --theme-color: #a80c2f;
-    --background: #f9f9f9;
-    --additional: #ffffff;
-    --additional2: #ececec;
-    --text: #000000;
-}
 
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Roboto', sans-serif;
-    height: 100%;
-    width: 100%;
-    color: var(--text);
-    background-color: var(--background);
-}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light" style="height: 100vh;">
+
+    <div class="container" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-sm-12 col-md-9 col-lg-7 col-xl-6">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Witaj ponownie!</h1>
+                                    </div>
+                                    <form class="user" onsubmit="window.alert('logowanie')">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Login" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="Hasło" required>
+                                        </div>
+                                        <input type="submit" value="Zaloguj się" class="btn btn-primary btn-user btn-block">
+                                        <p style="margin: 20px 0 10px 0; text-align: center; font-size: 13px;">lub skorzystaj z innych metod logowania:</p>
+                                        <a onClick="openLoginPopup();" class="btn btn-primary btn-user btn-block">
+                                            <i class="fas fa-user-circle fa-fw"></i> Zaloguj się Profilem Mobilnym
+                                        </a>
+                                    </form>
+                                    <!--
+                                    <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="register.html">Create an Account!</a>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
-body.auth {
-    background: url("https://cdn.glitch.global/2524b4a2-c56e-43b8-baab-18212e132007/bg.png?v=1696353394057");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: left bottom;
-}
-
-body::-webkit-scrollbar{
-    display: none;
-}
-
-/*   Startup screen   */
-div.splash-screen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 998;
-    transition: opacity 0.5s linear;
-    background-color: var(--background);
-}
-
-div.startup-logo {
-    height: 140px;
-    width: 140px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    transition: top 1s ease 1s;
-    z-index: 999;
-}
-
-.blur-screen { 
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 997;
-    backdrop-filter: blur(5px);
-    opacity: 0%;
-    display: none;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.popup {
-    background-color: var(--additional);
-    width: 300px;
-    margin: auto;
-    position: relative;
-    top: 50%;
-    margin-top: -50px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 50px 1px var(--additional2);
-    text-align: center;
-    transform: scale(0);
-    transition: transform 0.3s cubic-bezier(0.82, 0.6, 0.55, 1.16);
-}
-
-#startup-logo-icon, #startup-logo-icon-introduction {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 40%;
-}
-
-#startup-logo-introduction {
-    display: none;
-}
-
-#startup-logo-loading {
-    transition: opacity 0.5s ease;
-}
-
-.introduction {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: var(--background);
-    display: none;
-}
-
-#introduction-progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: var(--theme-color);
-    border-radius: 10px 0 0 10px;
-    transition: width 1s ease, background-color 0.5s ease;
-}
-
-.introduction-page input[type="text"] {
-    border: 0px;
-    border-radius: 10px;
-    width: calc(100% - 20px);
-    padding: 20px 10px 20px 10px;
-    font-size: 15px;
-    outline: none;
-    margin: 20px 0 20px 0;
-    background-color: var(--additional);
-    color: var(--text);
-}
-
-.introduction-page input, button {
-    outline: none;
-}
-
-.introduction-page {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    height: calc(100% - 90px);
-    overflow: auto;
-}
-
-.introduction-button-cancel {
-    margin: 20px;
-    float: left;
-    position: relative;
-    border: 0px;
-    background-color: transparent;
-    color: var(--text);
-    padding: 10px 20px 10px 20px;
-    border-radius: 20px;
-    font-size: 15px;
-}
-
-.introduction-button-next {
-    margin: 20px;
-    float: right;
-    position: relative;
-    border: 0px;
-    background-color: var(--theme-color);
-    color: #ffffff;
-    padding: 10px 20px 10px 20px;
-    border-radius: 20px;
-    font-size: 15px;
-    transition: background-color 0.5s ease;
-}
-
-.buttons-section div {
-    font-size: 15px;
-    width: 100%;
-    border-radius: 0;
-    background-color: var(--additional);
-    /*ackground-color: #ff0000;*/
-    height: 60px;
-    border-bottom: 1px solid var(--additional2);
-}
-
-.buttons-section div[type="top"] {
-    border-radius: 10px 10px 0 0;
-}
-
-.buttons-section div[type="bottom"] {
-    border-radius: 0 0 10px 10px;
-    border: 0!important;
-}
-
-.buttons-section div[type="ind"] {
-    border-radius: 10px;
-    border: 0!important;
-    margin-bottom: 10px;
-}
-
-.buttons-section div container {
-    float: right;
-    width: fit-content;
-    top: 50%;
-    translate: -20px -50%;
-    position: relative;
-    background-color: var(--theme-color);
-    padding: 3px;
-    border-radius: 5px;
-    color: #ffffff;
-    font-size: 10px;
-}
-
-container.soon {
-    width: fit-content;
-    position: relative;
-    background-color: var(--theme-color);
-    padding: 3px;
-    border-radius: 5px;
-    color: #ffffff;
-    font-size: 10px;
-    margin: auto;
-}
-
-.buttons-section select {
-    font-size: 15px;
-    width: 100%;
-    border-radius: 0;
-    background-color: var(--additional);
-    height: 60px;
-    border-bottom: 1px solid lightgray;
-    border-radius: 10px;
-    border: 0!important;
-    margin-top: 10px;
-    padding-left: 10px;
-    outline: none;
-    color: var(--text);
-}
-
-.buttons-section aside {
-    height: 100%;
-    vertical-align: middle;
-    display: inline-block;
-    aspect-ratio: 1/1;
-    border-radius: 10px;
-    background-size: 90%;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.buttons-section[type="theme"] aside {
-    height: 60%;
-    vertical-align: middle;
-    display: inline-block;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background-size: 55%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 12px;
-}
-
-.buttons-section[type="people"] aside {
-    height: 70%;
-    vertical-align: middle;
-    display: inline-block;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 9px;
-}
-
-.buttons-section[type="apps"] aside {
-    vertical-align: middle;
-    display: inline-block;
-    aspect-ratio: 1/1;
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100%;
-    line-height: 60px;
-    text-align: center;
-    font-size: 27px;
-}
-
-aside.selected {
-    background-image: url('https://i.imgur.com/TNW7GVe.png');
-}
-
-.buttons-section span {
-    vertical-align: middle;
-    display: inline-block;
-}
-
-.buttons-section span i {
-    font-style: normal;
-    color: var(--text);
-    opacity: 60%;
-    font-size: 13px;
-}
-
-h1, h2, h3, h4, h5, h6, p {
-    font-weight: normal;
-}
-
-.highlight {
-    color: var(--theme-color);
-    transition: color 0.5s ease;
-}
-
-h1 {
-    margin: 0;
-    font-size: 25px;
-}
-
-h2 {
-    margin: 0;
-    font-size: 22px;
-}
-
-h3 {
-    font-size: 16px;
-    margin: 0;
-}
-
-p {
-    margin: 0;
-    font-size: 20px;
-}
-
-.ui {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.sidebar { 
-    display: none;
-    height: 100%;
-    width: 75px;
-    background-color: #ffffff;
-    position: fixed;
-}
-
-.topbar {
-    display: none;
-    height: 75px;
-    width: 100%;
-    background-color: #ffffff;
-    position: fixed;
-}
-
-.sidebar-logo {
-    width: 75px;
-    height: 75px;
-    background: url("https://cdn.glitch.global/2524b4a2-c56e-43b8-baab-18212e132007/logo.png?v=1696351382487");
-    background-repeat: no-repeat;
-    background-size: 60%;
-    background-position: center;
-}
-
-.page {
-    height: 100%;
-    width: calc(100% - 75px);
-}
-
-.page-content {
-        padding: 20px;
-        overflow: auto;
-        height: calc(100% - 115px);
-        margin-top: 75px;
-    position: fixed;
-  width: calc(100% - 40px);
-}
-
-
-@media only screen and (max-width: 599px) {
-    .page {
-      width: 100%;
-    }
-    .topbar {
-        display: block;
-    }
-}
-
-@media only screen and (min-width: 600px) {
-    .page {
-        margin-left: 75px;
-    }
-    .sidebar {
-        display: block;
-    }
-    .page-content {
-      padding: 20px;
-      overflow: auto;
-      height: calc(100% - 40px);
-      position: unset;
-      margin-top: 0;
-    }
-}
-
-.page-name {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-}
-
-/*.page-content input[type="text"] {
-    border: 0px;
-    border-radius: 10px;
-    width: calc(100% - 20px);
-    padding: 20px 10px 20px 10px;
-    font-size: 15px;
-    outline: none;
-    margin: 0 0 10px 0;
-    background-color: var(--additional);
-    color: var(--text);
-}*/
-
-.page-content input[type="text"]:disabled {
-    background-color: var(--additional2);
-}
-
-.page-content button {
-    margin: auto;
-    position: relative;
-    border: 0px;
-    background-color: var(--theme-color);
-    color: #ffffff;
-    padding: 10px 20px 10px 20px;
-    border-radius: 20px;
-    font-size: 15px;
-    transition: background-color 0.5s ease;
-    display: block;
-}
-
-.page-content button:disabled {
-    background-color: var(--additional2);
-    color: var(--text);
-}
-
-.menubar {
-    width: calc(100% - 40px);
-    height: 60px;
-    background-color: var(--additional);
-    position: fixed;
-    bottom: 0;
-    margin: 20px;
-    border-radius: 20px;
-}
-
-#menubar-icons {
-    width: 100%;
-    height: 100%;
-}
-
-#menubar-icons svg {
-    height: 60px;
-    width: 20px;
-    box-shadow: none;
-}
-
-#menubar-icons div {
-    float: left;
-    height: 60px;
-    width: 20px;
-    margin-left: calc((100% - 92px) / 8);
-    margin-right: calc((100% - 92px) / 8);
-}
-
-.menubar-icon {
-    fill: #bbbbbb;
-    transition: fill 0.25s ease;
-}
-
-#menubar-icons g.selected {
-    fill: var(--theme-color);
-    transition: fill 0.25s ease;
-}
-
-.page {
-    display: none;
-}
-
-.page:target {
-    display: block;
-}
-
-.profile-pic {
-    height: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    background-color: var(--additional2);
-    line-height: 60px;
-    text-align: center;
-    font-size: 20px;
-    color: var(--theme-color);
-}
-
-input[type="checkbox"] {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: #fff;
-    margin: auto;
-    font: inherit;
-    color: currentColor;
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid #d6d6d6;
-    border-radius: 5px;
-    vertical-align: middle;
-    float: left;
-    margin: 0 auto;
-    transition: background-color 0.25s ease;
-}
-  
-input[type="checkbox"]:checked {
-    background-color: var(--theme-color);
-    border: 1px solid var(--theme-color);
-    background-image: url("https://i.imgur.com/TNW7GVe.png");
-    background-repeat: no-repeat;
-    background-size: 95%;
-    background-position: center right;
-    transition: background-color, border 0.25s ease;
-}
-
-.buttons-section input[type="checkbox"] {
-    width: 23px;
-    height: 23px;
-    top: 9px;
-    left: 11px;
-    position: relative;
-}
-
-table.order-details, table.order-details tr, table.order-details td {
-    border: 1px solid;
-    border-collapse: collapse;
-    padding: 5px;
-}
-
-table, tr, td {
-    border: 1px solid;
-    border-collapse: collapse;
-    padding: 5px;
-}
-
-.login-container {
-    background-color: #ffffff;
-    width: calc(90% - 40px);
-    max-width: 450px;
-    padding: 40px 20px 40px 20px;
-    position: relative;
-    margin: auto;
-    top: 50%;
-    translate: 0 -50%;
-    border: 1px solid var(--additional2);
-    box-shadow: 0px 0px 20px 5px #c9c9c9;
-}
-
-.login-button {
-    background-color: var(--theme-color);
-    padding: 10px;
-    border: 0;
-    color: var(--additional);
-    border-radius: 5px;
-    margin: auto;
-    position: relative;
-    display: block;
-}
-    </style>
-  </head>
-
-
-<body onload="hideSplash();" class="auth">
-
-<div class="splash-screen" id="splash-screen">
-    <div class="startup-logo" id="startup-logo">
-        <div id="startup-logo-loading">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                <circle cx="50" cy="50" fill="none" style="stroke: var(--theme-color); transition: stroke 0.5s ease;" stroke-width="2" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" id="startup-logo-loading-color">
-                <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
-                </circle>
-            </svg>
         </div>
-        <div id="startup-logo-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 1791.000000 1097.000000" preserveAspectRatio="xMidYMid meet" class="startup-logo">
-                <g transform="translate(0.000000,1097.000000) scale(0.100000,-0.100000)" stroke="none" id="startup-logo-icon-color" style="fill: var(--theme-color); transition: fill 0.5s ease;">
-                <path d="M7258 10965 c-4 -6 -15 -51 -25 -100 -25 -127 -25 -494 0 -650 28 -177 81 -398 176 -741 175 -632 204 -793 205 -1139 1 -189 -3 -260 -17 -334 -10 -52 -16 -96 -13 -98 8 -8 119 181 172 292 102 212 140 375 131 555 -10 185 -44 293 -209 660 -216 482 -288 694 -352 1040 -23 122 -52 365 -58 480 -2 25 -6 40 -10 35z"/>
-                <path d="M7035 9693 c-21 -54 -67 -186 -102 -293 -287 -862 -265 -1400 65 -1653 59 -45 121 -81 128 -75 2 3 -10 67 -27 144 -95 431 -106 736 -48 1369 19 220 37 605 27 605 -3 0 -22 -44 -43 -97z"/>
-                <path d="M7275 7601 c6 -4 185 -77 400 -161 214 -84 747 -294 1185 -467 1705 -675 2235 -875 2875 -1086 573 -189 1001 -299 1425 -367 427 -68 934 -68 1303 0 627 115 1244 397 2059 941 261 175 476 325 530 373 103 90 188 220 223 341 24 80 17 214 -13 271 -27 54 -100 118 -160 141 -45 17 -231 18 -4942 21 -2762 1 -4890 -2 -4885 -7z m9659 -291 c55 -61 47 -118 -26 -186 -39 -37 -760 -566 -867 -636 -129 -85 -191 -88 -258 -15 -130 141 -180 353 -124 519 53 158 213 313 358 347 21 5 228 9 459 10 l422 1 36 -40z"/>
-                <path d="M4455 6175 c-1047 -92 -1968 -458 -2825 -1125 -224 -175 -421 -350 -660 -590 -317 -316 -549 -584 -837 -963 l-134 -178 70 -78 c39 -43 126 -132 194 -197 1126 -1089 2786 -1735 4762 -1854 231 -14 877 -14 1110 0 802 48 1495 164 2267 379 1391 388 2496 622 3418 725 405 45 509 51 950 51 347 0 454 -3 585 -18 1116 -128 1806 -547 2351 -1430 105 -169 268 -484 369 -712 36 -82 71 -154 76 -160 6 -5 -3 22 -19 60 -17 39 -247 581 -512 1205 -265 624 -500 1182 -522 1239 -135 358 -116 565 75 806 40 51 530 518 1400 1338 736 692 1336 1262 1333 1264 -11 11 -355 -247 -771 -577 -551 -437 -741 -579 -1009 -755 -664 -435 -1325 -677 -2056 -751 -147 -15 -171 -15 -322 0 -700 71 -1469 247 -2372 543 -451 148 -788 268 -1686 603 -813 303 -1145 422 -1590 571 -1031 344 -1775 517 -2559 595 -221 22 -874 27 -1086 9z m2123 -960 c393 -50 842 -170 1322 -355 96 -37 1041 -385 2100 -775 1059 -390 1928 -711 1933 -715 4 -4 -127 -48 -290 -98 -1762 -540 -3506 -848 -5413 -957 -451 -25 -773 -35 -1377 -42 l-583 -6 0 169 c0 758 113 1382 329 1829 289 597 743 906 1421 969 90 8 438 -3 558 -19z"/>
-                </g>
-            </svg>
-        </div>
+
     </div>
-</div>
 
-<div class="login-container">
-    <center>
-        <img src="https://cdn.glitch.global/2524b4a2-c56e-43b8-baab-18212e132007/logo.png?v=1696351382487" height="30px">
-        <h1>Zaloguj się do PMK</h1>
-        <button class="login-button" style="margin-top: 20px;" onclick="openLoginPopup();">Zaloguj się za pomocą Profilu Mobilnego</button>
-        <button class="login-button" style="margin-top: 20px;" onclick="openFastLoginPopup();">Szybkie logowanie kodem dostępu</button>
-    </center>
-</div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
 
-</body>
-</html>
-
-<script>
-var loginPopup;
-var waitForLogin = false;
-  
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-var loginID = urlParams.get('lid');
-if (loginID != undefined) {
-  openFastLoginPopup()
-}
-
-window.addEventListener(
-  "message",
-  (event) => {
-    if (waitForLogin == false) {
-        return false;
-    }
-    console.log(event.data);
-    var data = JSON.parse(event.data);
-    if (data.login == "success") {
-        loginPopup.close();
-        waitForLogin = false;
-        if (data.access < 1) {
-            setTimeout(function() {
-              window.alert("Nie jesteś członkiem Samorządu Uczniowskiego!\nJeśli uważasz, że to błąd, zgłoś to: mobilnykatolik@gmail.com");
-            }, 100)
-        } else {
-            sessionStorage.setItem("loginid", data.loginid);
-            sessionStorage.setItem("userid", data.userid);
-            sessionStorage.setItem("userfname", data.firstname);
-            sessionStorage.setItem("userlname", data.lastname);
-            sessionStorage.setItem("usernickname", data.nickname);
-            sessionStorage.setItem("useraccess", data.access);
-            sessionStorage.setItem("userscount", data.userscount);
-            window.location = "index.html";
+    <script>
+        var loginPopup;
+        var waitForLogin = false;
+          
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var loginID = urlParams.get('lid');
+        if (loginID != undefined) {
+          openFastLoginPopup()
         }
-    }
-  },
-  false,
-);
-
-function openLoginPopup() {
-    waitForLogin = true;
-    var left = (screen.width/2)-(500/2);
-    var top = (screen.height/2)-(650/2);
-    loginPopup = window.open("https://mobilnykatolik.github.io/app/auth/index.html", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
-}
-
-function openFastLoginPopup() {
-  if (loginID == undefined) {
-    loginID = window.prompt("Podaj kod szybkiego logowania");
-  }
-    var url = `https://apimobilnykatolik.glitch.me/sync/${loginID}`;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-
-    xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-        if (xhr.status == 200) {
-            var data = JSON.parse(xhr.responseText);
-            if (data.access < 1) {
-                window.alert("Nie jesteś członkiem Samorządu Uczniowskiego!\nJeśli uważasz, że to błąd, zgłoś to: mobilnykatolik@gmail.com");
+        
+        window.addEventListener(
+          "message",
+          (event) => {
+            if (waitForLogin == false) {
                 return false;
             }
-          console.log(data);
-            sessionStorage.setItem("loginid", loginID);
-            sessionStorage.setItem("userid", data.id);
-            sessionStorage.setItem("userfname", data.firstname);
-            sessionStorage.setItem("userlname", data.lastname);
-            sessionStorage.setItem("usernickname", data.nickname);
-            sessionStorage.setItem("useraccess", data.access);
-            sessionStorage.setItem("userscount", data.userscount);
-            window.location = "index.html";
-        } else {
-            window.alert("Wystąpił błąd. Spróbuj ponownie bądź zaloguj się Profilem Mobilnym.");
+            console.log(event.data);
+            var data = JSON.parse(event.data);
+            if (data.login == "success") {
+                loginPopup.close();
+                waitForLogin = false;
+                if (data.access < 1) {
+                    setTimeout(function() {
+                      window.alert("Nie jesteś członkiem Samorządu Uczniowskiego!\nJeśli uważasz, że to błąd, zgłoś to: mobilnykatolik@gmail.com");
+                    }, 100)
+                } else {
+                    sessionStorage.setItem("loginid", data.loginid);
+                    sessionStorage.setItem("userid", data.userid);
+                    sessionStorage.setItem("userfname", data.firstname);
+                    sessionStorage.setItem("userlname", data.lastname);
+                    sessionStorage.setItem("usernickname", data.nickname);
+                    sessionStorage.setItem("useraccess", data.access);
+                    sessionStorage.setItem("userscount", data.userscount);
+                    window.location = "index.html";
+                }
+            }
+          },
+          false,
+        );
+        
+        function openLoginPopup() {
+            waitForLogin = true;
+            var left = (screen.width/2)-(500/2);
+            var top = (screen.height/2)-(650/2);
+            loginPopup = window.open("https://mobilnykatolik.github.io/app/auth/index.html", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
         }
-    }};
+        
+        function openFastLoginPopup() {
+          if (loginID == undefined) {
+            loginID = window.prompt("Podaj kod szybkiego logowania");
+          }
+            var url = `https://apimobilnykatolik.glitch.me/sync/${loginID}`;
+        
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+        
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.access < 1) {
+                        window.alert("Nie jesteś członkiem Samorządu Uczniowskiego!\nJeśli uważasz, że to błąd, zgłoś to: mobilnykatolik@gmail.com");
+                        return false;
+                    }
+                  console.log(data);
+                    sessionStorage.setItem("loginid", loginID);
+                    sessionStorage.setItem("userid", data.id);
+                    sessionStorage.setItem("userfname", data.firstname);
+                    sessionStorage.setItem("userlname", data.lastname);
+                    sessionStorage.setItem("usernickname", data.nickname);
+                    sessionStorage.setItem("useraccess", data.access);
+                    sessionStorage.setItem("userscount", data.userscount);
+                    window.location = "index.html";
+                } else {
+                    window.alert("Wystąpił błąd. Spróbuj ponownie bądź zaloguj się Profilem Mobilnym.");
+                }
+            }};
+        
+            xhr.send();
+        }
+        
+        </script>
 
-    xhr.send();
-}
+</body>
 
-function hideSplash() {
-    setTimeout(function() {
-        document.getElementById("splash-screen").style.opacity = "0%";
-        setTimeout(function() {
-            document.getElementById("splash-screen").style.display = "none"
-        }, 500)
-    }, 500)
-}
-
-</script>
+</html>
