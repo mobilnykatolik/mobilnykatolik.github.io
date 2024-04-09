@@ -175,7 +175,7 @@
                     </div>
                 </div>
             </li>
-            <li class="slide-visible">
+            <li class="slide-visible" onclick="window.open('#qrapp', '_self')">
                 <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px;">
                     <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
                         <div style="position: relative; top: 50%; transform: translate(0, -50%);">
@@ -285,7 +285,7 @@
     </div>
     <div class="page-content">
         <div class="page-content">
-            <div style="width: 100%;height: 130px;background-color: var(--additional);border-radius: 10px;">
+            <div style="width: 100%;height: 130px;background-color: var(--additional);border-radius: 10px;" onclick="window.open('#qrapp', '_self')">
                 <div id="points-qr" style="height: 80%; aspect-ratio: 1 / 1; border-radius: 5px; background-size: 90%; background-color: #ffffff; background-position: center center; background-repeat: no-repeat; position: relative; float: right; top: 50%; transform: translateY(-50%); right: 10px;">
 
                 </div>
@@ -344,26 +344,21 @@
     </div>
 </div>
 
-<div class="page" id="announcement">
+<div class="page" id="qrapp">
     <div class="page-name">
         <svg onClick="history.back();" version="1.0" xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px; position: absolute; left: 15px; margin-top: 2px;" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" style="fill: var(--theme-color); transition: fill 0.5s ease;" stroke="none">
             <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
             </g>
         </svg>
-        Informacja
+        Twój kod QR
     </div>
-    <div class="page-content">
-        <div class="page-content">
-            W związku z rozporządzeniem Parlamentu Europejskiego i Rady w sprawie kontestowalnych i uczciwych rynków w sektorze cyfrowym <i>Digital Markets Act</i> i decyzją <i>Apple Inc.</i>, aplikacje internetowe (w tym Mobilny Katolik) na urządzeniach z systemem iOS/iPadOS/macOS nie będą działać tak, jak dotychczas.
-            <br><br>
-            Wciąż pracujemy nad rozwiązaniem tego problemu i udostępnieniem nowej wersji aplikacji. W chwili obecnej do konta Mobilny Katolik będzie można uzyskać dostęp poprzez stronę <b class="highlight">mobilnykatolik.github.io/app</b>.
-            <br><br>
-            Wskazany powyżej problem zacznie występować wraz z aktualizacją systemu do wersji iOS 17.4 na terenie całej Unii Europejskiej.
-            <br><br>
-            Przepraszamy za utrudnienia i dziękujemy za zrozumienie.
-            <br>
-            Twórcy aplikacji Mobilny Katolik
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: center;">
+        <div>
+            <div id="qrcode"></div>
+            <div id="qrdetails">
+                
+            </div>
         </div>
     </div>
 </div>
@@ -1499,6 +1494,8 @@ function startApplication() {
             }
             document.getElementById("widget-points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ececec")`
             document.getElementById("points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
+            document.getElementById("qrcode").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
+            document.getElementById("qrdetails").innerHTML = `<p>${userFirstName.toUpperCase()} ${userSurname.toUpperCase()}</p><p style="font-size: 17px; opacity: 70%;">${userClass.toUpperCase()}</p>`
             document.getElementById("settingsUserID").innerHTML = userID;
             if (data.points != undefined) {
                 document.getElementById("widget-points-amount").innerHTML = `${data.points.points}`;
