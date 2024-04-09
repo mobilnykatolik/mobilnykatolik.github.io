@@ -254,8 +254,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Następne wydarzenie z kalendarza</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
+                                                Następne organizowane wydarzenie</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="nextEvent">Brak</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -361,6 +361,71 @@
 
     <script>
         document.getElementById("usersCount").innerHTML = usersCount;
+        var eventsdb;
+        var sortedEvents;
+
+        function reloadDB() {
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    eventsdb = data;
+                    eventsdb = Object.fromEntries(
+                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
+                            const date1 = new Date(event1.startdate);
+                            const date2 = new Date(event2.startdate);
+                            return date1 - date2;
+                        })
+                    );
+                    getNextEvent();  
+                } else if (xhr.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
+
+            xhr.send();
+        }
+
+        reloadDB();
+
+        function getNextEvent() {
+            var today = new Date();
+            today = today.toISOString().split('T')[0];
+            console.log(eventsdb);
+            for (x in eventsdb) {
+                if (!eventsdb[x].by.includes(userID)) {
+                    continue;
+                }
+                console.log(eventsdb[x])
+                if (eventsdb[x].startdate.split('T')[0] < today) {
+                    continue;
+                } else {
+                    var eventDate = new Date(eventsdb[x].startdate.split('T')[0]).getTime();
+                    today = new Date(today).getTime();
+                    console.log(eventDate)
+                    console.log(today)
+                    var tillDays = Math.floor((eventDate - today) / 86400000);
+                    if (tillDays == 0) {
+                        tillDays = "dzisiaj"
+                    } else if (tillDays == 1) {
+                        tillDays = "jutro"
+                    } else {
+                        tillDays = `za ${String(tillDays)} dni`
+                    }
+                    
+                    document.getElementById("nextEvent").innerHTML = `${eventsdb[x].name} (${tillDays})`;
+                    break;
+                }
+            }
+        }
+
     </script>
 
 </body>
