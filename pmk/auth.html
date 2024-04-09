@@ -94,7 +94,7 @@
         const urlParams = new URLSearchParams(queryString);
         var loginID = urlParams.get('lid');
         if (loginID != undefined) {
-          openFastLoginPopup()
+          logIn()
         }
         
         window.addEventListener(
@@ -135,7 +135,9 @@
         }
 
         function logIn() {
-            loginID = document.getElementById("formPassword").value;
+            if (loginID == undefined) {
+                loginID = document.getElementById("formPassword").value;
+            }
             document.getElementById("formPassword").disabled = "disabled";
             document.getElementById("formLogin").disabled = "disabled";
             document.getElementById("formSubmit").disabled = "disabled";
