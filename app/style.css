@@ -455,6 +455,16 @@ p {
     transition: filter 0.5s ease-in-out;
 }
 
+.profile-pic container {
+    background-color: var(--theme-color);
+    padding: 3px 7px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 12px;
+    top: 24px;
+    position: relative;
+}
+
 input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;

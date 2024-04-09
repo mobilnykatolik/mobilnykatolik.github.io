@@ -148,11 +148,23 @@
             <h1>Cześć, <b class="highlight" id="UIname"></b></h1>
             <h3>Miłego dnia</h3>
         </div>
-        <div class="profile-pic" id="profile-pic" style="float: right; position: relative;" onclick="window.open('#usersettings', '_self')"></div>
+        <div class="profile-pic" id="profile-pic" style="float: right; position: relative;" onclick="window.open('#usersettings', '_self')">
+            <container id="pmk-badge" style="display: none;">SU</container>
+        </div>
     </div>
 
     <div style="margin-top: 20px;" class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
         <ul id="home-slider" class="slider-container py-4">
+            <li class="slide-visible" id="pmk-banner" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/pmk/auth.html?lid=${loginID}`, '_self')">
+                <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px; font-size: 18px;">
+                    <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px); text-align: center;">
+                        <div style="position: absolute; width: 100%; left: 0; top: 50%; translate: 0 -50%;">
+                        <p>Otwórz panel dla</p>
+                        <b class="highlight" style="font-size: 18px;">Samorządu Uczniowskiego</b> 🔧
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li class="slide-visible">
                 <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px;">
                     <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px); text-align: center;">
@@ -232,7 +244,7 @@
             <div type="ind" id="pmk-button" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/pmk/auth.html?lid=${loginID}`, '_self')">
                 <aside>🔧</aside>
                 <span>Panel Mobilny Katolik</span>
-                <!--<container>#WKRÓTCE</container>-->
+                <container>DLA SU</container>
             </div>
         </div>
     </div>
@@ -1365,6 +1377,8 @@ function startApplication() {
             loadCalendar();
             if (data.access > 0) {
                 document.getElementById("pmk-button").style.display = "block";
+                document.getElementById("pmk-banner").style.display = "block";
+                document.getElementById("pmk-badge").style.display = "inline";
             }
             if (["1lo", "2lo", "3lo", "4lo"].includes(userClass)) {
                 document.getElementById("crime-party-available").style.display = "none";
