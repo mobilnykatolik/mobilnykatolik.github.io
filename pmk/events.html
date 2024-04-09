@@ -744,7 +744,7 @@
                         if (sortedEvents[event].by.includes(userID)) {
                             document.getElementById("my-events-list-table").innerHTML += `
                             <tr class="focusBg">
-                                <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div>${myBadge} ${sortedEvents[event].name}</td>
+                                <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div> ${sortedEvents[event].name}</td>
                                 <td style="vertical-align: middle;">${zamienNaSlowa(sortedEvents[event].startdate)}</td>
                                 <td style="vertical-align: middle;">
                                     <a onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
