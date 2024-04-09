@@ -568,7 +568,7 @@
             const eventPointsDBCopy = eventPointsDB;
             for (x in eventsdb) {
                 if (hidePast == true) {
-                    if (eventsdb[x].enddate != undefined) {
+                    if (eventsdb[x].enddate != "") {
                         if (eventsdb[x].enddate.split('T')[0] < today) {
                             continue;
                         }

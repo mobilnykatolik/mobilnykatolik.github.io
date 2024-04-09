@@ -23,6 +23,12 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
+    <style>
+        tr.focusBg:hover {
+            background-color: #f8f9fc;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -217,22 +223,21 @@
                     <!--<input type="datetime-local" class="form-control" id="selectDate">-->
 
                     <div class="card shadow mb-4">
-                        <a href="#eventsTable" class="d-block card-header py-3 d-print-none" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="eventsTable">
-                            <h6 class="m-0 font-weight-bold text-primary">Lista wydarzeń</h6>
+                        <!-- Card Header - Accordion -->
+                        <a href="#myEvents" class="d-block card-header py-3" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="myEvents">
+                            <h6 class="m-0 font-weight-bold text-primary">Moje wydarzenia</h6>
                         </a>
-
-                        <div class="collapse show" id="eventsTable">
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="myEvents">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Nazwa wydarzenia</th>
-                                                <th>Data</th>
-                                                <th>Akcje</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="events-list-table">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="custom-checkbox" id="showPastEvents" onchange="generateTable()">
+                                        <label for="showPastEvents" style="margin-bottom: 0;">Pokaż minione wydarzenia</label>
+                                    </div>
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <tbody id="my-events-list-table">
                                         </tbody>
                                     </table>
                                 </div>
@@ -240,27 +245,54 @@
                         </div>
                     </div>
 
-
                     <div class="card shadow mb-4">
-                        <a href="#suEventsTable" class="d-block card-header py-3 d-print-none" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="suEventsTable">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabela</h6>
-                        </a>
-
-                        <div class="collapse" id="suEventsTable">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Data</th>
-                                                <th>Nazwa wydarzenia</th>
-                                                <th>Koordynatorzy</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="su-events-list-table">
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Wszystkie wydarzenia</h6>
+                        </div>
+                        <div class="card-body" id="listView" style="display: none;">
+                            <ul class="nav nav-tabs d-print-none">
+                                <li class="nav-item">
+                                    <a class="nav-link" onClick="switchView('tableView')">Tabela (Wydarzenia SU)</a>
+                                  </li>
+                                <li class="nav-item">
+                                  <a class="nav-link active" onClick="switchView('listView')">Lista</a>
+                                </li>
+                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa wydarzenia</th>
+                                            <th>Data</th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="events-list-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-body" id="tableView">
+                            <ul class="nav nav-tabs d-print-none">
+                                <li class="nav-item">
+                                    <a class="nav-link active" onClick="switchView('tableView')">Tabela (Wydarzenia SU)</a>
+                                  </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" onClick="switchView('listView')">Lista</a>
+                                </li>
+                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Nazwa wydarzenia</th>
+                                            <th>Koordynatorzy</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="su-events-list-table">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -538,6 +570,13 @@
     <script>
         var eventsdb = {}
         var userList;
+        var sortedEvents;
+
+        function switchView(view) {
+            document.getElementById("listView").style.display = "none"
+            document.getElementById("tableView").style.display = "none"
+            document.getElementById(view).style.display = "block"
+        }
 
         function reloadDB() {
             //Pobieranie listy członków SU
@@ -595,20 +634,42 @@
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
                     eventsdb = data;
-                    const sortedEvents = Object.fromEntries(
+                    sortedEvents = Object.fromEntries(
                         Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
                             const date1 = new Date(event1.startdate);
                             const date2 = new Date(event2.startdate);
                             return date1 - date2;
                         })
                     );
-                    document.getElementById("events-list-table").innerHTML = "";
-                    document.getElementById("su-events-list-table").innerHTML = "";
+                    generateTable();  
+                } else if (xhr.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
 
-                    //Wyświeltanie wydarzeń chronologicznie
-                    var prevMonth = -1
+            xhr.send();
+        }
+
+        reloadDB();
+
+        function generateTable() {
+            var today = new Date();
+            today = today.toISOString().split('T')[0];
+            var hidePast = true;
+            if (document.getElementById("showPastEvents").checked) {
+                hidePast = false;
+            }
+
+            document.getElementById("events-list-table").innerHTML = "";
+            document.getElementById("su-events-list-table").innerHTML = "";
+            document.getElementById("my-events-list-table").innerHTML = "";
+            //Wyświeltanie wydarzeń chronologicznie
+            var prevMonth = -1
                     var months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
                     for (event in sortedEvents) {
+                        var myBadge = "";
                         var currMonth = new Date(sortedEvents[event].startdate).getMonth()
                         if (currMonth != prevMonth) {
                             document.getElementById("su-events-list-table").innerHTML += `
@@ -625,10 +686,17 @@
                         if (sortedEvents[event].type.toUpperCase() == "SZKOLNE") {
                             badgeColor = "dark";
                         }
+
+                        if (sortedEvents[event].by.includes(userID)) {
+                            myBadge = `
+                            <div class="badge badge-success">MOJE</div>
+                            `
+                        }
+
                         document.getElementById("events-list-table").innerHTML += `
-                        <tr>
-                            <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div> ${sortedEvents[event].name}</td>
-                            <td style="vertical-align: middle;">${sortedEvents[event].startdate}</td>
+                        <tr class="focusBg">
+                            <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div>${myBadge} ${sortedEvents[event].name}</td>
+                            <td style="vertical-align: middle;">${zamienNaSlowa(sortedEvents[event].startdate)}</td>
                             <td style="vertical-align: middle;">
                                 <!--<a href="#" class="btn btn-primary btn-circle btn-sm disabled">
                                     <i class="fas fa-info"></i>
@@ -649,7 +717,7 @@
                             var date = new Date(sortedEvents[event].startdate);
                             date = `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}`
                             document.getElementById("su-events-list-table").innerHTML += `
-                            <tr>
+                            <tr onClick="openManageEventModal('${event}')" class="focusBg">
                                 <td style="vertical-align: middle;">${date}</td>
                                 <td style="vertical-align: middle;">${sortedEvents[event].name}</td>
                                 <td style="vertical-align: middle;">
@@ -658,25 +726,75 @@
                             </tr>
                             `
                         }
+                        if (hidePast == true) {
+                            if (sortedEvents[event].enddate != "") {
+                                if (sortedEvents[event].enddate.split('T')[0] < today) {
+                                    continue;
+                                }
+                            } else {
+                                if (sortedEvents[event].startdate.split('T')[0] < today) {
+                                    console.log(`
+                                        Data wydarzenia: ${sortedEvents[event].startdate}
+                                        Dzisiaj: ${today}
+                                    `)
+                                    continue;
+                                }
+                            }
+                        }
+                        if (sortedEvents[event].by.includes(userID)) {
+                            document.getElementById("my-events-list-table").innerHTML += `
+                            <tr class="focusBg">
+                                <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div>${myBadge} ${sortedEvents[event].name}</td>
+                                <td style="vertical-align: middle;">${zamienNaSlowa(sortedEvents[event].startdate)}</td>
+                                <td style="vertical-align: middle;">
+                                    <a onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a onclick="confirmDelete('${event}')" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            `
+                        }
                     }  
                     for (x in userList) {
                         document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
-                    }    
-                } else if (xhr.status == 403) {
-                    $('#insufficientPermissionsModal').modal('show')
-                } else {
-                    $('#apiErrorModal').modal('show')
-                }
-            }};
-
-            xhr.send();
+                    }  
         }
-
-        reloadDB();
 
         function getManageEventFor() {
             console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
             return false;
+        }
+
+        function zamienNaSlowa(dataStr) {
+            const miesiace = [
+                "stycznia", "lutego", "marca",
+                "kwietnia", "maja", "czerwca",
+                "lipca", "sierpnia", "września",
+                "października", "listopada", "grudnia"
+            ];
+
+            const dniTygodnia = [
+                "ndz.", "pon.", "wt.",
+                "śr.", "czw.", "pt.", "sob."
+            ];
+
+            const data = new Date(dataStr);
+            const dzien = data.getDate();
+            const miesiac = miesiace[data.getMonth()];
+            const rok = data.getFullYear();
+            const dzienTygodnia = dniTygodnia[data.getDay()];
+
+            // Pobieramy godzinę i minutę z daty
+            if (dataStr.split("T")[1] != undefined) {
+                const godzina = String(data.getHours()).padStart(2, '0'); // dodajemy zero wiodące, jeśli godzina ma tylko jedną cyfrę
+                const minuta = String(data.getMinutes()).padStart(2, '0');
+                return `${dzienTygodnia}, ${dzien} ${miesiac} ${rok} r., ${godzina}:${minuta}`;
+            } else {
+                return `${dzienTygodnia}, ${dzien} ${miesiac} ${rok} r.`;
+            }
         }
         
 
