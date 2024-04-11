@@ -414,9 +414,9 @@
 
     // Load the QR scanner
     window.qrScanner = new QrScanner(video, result => {
-        if (result == lastScan) {
+        /*if (result == lastScan) {
             return false;
-        }
+        }*/
         lastScan = result;
         console.log('QR Code detected:', result);
         // Handle the scanned QR code data
