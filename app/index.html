@@ -1830,6 +1830,9 @@ function loadCalendar() {
         if (event.type == "szkolne") {
             event.name = `<container class="badge">SZKOLNE</container>`+event.name;
         }
+        /*if (event.hidden == true) {
+           event.name = `<container class="badge">UKRYTE</container>`+event.name;
+        }*/
         const data = new Date(event.startdate);
         if (data.getMonth() != actMonth) {
             document.getElementById("event-list").innerHTML += `
