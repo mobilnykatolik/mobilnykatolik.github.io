@@ -214,7 +214,7 @@
                     </div>
 
                     <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="//openmanageEventTicketModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                        <a href="#" onClick="openManageCouponModal()" class="btn btn-primary btn-icon-split justify-content-end">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
@@ -364,109 +364,109 @@
                 <form onSubmit="return manageCoupon();">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="manageEventTicketName">Powiązane wydarzenie</label>
-                            <input type="text" class="form-control" id="manageEventTicketName" aria-describedby="manageEventTicketNameHelp" required>
-                            <small id="manageEventTicketNameHelp" class="form-text text-muted">Kupon będzie można wykorzystać <b>tylko w trakcie trwania wybranego wydarzenia</b></small>
+                            <label for="manageCouponName">Powiązane wydarzenie</label>
+                            <input type="text" class="form-control" id="manageCouponName" aria-describedby="manageCouponNameHelp" required>
+                            <small id="manageCouponNameHelp" class="form-text text-muted">Kupon będzie można wykorzystać <b>tylko w trakcie trwania wybranego wydarzenia</b></small>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketName">Nazwa biletu</label>
-                            <input type="text" class="form-control" id="manageEventTicketName" aria-describedby="manageEventTicketNameHelp" required>
-                            <small id="manageEventTicketNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w aplikacji</small>
+                            <label for="manageCouponName">Nazwa biletu</label>
+                            <input type="text" class="form-control" id="manageCouponName" aria-describedby="manageCouponNameHelp" required>
+                            <small id="manageCouponNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w aplikacji</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="manageEventTicketDate">Data</label>
-                                    <input type="text" class="form-control" id="manageEventTicketDate" required>
+                                    <label for="manageCouponDate">Data</label>
+                                    <input type="text" class="form-control" id="manageCouponDate" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="manageEventTicketTime">Godzina</label>
-                                    <input type="text" class="form-control" id="manageEventTicketTime" required>
+                                    <label for="manageCouponTime">Godzina</label>
+                                    <input type="text" class="form-control" id="manageCouponTime" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketPlace">Miejsce</label>
-                            <input type="text" class="form-control" id="manageEventTicketPlace" required>
+                            <label for="manageCouponPlace">Miejsce</label>
+                            <input type="text" class="form-control" id="manageCouponPlace" required>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketCost">Cena</label>
-                            <input type="number" class="form-control" id="manageEventTicketCost" min="0" step="0.01" required>
+                            <label for="manageCouponCost">Cena</label>
+                            <input type="number" class="form-control" id="manageCouponCost" min="0" step="0.01" required>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" class="custom-checkbox" id="manageEventTicketConsent">
-                            <label for="manageEventTicketConsent" style="margin-bottom: 0;">Wymagana zgoda</label>
+                            <input type="checkbox" class="custom-checkbox" id="manageCouponConsent">
+                            <label for="manageCouponConsent" style="margin-bottom: 0;">Wymagana zgoda</label>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketInfo">Dodatkowe informacje</label>
-                            <textarea class="form-control" aria-describedby="manageEventTicketInfoHelp" id="manageEventTicketInfo"></textarea>
-                            <small id="manageEventTicketInfoHelp" class="form-text text-muted">Informacje będą wyświetlanie przed i po zakupie biletu.<br>Zamieść informacje o sposobach płatności i innych ważnych szczegółach.</small>
+                            <label for="manageCouponInfo">Dodatkowe informacje</label>
+                            <textarea class="form-control" aria-describedby="manageCouponInfoHelp" id="manageCouponInfo"></textarea>
+                            <small id="manageCouponInfoHelp" class="form-text text-muted">Informacje będą wyświetlanie przed i po zakupie biletu.<br>Zamieść informacje o sposobach płatności i innych ważnych szczegółach.</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="manageEventTicketSalesStart">Rozp. sprzedaży</label>
-                                    <input type="datetime-local" class="form-control" id="manageEventTicketSalesStart" required>
+                                    <label for="manageCouponSalesStart">Rozp. sprzedaży</label>
+                                    <input type="datetime-local" class="form-control" id="manageCouponSalesStart" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="manageEventTicketSalesEnd">Zak. sprzedaży</label>
-                                    <input type="datetime-local" class="form-control" id="manageEventTicketSalesEnd" required>
+                                    <label for="manageCouponSalesEnd">Zak. sprzedaży</label>
+                                    <input type="datetime-local" class="form-control" id="manageCouponSalesEnd" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketQuantity">Dostępna ilość biletów</label>
-                            <input type="number" class="form-control" aria-describedby="manageEventTicketQuantityHelp" id="manageEventTicketQuantity" min="-1" required>
-                            <small id="manageEventTicketQuantityHelp" class="form-text text-muted">Dla nieskończonej ilości biletów wprowadź -1</small>
+                            <label for="manageCouponQuantity">Dostępna ilość biletów</label>
+                            <input type="number" class="form-control" aria-describedby="manageCouponQuantityHelp" id="manageCouponQuantity" min="-1" required>
+                            <small id="manageCouponQuantityHelp" class="form-text text-muted">Dla nieskończonej ilości biletów wprowadź -1</small>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketFor">Odbiorcy</label>
-                            <select class="form-control" id="manageEventTicketFor" aria-describedby="manageEventTicketForHelp" multiple>
+                            <label for="manageCouponFor">Odbiorcy</label>
+                            <select class="form-control" id="manageCouponFor" aria-describedby="manageCouponForHelp" multiple>
                             </select>
-                            <small id="manageEventTicketForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
+                            <small id="manageCouponForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="manageEventTicketBgColor">Tło</label>
-                                    <input type="color" class="form-control" id="manageEventTicketBgColor" value="#000000" required>
+                                    <label for="manageCouponBgColor">Tło</label>
+                                    <input type="color" class="form-control" id="manageCouponBgColor" value="#000000" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="manageEventTicketTextColor">Tekst</label>
-                                    <input type="color" class="form-control" id="manageEventTicketTextColor" value="#ffffff" required>
+                                    <label for="manageCouponTextColor">Tekst</label>
+                                    <input type="color" class="form-control" id="manageCouponTextColor" value="#ffffff" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketIconURL">Ikona biletu</label>
-                            <input type="url" class="form-control" id="manageEventTicketIconURL" aria-describedby="manageEventTicketIconURLHelp" placeholder="URL grafiki" required>
-                            <small id="manageEventTicketIconURLHelp" class="form-text text-muted">Wymiary grafiki: 500x500 px (1:1)<br>Grafika widnieje na okładce biletu</small>
+                            <label for="manageCouponIconURL">Ikona biletu</label>
+                            <input type="url" class="form-control" id="manageCouponIconURL" aria-describedby="manageCouponIconURLHelp" placeholder="URL grafiki" required>
+                            <small id="manageCouponIconURLHelp" class="form-text text-muted">Wymiary grafiki: 500x500 px (1:1)<br>Grafika widnieje na okładce biletu</small>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventTicketThumbnailURL">Tło biletu</label>
-                            <input type="url" class="form-control" id="manageEventTicketThumbnailURL" aria-describedby="manageEventTicketThumbnailURLHelp" placeholder="URL grafiki" required>
-                            <small id="manageEventTicketThumbnailURLHelp" class="form-text text-muted">Wymiary grafiki: 1920x1080 px (16:9)<br>Grafika pojawia się po otwarciu biletu</small>
+                            <label for="manageCouponThumbnailURL">Tło biletu</label>
+                            <input type="url" class="form-control" id="manageCouponThumbnailURL" aria-describedby="manageCouponThumbnailURLHelp" placeholder="URL grafiki" required>
+                            <small id="manageCouponThumbnailURLHelp" class="form-text text-muted">Wymiary grafiki: 1920x1080 px (16:9)<br>Grafika pojawia się po otwarciu biletu</small>
                         </div>
                         <label>Podgląd</label>
                         <div style="margin-bottom: 15px;">
-                            <div id="manageEventTicketDisplayColor" style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
+                            <div id="manageCouponDisplayColor" style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
                                 <div style="padding-left: 20px;height: calc(100% - 40px);width: 100%;position: relative;float: left;transform: translateY(-50%);top: 50%;">
-                                    <div id="manageEventTicketDisplayIcon" style="height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
+                                    <div id="manageCouponDisplayIcon" style="height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
                                     <div style="position: relative;top: 50%;translate: 0 -50%;width: calc(100% - 40px);">
-                                        <p id="manageEventTicketDisplayName" style="font-size: 18px; color: #ffffff; margin: 0;"></p>
+                                        <p id="manageCouponDisplayName" style="font-size: 18px; color: #ffffff; margin: 0;"></p>
                                         <p style="font-size: 15px; margin: 0; color: #00ff00;">BILET AKTYWNY</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <center>
-                            <a onClick="deleteTicketEventModal();" id="manageEventTicketDelete" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
+                            <a onClick="deleteTicketEventModal();" id="manageCouponDelete" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-trash-alt"></i>
                                 </span>
@@ -503,7 +503,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventTicket(true);">Potwierdź</a>
+                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageCoupon(true);">Potwierdź</a>
                 </div>
             </div>
         </div>
@@ -594,22 +594,22 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        $('#insufficientPermissionsModal').modal('show')
+        //$('#insufficientPermissionsModal').modal('show')
         var eventsdb = {}
-        var ticketEventsDB = {}
+        var eventCouponsDB = {}
         var classes;
 
         const updateEventTicketDisplay = function() {
-            document.getElementById("manageEventTicketDisplayColor").style.backgroundColor = document.getElementById('manageEventTicketBgColor').value;
-            document.getElementById("manageEventTicketDisplayName").innerHTML = document.getElementById('manageEventTicketName').value;
-            document.getElementById("manageEventTicketDisplayName").style.color = document.getElementById('manageEventTicketTextColor').value;
-            document.getElementById("manageEventTicketDisplayIcon").style.backgroundImage = `url("${document.getElementById('manageEventTicketIconURL').value}")`
+            document.getElementById("manageCouponDisplayColor").style.backgroundColor = document.getElementById('manageCouponBgColor').value;
+            document.getElementById("manageCouponDisplayName").innerHTML = document.getElementById('manageCouponName').value;
+            document.getElementById("manageCouponDisplayName").style.color = document.getElementById('manageCouponTextColor').value;
+            document.getElementById("manageCouponDisplayIcon").style.backgroundImage = `url("${document.getElementById('manageCouponIconURL').value}")`
         }
 
-        document.getElementById('manageEventTicketName').addEventListener('input', updateEventTicketDisplay);
-        document.getElementById('manageEventTicketBgColor').addEventListener('input', updateEventTicketDisplay);
-        document.getElementById('manageEventTicketTextColor').addEventListener('input', updateEventTicketDisplay);
-        document.getElementById('manageEventTicketIconURL').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageCouponName').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageCouponBgColor').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageCouponTextColor').addEventListener('input', updateEventTicketDisplay);
+        document.getElementById('manageCouponIconURL').addEventListener('input', updateEventTicketDisplay);
 
         function reloadDB() {
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
@@ -630,7 +630,7 @@
                         })
                     );
 
-                    //Pobieranie listy wydarzeń biletowanych
+                    //Pobieranie listy kuponów
                     var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
@@ -638,7 +638,7 @@
                     xhrA.onreadystatechange = function () {
                     if (xhrA.readyState === 4) {
                         if (xhrA.status == 200) {
-                            ticketEventsDB = JSON.parse(xhrA.responseText);
+                            eventCouponsDB = JSON.parse(xhrA.responseText);
                             generateTable();
                         } else if (xhrA.status == 403) {
                             $('#insufficientPermissionsModal').modal('show')
@@ -648,27 +648,6 @@
                     }};
 
                     xhrA.send();
-
-                    //Pobieranie listy klas
-                    var url = `https://apimobilnykatolik.glitch.me/getclasses`;
-                    var xhrB = new XMLHttpRequest();
-                    xhrB.open("GET", url);
-
-                    xhrB.onreadystatechange = function () {
-                    if (xhrB.readyState === 4) {
-                        if (xhrB.status == 200) {
-                            classes = xhrB.responseText.split(";");
-                            document.getElementById("manageEventTicketFor").innerHTML = "";
-                            for (i in classes) {
-                                document.getElementById("manageEventTicketFor").innerHTML += `
-                                <option value="${classes[i]}">${classes[i].toUpperCase()}</option>
-                                `
-                            }
-                            document.getElementById("manageEventTicketFor").innerHTML += `<option value="n">Nauczyciele</option>`
-                        }
-                    }};
-
-                    xhrB.send();
                     
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
@@ -687,7 +666,7 @@
                 var teData = ticketEventsDB[x]
                 console.log(teData)
                 document.getElementById("ticketEventsList").innerHTML += `
-                <div style="margin: 10px 0 10px 0;" onClick="openmanageEventTicketModal('${x}')">
+                <div style="margin: 10px 0 10px 0;" onClick="openmanageCouponModal('${x}')">
                     <div style="height: 130px; background-color: ${teData.colors[0]}; width: 100%; border-radius: 20px; cursor: pointer;">
                         <div style="padding-left: 20px;height: calc(100% - 40px);width: 100%;position: relative;float: left;transform: translateY(-50%);top: 50%;">
                             <div style="background-image: url('${teData.icon_url}'); height: 130px;aspect-ratio: 1/1;position: relative;top: 50%;right: 0;border-radius: 0px 20px 20px 0px;background-position: center;background-repeat: no-repeat;background-size: cover;float: right;transform: translateY(-50%);"></div>
@@ -702,7 +681,7 @@
             }
         }
 
-        //reloadDB();
+        reloadDB();
 
         function getManageEventFor() {
             console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
@@ -710,64 +689,64 @@
         }
         
         function deleteTicketEventModal() {
-            $('#manageEventTicketModal').modal('hide')
+            $('#manageCouponModal').modal('hide')
             $('#confirmDeleteModal').modal('show')
         }
 
-        function openmanageEventTicketModal(teid) {
-            if (userAccess < 4) {
+        function openManageCouponModal(ecid) {
+            if (userAccess < 2) {
                 $('#insufficientPermissionsModal').modal('show')
                 return false;
             } else {
-                $('#manageEventTicketModal').modal('show')
+                $('#manageCouponModal').modal('show')
             }
-            if (teid != undefined) { //Modifying event
-                document.getElementById("manageEventTicketDelete").style.display = "inline-flex";
-                document.getElementById("manageEventTicketModalLabel").innerHTML = "Modyfikuj wydarzenie biletowane"
-                document.getElementById("manageEventTicketID").value = teid;
-                document.getElementById("manageEventTicketName").value = ticketEventsDB[teid].name;
-                document.getElementById("manageEventTicketDate").value = ticketEventsDB[teid].date;
-                document.getElementById("manageEventTicketTime").value = ticketEventsDB[teid].time;
-                document.getElementById("manageEventTicketPlace").value = ticketEventsDB[teid].place;
-                document.getElementById("manageEventTicketInfo").value = ticketEventsDB[teid].info.replaceAll("<br>", "\n");
-                document.getElementById("manageEventTicketSalesStart").value = ticketEventsDB[teid].sales_start;
-                document.getElementById("manageEventTicketSalesEnd").value = ticketEventsDB[teid].sales_end;
-                document.getElementById("manageEventTicketBgColor").value = ticketEventsDB[teid].colors[0];
-                document.getElementById("manageEventTicketTextColor").value = ticketEventsDB[teid].colors[1];
-                document.getElementById("manageEventTicketIconURL").value = ticketEventsDB[teid].icon_url;
-                document.getElementById("manageEventTicketThumbnailURL").value = ticketEventsDB[teid].banner_url;
-                document.getElementById("manageEventTicketQuantity").value = ticketEventsDB[teid].quantity;
-                document.getElementById("manageEventTicketCost").value = ticketEventsDB[teid].cost;
+            if (ecid != undefined) { //Modifying event
+                document.getElementById("manageCouponDelete").style.display = "inline-flex";
+                document.getElementById("manageCouponModalLabel").innerHTML = "Modyfikuj wydarzenie biletowane"
+                document.getElementById("manageCouponID").value = teid;
+                document.getElementById("manageCouponName").value = ticketEventsDB[teid].name;
+                document.getElementById("manageCouponDate").value = ticketEventsDB[teid].date;
+                document.getElementById("manageCouponTime").value = ticketEventsDB[teid].time;
+                document.getElementById("manageCouponPlace").value = ticketEventsDB[teid].place;
+                document.getElementById("manageCouponInfo").value = ticketEventsDB[teid].info.replaceAll("<br>", "\n");
+                document.getElementById("manageCouponSalesStart").value = ticketEventsDB[teid].sales_start;
+                document.getElementById("manageCouponSalesEnd").value = ticketEventsDB[teid].sales_end;
+                document.getElementById("manageCouponBgColor").value = ticketEventsDB[teid].colors[0];
+                document.getElementById("manageCouponTextColor").value = ticketEventsDB[teid].colors[1];
+                document.getElementById("manageCouponIconURL").value = ticketEventsDB[teid].icon_url;
+                document.getElementById("manageCouponThumbnailURL").value = ticketEventsDB[teid].banner_url;
+                document.getElementById("manageCouponQuantity").value = ticketEventsDB[teid].quantity;
+                document.getElementById("manageCouponCost").value = ticketEventsDB[teid].cost;
                 if (ticketEventsDB[teid].consent) {
-                    document.getElementById("manageEventTicketConsent").checked = "checked"
+                    document.getElementById("manageCouponConsent").checked = "checked"
                 } else {
-                    document.getElementById("manageEventTicketConsent").checked = ""
+                    document.getElementById("manageCouponConsent").checked = ""
                 }
-                document.getElementById("manageEventTicketFor").value = "";
-                Array.from(document.getElementById("manageEventTicketFor").options).forEach(option => {
+                document.getElementById("manageCouponFor").value = "";
+                Array.from(document.getElementById("manageCouponFor").options).forEach(option => {
                 if (ticketEventsDB[teid].for.includes(option.value)) {
                     option.selected = true;
                 }});
                 updateEventTicketDisplay();
             } else { //New event
-                document.getElementById("manageEventTicketDelete").style.display = "none";
-                document.getElementById("manageEventTicketModalLabel").innerHTML = "Nowe wydarzenie biletowane"
-                document.getElementById("manageEventTicketID").value = "";
-                document.getElementById("manageEventTicketName").value = "Nowe wydarzenie biletowane";
-                document.getElementById("manageEventTicketDate").value = "";
-                document.getElementById("manageEventTicketTime").value = "";
-                document.getElementById("manageEventTicketPlace").value = "";
-                document.getElementById("manageEventTicketInfo").value = "";
-                document.getElementById("manageEventTicketSalesStart").value = "";
-                document.getElementById("manageEventTicketSalesEnd").value = "";
-                document.getElementById("manageEventTicketBgColor").value = "#000000";
-                document.getElementById("manageEventTicketTextColor").value = "#ffffff";
-                document.getElementById("manageEventTicketIconURL").value = "";
-                document.getElementById("manageEventTicketThumbnailURL").value = "";
-                document.getElementById("manageEventTicketQuantity").value = 0;
-                document.getElementById("manageEventTicketCost").value = 0;
-                document.getElementById("manageEventTicketFor").value = "";
-                document.getElementById("manageEventTicketConsent").checked = ""
+                document.getElementById("manageCouponDelete").style.display = "none";
+                document.getElementById("manageCouponModalLabel").innerHTML = "Nowe wydarzenie biletowane"
+                document.getElementById("manageCouponID").value = "";
+                document.getElementById("manageCouponName").value = "Nowe wydarzenie biletowane";
+                document.getElementById("manageCouponDate").value = "";
+                document.getElementById("manageCouponTime").value = "";
+                document.getElementById("manageCouponPlace").value = "";
+                document.getElementById("manageCouponInfo").value = "";
+                document.getElementById("manageCouponSalesStart").value = "";
+                document.getElementById("manageCouponSalesEnd").value = "";
+                document.getElementById("manageCouponBgColor").value = "#000000";
+                document.getElementById("manageCouponTextColor").value = "#ffffff";
+                document.getElementById("manageCouponIconURL").value = "";
+                document.getElementById("manageCouponThumbnailURL").value = "";
+                document.getElementById("manageCouponQuantity").value = 0;
+                document.getElementById("manageCouponCost").value = 0;
+                document.getElementById("manageCouponFor").value = "";
+                document.getElementById("manageCouponConsent").checked = ""
                 updateEventTicketDisplay();
             }
             
@@ -775,38 +754,38 @@
             
         }
 
-        function manageEventTicket(remove) {
-            $('#manageEventTicketModal').modal('hide')
+        function manageCoupon(remove) {
+            $('#manageCouponModal').modal('hide')
             return false;
 
             if (remove == true) {
                 var data = {
-                    "teid": document.getElementById("manageEventTicketID").value,
+                    "teid": document.getElementById("manageCouponID").value,
                     "delete": true
                 }
             } else {
                 //["consent", "name", "date", "time", "place", "for", "banner_url", "icon_url", "cost", "sales_start", "sales_end", "quantity"]
                 var data = {
-                    "teid": document.getElementById("manageEventTicketID").value,
-                    "name": document.getElementById("manageEventTicketName").value,
-                    "date": document.getElementById("manageEventTicketDate").value,
-                    "time": document.getElementById("manageEventTicketTime").value,
-                    "place": document.getElementById("manageEventTicketPlace").value,
-                    "for": Array.from(document.getElementById("manageEventTicketFor").selectedOptions).map(option => option.value),
-                    "banner_url": document.getElementById("manageEventTicketThumbnailURL").value,
-                    "icon_url": document.getElementById("manageEventTicketIconURL").value,
-                    "colors": [document.getElementById("manageEventTicketBgColor").value, document.getElementById("manageEventTicketTextColor").value],
-                    "sales_start": document.getElementById("manageEventTicketSalesStart").value,
-                    "sales_end": document.getElementById("manageEventTicketSalesEnd").value,
-                    "quantity": document.getElementById("manageEventTicketQuantity").value,
+                    "teid": document.getElementById("manageCouponID").value,
+                    "name": document.getElementById("manageCouponName").value,
+                    "date": document.getElementById("manageCouponDate").value,
+                    "time": document.getElementById("manageCouponTime").value,
+                    "place": document.getElementById("manageCouponPlace").value,
+                    "for": Array.from(document.getElementById("manageCouponFor").selectedOptions).map(option => option.value),
+                    "banner_url": document.getElementById("manageCouponThumbnailURL").value,
+                    "icon_url": document.getElementById("manageCouponIconURL").value,
+                    "colors": [document.getElementById("manageCouponBgColor").value, document.getElementById("manageCouponTextColor").value],
+                    "sales_start": document.getElementById("manageCouponSalesStart").value,
+                    "sales_end": document.getElementById("manageCouponSalesEnd").value,
+                    "quantity": document.getElementById("manageCouponQuantity").value,
                     "consent": false,
-                    "cost": document.getElementById("manageEventTicketCost").value,
-                    "info": document.getElementById("manageEventTicketInfo").value.replaceAll("\n", "<br>")
+                    "cost": document.getElementById("manageCouponCost").value,
+                    "info": document.getElementById("manageCouponInfo").value.replaceAll("\n", "<br>")
                 }
                 if (data.teid == "") {
                     delete data.teid;
                 }
-                if (document.getElementById("manageEventTicketConsent").checked) {
+                if (document.getElementById("manageCouponConsent").checked) {
                     data.consent = true
                 }
             }

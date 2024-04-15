@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Panel Mobilny Katolik - eIndeks</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <style>
+        tr.focusBg:hover {
+            background-color: #f8f9fc;
+        }
+    </style>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-print-none" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/katolik_tczew_logo_lampa czarna.svg" alt="SVG Image" height="25px">
+                </div>
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <!--<li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Strona główna</span></a>
+            </li>-->
+
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Projekty
+            </div>
+
+            <!-- Nav Item - Project management Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-calendar fa-fw"></i>
+                    <span>Wydarzenia</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kalendarz</h6>
+                        <a class="collapse-item" href="events.html">Wyświetl</a>
+                        <h6 class="collapse-header">Bilety</h6>
+                        <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
+                        <a class="collapse-item" href="ticketed-events.html">Wydarzenia biletowane</a>
+                        <h6 class="collapse-header">Wirtualne rybki</h6>
+                        <a class="collapse-item" href="points.html">Zarządzaj</a>
+                        <a class="collapse-item" href="coupons.html">Kupony</a>
+                        <h6 class="collapse-header">SLS</h6>
+                        <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Lucky number -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-gem fa-fw"></i>
+                    <span>Szczęśliwy numerek</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider" style="opacity: 0;">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Inne
+            </div>
+
+            <!-- Nav Item - Scanner -->
+            <li class="nav-item">
+                <a class="nav-link" href="scan-settings.html">
+                    <i class="fas fa-qrcode fa-fw"></i>
+                    <span>Skaner</span></a>
+            </li>
+
+            <!-- Nav Item - eDigest -->
+            <li class="nav-item active">
+                <a class="nav-link" href="edigest.html">
+                    <i class="fas fa-book-reader fa-fw"></i>
+                    <span>eIndeks</span></a>
+            </li>
+
+            <!-- Nav Item - Ideas -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-lightbulb"></i>
+                    <span>Pomysły</span></a>
+            </li>
+
+            <!-- Nav Item - Ideas -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-bell"></i>
+                    <span>Wyślij powiadomienie</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider" style="opacity: 0;">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Użytkownicy
+            </div>
+
+            <!-- Nav Item - User management -->
+            <li class="nav-item">
+                <a class="nav-link" href="users-list.html">
+                    <i class="fas fa-fw fa-user-cog"></i>
+                    <span>Zarządzaj</span></a>
+            </li>
+
+            <!-- Nav Item - Class management -->
+            <li class="nav-item">
+                <a class="nav-link" href="manage-classes.html">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Ustawienia klas</span></a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <!--<div class="sidebar-card d-none d-lg-flex">
+                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
+                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+            </div>-->
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!--<div class="topbar-divider d-none d-sm-block"></div>-->
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-lg-inline text-gray-600 small" id="profile-fullname"></span>
+                                <img class="img-profile rounded-circle" id="img-profile">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Twój profil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Wyloguj się
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">eIndeks</h1>
+                    </div>
+
+                    <div class="row justify-content-end mb-4 mt-4 mr-0 d-print-none">
+                        <a onClick="openManageEventModal()" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Dodaj wydarzenie</span>
+                        </a>
+                    </div>
+
+                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
+
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Accordion -->
+                        <a href="#myEvents" class="d-block card-header py-3" data-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="myEvents">
+                            <h6 class="m-0 font-weight-bold text-primary">Moje wydarzenia</h6>
+                        </a>
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="myEvents">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="custom-checkbox" id="showPastEvents" onchange="generateTable()">
+                                        <label for="showPastEvents" style="margin-bottom: 0;">Pokaż minione wydarzenia</label>
+                                    </div>
+                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <tbody id="my-events-list-table">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Wszystkie wydarzenia</h6>
+                        </div>
+                        <div class="card-body" id="listView" style="display: none;">
+                            <ul class="nav nav-tabs d-print-none">
+                                <li class="nav-item">
+                                    <a class="nav-link" onClick="switchView('tableView')">Tabela (Wydarzenia SU)</a>
+                                  </li>
+                                <li class="nav-item">
+                                  <a class="nav-link active" onClick="switchView('listView')">Lista</a>
+                                </li>
+                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa wydarzenia</th>
+                                            <th>Data</th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="events-list-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-body" id="tableView">
+                            <ul class="nav nav-tabs d-print-none">
+                                <li class="nav-item">
+                                    <a class="nav-link active" onClick="switchView('tableView')">Tabela (Wydarzenia SU)</a>
+                                  </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" onClick="switchView('listView')">Lista</a>
+                                </li>
+                            </ul>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Nazwa wydarzenia</th>
+                                            <th>Koordynatorzy</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="su-events-list-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Powered by &copy; Mobilny Katolik API</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Czy na pewno chcesz się wylogować?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile info Modal-->
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Twój profil</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Imię i nazwisko
+                    <br>
+                    <b id="profileModalFullname">-</b>
+                    <br><br>
+                    Poziom uprawnień
+                    <br>
+                    <b id="profileModalAccess"></b>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Event Modal-->
+    <div class="modal fade" id="manageEventModal" tabindex="-1" role="dialog" aria-labelledby="manageEventModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageEventModalLabel">Dodaj/modyfikuj wydarzenie</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageEvent();">
+                    <div class="modal-body">
+                        <div class="form-group" style="display: none;">
+                            <label for="manageEventID">ID wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventID">
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventName">Nazwa wydarzenia</label>
+                            <input type="text" class="form-control" id="manageEventName" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="manageEventStartDate">Data rozpoczęcia</label>
+                                    <input type="date" class="form-control" id="manageEventStartDate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="manageEventStartTime">Godzina</label>
+                                    <input type="time" class="form-control" id="manageEventStartTime">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="manageEventEndDate">Data zakończenia</label>
+                                    <input type="date" class="form-control" id="manageEventEndDate">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="manageEventEndTime">Godzina</label>
+                                    <input type="time" class="form-control" id="manageEventEndTime">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventDescription">Opis</label>
+                            <textarea class="form-control" id="manageEventDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventType">Typ</label>
+                            <select class="form-control" id="manageEventType" required>
+                                <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
+                                <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventFor">Odbiorcy</label>
+                            <select class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp" multiple>
+                            </select>
+                            <small id="manageEventForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventBy">Koordynatorzy</label>
+                            <select class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" multiple>
+                            </select>
+                            <small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="custom-checkbox" id="manageEventSpecialSuit" aria-describedby="manageEventSpecialSuitHelp">
+                            <label for="manageEventSpecialSuit" style="margin-bottom: 0;">Specjalny strój</label>
+                            <small id="manageEventSpecialSuitHelp" class="form-text text-muted">Zaznacz, jeśli na to wydarzenie jest wymagany strój galowy</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal-->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie []?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="deleteEventID" style="display: none;">
+                    Kliknij <b>Potwierdź</b>, aby usunąć.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-danger" data-dismiss="modal" onclick="manageEvent(true);">Potwierdź</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fas fa-cloud-upload-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Proszę czekać...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insufficient Permissions Modal-->
+    <div class="modal fade" id="insufficientPermissionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Brak uprawnień</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Nie posiadasz wystarczającego poziomu uprawnień, aby tego dokonać!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Error Modal-->
+    <div class="modal fade" id="apiErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Błąd komunikacji z API</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Wystąpił błąd połączenia z API. Odśwież panel i spróbuj ponownie!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Response Modal-->
+    <div class="modal fade" id="apiResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Odpowiedź z serwera</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="apiResponse">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+    <script>
+        var eventsdb = {}
+        var userList;
+        var sortedEvents;
+
+        function switchView(view) {
+            document.getElementById("listView").style.display = "none"
+            document.getElementById("tableView").style.display = "none"
+            document.getElementById(view).style.display = "block"
+        }
+
+        function reloadDB() {
+            //Pobieranie listy członków SU
+            var url = `https://apimobilnykatolik.glitch.me/pmk/su/userlist/${userID}/${userLoginID}`;
+            var xhrA = new XMLHttpRequest();
+            xhrA.open("GET", url);
+
+            xhrA.onreadystatechange = function () {
+            if (xhrA.readyState === 4) {
+                if (xhrA.status == 200) {
+                    userList = JSON.parse(xhrA.responseText);
+                    for (x in userList) {
+                        document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
+                    }   
+                    document.getElementById("manageEventBy").innerHTML = "";
+                    for (x in userList) {
+                        document.getElementById("manageEventBy").innerHTML += `
+                        <option value="${x}">${userList[x].firstname} ${userList[x].lastname}</option>
+                        `
+                    }
+                }
+            }};
+
+            xhrA.send();
+
+            //Pobieranie klas
+            var url = `https://apimobilnykatolik.glitch.me/getclasses`;
+            var xhrB = new XMLHttpRequest();
+            xhrB.open("GET", url);
+
+            xhrB.onreadystatechange = function () {
+            if (xhrB.readyState === 4) {
+                if (xhrB.status == 200) {
+                    var classes = xhrB.responseText;
+                    classes = classes.split(";")
+                    document.getElementById("manageEventFor").innerHTML = "";
+                    for (x in classes) {
+                        document.getElementById("manageEventFor").innerHTML += `
+                        <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
+                        `
+                    }
+                    document.getElementById("manageEventFor").innerHTML += '<option value="n">Nauczyciele</option>'
+                }
+            }};
+
+            xhrB.send();
+
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    eventsdb = data;
+                    sortedEvents = Object.fromEntries(
+                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
+                            const date1 = new Date(event1.startdate);
+                            const date2 = new Date(event2.startdate);
+                            return date1 - date2;
+                        })
+                    );
+                    generateTable();  
+                } else if (xhr.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
+
+            xhr.send();
+        }
+
+        reloadDB();
+
+        function generateTable() {
+            var today = new Date();
+            today = today.toISOString().split('T')[0];
+            var hidePast = true;
+            if (document.getElementById("showPastEvents").checked) {
+                hidePast = false;
+            }
+
+            document.getElementById("events-list-table").innerHTML = "";
+            document.getElementById("su-events-list-table").innerHTML = "";
+            document.getElementById("my-events-list-table").innerHTML = "";
+            //Wyświeltanie wydarzeń chronologicznie
+            var prevMonth = -1
+                    var months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
+                    for (event in sortedEvents) {
+                        var myBadge = "";
+                        var currMonth = new Date(sortedEvents[event].startdate).getMonth()
+                        if (currMonth != prevMonth) {
+                            document.getElementById("su-events-list-table").innerHTML += `
+                            <tr style="background-color: #f8f9fc;">
+                                <th colspan="3" style="text-align: center;">${months[currMonth]}</th>
+                            </tr>
+                            `
+                            prevMonth = currMonth;
+                        }
+                        var badgeColor = "primary";
+                        if (sortedEvents[event].type.toUpperCase() == "SU") {
+                            badgeColor = "primary";
+                        }
+                        if (sortedEvents[event].type.toUpperCase() == "SZKOLNE") {
+                            badgeColor = "dark";
+                        }
+
+                        if (sortedEvents[event].by.includes(userID)) {
+                            myBadge = `
+                            <div class="badge badge-success">MOJE</div>
+                            `
+                        }
+
+                        document.getElementById("events-list-table").innerHTML += `
+                        <tr class="focusBg">
+                            <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div>${myBadge} ${sortedEvents[event].name}</td>
+                            <td style="vertical-align: middle;">${zamienNaSlowa(sortedEvents[event].startdate)}</td>
+                            <td style="vertical-align: middle;">
+                                <!--<a href="#" class="btn btn-primary btn-circle btn-sm disabled">
+                                    <i class="fas fa-info"></i>
+                                </a>-->
+                                <a onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <!--<a href="#" class="btn btn-primary btn-circle btn-sm disabled">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </a>-->
+                                <a onclick="confirmDelete('${event}')" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        `
+                        if (sortedEvents[event].type.toUpperCase() == "SU") {
+                            var date = new Date(sortedEvents[event].startdate);
+                            date = `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}`
+                            document.getElementById("su-events-list-table").innerHTML += `
+                            <tr onClick="openManageEventModal('${event}')" class="focusBg">
+                                <td style="vertical-align: middle;">${date}</td>
+                                <td style="vertical-align: middle;">${sortedEvents[event].name}</td>
+                                <td style="vertical-align: middle;">
+                                    ${sortedEvents[event].by.join("<br>")}
+                                </td>
+                            </tr>
+                            `
+                        }
+                        if (hidePast == true) {
+                            if (sortedEvents[event].enddate != "") {
+                                if (sortedEvents[event].enddate.split('T')[0] < today) {
+                                    continue;
+                                }
+                            } else {
+                                if (sortedEvents[event].startdate.split('T')[0] < today) {
+                                    console.log(`
+                                        Data wydarzenia: ${sortedEvents[event].startdate}
+                                        Dzisiaj: ${today}
+                                    `)
+                                    continue;
+                                }
+                            }
+                        }
+                        if (sortedEvents[event].by.includes(userID)) {
+                            document.getElementById("my-events-list-table").innerHTML += `
+                            <tr class="focusBg">
+                                <td style="vertical-align: middle;"><div class="badge badge-${badgeColor}">${sortedEvents[event].type.toUpperCase()}</div> ${sortedEvents[event].name}</td>
+                                <td style="vertical-align: middle;">${zamienNaSlowa(sortedEvents[event].startdate)}</td>
+                                <td style="vertical-align: middle;">
+                                    <a onclick="openManageEventModal('${event}');" class="btn btn-primary btn-circle btn-sm">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a onclick="confirmDelete('${event}')" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            `
+                        }
+                    }  
+                    for (x in userList) {
+                        document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
+                    }  
+        }
+
+        function getManageEventFor() {
+            console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
+            return false;
+        }
+
+        function zamienNaSlowa(dataStr) {
+            const miesiace = [
+                "stycznia", "lutego", "marca",
+                "kwietnia", "maja", "czerwca",
+                "lipca", "sierpnia", "września",
+                "października", "listopada", "grudnia"
+            ];
+
+            const dniTygodnia = [
+                "ndz.", "pon.", "wt.",
+                "śr.", "czw.", "pt.", "sob."
+            ];
+
+            const data = new Date(dataStr);
+            const dzien = data.getDate();
+            const miesiac = miesiace[data.getMonth()];
+            const rok = data.getFullYear();
+            const dzienTygodnia = dniTygodnia[data.getDay()];
+
+            // Pobieramy godzinę i minutę z daty
+            if (dataStr.split("T")[1] != undefined) {
+                const godzina = String(data.getHours()).padStart(2, '0'); // dodajemy zero wiodące, jeśli godzina ma tylko jedną cyfrę
+                const minuta = String(data.getMinutes()).padStart(2, '0');
+                return `${dzienTygodnia}, ${dzien} ${miesiac} ${rok} r., ${godzina}:${minuta}`;
+            } else {
+                return `${dzienTygodnia}, ${dzien} ${miesiac} ${rok} r.`;
+            }
+        }
+        
+
+        function openManageEventModal(eventid) {
+            if (eventid != undefined) { //Modifying event
+                if (eventsdb[eventid].by.includes(userID) || userAccess >= 4) {
+                    //
+                } else {
+                    $('#insufficientPermissionsModal').modal('show')
+                    return false;
+                }
+                document.getElementById("manageEventID").value = eventid;
+                document.getElementById("manageEventName").value = eventsdb[eventid].name;
+                document.getElementById("manageEventStartDate").value = eventsdb[eventid].startdate.split("T")[0];
+                if (eventsdb[eventid].startdate.split("T")[1] != undefined) {
+                    document.getElementById("manageEventStartTime").value = eventsdb[eventid].startdate.split("T")[1];
+                } else {
+                    document.getElementById("manageEventStartTime").value = "";
+                }
+                if (eventsdb[eventid].enddate != undefined) {
+                    document.getElementById("manageEventEndDate").value = eventsdb[eventid].enddate.split("T")[0];
+                    if (eventsdb[eventid].enddate.split("T")[1] != undefined) {
+                        document.getElementById("manageEventEndTime").value = eventsdb[eventid].enddate.split("T")[1];
+                    } else {
+                        document.getElementById("manageEventEndTime").value = "";
+                    }
+                }
+                document.getElementById("manageEventDescription").value = eventsdb[eventid].description.replaceAll("<br>", "\n");
+                document.getElementById("manageEventType").value = eventsdb[eventid].type;
+                document.getElementById("manageEventType").disabled = "disabled";
+                document.getElementById("manageEventFor").value = "";
+                Array.from(document.getElementById("manageEventFor").options).forEach(option => {
+                if (eventsdb[eventid].for.includes(option.value)) {
+                    option.selected = true;
+                }});
+                document.getElementById("manageEventBy").value = "";
+                Array.from(document.getElementById("manageEventBy").options).forEach(option => {
+                if (eventsdb[eventid].by.includes(option.value)) {
+                    option.selected = true;
+                }});
+
+                if (document.getElementById("manageEventType").value == "szkolne") {
+                    document.getElementById("manageEventBy").disabled = "disabled";
+                } else {
+                    document.getElementById("manageEventBy").disabled = "";
+                }
+                if (eventsdb[eventid].specialsuit == true) {
+                    document.getElementById("manageEventSpecialSuit").checked = "checked";
+                } else {
+                    document.getElementById("manageEventSpecialSuit").checked = "";
+                }
+                
+            } else { //New event
+                if (userAccess < 1) {
+                    $('#insufficientPermissionsModal').modal('show')
+                    return false;
+                }
+                document.getElementById("manageEventID").value = "";
+                document.getElementById("manageEventName").value = "";
+                document.getElementById("manageEventStartDate").value = "";
+                document.getElementById("manageEventStartTime").value = "";
+                document.getElementById("manageEventEndDate").value = "";
+                document.getElementById("manageEventEndTime").value = "";
+                document.getElementById("manageEventDescription").value = "";
+                document.getElementById("manageEventType").value = "su";
+                document.getElementById("manageEventType").disabled = "";
+                document.getElementById("manageEventFor").value = "";
+                document.getElementById("manageEventBy").value = userID;
+                document.getElementById("manageEventBy").disabled = "";
+                document.getElementById("manageEventSpecialSuit").checked = "";
+                if (userAccess >= 4) {
+                    document.getElementById("manageEventTypeSzkolne").disabled = ""
+                } else {
+                    document.getElementById("manageEventTypeSzkolne").disabled = "disabled"
+                }
+            }
+            
+            $('#manageEventModal').modal('show')
+            
+        }
+
+        function manageEvent(remove) {
+            $('#manageEventModal').modal('hide')
+
+            if (remove == true) {
+                var data = {
+                    "event_id": document.getElementById("deleteEventID").value,
+                    "delete": true
+                }
+            } else {
+                var data = {
+                    "event_id": document.getElementById("manageEventID").value,
+                    "name": document.getElementById("manageEventName").value,
+                    "startdate": document.getElementById("manageEventStartDate").value+"T"+document.getElementById("manageEventStartTime").value,
+                    "enddate": document.getElementById("manageEventEndDate").value+"T"+document.getElementById("manageEventEndTime").value,
+                    "description": document.getElementById("manageEventDescription").value.replaceAll("\n", "<br>"),
+                    "type": document.getElementById("manageEventType").value,
+                    "for": Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value),
+                    "by": Array.from(document.getElementById("manageEventBy").selectedOptions).map(option => option.value)
+                }
+                if (data.event_id == "") {
+                    delete data.event_id;
+                }
+                if (document.getElementById("manageEventStartTime").value == "") {
+                    data.startdate = document.getElementById("manageEventStartDate").value;
+                }
+                if (document.getElementById("manageEventEndDate").value == "") {
+                    document.getElementById("manageEventEndTime").value = ""
+                }
+                if (document.getElementById("manageEventEndTime").value == "") {
+                    data.enddate = document.getElementById("manageEventEndDate").value;
+                }
+                if (document.getElementById("manageEventSpecialSuit").checked) {
+                    data.specialsuit = true;
+                } else {
+                    data.specialsuit = false;
+                }
+            }
+
+            $('#loadingModal').modal('show')
+            console.log(data);
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/events/modify/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify(data));
+            return false;
+        }
+
+        function confirmDelete(eventID) {
+            if (eventsdb[eventID].by.includes(userID) || userAccess >= 4) {
+                document.getElementById("deleteEventID").value = eventID;
+                document.getElementById("confirmDeleteModalLabel").innerHTML = `Czy na pewno chcesz usunąć wydarzenie <b>${eventsdb[eventID].name}</b>?`
+                $('#confirmDeleteModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+            
+        }
+
+    </script>
+
+</body>
+
+</html>
