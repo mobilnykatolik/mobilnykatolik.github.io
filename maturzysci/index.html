@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row" id="row0"></div>
+    <hr>
+    <div class="row" id="row1"></div>
+    <hr>
+    <div class="row" id="row2"></div>
+</body>
+
+</html>
+
+<script>
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const product = urlParams.get('product')
+
+var rows = [urlParams.get('row1'), urlParams.get('row2'), urlParams.get('row3')]
+var speed = parseInt(urlParams.get('speed'))
+var times = 100;
+var fontChange = urlParams.get('fontchange');
+
+if (fontChange == "true") {
+    fontChange = true
+} else {
+    fontChange = false
+}
+
+if (isNaN(speed)) {
+    speed = 100;
+}
+
+if (fontChange) {
+    for (row in rows) {
+        if ((row % 2) == 1) {
+            document.getElementById(`row${row}`).style.fontFamily = "Hussar Ekologiczny"
+        }
+    }
+}
+
+
+for (let i = 0; i < times; i++) {
+    for (row in rows) {
+        var paragraph = document.createElement("p");
+        var textNode = document.createTextNode(rows[row]);
+        paragraph.appendChild(textNode);
+        //paragraph.id = getID();
+        document.getElementById(`row${row}`).appendChild(paragraph);
+        var dist = paragraph.offsetWidth + 75 + paragraph.getBoundingClientRect().left
+        paragraph.style.transition = `translate ${dist / speed}s linear`
+        paragraph.style.translate = `-${dist}px`
+        var time = (dist / speed)*1000
+        if ((row % 2) == 1 && fontChange) {
+            paragraph.style.transform = "translateY(0)"
+        }
+    }
+}
+
+function getID() {
+    length = 8
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}[]|:;?><,./-=";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+
+</script>
