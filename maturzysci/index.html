@@ -34,11 +34,10 @@ if (isNaN(speed)) {
     speed = 100;
 }
 
-if (fontChange) {
-    for (row in rows) {
-        if ((row % 2) == 1) {
-            document.getElementById(`row${row}`).style.fontFamily = "Opened"
-        }
+for (row in rows) {
+    if ((row % 2) == 1) {
+        if (fontChange) {document.getElementById(`row${row}`).style.fontFamily = "Opened"}
+        document.getElementById(`row${row}`).style.rotate = "180deg"
     }
 }
 
@@ -48,14 +47,14 @@ for (let i = 0; i < times; i++) {
         var paragraph = document.createElement("p");
         var textNode = document.createTextNode(rows[row]);
         paragraph.appendChild(textNode);
-        //paragraph.id = getID();
         document.getElementById(`row${row}`).appendChild(paragraph);
-        var dist = paragraph.offsetWidth + 75 + paragraph.getBoundingClientRect().left
+        var dist = paragraph.offsetWidth + 75 + paragraph.getBoundingClientRect().left + 1000*times
         paragraph.style.transition = `translate ${dist / speed}s linear`
-        paragraph.style.translate = `-${dist}px`
         var time = (dist / speed)*1000
-        if ((row % 2) == 1 && fontChange) {
-            paragraph.style.transform = "translateY(0)"
+        paragraph.style.translate = `-${dist}px`
+        if (row%2 == 1) {
+            paragraph.style.rotate = "180deg"
+            if (fontChange) {paragraph.style.transform = "translateY(0)"}
         }
     }
 }
