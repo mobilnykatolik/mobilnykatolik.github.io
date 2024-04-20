@@ -19,7 +19,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const product = urlParams.get('product')
 
-var rows = [urlParams.get('row1'), urlParams.get('row2'), urlParams.get('row3')]
+var rows = urlParams.get('rows').split(";")
 var speed = parseInt(urlParams.get('speed'))
 var times = 100;
 var fontChange = urlParams.get('fontchange');
