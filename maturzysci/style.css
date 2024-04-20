@@ -1,8 +1,18 @@
+@font-face {
+    font-family: "Closed";
+    src: url("HussarBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "Opened";
+    src: url("HussarEkologiczne1.otf") format("opentype");
+}
+
 html, body { 
     margin: 0;
     background-color: black;
     color: white;
-    font-family: 'Hussar';
+    font-family: 'Closed';
     font-weight: bold;
     overflow: hidden;
 }
