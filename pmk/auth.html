@@ -40,7 +40,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Witaj ponownie!</h1>
                                     </div>
-                                    <form class="user" onsubmit="return logIn();">
+                                    <form class="user" onsubmit="return credLogin();">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="formLogin" aria-describedby="emailHelp"
@@ -49,10 +49,13 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="formPassword" placeholder="Hasło" required>
+                                            <div class="invalid-feedback" id="invalid-feedback">
+                                                Dane logowania są niepoprawne!
+                                            </div>
                                         </div>
                                         <input type="submit" id="formSubmit" value="Zaloguj się" class="btn btn-primary btn-user btn-block">
                                         <p style="margin: 20px 0 10px 0; text-align: center; font-size: 13px;">lub skorzystaj z innych metod logowania:</p>
-                                        <a onClick="openLoginPopup();" class="btn btn-primary btn-user btn-block">
+                                        <a onClick="openLoginPopup();" class="btn btn-primary btn-user btn-block" id="pm-login">
                                             <i class="fas fa-user-circle fa-fw"></i> Zaloguj się Profilem Mobilnym
                                         </a>
                                     </form>
@@ -135,12 +138,14 @@
         }
 
         function logIn() {
-            if (loginID == undefined) {
-                loginID = document.getElementById("formPassword").value;
-            }
+            document.getElementById("formLogin").classList.remove("is-invalid")
+            document.getElementById("formPassword").classList.remove("is-invalid")
+            document.getElementById("invalid-feedback").style.display = "none"
             document.getElementById("formPassword").disabled = "disabled";
             document.getElementById("formLogin").disabled = "disabled";
             document.getElementById("formSubmit").disabled = "disabled";
+            document.getElementById("pm-login").classList.add("disabled")
+
                 var url = `https://apimobilnykatolik.glitch.me/sync/${loginID}`;
 
                 var xhr = new XMLHttpRequest();
@@ -148,9 +153,11 @@
 
                 xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    document.getElementById("formPassword").disabled = "";
                     document.getElementById("formLogin").disabled = "";
-                    document.getElementById("formSubmit").disabled = "";
+                        document.getElementById("formPassword").disabled = "";
+                        document.getElementById("formSubmit").disabled = "";
+                        document.getElementById("pm-login").classList.remove("disabled")
+
                     if (xhr.status == 200) {
                         var data = JSON.parse(xhr.responseText);
                         if (data.access < 1) {
@@ -165,6 +172,11 @@
                         sessionStorage.setItem("usernickname", data.nickname);
                         sessionStorage.setItem("useraccess", data.access);
                         sessionStorage.setItem("userscount", data.userscount);
+                        document.getElementById("formLogin").classList.add("is-valid")
+                        document.getElementById("formPassword").classList.add("is-valid")
+
+                        document.getElementById("formLogin").disabled = "";
+                        document.getElementById("formPassword").disabled = "";
                         window.location = "index.html";
                     } else {
                         window.alert("Wystąpił błąd. Spróbuj ponownie bądź zaloguj się Profilem Mobilnym.");
@@ -173,6 +185,48 @@
 
                 xhr.send();
                 return false;
+        }
+
+        function credLogin() {
+            document.getElementById("formLogin").classList.remove("is-invalid")
+            document.getElementById("formPassword").classList.remove("is-invalid")
+            document.getElementById("invalid-feedback").style.display = "none"
+            document.getElementById("formPassword").disabled = "disabled";
+            document.getElementById("formLogin").disabled = "disabled";
+            document.getElementById("formSubmit").disabled = "disabled";
+            document.getElementById("pm-login").classList.add("disabled")
+
+            var data = {
+                login: document.getElementById("formLogin").value,
+                pass: document.getElementById("formPassword").value
+            }
+            var url = `https://apimobilnykatolik.glitch.me/pmk/cred/login`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        loginID = JSON.parse(xhr.responseText).loginid
+                        logIn();
+                    } else {
+                        document.getElementById("formLogin").classList.add("is-invalid")
+                        document.getElementById("formPassword").classList.add("is-invalid")
+
+                        document.getElementById("invalid-feedback").style.display = "block"
+
+                        document.getElementById("formLogin").disabled = "";
+                        document.getElementById("formPassword").disabled = "";
+                        document.getElementById("formSubmit").disabled = "";
+                        document.getElementById("pm-login").classList.remove("disabled")
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify(data));
+            return false;
         }
         
         
