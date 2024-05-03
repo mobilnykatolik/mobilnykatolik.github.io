@@ -917,16 +917,14 @@
         }
 
         function openSendNotificationModal(userid) {
-            if (userid == "GLOBAL") {
-                document.getElementById("sendNotificationUsers").value = "GLOBAL";
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
-            }
-
             if (userid.length == 0) {
                 return false;
             }
 
-            if (userid.length == 1) {
+            if (userid == "GLOBAL") {
+                document.getElementById("sendNotificationUsers").value = "GLOBAL";
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
+            } else if (userid.length == 1) {
                 document.getElementById("sendNotificationUsers").value = userid[0];
                 document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid[0]].firstname} ${userdb[userid[0]].lastname}`;
             } else {
