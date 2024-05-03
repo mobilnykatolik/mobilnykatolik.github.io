@@ -27,6 +27,9 @@
         .selectedRow {
             background-color: #c8dcfc;
         }
+        tr {
+            transition: background-color 0.15s ease-in-out;
+        }
     </style>
 
 </head>
@@ -229,7 +232,7 @@
                             <div class="row mt-2 mr-0 d-print-none">
                                 <div class="col-lg-6">
                                     <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="multipleActionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Akcje
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -238,7 +241,7 @@
                                             <a class="dropdown-item" onClick="openManageUserModal(selectedRows)">Modyfikuj</a>
                                             <a class="dropdown-item" onClick="openSendNotificationModal(selectedRows)">Wyślij powiadomienie</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger">Usuń</a>
+                                            <a class="dropdown-item text-danger" onClick="confirmDelete(selectedRows)">Usuń</a>
                                         </div>
                                     </div>
                                 </div>
@@ -507,6 +510,37 @@
         </div>
     </div>
 
+    <!-- Delete Confirm Modal-->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="deleteConfirmModalLabel"><i class="fas fa-exclamation-circle fa-fw"></i> Czy na pewno chcesz usunąć Profil Mobilny?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="deleteUserList" disabled hidden>
+                    <span class="text-danger">
+                        Usunięcie Profilu Mobilnego spowoduje:
+                        <br>- permanente usunięcie użytkownika
+                        <br>- usunięcie Wirtualnych Rybek
+                        <br>- usunięcie kuponów
+                        <br>- zmianę danych w biletach
+                        <br>Dezaktywacja Profilu Mobilnego jest <b>nieodwracalna</b>.
+                        <br><br>Kliknij <b>Potwierdź</b>, aby usunąć <span id="deleteUserCount"></span>.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal" onClick="deleteAccounts()">Potwierdź</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Modal -->
     <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -704,7 +738,7 @@
                                                     <a class="dropdown-item" onClick="openSendNotificationModal(['${entry}'])">Wyślij powiadomienie</a>
                                                     <a class="dropdown-item" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item text-danger">Usuń</a>
+                                                    <a class="dropdown-item text-danger" onClick="confirmDelete(['${entry}'])">Usuń</a>
                                                 </div>
                                             </div>    
                                         </td>
@@ -792,9 +826,15 @@
             }
         }
 
+        document.getElementById("multipleActionsDropdown").disabled = "disabled"
         function updateSelectedAmount() {
             document.getElementById("currently-selected").innerHTML = `Aktualnie zaznaczone: ${selectedRows.length}`
             document.getElementById("currently-selected-dropdown").innerHTML = `Wybrano ${selectedRows.length} użytk.`
+            if (selectedRows.length == 0) {
+                document.getElementById("multipleActionsDropdown").disabled = "disabled"
+            } else {
+                document.getElementById("multipleActionsDropdown").disabled = ""
+            }
         }
 
         function selectionCheck() {
@@ -1105,6 +1145,35 @@
             //console.log(multipleID);
             return multipleID;
         }
+
+        //Usuwanie Profilu Mobilnego
+
+        //Confirm Modal
+        function confirmDelete(ID) {
+            document.getElementById("deleteUserList").value = ID
+            if (ID.length == 1) {
+                document.getElementById("deleteUserCount").innerHTML = "wybrany Profil Mobilny"
+            } else {
+                document.getElementById("deleteUserCount").innerHTML = "zaznaczone Profile Mobilne"
+            }
+
+            if (userAccess >= 5) {
+                $('#deleteConfirmModal').modal('show');
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+        }
+
+        //Delete process
+        function deleteAccounts() {
+            var ID = document.getElementById("deleteUserList").value.split(",")
+            $('#apiResponseModal').modal('show')
+            document.getElementById("apiResponse").innerHTML = `
+            Operacja testowa zakończona pomyślnie.<br>
+            Przyjęto zlecenie usunięcia (${ID.length}) kont.
+            `;
+        }
+
 
     </script>
 

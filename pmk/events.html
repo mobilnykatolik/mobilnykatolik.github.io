@@ -215,6 +215,13 @@
 
                     <!--<input type="datetime-local" class="form-control" id="selectDate">-->
 
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <div class="form-group">
+                            <input type="checkbox" class="custom-checkbox" id="showPastEvents" onchange="generateTable()">
+                            <label for="showPastEvents" style="margin-bottom: 0;">Pokaż minione wydarzenia</label>
+                        </div>
+                    </div>
+
                     <div class="card shadow mb-4">
                         <!-- Card Header - Accordion -->
                         <a href="#myEvents" class="d-block card-header py-3" data-toggle="collapse"
@@ -225,10 +232,6 @@
                         <div class="collapse show" id="myEvents">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <div class="form-group">
-                                        <input type="checkbox" class="custom-checkbox" id="showPastEvents" onchange="generateTable()">
-                                        <label for="showPastEvents" style="margin-bottom: 0;">Pokaż minione wydarzenia</label>
-                                    </div>
                                     <table class="table table-bordered" width="100%" cellspacing="0">
                                         <tbody id="my-events-list-table">
                                         </tbody>
@@ -587,7 +590,7 @@
                     document.getElementById("manageEventBy").innerHTML = "";
                     for (x in userList) {
                         document.getElementById("manageEventBy").innerHTML += `
-                        <option value="${x}">${userList[x].firstname} ${userList[x].lastname}</option>
+                        <option value="${x}">${userList[x].lastname} ${userList[x].firstname}</option>
                         `
                     }
                 }
@@ -662,6 +665,17 @@
             var prevMonth = -1
                     var months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
                     for (event in sortedEvents) {
+                        if (hidePast == true) {
+                            if (sortedEvents[event].enddate != "") {
+                                if (sortedEvents[event].enddate.split('T')[0] < today) {
+                                    continue;
+                                }
+                            } else {
+                                if (sortedEvents[event].startdate.split('T')[0] < today) {
+                                    continue;
+                                }
+                            }
+                        }
                         var myBadge = "";
                         var currMonth = new Date(sortedEvents[event].startdate).getMonth()
                         if (currMonth != prevMonth) {
@@ -719,21 +733,7 @@
                             </tr>
                             `
                         }
-                        if (hidePast == true) {
-                            if (sortedEvents[event].enddate != "") {
-                                if (sortedEvents[event].enddate.split('T')[0] < today) {
-                                    continue;
-                                }
-                            } else {
-                                if (sortedEvents[event].startdate.split('T')[0] < today) {
-                                    console.log(`
-                                        Data wydarzenia: ${sortedEvents[event].startdate}
-                                        Dzisiaj: ${today}
-                                    `)
-                                    continue;
-                                }
-                            }
-                        }
+                        
                         if (sortedEvents[event].by.includes(userID)) {
                             document.getElementById("my-events-list-table").innerHTML += `
                             <tr class="focusBg">
