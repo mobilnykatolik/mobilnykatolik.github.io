@@ -23,6 +23,12 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
+    <style>
+        .selectedRow {
+            background-color: #c8dcfc;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -227,6 +233,38 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="row mt-2 mr-0 d-print-none">
+                                <div class="col-lg-6">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Akcje
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <span class="dropdown-item-text disabled" id="currently-selected-dropdown">Wybrano 1 użyt.</span>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" onClick="openManageUserModal(selectedRows)">Modyfikuj</a>
+                                            <a class="dropdown-item" onClick="openSendNotificationModal(selectedRows)">Wyślij powiadomienie</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 justify-content-end" style="display: inline-flex; padding: 0;">
+                                    <div style="display: inline-flex; align-items: center;" class="mr-2" id="currently-selected">
+                                        Aktualnie zaznaczone: 0
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary" onclick="selectRow('REVERT');">Odwróć zaznaczenie</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" onClick="selectRow('ALL')">Zaznacz wszystko</a>
+                                            <a class="dropdown-item" onClick="selectRow('NONE')">Odznacz wszystko</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" onClick="selectionCheck()">Weryfikuj zaznaczenie</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -305,12 +343,12 @@
     </div>
 
     <!-- Manage User Modal-->
-    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="manageUserModal" tabindex="-1" role="dialog" aria-labelledby="manageUserModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modyfikacja użytkownika</h5>
+                    <h5 class="modal-title" id="manageUserModalLabel">Modyfikacja użytkownika</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -319,23 +357,28 @@
                     <form>
                         <div class="form-group" style="display: none;">
                             <label for="manageUserID">ID</label>
-                            <input type="text" class="form-control" id="manageUserID">
+                            <input type="text" class="form-control" id="manageUserID" disabled>
                         </div>
-                        <div class="form-group">
-                            <label for="manageUserFirstname">Imię</label>
-                            <input type="text" class="form-control" id="manageUserFirstname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserLastname">Nazwisko</label>
-                            <input type="text" class="form-control" id="manageUserLastname">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageUserNickname">Pseudonim</label>
-                            <input type="text" class="form-control" id="manageUserNickname">
+                        <div id="single-user-modify">
+                            <div class="form-group">
+                                <label for="manageUserFirstname">Imię</label>
+                                <input type="text" class="form-control" id="manageUserFirstname">
+                            </div>
+                            <div class="form-group">
+                                <label for="manageUserLastname">Nazwisko</label>
+                                <input type="text" class="form-control" id="manageUserLastname">
+                            </div>
+                            <div class="form-group">
+                                <label for="manageUserNickname">Pseudonim</label>
+                                <input type="text" class="form-control" id="manageUserNickname">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="manageUserClass">Klasa</label>
-                            <input type="text" class="form-control" id="manageUserClass">
+                            <!--<input type="text" class="form-control" id="manageUserClass">-->
+                            <select class="form-control" id="manageUserClass">
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="manageUserAccess">Poziom uprawnień</label>
@@ -453,6 +496,22 @@
         </div>
     </div>
 
+    <!-- Selection Check Modal-->
+    <div class="modal fade" id="selectionCheckModal" tabindex="-1" role="dialog" aria-labelledby="selectionCheckModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="selectionCheckModalLabel">Zaznaczenie</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="selectionCheckModalList"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Modal -->
     <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -542,6 +601,36 @@
         var eventPointsDB;
         var pointsDB;
 
+        var classes;
+
+        var selectedRows = []
+
+        function getClasses() {
+            //Pobieranie klas
+            var url = `https://apimobilnykatolik.glitch.me/getclasses`;
+            var xhrB = new XMLHttpRequest();
+            xhrB.open("GET", url);
+
+            xhrB.onreadystatechange = function () {
+            if (xhrB.readyState === 4) {
+                if (xhrB.status == 200) {
+                    classes = xhrB.responseText;
+                    classes = classes.split(";")
+                    document.getElementById("manageUserClass").innerHTML = '<option value="">Bez zmian</option>';
+                    for (x in classes) {
+                        document.getElementById("manageUserClass").innerHTML += `
+                        <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
+                        `
+                    }
+                    document.getElementById("manageUserClass").innerHTML += '<option value="n">Nauczyciel</option>'
+                }
+            }};
+
+            xhrB.send();
+        }
+
+        getClasses();
+
         function reloadDB(managePoints) {
             var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
 
@@ -586,8 +675,12 @@
                             userdb = data;
                             usersCount = Object.keys(userdb).length;
                             sessionStorage.setItem("userscount", usersCount);
-                            var dataTable = $('#dataTable').DataTable();
-                            dataTable.clear();
+                            
+                            $('#dataTable').DataTable().clear()
+                            $('#dataTable').DataTable().destroy()
+                            selectedRows = []
+                            updateSelectedAmount()
+
                             for (entry in data) {
                                 if (entry == "aynqcj8mnzt2o0xh") {
                                     continue;
@@ -597,19 +690,38 @@
                                 } else {
                                     var points = 0
                                 }
-                                dataTable.row.add([data[entry].firstname, data[entry].lastname, `<span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}`, entry, data[entry].access, points, `
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Zarządzaj
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#" onClick="openManageUserModal('${entry}')">Modyfikuj</a>
-                                        <a class="dropdown-item" href="#" onClick="openSendNotificationModal('${entry}')">Wyślij powiadomienie</a>
-                                        <a class="dropdown-item" href="#" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
-                                    </div>
-                                </div>
-                                `]).draw();
-                            }      
+
+                                document.getElementById("users-list-table").innerHTML += `
+                                    <tr id="${entry}">
+                                        <td>${data[entry].firstname}</td>
+                                        <td>${data[entry].lastname}</td>
+                                        <td><span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}</td>
+                                        <td>${entry}</td>
+                                        <td>${data[entry].access}</td>
+                                        <td>${points}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Zarządzaj
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#" onClick="openManageUserModal(['${entry}'])">Modyfikuj</a>
+                                                    <a class="dropdown-item" href="#" onClick="openSendNotificationModal(['${entry}'])">Wyślij powiadomienie</a>
+                                                    <a class="dropdown-item" href="#" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
+                                                </div>
+                                            </div>    
+                                        </td>
+                                    </tr>
+                                `
+                            }
+
+                            var dataTable = $('#dataTable').DataTable({
+                                deferRender: true,
+                                destroy: true
+                            });
+
+                            dataTable.settings()[0].oFeatures.bDeferRender = true;
+                            dataTable.draw();
                         }
                     }};
 
@@ -625,25 +737,119 @@
         }
 
         reloadDB();
+
+        $('#dataTable tbody').on('click', 'tr', function(event) {
+            if (event.target.tagName.toLowerCase() == 'td') {
+                if ($(this).hasClass('selectedRow')) {
+                    selectedRows.splice(selectedRows.indexOf(this.id), 1);
+                    $(this).removeClass('selectedRow');
+                } else {
+                    selectedRows.push(this.id)
+                    $(this).addClass('selectedRow');
+                }
+            }
+            updateSelectedAmount()
+        });
+
+        function selectRow(opt) {
+            var dataTable = $('#dataTable').DataTable();
+
+            if (opt == "ALL") { //Zaznacz wszystko
+                var rows = dataTable.rows({ search: 'applied' }).nodes();
+                $(rows).each(function() {
+                    if (selectedRows.includes(this.id)) {
+                        $(this).addClass('selectedRow');
+                    } else {
+                        selectedRows.push(this.id)
+                        $(this).addClass('selectedRow');
+                    }
+                });
+                updateSelectedAmount()
+            }
+
+            if (opt == "NONE") {
+                var rows = dataTable.rows({ search: 'applied' }).nodes();
+                $(rows).each(function() {
+                    if (selectedRows.includes(this.id)) {
+                        selectedRows.splice(selectedRows.indexOf(this.id), 1);
+                        $(this).removeClass('selectedRow');
+                    } else {
+                        $(this).removeClass('selectedRow');
+                    }
+                });
+                updateSelectedAmount()
+            }
+
+            if (opt == "REVERT") {
+                var rows = dataTable.rows({ search: 'applied' }).nodes();
+                $(rows).each(function() {
+                    if ($(this).hasClass('selectedRow')) {
+                        selectedRows.splice(selectedRows.indexOf(this.id), 1);
+                        $(this).removeClass('selectedRow');
+                    } else {
+                        selectedRows.push(this.id)
+                        $(this).addClass('selectedRow');
+                    }
+                });
+                updateSelectedAmount()
+            }
+        }
+
+        function updateSelectedAmount() {
+            document.getElementById("currently-selected").innerHTML = `Aktualnie zaznaczone: ${selectedRows.length}`
+            document.getElementById("currently-selected-dropdown").innerHTML = `Wybrano ${selectedRows.length} użytk.`
+        }
+
+        function selectionCheck() {
+            document.getElementById("selectionCheckModalList").innerHTML = ""
+            var users = []
+
+            for (x in selectedRows) {
+                user = userdb[selectedRows[x]]
+                users.push(`${user.firstname} ${user.lastname} (${user.class.toUpperCase()})`)
+            }
+            document.getElementById("selectionCheckModalList").innerHTML = users.join("<br>")
+            
+            $('#selectionCheckModal').modal('show')
+        }
         
 
         function openManageUserModal(userid) {
+            if (userid.length == 0) {
+                return false;
+            }
+
             document.getElementById("manageUserID").value = userid;
 
-            document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;
-            document.getElementById("manageUserFirstname").value = "";
+            if (userid.length == 1) { //Modyfikacja pojedynczego użytkownika
 
-            document.getElementById("manageUserLastname").placeholder = userdb[userid].lastname;
-            document.getElementById("manageUserLastname").value = "";
+                document.getElementById("manageUserModalLabel").innerHTML = "Modyfikacja użytkownika"
 
-            document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
-            document.getElementById("manageUserNickname").value = "";
+                document.getElementById("single-user-modify").style.display = "block"
+                document.getElementById("manageUserFirstname").placeholder = userdb[userid].firstname;
+                document.getElementById("manageUserFirstname").value = "";
 
-            document.getElementById("manageUserClass").placeholder = userdb[userid].class;
-            document.getElementById("manageUserClass").value = "";
+                document.getElementById("manageUserLastname").placeholder = userdb[userid].lastname;
+                document.getElementById("manageUserLastname").value = "";
 
-            document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
-            document.getElementById("manageUserAccess").value = "";
+                document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
+                document.getElementById("manageUserNickname").value = "";
+
+                document.getElementById("manageUserClass").value = userdb[userid].class;
+
+                document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
+                document.getElementById("manageUserAccess").value = "";
+            } else { //Modyfikacja wielu użytkowników
+
+                document.getElementById("manageUserModalLabel").innerHTML = `Modyfikacja ${selectedRows.length} użytkowników`
+
+                document.getElementById("single-user-modify").style.display = "none"
+
+                document.getElementById("manageUserClass").value = "";
+
+                document.getElementById("manageUserAccessHelp").innerHTML = ""
+                document.getElementById("manageUserAccess").value = "";
+            }
 
             if (userAccess >= 5) {
                 document.getElementById("manageUserAccess").disabled = "";
@@ -651,7 +857,7 @@
                 document.getElementById("manageUserAccess").disabled = "disabled";
             }
 
-            if ((userAccess > userdb[userid].access || userID == userid) && userAccess >= 4) {
+            if (userAccess >= 4) {
                 $('#manageUserModal').modal('show')
             } else {
                 $('#insufficientPermissionsModal').modal('show')
@@ -661,7 +867,7 @@
 
         function manageUser() {
             var data = {
-                "users": document.getElementById("manageUserID").value.split(", ")
+                "users": document.getElementById("manageUserID").value.split(",")
             }
             if (document.getElementById("manageUserFirstname").value != "") {data.firstname = document.getElementById("manageUserFirstname").value}
             if (document.getElementById("manageUserLastname").value != "") {data.lastname = document.getElementById("manageUserLastname").value}
@@ -710,16 +916,26 @@
             if (userid == "GLOBAL") {
                 document.getElementById("sendNotificationUsers").value = "GLOBAL";
                 document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
+            }
+
+            if (userid.length == 0) {
+                return false;
+            }
+
+            if (userid.length == 1) {
+                document.getElementById("sendNotificationUsers").value = userid[0];
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid[0]].firstname} ${userdb[userid[0]].lastname}`;
             } else {
                 document.getElementById("sendNotificationUsers").value = userid;
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid].firstname} ${userdb[userid].lastname}`;
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userid.length} użytkowników`;
             }
+
             $('#sendNotificationModal').modal('show')
         }
 
         function sendNotification() {
             var data = {
-                "users": document.getElementById("sendNotificationUsers").value.split(", "),
+                "users": document.getElementById("sendNotificationUsers").value.split(","),
                 "title": document.getElementById("sendNotificationTitle").value,
                 "content": document.getElementById("sendNotificationContent").value.replaceAll("\n", " ")
             }
@@ -732,6 +948,7 @@
                 return false;
             }
             $('#loadingModal').modal('show')
+
             
             var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
             if (data.users == "GLOBAL") {
