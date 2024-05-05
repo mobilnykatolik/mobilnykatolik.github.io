@@ -636,6 +636,11 @@
         <input type="text" placeholder="Imię" id="UIfirstname" style="margin-top: 10px;" disabled>
         <input type="text" placeholder="Nazwisko" id="UIsurname" disabled>
         <input type="text" placeholder="Klasa" id="UIclass" disabled>
+        <br><br>
+        <p style="font-size: 18px;">Zaawansowane</p>
+        <p style="font-size: 14px; opacity: 60%;">Wyloguj się z aplikacji lub usuń swój Profil Mobilny</p>
+        <button type="button" style="margin: 10px auto 10px auto;" onclick="logOut()">Wyloguj się</button>
+        <button type="button" class="danger" style="margin: 10px auto 10px auto;" onclick="window.alert('Aby usunąć Profil Mobilny, skontaktuj się z administratorem.')">Usuń konto</button>
     </div>
 </div>
 
@@ -1973,6 +1978,13 @@ function checkNotifications(endpoint) {
     } else {
         console.log("Brak uprawnień do powiadomień");
     }
+}
+
+function logOut() {
+    if (window.confirm("Czy na pewno chcesz się wylogować?")) {
+        localStorage.clear();
+        location.reload();
+    }  
 }
 
 </script>

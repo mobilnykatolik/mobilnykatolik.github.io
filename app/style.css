@@ -374,6 +374,18 @@ p {
     transition: background-color 0.5s ease;
     display: block;
 }
+.page-content button.danger {
+    margin: auto;
+    position: relative;
+    border: 0px;
+    background-color: transparent;
+    color: #e74a3b;
+    padding: 10px 20px 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    transition: background-color 0.5s ease;
+    display: block;
+}
 
 .page-content button:disabled {
     background-color: var(--additional2);
