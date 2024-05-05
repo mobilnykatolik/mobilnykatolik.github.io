@@ -521,22 +521,27 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <input type="text" id="deleteUserList" disabled hidden>
-                    <span class="text-danger">
-                        Usunięcie Profilu Mobilnego spowoduje:
-                        <br>- permanente usunięcie użytkownika
-                        <br>- usunięcie Wirtualnych Rybek
-                        <br>- usunięcie kuponów
-                        <br>- zmianę danych w biletach
-                        <br>Dezaktywacja Profilu Mobilnego jest <b>nieodwracalna</b>.
-                        <br><br>Kliknij <b>Potwierdź</b>, aby usunąć <span id="deleteUserCount"></span>.
-                    </span>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <button class="btn btn-danger" type="button" data-dismiss="modal" onClick="deleteAccounts()">Potwierdź</button>
-                </div>
+                <form onSubmit="return deleteAccounts();">
+                    <div class="modal-body">
+                        <input type="text" id="deleteUserList" disabled hidden>
+                        <span class="text-danger">
+                            Usunięcie Profilu Mobilnego spowoduje:
+                            <br>- permanente usunięcie użytkownika
+                            <br>- usunięcie Wirtualnych Rybek
+                            <br>- usunięcie kuponów
+                            <br>- zmianę danych w biletach
+                            <br>Dezaktywacja Profilu Mobilnego jest <b>nieodwracalna</b>.
+                            <br><br>Wprowadź kod operacji wysokiego ryzyka, aby usunąć <span id="deleteUserCount"></span>.
+                        </span>
+                        <div class="form-group mt-4">
+                            <input type="password" class="form-control" id="deleteAccountsOWR" placeholder="Kod OWR" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-danger" value="Potwierdź">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1166,12 +1171,74 @@
 
         //Delete process
         function deleteAccounts() {
+            document.getElementById("deleteAccountsOWR").classList.remove("is-invalid")
+            $('#deleteConfirmModal').modal('hide')
             var ID = document.getElementById("deleteUserList").value.split(",")
-            $('#apiResponseModal').modal('show')
-            document.getElementById("apiResponse").innerHTML = `
-            Operacja testowa zakończona pomyślnie.<br>
-            Przyjęto zlecenie usunięcia (${ID.length}) kont.
-            `;
+            var data = {
+                users: ID,
+                owr: document.getElementById("deleteAccountsOWR").value
+            }
+            
+            $('#loadingModal').modal('show')
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/delete/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    document.getElementById("deleteAccountsOWR").value = "";
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+
+                        var response = JSON.parse(xhr.responseText)
+                        document.getElementById("apiResponse").innerHTML = `Zlecenie usunięcia ${response.overallSuccess+response.overallFailure} zostało zrealizowane. Usunięto (${response.overallSuccess}) kont.`;
+                        delete response.overallFailure;
+                        delete response.overallSuccess;
+                        var tableContent = ""
+                        for (x in response) {
+                            if (response[x].del) {
+                                color = "success"
+                            } else {
+                                color = "danger"
+                            }
+                            tableContent += `
+                            <tr class="text-${color}">
+                                <td>${response[x].name}</td>
+                                <td>${x}</td>
+                                <td>${response[x].state}</td>
+                            </tr>
+                            `
+                        }
+                        document.getElementById("apiResponse").innerHTML += `<br><br><table class="table table-sm table-bordered" width="100%" cellspacing="0">${tableContent}</table>`
+
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else if (xhr.status == 406) {
+                        document.getElementById("deleteAccountsOWR").classList.add("is-invalid")
+                        $('#deleteConfirmModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+            return false;
         }
 
 
