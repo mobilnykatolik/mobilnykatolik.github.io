@@ -674,10 +674,14 @@ container.badge {
     border: 2px dashed #555555;
 }
 
+.coupon.owned {
+    border: 2px solid var(--theme-color);
+}
+
 .coupon-icon {
     width: 75%;
     aspect-ratio: 1/1;
-    background-image: url("https://static.vecteezy.com/system/resources/previews/025/067/649/original/waffle-with-ai-generated-free-png.png");
+    /*background-image: url("https://static.vecteezy.com/system/resources/previews/025/067/649/original/waffle-with-ai-generated-free-png.png");*/
     background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
@@ -698,7 +702,7 @@ container.badge {
     color: #ffffff;
 }
 
-.coupon.disabled .coupon-btn {
+.coupon.disabled .coupon-btn, .coupon-overlay #coupon-btn:disabled {
     background-color: #555555;
 }
 
@@ -709,4 +713,58 @@ container.badge {
     .coupon-btn {
         font-size: 1.5cqw;
     }
+}
+
+.coupon-overlay {
+    max-width: 475px;
+    margin: auto;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.coupon-overlay #coupon-name {
+    margin: 20px 0 0 0;
+}
+
+.coupon-overlay #coupon-info {
+    font-size: 15px;
+    color: #000000;
+    margin: 10px 0 0 0;
+}
+
+.coupon-overlay #coupon-time {
+    opacity: 75%;
+    font-size: 12px;
+}
+
+.coupon-overlay #coupon-banner {
+    width: 50%;
+    aspect-ratio: 1/1;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/025/067/649/original/waffle-with-ai-generated-free-png.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: auto;
+}
+
+.coupon-overlay #coupon-qr {
+    background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example");
+    width: 55%;
+    aspect-ratio: 1/1;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 20px auto 20px auto;
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+.coupon-overlay #coupon-btn {
+    background-color: var(--theme-color);
+    border-radius: 5cqw;
+    padding: 10px 30px;
+    margin: 20px auto 20px auto;
+    font-size: 4cqw;
+    color: #ffffff;
+    width: fit-content;
 }
