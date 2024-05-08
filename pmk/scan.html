@@ -457,6 +457,13 @@ $("#pointsResponseModal").on("hidden.bs.modal", function () {
     qrScanner.start()
 });
 
+$("#insufficientPermissionsModal").on("hidden.bs.modal", function () {
+    qrScanner.start()
+});
+$("#apiErrorModal").on("hidden.bs.modal", function () {
+    qrScanner.start()
+});
+
 function updateSource() {
     qrScanner.setCamera(document.getElementById("qrScanSourceSelect").value);
 }
