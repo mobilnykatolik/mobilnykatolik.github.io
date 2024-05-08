@@ -585,7 +585,7 @@
                     console.log(ticketsDB);
                     document.getElementById("ticketsListEvent").innerHTML = `
                         <option value="" selected disabled>Wybierz wydarzenie</option>
-                        <option value="ALL" disabled hidden>Wszystkie wydarzenia</option>
+                        <option value="ALL">Wszystkie wydarzenia</option>
                     `
                     document.getElementById("addTicketEventID").innerHTML = `
                         <option value="" selected disabled>Wybierz wydarzenie</option>
@@ -733,8 +733,12 @@
         
 
         function openManageTicketModal(ticketID) {
+            console.log(ticketsDB[ticketID])
             document.getElementById("manageTicketID").value = ticketID;
             document.getElementById("manageTicketOwner").value = ticketsDB[ticketID].owner;
+            if (ticketsDB[ticketID].owner == ticketsDB[ticketID].ownerid) {
+                document.getElementById("manageTicketOwner").value += " (bez aplikacji)"
+            }
             document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[ticketID].paid).toFixed(2);
             
             if (ticketsDB[ticketID].consent_required == true) {
