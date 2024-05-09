@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tczew ma talent - formularz zgłoszeniowy</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Custom Google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+        <!-- Bootstrap icons-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Tczew ma talent</span></a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Wróć do strony głównej</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="text-center my-5">
+                <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Formularz zgłoszeniowy</span></h1>
+            </div>
+
+            <form onsubmit="window.alert('esa esa hiszpania')">
+            
+                <!-- Wprowadzenie -->
+                <div class="container px-5 my-4">
+                    <div class="row gx-5 justify-content-center">
+                        <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <p>
+                                Cześć! Cieszymy się, że chcesz wziąć udział w <b>Tczew ma talent</b>!
+                                <br>Wypełnij poniższy formularz zgłoszeniowy, aby wziąć udział w konkursie.
+                            </p>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Dane kontaktowe -->
+                <div class="container px-5 my-4">
+                    <div class="row gx-5 justify-content-center">
+                        <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h2 class="text-primary fw-bolder mb-0"><i class="bi bi-1-circle-fill"></i> Dane kontaktowe</h2>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="row gx-2 justify-content-center">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="form-firstname" type="text" placeholder="Wprowadź imię" required/>
+                                <label for="form-firstname">Imię<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="form-lastname" type="text" placeholder="Wprowadź nazwisko" required/>
+                                <label for="form-lastname">Nazwisko<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-2 justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="form-firstname" type="text" placeholder="Wprowadź nazwę szkoły" required/>
+                                <label for="form-firstname">Nazwa szkoły<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-2 justify-content-center mt-3">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="form-email" type="email" placeholder="Wprowadź adres e-mail" required/>
+                                <label for="form-email">Adres e-mail<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-5 col-xxl-4">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="form-phone" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="Wprowadź numer telefonu" required/>
+                                <label for="form-phone">Numer telefonu<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <small>Na podany powyżej adres e-mail otrzymasz potwierdzenie zgłoszenia oraz dalsze informacje w przypadku zakwalifikowania do castingu. W szczególnych przypadkach będziemy kontaktować się z Tobą telefonicznie.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Talent -->
+                <div class="container px-5 my-4">
+                    <div class="row gx-5 justify-content-center">
+                        <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h2 class="text-primary fw-bolder mb-0"><i class="bi bi-2-circle-fill"></i> Talent</h2>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="row gx-2 justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="form-name" type="text" placeholder="Wprowadź pseudonim art. bądź nazwę grupy"/>
+                                <label for="form-name">Pseudonim artystyczny / nazwa grupy</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-2 justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="form-floating mb-3">
+                                <select class="form-control" id="form-people" required>
+                                    <option value="" selected hidden disabled>- Wybierz -</option>
+                                    <option value="single">Występuję sam(a)</option>
+                                    <option value="multiple">Występuję z innymi osobami</option>
+                                </select>
+                                <label for="form-people">Ile osób występuje?<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-2 justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="form-peoplelist" value="" placeholder="" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style="resize: none;"></textarea>
+                                <label for="form-peoplelist">Imiona i nazwiska występujących osób<i class="text-danger">*</i></label>
+                                <small>Zapisz każdą osobę w oddzielnym wierszu. Pamiętaj, że jedna grupa może zawierać maksymalnie 7 członków!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-2 justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-8">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="form-description" value="" placeholder="" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style="resize: none;"></textarea>
+                                <label for="form-description">Opisz krótko swój talent / talent grupy<i class="text-danger">*</i></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+            
+        </main>
+        <!-- Footer-->
+        <footer class="bg-white py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0">Copyright &copy; Your Website 2023</div></div>
+                    <div class="col-auto">
+                        <a class="small" href="#!">Privacy</a>
+                        <span class="mx-1">&middot;</span>
+                        <a class="small" href="#!">Terms</a>
+                        <span class="mx-1">&middot;</span>
+                        <a class="small" href="#!">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
