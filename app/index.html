@@ -1497,7 +1497,9 @@ function startApplication() {
                 document.getElementById("widget-points-amount").innerHTML = `${data.points.points}`;
                 document.getElementById("points-amount").innerHTML = data.points.points;
             } else {
-                data.points.points = 0;
+                data.points = {
+                    "points": 0
+                }
             }
             userPoints = data.points.points;
 
