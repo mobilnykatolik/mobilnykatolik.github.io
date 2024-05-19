@@ -480,7 +480,7 @@ p {
 input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;
-    background-color: #fff;
+    background-color: var(--additional);
     margin: auto;
     font: inherit;
     color: currentColor;
