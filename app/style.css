@@ -504,6 +504,16 @@ input[type="checkbox"]:checked {
     transition: background-color, border 0.25s ease;
 }
 
+input[type="checkbox"]:disabled {
+    background-color: #858796;
+    border: 1px solid #858796;
+    background-image: url("https://i.imgur.com/TNW7GVe.png");
+    background-repeat: no-repeat;
+    background-size: 95%;
+    background-position: center right;
+    transition: background-color, border 0.25s ease;
+}
+
 .buttons-section input[type="checkbox"] {
     width: 23px;
     height: 23px;
