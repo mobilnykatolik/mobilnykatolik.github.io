@@ -143,12 +143,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Błąd komunikacji z API</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Wystąpił błąd</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Wystąpił błąd połączenia z API. Odśwież panel i spróbuj ponownie!</div>
+                <div class="modal-body">Sprawdź poprawność kodu zdjęcia</div>
             </div>
         </div>
     </div>
@@ -212,10 +212,14 @@ function searchPhoto() {
 
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
+        setTimeout(function() {
+            $('#loadingModal').modal('hide')
+        }, 500)
         if (xhr.status == 200) {
             document.getElementById("photo").style.backgroundImage = `url("https://apimobilnykatolik.glitch.me/photobox/get/${photoCode}")`
-            $('#loadingModal').modal('hide')
             $('#downloadPhotoModal').modal('show')
+        } else {
+            $('#apiErrorModal').modal('show')
         }
     }};
 
