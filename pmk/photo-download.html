@@ -214,6 +214,7 @@ function searchPhoto() {
         setTimeout(function() {
             $('#loadingModal').modal('hide')
         }, 500)
+        console.log(xhr.response);
         if (xhr.status == 200) {
             document.getElementById("photo").style.backgroundImage = `url("https://apimobilnykatolik.glitch.me/photobox/get/${photoCode}")`
             $('#downloadPhotoModal').modal('show')
