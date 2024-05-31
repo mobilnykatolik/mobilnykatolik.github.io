@@ -1458,7 +1458,11 @@ function startApplication() {
                         ticketStateColor = "#ff0000"
                     }
                 } else {
-                    ticketState = "Bilet nieopłacony"
+                    if (parseInt(data.usertickets[ticket].paid) == 0) {
+                        ticketState = "Bilet nieopłacony"
+                    } else {
+                        ticketState = "Bilet częściowo opłacony"
+                    }
                     ticketStateColor = "#ff0000"
                 }
                 console.log(data.usertickets[ticket]);
