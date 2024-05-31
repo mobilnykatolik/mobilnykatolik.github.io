@@ -127,8 +127,8 @@ function signUp() {
     document.getElementById("signup-notification").innerHTML = "";
     //signup-firstname signup-lastname signup-email signup-class signup-rodo
     //kolejnosc weryfikacji: imie, nazwisko, email, klasa, zgoda
-    var firstname = document.getElementById("signup-firstname").value.toUpperCase();
-    var lastname = document.getElementById("signup-lastname").value.toUpperCase();
+    var firstname = document.getElementById("signup-firstname").value.toUpperCase().replaceAll(" ", "");
+    var lastname = document.getElementById("signup-lastname").value.toUpperCase().replaceAll(" ", "");
     email = document.getElementById("signup-email").value;
     var userclass = document.getElementById("signup-class").value;
     var rodo = document.getElementById("signup-rodo").checked;
