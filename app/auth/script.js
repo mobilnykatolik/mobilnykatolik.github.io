@@ -271,3 +271,31 @@ function sendCodeToAPI(code) {
     };	
     xhr.send();	
 }
+
+//Pobieranie listy klas
+function getClasses() {
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+        if (req.readyState == XMLHttpRequest.DONE) {
+            if (req.status == 200) {
+                var classes = req.responseText.split(";")
+                console.log(classes);
+                document.getElementById("signup-class").innerHTML = `<option value="" style="color: #a9a9a9;" selected hidden>Wybierz klasę</option>`
+                for (x in classes) {
+                    document.getElementById("signup-class").innerHTML += `
+                    <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
+                    `
+                }
+                document.getElementById("signup-class").innerHTML += `<option value="n">Nauczyciel</option>`
+                console.log(req.responseText)
+            } else {
+                document.getElementById("signup-class").innerHTML = `<option value="" style="color: #a9a9a9;" selected hidden>Wystąpił błąd! Odśwież aplikację.</option>`
+            }
+        }
+    };
+
+    req.open("GET", `https://apimobilnykatolik.glitch.me/getclasses`, true);
+    req.send();
+}
+getClasses();
