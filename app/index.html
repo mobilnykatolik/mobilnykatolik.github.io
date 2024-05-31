@@ -1764,7 +1764,7 @@ function loadTicket(ticketID) {
             ticketStateColor = "#ff0000"
         }
     } else {
-        ticketState = "Bilet nieopłacony"
+        ticketState = `Bilet nieopłacony<br>Do zapłaty: ${(ticketData.cost-ticketData.paid).toFixed(2)} zł`
         ticketStateColor = "#ff0000"
     }
 
