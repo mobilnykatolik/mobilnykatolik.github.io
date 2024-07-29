@@ -651,7 +651,7 @@
         getTMTAT();
 
         function reloadDB() {
-            var url = `http://tmt-api.glitch.me/manage/apply/list`;
+            var url = `https://tmt-api.glitch.me/manage/apply/list`;
             var xhr = new XMLHttpRequest();
             var data = {"AT": TMTAT}
             xhr.open("POST", url);
@@ -742,7 +742,7 @@
 
             $('#loadingModal').modal('show')
             
-            var url = `http://tmt-api.glitch.me/manage/apply/edit`;
+            var url = `https://tmt-api.glitch.me/manage/apply/edit`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
