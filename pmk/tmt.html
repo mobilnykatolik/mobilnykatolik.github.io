@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Panel Mobilny Katolik - Tczew ma talent</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <style>
+        .selectedRow {
+            background-color: #c8dcfc;
+        }
+        tr {
+            transition: background-color 0.15s ease-in-out;
+        }
+        tr.focusBg:hover {
+            background-color: #f8f9fc;
+        }
+    </style>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/katolik_tczew_logo_lampa czarna.svg" alt="SVG Image" height="25px">
+                </div>
+            </a>
+
+            <!-- Nav Item - Dashboard -->
+            <!--<li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Strona główna</span></a>
+            </li>-->
+
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Projekty
+            </div>
+
+            <!-- Nav Item - Project management Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-calendar fa-fw"></i>
+                    <span>Wydarzenia</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kalendarz</h6>
+                        <a class="collapse-item" href="events.html">Wyświetl</a>
+                        <h6 class="collapse-header">Bilety</h6>
+                        <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
+                        <a class="collapse-item" href="ticketed-events.html">Wydarzenia biletowane</a>
+                        <h6 class="collapse-header">Wirtualne rybki</h6>
+                        <a class="collapse-item" href="points.html">Zarządzaj</a>
+                        <a class="collapse-item" href="coupons.html">Kupony</a>
+                        <h6 class="collapse-header">SLS</h6>
+                        <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Lucky number -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-gem fa-fw"></i>
+                    <span>Szczęśliwy numerek</span></a>
+            </li>
+
+            <!-- Nav Item - Tczew ma talent -->
+            <li class="nav-item active">
+                <a class="nav-link" href="tmt.html">
+                    <i class="fas fa-star fa-fw"></i>
+                    <span>Tczew ma talent</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider" style="opacity: 0;">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Inne
+            </div>
+
+            <!-- Nav Item - Scanner -->
+            <li class="nav-item">
+                <a class="nav-link" href="scan-settings.html">
+                    <i class="fas fa-qrcode fa-fw"></i>
+                    <span>Skaner</span></a>
+            </li>
+
+            <!-- Nav Item - Ideas -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-lightbulb"></i>
+                    <span>Pomysły</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider" style="opacity: 0;">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Użytkownicy
+            </div>
+
+            <!-- Nav Item - User management -->
+            <li class="nav-item">
+                <a class="nav-link" href="users-list.html">
+                    <i class="fas fa-fw fa-user-cog"></i>
+                    <span>Zarządzaj</span></a>
+            </li>
+
+            <!-- Nav Item - Class management -->
+            <li class="nav-item">
+                <a class="nav-link" href="manage-classes.html">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Ustawienia klas</span></a>
+            </li>
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <!--<div class="sidebar-card d-none d-lg-flex">
+                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
+                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+            </div>-->
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!--<div class="topbar-divider d-none d-sm-block"></div>-->
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-lg-inline text-gray-600 small" id="profile-fullname"></span>
+                                <img class="img-profile rounded-circle" id="img-profile">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Twój profil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Wyloguj się
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Tczew ma talent 2024</h1>
+                    </div>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">Lista zgłoszeń</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>TMT ID</th>
+                                            <th>Imię</th>
+                                            <th>Nazwisko</th>
+                                            <th>Szkoła</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-list-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Powered by &copy; Mobilny Katolik API</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Czy na pewno chcesz się wylogować?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile info Modal-->
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Twój profil</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Imię i nazwisko
+                    <br>
+                    <b id="profileModalFullname">-</b>
+                    <br><br>
+                    Poziom uprawnień
+                    <br>
+                    <b id="profileModalAccess"></b>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Reg Modal-->
+    <div class="modal fade" id="manageRegModal" tabindex="-1" role="dialog" aria-labelledby="manageRegModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageUserModalLabel">Modyfikacja zgłoszenia</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="regID">ID</label>
+                            <input type="text" class="form-control" id="regID" disabled>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="regFirstname">Imię</label>
+                                    <input type="text" class="form-control" id="regFirstname">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="regLastname">Nazwisko</label>
+                                    <input type="text" class="form-control" id="regLastname">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regSchool">Szkoła</label>
+                            <input type="text" class="form-control" id="regSchool">
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="regEmail">Adres e-mail</label>
+                                    <input type="email" class="form-control" id="regEmail">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="regPhone">Telefon</label>
+                                    <input type="tel" class="form-control" id="regPhone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label for="regName">Nazwa</label>
+                                    <input type="text" class="form-control" id="regName">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="regPhone">Os. wyst.</label>
+                                    <input type="number" class="form-control" id="regPeoplelist" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regDesc">Opis</label>
+                            <textarea class="form-control" id="regDesc" disabled></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="regDesc">Status</label>
+                            <input type="text" class="form-control" id="regStatusTitle" disabled>
+                            <textarea class="form-control mt-2" id="regStatusDesc" disabled></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="manageReg();">Zapisz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Notification Modal-->
+    <div class="modal fade" id="sendNotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sendNotificationTo">Wyślij powiadomienie do</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group" style="display: none;">
+                            <label for="sendNotificationUsers">Adresat</label>
+                            <input type="text" class="form-control" id="sendNotificationUsers" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="sendNotificationTitle">Tytuł</label>
+                            <input type="text" class="form-control" id="sendNotificationTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="sendNotificationContent">Treść</label>
+                            <textarea class="form-control" id="sendNotificationContent"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="sendNotification();">Wyślij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage User Points Modal-->
+    <div class="modal fade" id="managePointsModal" tabindex="-1" role="dialog" aria-labelledby="managePointsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="managePointsModalLabel">Zarządzanie punktami użytkownika</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="managePointsAmount">ID użytkownika</label>
+                            <input type="text" class="form-control" id="managePointsUserID" disabled>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="managePointsID">Zdarzenie</label>
+                                    <select class="form-control" id="managePointsID" onchange="getDefaultPointsAmount();">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="managePointsAmount">Ilość</label>
+                                    <input type="number" class="form-control" id="managePointsAmount">
+                                </div>
+                            </div>
+                        </div>
+                        <center>
+                            <a class="btn btn-primary btn-sm" onclick="managePoints();">Modyfikuj</a>
+                        </center>
+                        Historia punktów
+                        <small id="managePointsAll" class="form-text text-muted">Stan aktualny: </small>
+                        <table class="table table-bordered mt-2 small">
+                            <thead>
+                                <tr>
+                                    <th>Zdarzenie</th>
+                                    <th>Ilość</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="points-history">
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selection Check Modal-->
+    <div class="modal fade" id="selectionCheckModal" tabindex="-1" role="dialog" aria-labelledby="selectionCheckModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="selectionCheckModalLabel">Zaznaczenie</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="selectionCheckModalList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Modal-->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="deleteConfirmModalLabel"><i class="fas fa-exclamation-circle fa-fw"></i> Czy na pewno chcesz usunąć Profil Mobilny?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return deleteAccounts();">
+                    <div class="modal-body">
+                        <input type="text" id="deleteUserList" disabled hidden>
+                        <span class="text-danger">
+                            Usunięcie Profilu Mobilnego spowoduje:
+                            <br>- permanente usunięcie użytkownika
+                            <br>- usunięcie Wirtualnych Rybek
+                            <br>- usunięcie kuponów
+                            <br>- zmianę danych w biletach
+                            <br>Dezaktywacja Profilu Mobilnego jest <b>nieodwracalna</b>.
+                            <br><br>Wprowadź kod operacji wysokiego ryzyka, aby usunąć <span id="deleteUserCount"></span>.
+                        </span>
+                        <div class="form-group mt-4">
+                            <input type="password" class="form-control" id="deleteAccountsOWR" placeholder="Kod OWR" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-danger" value="Potwierdź">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fas fa-cloud-upload-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Proszę czekać...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insufficient Permissions Modal-->
+    <div class="modal fade" id="insufficientPermissionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Brak uprawnień</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Nie posiadasz wystarczającego poziomu uprawnień, aby tego dokonać!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Error Modal-->
+    <div class="modal fade" id="apiErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Błąd komunikacji z API</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Wystąpił błąd połączenia z API. Odśwież panel i spróbuj ponownie!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Response Modal-->
+    <div class="modal fade" id="apiResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Odpowiedź z serwera</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="apiResponse">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+    <script>
+        var TMTAT;
+        var regDB = {};
+
+        function getTMTAT() {
+            var url = `https://apimobilnykatolik.glitch.me/pmk/tmtkey/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    TMTAT = xhr.responseText
+                    reloadDB()
+                } else if (xhr.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
+
+            xhr.send();
+        }
+        getTMTAT();
+
+        function reloadDB() {
+            var url = `http://tmt-api.glitch.me/manage/apply/list`;
+            var xhr = new XMLHttpRequest();
+            var data = {"AT": TMTAT}
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        regDB = JSON.parse(xhr.responseText)
+                        var data = regDB;
+                        $('#dataTable').DataTable().clear()
+                        $('#dataTable').DataTable().destroy()
+                        for (entry in data) {
+                            console.log(data[entry])
+                            document.getElementById("users-list-table").innerHTML += `
+                                <tr id="${entry}" onClick="openManageReg('${entry}')" class="focusBg">
+                                    <td>${entry}</td>
+                                    <td>${data[entry].firstname}</td>
+                                    <td>${data[entry].lastname}</td>
+                                    <td>${data[entry].school}</td>
+                                    <td>${data[entry].status.state} (${data[entry].status.date})</td>
+                                </tr>
+                            `
+                        }
+
+                        var dataTable = $('#dataTable').DataTable({
+                            deferRender: true,
+                            destroy: true
+                        });
+                        dataTable.settings()[0].oFeatures.bDeferRender = true;
+                        dataTable.draw();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                    }
+                };
+            };
+            xhr.send(JSON.stringify(data));
+        }     
+
+        function openManageReg(tmtid) {
+            if (regDB[tmtid] == undefined) { return false; }
+            var reg = regDB[tmtid];
+            console.log(reg)
+
+            document.getElementById("regID").value = tmtid;
+            document.getElementById("regFirstname").value = reg.firstname;
+            document.getElementById("regLastname").value = reg.lastname;
+            document.getElementById("regSchool").value = reg.school;
+            document.getElementById("regEmail").value = reg.email;
+            document.getElementById("regPhone").value = reg.phone;
+            document.getElementById("regName").value = reg.name;
+            document.getElementById("regPeoplelist").value = reg.peoplelist;
+            document.getElementById("regDesc").value = reg.description;
+
+            if (reg.status.title != undefined) {
+                document.getElementById("regStatusTitle").value = reg.status.title
+            } else {
+                document.getElementById("regStatusTitle").value = reg.status.state
+            }
+            document.getElementById("regStatusDesc").value = reg.status.desc
+
+            $('#manageRegModal').modal('show')
+        }
+
+        function manageReg() {
+            var data = {
+                firstname: document.getElementById("regFirstname").value,
+                lastname: document.getElementById("regLastname").value,
+                school: document.getElementById("regSchool").value,
+                email: document.getElementById("regEmail").value,
+                phone: document.getElementById("regPhone").value,
+                name: document.getElementById("regName").value,
+                peoplelist: parseInt(document.getElementById("regPeoplelist").value)
+            }
+
+            var tmtID = document.getElementById("regID").value
+            data.id = tmtID
+            data.AT = TMTAT;
+
+            for (x in data) {
+                if (data[x] == regDB[tmtID][x]) {
+                    delete data[x];
+                }
+            }
+
+            $('#loadingModal').modal('show')
+            
+            var url = `http://tmt-api.glitch.me/manage/apply/edit`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+        function openSendNotificationModal(userid) {
+            if (userid.length == 0) {
+                return false;
+            }
+
+            if (userid == "GLOBAL") {
+                document.getElementById("sendNotificationUsers").value = "GLOBAL";
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
+            } else if (userid.length == 1) {
+                document.getElementById("sendNotificationUsers").value = userid[0];
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid[0]].firstname} ${userdb[userid[0]].lastname}`;
+            } else {
+                document.getElementById("sendNotificationUsers").value = userid;
+                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userid.length} użytkowników`;
+            }
+
+            $('#sendNotificationModal').modal('show')
+        }
+
+        function sendNotification() {
+            var data = {
+                "users": document.getElementById("sendNotificationUsers").value.split(","),
+                "title": document.getElementById("sendNotificationTitle").value,
+                "content": document.getElementById("sendNotificationContent").value.replaceAll("\n", " ")
+            }
+            console.log(data);
+            if (document.getElementById("sendNotificationTitle").value == "") {
+                return false;
+            } else if (document.getElementById("sendNotificationContent").value == "") {
+                return false;
+            } else if (document.getElementById("sendNotificationUsers").value == "") {
+                return false;
+            }
+            $('#loadingModal').modal('show')
+
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
+            if (data.users == "GLOBAL") {
+                url = `https://apimobilnykatolik.glitch.me/pmk/pushall/${userID}/${userLoginID}`;
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)    
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+        function openManagePointsModal(userid) {
+
+            //Displaying user's points history
+            var pointsData = pointsDB[userid];
+            document.getElementById("points-history").innerHTML = "";
+            document.getElementById("managePointsUserID").value = userid;
+            if (pointsData == undefined) {
+                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: 0`
+            } else {
+                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
+                for (x in pointsData.history) {
+                    var element = pointsData.history[x];
+                    if (element.name == undefined) {
+                        if (element.id == undefined || eventPointsDB[element.id] == undefined) {
+                            element.name = "Modyfikacja punktów"
+                        } else {
+                            element.name = eventPointsDB[element.id].name;
+                        }
+                    }
+                    element.date = element.ts;
+                    document.getElementById("points-history").innerHTML += `
+                    <tr>
+                        <td>${element.name}</td>
+                        <td>${element.amount}</td>
+                        <td>${element.date}</td>
+                    </tr>
+                    `;
+                } 
+            }
+
+            if (userAccess >= 3) {
+                $('#managePointsModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+            
+        }
+
+        function managePoints() {
+            $('#managePointsModal').modal('hide')
+            var data = {
+                "peid": document.getElementById("managePointsID").value,
+                "amount": document.getElementById("managePointsAmount").value,
+                "userid": document.getElementById("managePointsUserID").value
+            }
+            if (data.peid == "") {
+                delete data.peid;
+            }
+            if (data.amount == "") {
+                delete data.amount;
+            }
+
+            $('#loadingModal').modal('show')
+            console.log(data);
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        //$('#apiResponseModal').modal('show')
+                        //document.getElementById("apiResponse").innerHTML = `Operacja zakończona pomyślnie!<br>Aktualny stan punktów użytkownika ${response.owner}: ${response.points}`;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB(data.userid);
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        }
+
+        function getDefaultPointsAmount() {
+            eventPointsID = document.getElementById("managePointsID").value;
+            if (eventPointsDB != "") {
+                document.getElementById("managePointsAmount").value = eventPointsDB[eventPointsID].amount;
+            }
+        }
+
+        function formatDate(date) {
+            date = new Date(date);
+            console.log(date);
+            var day = date.getDate();
+            var month = date.getMonth() + 1; // Miesiące są indeksowane od 0, dlatego dodajemy 1
+            var year = date.getFullYear();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+
+            // Dodanie wiodących zer, jeśli wartość jest mniejsza niż 10
+            day = day < 10 ? '0' + day : day;
+            month = month < 10 ? '0' + month : month;
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // Złożenie wszystkich składników w łańcuch tekstowy
+            var formattedDate = day + '.' + month + '.' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+
+            return formattedDate;
+        }
+
+        function getIds() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var multipleID = []
+            for (user in filteredRows) {
+                multipleID.push(filteredRows[user][3])
+            }
+            //console.log(multipleID);
+            return multipleID;
+        }
+
+        //Usuwanie Profilu Mobilnego
+
+        //Confirm Modal
+        function confirmDelete(ID) {
+            document.getElementById("deleteUserList").value = ID
+            if (ID.length == 1) {
+                document.getElementById("deleteUserCount").innerHTML = "wybrany Profil Mobilny"
+            } else {
+                document.getElementById("deleteUserCount").innerHTML = "zaznaczone Profile Mobilne"
+            }
+
+            if (userAccess >= 5) {
+                $('#deleteConfirmModal').modal('show');
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+        }
+
+        //Delete process
+        function deleteAccounts() {
+            document.getElementById("deleteAccountsOWR").classList.remove("is-invalid")
+            $('#deleteConfirmModal').modal('hide')
+            var ID = document.getElementById("deleteUserList").value.split(",")
+            var data = {
+                users: ID,
+                owr: document.getElementById("deleteAccountsOWR").value
+            }
+            
+            $('#loadingModal').modal('show')
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/delete/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    document.getElementById("deleteAccountsOWR").value = "";
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+
+                        var response = JSON.parse(xhr.responseText)
+                        document.getElementById("apiResponse").innerHTML = `Zlecenie usunięcia ${response.overallSuccess+response.overallFailure} zostało zrealizowane. Usunięto (${response.overallSuccess}) kont.`;
+                        delete response.overallFailure;
+                        delete response.overallSuccess;
+                        var tableContent = ""
+                        for (x in response) {
+                            if (response[x].del) {
+                                color = "success"
+                            } else {
+                                color = "danger"
+                            }
+                            tableContent += `
+                            <tr class="text-${color}">
+                                <td>${response[x].name}</td>
+                                <td>${x}</td>
+                                <td>${response[x].state}</td>
+                            </tr>
+                            `
+                        }
+                        document.getElementById("apiResponse").innerHTML += `<br><br><table class="table table-sm table-bordered" width="100%" cellspacing="0">${tableContent}</table>`
+
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else if (xhr.status == 406) {
+                        document.getElementById("deleteAccountsOWR").classList.add("is-invalid")
+                        $('#deleteConfirmModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+            return false;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
