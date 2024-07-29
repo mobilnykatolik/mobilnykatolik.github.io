@@ -381,12 +381,16 @@
                             <label for="regDesc">Opis</label>
                             <textarea class="form-control" id="regDesc" disabled></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="regDesc">Status</label>
-                            <input type="text" class="form-control" id="regStatusTitle" disabled>
-                            <textarea class="form-control mt-2" id="regStatusDesc" disabled></textarea>
-                        </div>
+                        <p class="font-weight-bold mb-0" id="regStatusTitle"></p>
+                        <p class="mb-0" id="regStatusDesc"></p>
+                        <small id="regStatusLastChange" class="form-text text-muted mt-0">Ostatnia zmiana statusu: </small>
                     </form>
+                    <div class="row mt-3">
+                        <div class="col justify-content-center d-flex">
+                            <a class="btn btn-primary mx-1" onclick='window.open("https://tczewmatalent.pl/check?applyid="+document.getElementById("regID").value, "_blank")'>Otwórz kartę zgłoszenia</a>
+                            <a class="btn btn-primary mx-1" data-dismiss="modal" onclick='openAddStatusModal(document.getElementById("regID").value);'>Dodaj status</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
@@ -396,147 +400,43 @@
         </div>
     </div>
 
-    <!-- Send Notification Modal-->
-    <div class="modal fade" id="sendNotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Add Status Modal -->
+    <div class="modal fade" id="addStatusModal" tabindex="-1" role="dialog" aria-labelledby="addStatusModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="sendNotificationTo">Wyślij powiadomienie do</h5>
+                    <h5 class="modal-title" id="addStatusModalLabel">Dodaj status</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group" style="display: none;">
-                            <label for="sendNotificationUsers">Adresat</label>
-                            <input type="text" class="form-control" id="sendNotificationUsers" disabled>
+                        <div class="form-group">
+                            <label for="ASregID">ID zgłoszenia</label>
+                            <input type="text" class="form-control" id="ASregID" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="sendNotificationTitle">Tytuł</label>
-                            <input type="text" class="form-control" id="sendNotificationTitle">
+                            <label for="sendNotificationTitle">Status</label>
+                            <select class="form-control" id="ASstate" onChange="updateState();" required>
+                                <option value="" disabled hidden selected>Wybierz status</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="sendNotificationContent">Treść</label>
-                            <textarea class="form-control" id="sendNotificationContent"></textarea>
+                            <textarea class="form-control" id="ASdesc" disabled></textarea>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <button class="btn btn-primary" data-dismiss="modal" onclick="sendNotification();">Wyślij</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage User Points Modal-->
-    <div class="modal fade" id="managePointsModal" tabindex="-1" role="dialog" aria-labelledby="managePointsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="managePointsModalLabel">Zarządzanie punktami użytkownika</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
                         <div class="form-group">
-                            <label for="managePointsAmount">ID użytkownika</label>
-                            <input type="text" class="form-control" id="managePointsUserID" disabled>
+                            <label for="ASadditional">Dodatkowe informacje</label>
+                            <textarea class="form-control" id="ASadditional"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label for="managePointsID">Zdarzenie</label>
-                                    <select class="form-control" id="managePointsID" onchange="getDefaultPointsAmount();">
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="managePointsAmount">Ilość</label>
-                                    <input type="number" class="form-control" id="managePointsAmount">
-                                </div>
-                            </div>
-                        </div>
-                        <center>
-                            <a class="btn btn-primary btn-sm" onclick="managePoints();">Modyfikuj</a>
-                        </center>
-                        Historia punktów
-                        <small id="managePointsAll" class="form-text text-muted">Stan aktualny: </small>
-                        <table class="table table-bordered mt-2 small">
-                            <thead>
-                                <tr>
-                                    <th>Zdarzenie</th>
-                                    <th>Ilość</th>
-                                    <th>Data</th>
-                                </tr>
-                            </thead>
-                            <tbody id="points-history">
-                            </tbody>
-                        </table>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="addStatus();">Wyślij</button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Selection Check Modal-->
-    <div class="modal fade" id="selectionCheckModal" tabindex="-1" role="dialog" aria-labelledby="selectionCheckModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="selectionCheckModalLabel">Zaznaczenie</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="selectionCheckModalList"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Delete Confirm Modal-->
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="deleteConfirmModalLabel"><i class="fas fa-exclamation-circle fa-fw"></i> Czy na pewno chcesz usunąć Profil Mobilny?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form onSubmit="return deleteAccounts();">
-                    <div class="modal-body">
-                        <input type="text" id="deleteUserList" disabled hidden>
-                        <span class="text-danger">
-                            Usunięcie Profilu Mobilnego spowoduje:
-                            <br>- permanente usunięcie użytkownika
-                            <br>- usunięcie Wirtualnych Rybek
-                            <br>- usunięcie kuponów
-                            <br>- zmianę danych w biletach
-                            <br>Dezaktywacja Profilu Mobilnego jest <b>nieodwracalna</b>.
-                            <br><br>Wprowadź kod operacji wysokiego ryzyka, aby usunąć <span id="deleteUserCount"></span>.
-                        </span>
-                        <div class="form-group mt-4">
-                            <input type="password" class="form-control" id="deleteAccountsOWR" placeholder="Kod OWR" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                        <input type="submit" class="btn btn-danger" value="Potwierdź">
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -628,6 +528,7 @@
     <script>
         var TMTAT;
         var regDB = {};
+        var statesDB = {};
 
         function getTMTAT() {
             var url = `https://apimobilnykatolik.glitch.me/pmk/tmtkey/${userID}/${userLoginID}`;
@@ -650,6 +551,34 @@
         }
         getTMTAT();
 
+        function getStates() {
+            var url = `https://tmt-api.glitch.me/apply/states`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            //ASstate ASdesc ASadditional ASregID
+
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    statesDB = JSON.parse(xhr.responseText)
+                    console.log(statesDB)
+                    for (state in statesDB) {
+                        document.getElementById("ASstate").innerHTML += `
+                            <option value="${state}">${statesDB[state].title}</option>
+                        `
+                    }
+                }
+            }};
+
+            xhr.send();
+        }
+        getStates();
+
+        function updateState() {
+            var currentState = document.getElementById("ASstate").value
+            document.getElementById("ASdesc").value = statesDB[currentState].desc
+        }
+
         function reloadDB() {
             var url = `https://tmt-api.glitch.me/manage/apply/list`;
             var xhr = new XMLHttpRequest();
@@ -667,13 +596,29 @@
                         $('#dataTable').DataTable().destroy()
                         for (entry in data) {
                             console.log(data[entry])
+                            var entryState = data[entry].status.state
+                            if (entryState == "apply_received") {
+                                entryState = `<div class="badge badge-primary">NOWE</div>`
+                            }
+                            if (entryState == "apply_rejected") {
+                                entryState = `<div class="badge badge-secondary">ODRZUCONE</div>`
+                            }
+                            if (entryState == "qualified_casting") {
+                                entryState = `<div class="badge badge-warning">ZAKWALIFIKOWANO</div>`
+                            }
+                            if (entryState == "casting_set") {
+                                entryState = `<div class="badge badge-warning">CASTING</div>`
+                            }
+                            if (entryState == "qualified") {
+                                entryState = `<div class="badge badge-success">FINAŁ</div>`
+                            }
                             document.getElementById("users-list-table").innerHTML += `
                                 <tr id="${entry}" onClick="openManageReg('${entry}')" class="focusBg">
                                     <td>${entry}</td>
                                     <td>${data[entry].firstname}</td>
                                     <td>${data[entry].lastname}</td>
                                     <td>${data[entry].school}</td>
-                                    <td>${data[entry].status.state} (${data[entry].status.date})</td>
+                                    <td>${entryState}</td>
                                 </tr>
                             `
                         }
@@ -710,11 +655,12 @@
             document.getElementById("regDesc").value = reg.description;
 
             if (reg.status.title != undefined) {
-                document.getElementById("regStatusTitle").value = reg.status.title
+                document.getElementById("regStatusTitle").innerHTML = reg.status.title
             } else {
-                document.getElementById("regStatusTitle").value = reg.status.state
+                document.getElementById("regStatusTitle").innerHTML = reg.status.state
             }
-            document.getElementById("regStatusDesc").value = reg.status.desc
+            document.getElementById("regStatusDesc").innerHTML = reg.status.desc
+            document.getElementById("regStatusLastChange").innerHTML = `Ostatnia zmiana statusu: ${reg.status.date}`
 
             $('#manageRegModal').modal('show')
         }
@@ -773,46 +719,28 @@
             xhr.send(JSON.stringify(data));
         }
 
-        function openSendNotificationModal(userid) {
-            if (userid.length == 0) {
-                return false;
-            }
-
-            if (userid == "GLOBAL") {
-                document.getElementById("sendNotificationUsers").value = "GLOBAL";
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij globalne powiadomienie`;
-            } else if (userid.length == 1) {
-                document.getElementById("sendNotificationUsers").value = userid[0];
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userdb[userid[0]].firstname} ${userdb[userid[0]].lastname}`;
-            } else {
-                document.getElementById("sendNotificationUsers").value = userid;
-                document.getElementById("sendNotificationTo").innerHTML = `Wyślij powiadomienie do ${userid.length} użytkowników`;
-            }
-
-            $('#sendNotificationModal').modal('show')
+        function openAddStatusModal(regID) {
+            document.getElementById("ASregID").value = regID
+            document.getElementById("ASstate").value = ""
+            document.getElementById("ASdesc").value = ""
+            document.getElementById("ASadditional").value = ""
+            $('#addStatusModal').modal('show')
         }
 
-        function sendNotification() {
+        function addStatus() {
             var data = {
-                "users": document.getElementById("sendNotificationUsers").value.split(","),
-                "title": document.getElementById("sendNotificationTitle").value,
-                "content": document.getElementById("sendNotificationContent").value.replaceAll("\n", " ")
+                AT: TMTAT,
+                id: document.getElementById("ASregID").value,
+                state: document.getElementById("ASstate").value,
+                desc: document.getElementById("ASadditional").value
             }
-            console.log(data);
-            if (document.getElementById("sendNotificationTitle").value == "") {
-                return false;
-            } else if (document.getElementById("sendNotificationContent").value == "") {
-                return false;
-            } else if (document.getElementById("sendNotificationUsers").value == "") {
-                return false;
+            if (data.desc == "" || data.desc == undefined) {
+                delete data.desc;
             }
             $('#loadingModal').modal('show')
 
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
-            if (data.users == "GLOBAL") {
-                url = `https://apimobilnykatolik.glitch.me/pmk/pushall/${userID}/${userLoginID}`;
-            }
+            var url = `https://tmt-api.glitch.me/manage/apply/status`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -825,216 +753,6 @@
                         document.getElementById("apiResponse").innerHTML = xhr.responseText;
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)    
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(data));
-        }
-
-        function openManagePointsModal(userid) {
-
-            //Displaying user's points history
-            var pointsData = pointsDB[userid];
-            document.getElementById("points-history").innerHTML = "";
-            document.getElementById("managePointsUserID").value = userid;
-            if (pointsData == undefined) {
-                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: 0`
-            } else {
-                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
-                for (x in pointsData.history) {
-                    var element = pointsData.history[x];
-                    if (element.name == undefined) {
-                        if (element.id == undefined || eventPointsDB[element.id] == undefined) {
-                            element.name = "Modyfikacja punktów"
-                        } else {
-                            element.name = eventPointsDB[element.id].name;
-                        }
-                    }
-                    element.date = element.ts;
-                    document.getElementById("points-history").innerHTML += `
-                    <tr>
-                        <td>${element.name}</td>
-                        <td>${element.amount}</td>
-                        <td>${element.date}</td>
-                    </tr>
-                    `;
-                } 
-            }
-
-            if (userAccess >= 3) {
-                $('#managePointsModal').modal('show')
-            } else {
-                $('#insufficientPermissionsModal').modal('show')
-            }
-            
-        }
-
-        function managePoints() {
-            $('#managePointsModal').modal('hide')
-            var data = {
-                "peid": document.getElementById("managePointsID").value,
-                "amount": document.getElementById("managePointsAmount").value,
-                "userid": document.getElementById("managePointsUserID").value
-            }
-            if (data.peid == "") {
-                delete data.peid;
-            }
-            if (data.amount == "") {
-                delete data.amount;
-            }
-
-            $('#loadingModal').modal('show')
-            console.log(data);
-            
-            var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        //$('#apiResponseModal').modal('show')
-                        //document.getElementById("apiResponse").innerHTML = `Operacja zakończona pomyślnie!<br>Aktualny stan punktów użytkownika ${response.owner}: ${response.points}`;
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)
-                        reloadDB(data.userid);
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(data));
-        }
-
-        function getDefaultPointsAmount() {
-            eventPointsID = document.getElementById("managePointsID").value;
-            if (eventPointsDB != "") {
-                document.getElementById("managePointsAmount").value = eventPointsDB[eventPointsID].amount;
-            }
-        }
-
-        function formatDate(date) {
-            date = new Date(date);
-            console.log(date);
-            var day = date.getDate();
-            var month = date.getMonth() + 1; // Miesiące są indeksowane od 0, dlatego dodajemy 1
-            var year = date.getFullYear();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
-
-            // Dodanie wiodących zer, jeśli wartość jest mniejsza niż 10
-            day = day < 10 ? '0' + day : day;
-            month = month < 10 ? '0' + month : month;
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            // Złożenie wszystkich składników w łańcuch tekstowy
-            var formattedDate = day + '.' + month + '.' + year + ' ' + hours + ':' + minutes + ':' + seconds;
-
-            return formattedDate;
-        }
-
-        function getIds() {
-            var dataTable = $('#dataTable').DataTable();
-            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
-            var multipleID = []
-            for (user in filteredRows) {
-                multipleID.push(filteredRows[user][3])
-            }
-            //console.log(multipleID);
-            return multipleID;
-        }
-
-        //Usuwanie Profilu Mobilnego
-
-        //Confirm Modal
-        function confirmDelete(ID) {
-            document.getElementById("deleteUserList").value = ID
-            if (ID.length == 1) {
-                document.getElementById("deleteUserCount").innerHTML = "wybrany Profil Mobilny"
-            } else {
-                document.getElementById("deleteUserCount").innerHTML = "zaznaczone Profile Mobilne"
-            }
-
-            if (userAccess >= 5) {
-                $('#deleteConfirmModal').modal('show');
-            } else {
-                $('#insufficientPermissionsModal').modal('show')
-            }
-        }
-
-        //Delete process
-        function deleteAccounts() {
-            document.getElementById("deleteAccountsOWR").classList.remove("is-invalid")
-            $('#deleteConfirmModal').modal('hide')
-            var ID = document.getElementById("deleteUserList").value.split(",")
-            var data = {
-                users: ID,
-                owr: document.getElementById("deleteAccountsOWR").value
-            }
-            
-            $('#loadingModal').modal('show')
-            
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/delete/${userID}/${userLoginID}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    document.getElementById("deleteAccountsOWR").value = "";
-                    if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-
-                        var response = JSON.parse(xhr.responseText)
-                        document.getElementById("apiResponse").innerHTML = `Zlecenie usunięcia ${response.overallSuccess+response.overallFailure} zostało zrealizowane. Usunięto (${response.overallSuccess}) kont.`;
-                        delete response.overallFailure;
-                        delete response.overallSuccess;
-                        var tableContent = ""
-                        for (x in response) {
-                            if (response[x].del) {
-                                color = "success"
-                            } else {
-                                color = "danger"
-                            }
-                            tableContent += `
-                            <tr class="text-${color}">
-                                <td>${response[x].name}</td>
-                                <td>${x}</td>
-                                <td>${response[x].state}</td>
-                            </tr>
-                            `
-                        }
-                        document.getElementById("apiResponse").innerHTML += `<br><br><table class="table table-sm table-bordered" width="100%" cellspacing="0">${tableContent}</table>`
-
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
                         }, 500)
                         reloadDB();
                     } else if (xhr.status == 403) {
@@ -1042,12 +760,6 @@
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)  
-                    } else if (xhr.status == 406) {
-                        document.getElementById("deleteAccountsOWR").classList.add("is-invalid")
-                        $('#deleteConfirmModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
                     } else {
                         $('#apiErrorModal').modal('show')
                         setTimeout(function() {
@@ -1057,9 +769,7 @@
                 }
             };
             xhr.send(JSON.stringify(data));
-            return false;
         }
-
 
     </script>
 
