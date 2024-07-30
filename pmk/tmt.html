@@ -538,6 +538,7 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
+                    $('#loadingModal').modal('show')
                     TMTAT = xhr.responseText
                     reloadDB()
                 } else if (xhr.status == 403) {
@@ -589,6 +590,9 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
+                    setTimeout(function() {
+                        $('#loadingModal').modal('hide')
+                    }, 500)
                     if (xhr.status == 200) {
                         regDB = JSON.parse(xhr.responseText)
                         var data = regDB;
