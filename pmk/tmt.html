@@ -387,7 +387,8 @@
                     </form>
                     <div class="row mt-3">
                         <div class="col justify-content-center d-flex">
-                            <a class="btn btn-primary mx-1" onclick='window.open("https://tczewmatalent.pl/check?applyid="+document.getElementById("regID").value, "_blank")'>Otwórz kartę zgłoszenia</a>
+                            <a class="btn btn-primary mx-1 d-none" onclick='window.open("https://tczewmatalent.pl/check?history=true&applyid="+document.getElementById("regID").value, "_blank")'>Otwórz kartę zgłoszenia</a>
+                            <a class="btn btn-primary mx-1" onclick='window.open("https://tmt-api.glitch.me/apply/card/"+document.getElementById("regID").value+"/"+userFullName, "_blank", "toolbar=0,scrollbars=0,location=0,menubar=0,width=800,height=600")'>Wygeneruj kartę zgłoszenia</a>
                             <a class="btn btn-primary mx-1" data-dismiss="modal" onclick='openAddStatusModal(document.getElementById("regID").value);'>Dodaj status</a>
                         </div>
                     </div>
@@ -411,32 +412,36 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="ASregID">ID zgłoszenia</label>
-                            <input type="text" class="form-control" id="ASregID" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="sendNotificationTitle">Status</label>
-                            <select class="form-control" id="ASstate" onChange="updateState();" required>
-                                <option value="" disabled hidden selected>Wybierz status</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="sendNotificationContent">Treść</label>
-                            <textarea class="form-control" id="ASdesc" disabled></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="ASadditional">Dodatkowe informacje</label>
-                            <textarea class="form-control" id="ASadditional"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <button class="btn btn-primary" data-dismiss="modal" onclick="addStatus();">Wyślij</button>
-                </div>
+                <form onsubmit="return addStatus();">
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label for="ASregID">ID zgłoszenia</label>
+                                <input type="text" class="form-control" id="ASregID" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="sendNotificationTitle">Status</label>
+                                <select class="form-control" id="ASstate" onChange="updateState();" required>
+                                    <option value="" disabled hidden selected>Wybierz status</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sendNotificationContent">Treść</label>
+                                <textarea class="form-control" id="ASdesc" disabled></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="ASadditional">Dodatkowe informacje</label>
+                                <textarea class="form-control" id="ASadditional"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="custom-checkbox" id="ASmailNotify">
+                                <label for="ASmailNotify" style="margin-bottom: 0;">Wyśij powiadomienie e-mail</label>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zatwierdź">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -499,6 +504,27 @@
                 </div>
                 <div class="modal-body" id="apiResponse">
                     
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div class="modal fade" id="applyCardModal" tabindex="-1" role="dialog" aria-labelledby="applyCardModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applyCardModalLabel">Karta zgłoszenia</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <embed src="https://tczewmatalent.pl/assets/docs/regulamin-konkursu-tczew-ma-talent.pdf" width="100%" height="650" type="application/pdf">
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
@@ -728,6 +754,7 @@
             document.getElementById("ASstate").value = ""
             document.getElementById("ASdesc").value = ""
             document.getElementById("ASadditional").value = ""
+            document.getElementById("ASmailNotify").checked = ""
             $('#addStatusModal').modal('show')
         }
 
@@ -736,11 +763,16 @@
                 AT: TMTAT,
                 id: document.getElementById("ASregID").value,
                 state: document.getElementById("ASstate").value,
-                desc: document.getElementById("ASadditional").value
+                desc: document.getElementById("ASadditional").value,
+                by: `${userFirstName} ${userlastName}`
             }
             if (data.desc == "" || data.desc == undefined) {
                 delete data.desc;
             }
+            if (document.getElementById("ASmailNotify").checked) {
+                data.mail = true;
+            }
+            $('#addStatusModal').modal('hide')
             $('#loadingModal').modal('show')
 
             
@@ -773,6 +805,7 @@
                 }
             };
             xhr.send(JSON.stringify(data));
+            return false;
         }
 
     </script>

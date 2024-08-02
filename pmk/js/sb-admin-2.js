@@ -63,6 +63,7 @@ var userFirstName = sessionStorage.getItem("userfname");
 var userlastName = sessionStorage.getItem("userlname");
 var userAccess = parseInt(sessionStorage.getItem("useraccess"));
 var usersCount = sessionStorage.getItem("userscount");
+var userFullName = userFirstName.toUpperCase()+" "+userlastName.toUpperCase()
 
   
 if (userID == undefined) {
