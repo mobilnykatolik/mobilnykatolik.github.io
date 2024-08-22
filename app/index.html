@@ -434,8 +434,7 @@
         </table>
         <p style="font-size: 15px;">Inne informacje</p>
         <p style="font-size: 18px; margin-bottom: 10px;">
-            Wpłaty przyjmujemy do 27 października. W innym wypadku zamówienie zostanie anulowane.<br><br>
-            Gotówka<br>Wpłaty przyjmuje Kuba Sałek<br><br>Przelew<br>Wykonaj przelew na ponisze dane:<br><br>
+            Aby opłacić zamówienie, wykonaj przelew na poniższe dane:<br><br>
             <b>Zespół Szkół Katolickich</b><br>
             <b>78 8345 0006 2002 0027 7864 0002</b><br>
             tytułem <b id="order-payment-title"></b>
@@ -1741,10 +1740,15 @@ function loadOrder(orderID) {
     var orderDetails = "<tr><td>Produkt</td><td>Opis</td><td>Cena</td></tr>";
     for (pos in ordersdb[orderID].products) {
         var pos = ordersdb[orderID].products[pos];
+        var posOptions = []
+        for (opt in pos.options) {
+            posOptions.push(pos.options[opt].toUpperCase())
+        }
+        posOptions = posOptions.join(" / ")
         orderDetails += `
         <tr>
             <td>${pos.name}</td>
-            <td>${pos.size}/${pos.color}/${pos.logotype}</td>
+            <td>${posOptions}</td>
             <td>${pos.price},00 zł</td>
         </tr>
         `

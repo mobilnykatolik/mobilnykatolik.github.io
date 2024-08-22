@@ -1,0 +1,184 @@
+{
+    "b1250-m": {
+        "name": "Bluza bez kaptura",
+        "badge": "ZAMIAST MUNDURKA!",
+        "collection": "KSP",
+        "price": 144.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ],
+            "LOGO": [{"name": "ksp", "display": "KSP"}]
+        },
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru"
+    },
+    "b1250": {
+        "name": "Bluza bez kaptura",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 144.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ],
+            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+        },
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b2250-m": {
+        "name": "Bluza z kapturem",
+        "badge": "ZAMIAST MUNDURKA!",
+        "collection": "KSP",
+        "price": 144.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ],
+            "LOGO": [{"name": "ksp", "display": "KSP"}]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru"
+    },
+    "b2250": {
+        "name": "Bluza z kapturem",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 144.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ],
+            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b3250-m": {
+        "name": "Bluza rozpinana",
+        "badge": "ZAMIAST MUNDURKA!",
+        "collection": "KSP",
+        "price": 164.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ],
+            "LOGO": [{"name": "ksp", "display": "KSP"}]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru"
+    },
+    "b3250": {
+        "name": "Bluza rozpinana",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 164.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ],
+            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b4280": {
+        "name": "Bluza boxy",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 174.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"}
+            ],
+            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+        },
+        "desc": "Gramatura: 280g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "t1280": {
+        "name": "Ekotorba",
+        "badge": "",
+        "price": 35.00,
+        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "options": {
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "natural", "display": "BEŻOWY / NATURALNY", "img": ""}
+            ],
+            "LOGO": [{"name": "ksp", "display": "KSP"}, {"name": "uklo", "display": "UKLO"}]
+        },
+        "desc": "Gramatura: 280g/m2<br>Skład: 1000% bawełny"
+    }
+}
