@@ -6,6 +6,7 @@
         "price": 144.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
             "KOLOR": [
                 {"name": "navy", "display": "GRANATOWY", "img": ""}
             ],
@@ -16,8 +17,7 @@
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"},
                 {"name": "xxl", "display": "XXL"}
-            ],
-            "LOGO": [{"name": "ksp", "display": "KSP"}]
+            ]
         },
         "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru"
     },
@@ -28,6 +28,7 @@
         "price": 144.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
@@ -42,8 +43,7 @@
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"},
                 {"name": "xxl", "display": "XXL"}
-            ],
-            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+            ]
         },
         "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
@@ -54,6 +54,7 @@
         "price": 144.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
             "KOLOR": [
                 {"name": "navy", "display": "GRANATOWY", "img": ""}
             ],
@@ -64,8 +65,7 @@
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"},
                 {"name": "xxl", "display": "XXL"}
-            ],
-            "LOGO": [{"name": "ksp", "display": "KSP"}]
+            ]
         },
         "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru"
     },
@@ -76,6 +76,7 @@
         "price": 144.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
@@ -90,8 +91,7 @@
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"},
                 {"name": "xxl", "display": "XXL"}
-            ],
-            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+            ]
         },
         "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
@@ -102,6 +102,7 @@
         "price": 164.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
             "KOLOR": [
                 {"name": "navy", "display": "GRANATOWY", "img": ""}
             ],
@@ -112,8 +113,7 @@
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"},
                 {"name": "xxl", "display": "XXL"}
-            ],
-            "LOGO": [{"name": "ksp", "display": "KSP"}]
+            ]
         },
         "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru"
     },
@@ -124,6 +124,7 @@
         "price": 164.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
@@ -138,8 +139,7 @@
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"},
                 {"name": "xxl", "display": "XXL"}
-            ],
-            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+            ]
         },
         "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
@@ -150,6 +150,7 @@
         "price": 174.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
@@ -162,8 +163,7 @@
                 {"name": "m", "display": "M"},
                 {"name": "l", "display": "L"},
                 {"name": "xl", "display": "XL"}
-            ],
-            "LOGO": [{"name": "uklo", "display": "UKLO"}]
+            ]
         },
         "desc": "Gramatura: 280g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
@@ -173,11 +173,11 @@
         "price": 35.00,
         "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
         "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}, {"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "natural", "display": "BEŻOWY / NATURALNY", "img": ""}
-            ],
-            "LOGO": [{"name": "ksp", "display": "KSP"}, {"name": "uklo", "display": "UKLO"}]
+            ]
         },
         "desc": "Gramatura: 280g/m2<br>Skład: 1000% bawełny"
     }

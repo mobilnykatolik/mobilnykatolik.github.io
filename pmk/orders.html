@@ -231,6 +231,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-end mb-4 mt-1 mr-0">
+                        <a onClick="downloadCsv();" class="btn btn-primary btn-icon-split justify-content-end">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-file-download"></i>
+                            </span>
+                            <span class="text">Pobierz zamówienia (.csv)</span>
+                        </a>
+                    </div>
                     
 
                 </div>
@@ -563,6 +571,61 @@
             }
             //console.log(multipleID);
             return multipleID;
+        }
+
+        function downloadCsv() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var orderIDs = []
+            for (x in filteredRows) {
+                orderIDs.push(filteredRows[x][0])
+            }
+
+            var file = ["ID;KUPUJĄCY;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;PRODUKT"]
+            //ID, KUPUJĄCY, WPŁATA, SUMA, STATUS, PRODUKT, INNE SZCZEGÓŁY
+
+            for (order in orderIDs) {
+                var orderID = orderIDs[order]
+                var orderData = ordersDB[orderID]
+                var products = ordersDB[orderID].products
+
+                for (prod in products) {
+                    var prodOptions = []
+                    for (opt in products[prod].options) {
+                        prodOptions.push(products[prod].options[opt].toUpperCase())
+                    }
+                    prodOptions = prodOptions.join(";")
+                    file.push([
+                        orderID,
+                        orderData.customer,
+                        orderData.paid,
+                        orderData.price,
+                        orderData.status,
+                        products[prod].name,
+                        prodOptions
+                    ].join(";"))
+                }
+
+            }
+
+            file = file.join("\n")
+
+            // Tworzymy Blob z zawartością CSV
+            const blob = new Blob(['\uFEFF' + file], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            // Tworzymy element <a>, który będzie odpowiedzialny za pobranie pliku
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'orders.csv';
+
+            // Dodajemy element <a> do dokumentu, klikamy go i usuwamy
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Zwolnienie pamięci
+            URL.revokeObjectURL(url);
         }
 
     </script>
