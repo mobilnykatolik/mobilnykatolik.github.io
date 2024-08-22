@@ -112,7 +112,7 @@ function getItem(itemID) {
         }
         var optionForm = `
         <div class="form-floating my-3">
-            <select class="form-select" id="item-option-${option}">
+            <select class="form-select" id="item-option-${option}" onChange="optionChange();">
                 ${options}
             </select>
             <label>${option}</label>
@@ -120,6 +120,10 @@ function getItem(itemID) {
         document.getElementById("item-options").innerHTML += optionForm;
         itemOptions.push(option)
     }
+
+}
+
+function optionChange() {
 
 }
 
