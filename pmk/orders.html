@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Szkolna Liga Sportowa</title>
+    <title>Panel Mobilny Katolik - Zamówienia</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 </head>
@@ -53,13 +54,13 @@
             </div>
 
             <!-- Nav Item - Project management Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-calendar fa-fw"></i>
                     <span>Wydarzenia</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kalendarz</h6>
                         <a class="collapse-item" href="events.html">Wyświetl</a>
@@ -70,7 +71,7 @@
                         <a class="collapse-item" href="points.html">Zarządzaj</a>
                         <a class="collapse-item" href="coupons.html">Kupony</a>
                         <h6 class="collapse-header">SLS</h6>
-                        <a class="collapse-item active" href="sls.html">Szkolna Liga Sportowa</a>
+                        <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
                 </div>
             </li>
@@ -105,7 +106,7 @@
             </li>
 
             <!-- Nav Item - Orders -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="scan-settings.html">
                     <i class="fas fa-shopping-cart fa-fw"></i>
                     <span>Zamówienia</span></a>
@@ -132,7 +133,6 @@
                     <i class="fas fa-fw fa-users"></i>
                     <span>Ustawienia klas</span></a>
             </li>
-
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -201,106 +201,37 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Szkolna Liga Sportowa</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie zamówieniami</h1>
                     </div>
 
+                    <!-- DataTales Example -->
                     <div class="row">
-                        <div class="col-xl-8 col-lg-8">
-                            <!-- DataTales Example -->
+                        <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
-                                <a href="#slsMainTable" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="slsMainTable">
-                                    <h6 class="m-0 font-weight-bold text-primary">Klasyfikacja generalna</h6>
-                                </a>
-                                <div class="collapse show" id="slsMainTable">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Imię</th>
-                                                        <th>Nazwisko</th>
-                                                        <th>Klasa</th>
-                                                        <th>Punkty</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="users-list-table"></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#slsAppPageModify" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="slsAppPageModify">
-                                    <h6 class="m-0 font-weight-bold text-primary">Edycja strony</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse show" id="slsAppPageModify">
-                                    <div class="card-body">
-                                        Treść zawarta w poniższych polach będzie wyświetlana w zakładce <b>Szkolna Liga Sportowa</b> w aplikacji <b>Mobilny Katolik</b>.
-                                        <br>
-                                        <b>UWAGA! </b>Poniższe ustawienia nie mają wpływu na wyświetlanie rankingu. W polach można stosować formatowanie HTML.
-                                        <form class="mt-2" onsubmit="return modifySlsPage();">
-                                            <div class="form-group">
-                                                <label for="sendNotificationContent">Zawartość strony</label>
-                                                <textarea class="form-control" id="slsPageContent"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck" checked disabled>
-                                                    <label class="custom-control-label" for="customCheck">
-                                                        Widoczność modułu
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <center><input type="submit" class="btn btn-primary" value="Zapisz"></center>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Donut Chart -->
-                        <div class="col-xl-4 col-lg-4">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Aktualizuj tabelę</h6>
+                                    <h6 class="m-0">Zamówienia</h6>
                                 </div>
-                                <!-- Card Body -->
                                 <div class="card-body">
-                                    <center>
-                                    <input type="file" id="csvFileInput" accept=".csv" hidden>
-                                    <a href="#" id="csvFileUploadBtn" class="btn btn-primary btn-icon-split ml-1 mb-1">
-                                        <span class="icon text-white-50">
-                                            <i class="fa fa-upload"></i>
-                                        </span>
-                                        <span class="text">Wgraj tabelę</span>
-                                    </a>
-                                    </center>
-                                </div>
-                            </div>
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Statystyki</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <h6 class="m-0" id="chartNoData">Brak danych do wyświetlenia</h6>
-                                    <div class="chart-pie" id="chartCard" style="display: none;">
-                                        <canvas id="myPieChart"></canvas>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Kupujący</th>
+                                                    <th>Suma</th>
+                                                    <th>Status</th>
+                                                    <th>Akcje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="orders-list-table">
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
+                    
 
                 </div>
                 <!-- /.container-fluid -->
@@ -343,7 +274,7 @@
                 <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" href="login.html">Wyloguj się</a>
+                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
                 </div>
             </div>
         </div>
@@ -372,6 +303,52 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Order Modal-->
+    <div class="modal fade" id="manageOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Zarządzanie zamówieniem</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageOrder();">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="manageTicketID">ID zamówienia</label>
+                            <input type="text" class="form-control" id="order-id" required disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageTicketID">Dane kupującego</label>
+                            <input type="text" class="form-control" id="order-customer" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageTicketPaid">Wpłata</label>
+                            <input type="number" class="form-control" id="order-paid" min=0 step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageTicketPaid">Status zamówienia</label>
+                            <select class="form-control" id="order-status" required>
+                                <option value=0>BRAK WPŁATY</option>
+                                <option value=1>OPŁACONE</option>
+                                <option value=2>W REALIZACJI</option>
+                                <option value=3>GOTOWE DO ODBIORU</option>
+                                <option value=4>ZAKOŃCZONE</option>
+                                <option value=5>ANULOWANE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -442,6 +419,7 @@
         </div>
     </div>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -463,23 +441,17 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        //Wgrywanie pliku .csv
-        document.getElementById('csvFileUploadBtn').addEventListener('click', function() {
-            if (userAccess >= 3) {
-                document.getElementById('csvFileInput').click();
-            } else {
-                $('#insufficientPermissionsModal').modal('show')
-            }
-        });
-        document.getElementById('csvFileInput').addEventListener('change', function() {
-            var wybranyPlik = document.getElementById('csvFileInput').files[0];
-            if (wybranyPlik) {
-                handleFile();
-            }
-        });
+        var ordersDB;
+
+        var badgeColors = ["danger", "success", "success", "success", "secondary", "danger"];
+        var statusNames = ["BRAK WPŁATY", "OPŁACONE", "W REALIZACJI", "GOTOWE DO ODBIORU", "ZAKOŃCZONE", "ANULOWANE"];
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/sls`;
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            dataTable.draw();
+
+            var url = `https://apimobilnykatolik.glitch.me/pmk/order/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -487,23 +459,9 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    var slsData = JSON.parse(xhr.responseText);
-                    var dataTable = $('#dataTable').DataTable();
-                    dataTable.clear();
-                    chartData = {}
-                    document.getElementById("slsPageContent").value = slsData.page.replaceAll("<NL>", "\n");
-                    slsData = slsData.participants;
-                    for (entry in slsData) {
-                        entry = slsData[entry]
-                        dataTable.row.add([entry.firstname, entry.lastname, entry.class, entry.points]);
-                        if (chartData[entry.class] == undefined) {
-                            chartData[entry.class] = 1
-                        } else {
-                            chartData[entry.class] += 1
-                        }
-                    }
-                    dataTable.order([3, 'desc']).draw();
-                    updateChart(chartData);    
+                    var data = JSON.parse(xhr.responseText);
+                    ordersDB = data;
+                    drawTable();
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -516,70 +474,55 @@
 
         reloadDB();
 
-        //Aktualizowanie tabeli na podstawie wgranego pliku .csv
-        function handleFile() {
-            const input = document.getElementById('csvFileInput');
-            const file = input.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    const csv = e.target.result;
-                    const data = csv;
-                    if (!data.startsWith("Nazwisko,Imię,Klasa,Punkty")) {
-                        document.getElementById("apiResponse").innerHTML = "Wprowadzona tabela jest nieprawidłowa! Sprawdź, czy została pobrana z oryginalnego źródła."
-                        $('#apiResponseModal').modal('show')
-                        return false;
-                    }
-                    createTable(data);
-                };
-
-                reader.readAsText(file);
-            } else {
-                alert("Please select a CSV file.");
-            }
-            document.getElementById('csvFileInput').value = "";
-        }
-
-        function createTable(data) {
-            $('#loadingModal').modal('show')
-            //NAZWISKO, IMIE, KLASA, PUNKTY
-            //Tworzenie obiektu JSON, który będzie zapisany w PMK
-            data = data.split("\n");
-            delete data[0]; //Usunięcie nagłówka
-
-            var slsData = {"participants": {}}
-
-            for (entry in data) {
-                entry = data[entry].split(",");
-                if (entry[3] == undefined || entry[3] == "") {
-                    continue;
-                }
-                slsData.participants[`${entry[1].toUpperCase()} ${entry[0].toUpperCase()}, ${entry[2].toUpperCase()}`] = {
-                    "points": parseInt(entry[3]),
-                    "firstname": entry[1].toUpperCase(),
-                    "lastname": entry[0].toUpperCase(),
-                    "class": entry[2].toUpperCase()
-                }
-            }
-
+        function drawTable() {
+            var data = ordersDB;
             var dataTable = $('#dataTable').DataTable();
             dataTable.clear();
-            chartData = {}
-            slsData = slsData.participants;
-            for (entry in slsData) {
-                entry = slsData[entry]
-                dataTable.row.add([entry.firstname, entry.lastname, entry.class, entry.points]);
-                if (chartData[entry.class] == undefined) {
-                    chartData[entry.class] = 1
-                } else {
-                    chartData[entry.class] += 1
-                }
+            dataTable.draw();
+
+            for (entry in data) {
+                console.log(data[entry])
+                //ID, KUPUJACY, ZAPLACONO / WARTOSC ZAMOWIENIA, STATUS
+                dataTable.row.add([
+                    entry,
+                    data[entry].customer,
+                    `${parseFloat(data[entry].paid).toFixed(2)} / ${parseFloat(data[entry].price).toFixed(2)} zł`,
+                    `<div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>`,
+                    `<button class="btn btn-sm btn-primary" type="button" onClick="openManageOrder('${entry}')">Zarządzaj</button>`
+                ]).draw();
+            }   
+            dataTable.draw();   
+        }      
+
+        function openManageOrder(orderID) {
+            $('#manageOrder').modal('show')
+            console.log(ordersDB[orderID])
+
+            document.getElementById("order-customer").value = ordersDB[orderID].customer
+            document.getElementById("order-paid").value = parseFloat(ordersDB[orderID].paid).toFixed(2)
+            document.getElementById("order-status").value = ordersDB[orderID].status
+            document.getElementById("order-id").value = orderID
+
+            if (userAccess >= 4) {
+                $('#manageTicketModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
             }
-            slsData = {participants: slsData};
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
+        }
+
+        function manageOrder() {
+            $('#manageOrder').modal('hide')
+
+            var data = {
+                "orderID": document.getElementById("order-id").value,
+                "paid": parseFloat(document.getElementById("order-paid").value),
+                "status": parseInt(document.getElementById("order-status").value)
+            }
+
+            $('#loadingModal').modal('show')
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/order/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -588,99 +531,12 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
-                        dataTable.order([3, 'desc']).draw();
-                        updateChart(chartData);  
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(slsData));
-        }
-
-        function updateChart(data) {
-            /*Example data:
-            {
-                "1LO": 1,
-                "2LO": 2,
-                "3LO", 3
-            }
-            */
-            var chart = {
-                labels: [],
-                values: []
-            }
-            for (label in data) {
-                chart.labels.push(label)
-                chart.values.push(data[label])
-            }
-            console.log(chart);
-            if (chart.labels.length == 0) {
-                document.getElementById("chartCard").style.display = "none";
-                document.getElementById("chartNoData").style.display = "block";
-                return false;
-            }
-            var ctx = document.getElementById("myPieChart");
-            document.getElementById("chartCard").style.display = "block";
-            document.getElementById("chartNoData").style.display = "none";
-            var myPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: chart.labels,
-                datasets: [{
-                data: chart.values,
-                backgroundColor: ["#A80C2F", "#D03C4C", "#F8616B", "#FF868B", "#FFAAAD"],
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-                },
-                legend: {
-                display: true
-                },
-                cutoutPercentage: 80,
-            },
-            });
-        }
-
-        function modifySlsPage() {
-            $('#loadingModal').modal('show');
-            var data = {page: document.getElementById("slsPageContent").value.replaceAll("\n", "<NL>")}
-            console.log(data);
-            
-            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
                         reloadDB();
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
                     } else if (xhr.status == 403) {
                         $('#insufficientPermissionsModal').modal('show')
                         setTimeout(function() {
@@ -694,9 +550,19 @@
                     }
                 }
             };
-
             xhr.send(JSON.stringify(data));
             return false;
+        }
+
+        function getIds() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var multipleID = []
+            for (user in filteredRows) {
+                multipleID.push(filteredRows[user][3])
+            }
+            //console.log(multipleID);
+            return multipleID;
         }
 
     </script>
