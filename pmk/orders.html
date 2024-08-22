@@ -582,7 +582,6 @@
             }
 
             var file = ["ID;KUPUJĄCY;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;PRODUKT"]
-            //ID, KUPUJĄCY, WPŁATA, SUMA, STATUS, PRODUKT, INNE SZCZEGÓŁY
 
             for (order in orderIDs) {
                 var orderID = orderIDs[order]
@@ -601,7 +600,7 @@
                         orderData.paid,
                         orderData.price,
                         orderData.status,
-                        products[prod].name,
+                        products[prod].toUpperCase(),
                         prodOptions
                     ].join(";"))
                 }
