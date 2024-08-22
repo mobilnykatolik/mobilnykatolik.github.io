@@ -193,7 +193,7 @@ function makeOrder() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status == 200) {
-                localStorage.clear()
+                localStorage.removeItem("cart");
                 window.alert(xhr.responseText);
             } else {
                 loadingModal.hide()
