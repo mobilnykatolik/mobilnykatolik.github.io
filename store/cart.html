@@ -84,7 +84,9 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="customer-class" placeholder=" " required>
+                                <select class="form-control" id="customer-class" placeholder=" " required>
+                                    <option value="">Ładowanie...</option>
+                                </select>
                                 <label>Klasa</label>
                             </div>
                         </div>
@@ -138,6 +140,8 @@
 <script>
 var cartPrice = 0;
 
+const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"))
+
 function runPage() {
     for (prod in cart) {
         var prodOpt = []
@@ -167,7 +171,7 @@ function makeOrder() {
         window.alert("Koszyk jest pusty!")
         return false;
     }
-    openModal("loadingModal");
+    
 
     var orderData = {
         "customer": `${document.getElementById("customer-firstName").value.toUpperCase()} ${document.getElementById("customer-lastName").value.toUpperCase()}, ${document.getElementById("customer-class").value.toUpperCase()}`,
@@ -177,6 +181,8 @@ function makeOrder() {
     }
 
     console.log(orderData);
+
+    loadingModal.show()
 
     var url = `https://apimobilnykatolik.glitch.me/order/make`;
     var xhr = new XMLHttpRequest();
@@ -190,7 +196,8 @@ function makeOrder() {
                 localStorage.clear()
                 window.alert(xhr.responseText);
             } else {
-                window.alert("Wystąpił błąd!!!11")
+                loadingModal.hide()
+                window.alert(`Wystąpił błąd!\n${xhr.responseText}`)
             }
         };
     };
@@ -198,5 +205,33 @@ function makeOrder() {
 
     return false;
 }
+
+function getClasses() {
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+        if (req.readyState == XMLHttpRequest.DONE) {
+            if (req.status == 200) {
+                var classes = req.responseText.split(";")
+                console.log(classes);
+                document.getElementById("customer-class").innerHTML = `<option value="" style="color: #a9a9a9;" selected hidden>Wybierz</option>`
+                for (x in classes) {
+                    document.getElementById("customer-class").innerHTML += `
+                    <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
+                    `
+                }
+                document.getElementById("customer-class").innerHTML += `<option value="n">Nauczyciel</option>`
+                console.log(req.responseText)
+            } else {
+                document.getElementById("customer-class").innerHTML = `<option value="" style="color: #a9a9a9;" selected hidden>Wystąpił błąd! Odśwież aplikację.</option>`
+            }
+        }
+    };
+
+    req.open("GET", `https://apimobilnykatolik.glitch.me/getclasses`, true);
+    req.send();
+}
+
+getClasses();
 
 </script>
