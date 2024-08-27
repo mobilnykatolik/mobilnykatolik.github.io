@@ -63,7 +63,6 @@ var userFirstName = sessionStorage.getItem("userfname");
 var userlastName = sessionStorage.getItem("userlname");
 var userAccess = parseInt(sessionStorage.getItem("useraccess"));
 var usersCount = sessionStorage.getItem("userscount");
-var userFullName = userFirstName.toUpperCase()+" "+userlastName.toUpperCase()
 
   
 if (userID == undefined) {
@@ -86,3 +85,5 @@ imgProfile.onload = function() {
   this.setAttribute('crossorigin', 'anonymous'); // Ustaw crossorigin na anonymous, jeśli obrazek jest hostowany na innym serwerze
   this.setAttribute('loading', 'lazy'); // Lazy loading dla obrazka
 };
+
+var userFullName = userFirstName.toUpperCase()+" "+userlastName.toUpperCase()
