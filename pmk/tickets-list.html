@@ -378,14 +378,14 @@
                             <label for="manageTicketPaid">Wpłata</label>
                             <input type="number" class="form-control" id="manageTicketPaid" min=0 step="0.01" required>
                             <center>
-                                <button type="button" class="btn btn-sm btn-success mt-2" onClick='document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[document.getElementById("manageTicketID").value].cost).toFixed(2)'>Oznacz jako opłacony</button>
+                                <button type="button" class="btn btn-sm btn-success mt-2" id="manageTicketSetAsPaid" onClick='document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[document.getElementById("manageTicketID").value].cost).toFixed(2)'>Oznacz jako opłacony</button>
                             </center>
                         </div>
                         <div class="form-group" id="manageTicketConsentGroup">
                             <input type="checkbox" class="custom-checkbox" id="manageTicketConsent">
                             <label for="manageTicketConsent" style="margin-bottom: 0;">Zgoda dostarczona</label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="manageTicketUsedGroup">
                             <input type="checkbox" class="custom-checkbox" id="manageTicketUsed">
                             <label for="manageTicketUsed" style="margin-bottom: 0;">Bilet wykorzystany</label>
                         </div>
@@ -400,7 +400,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                        <input type="submit" id="manageTicketSave" class="btn btn-primary" value="Zapisz">
                     </div>
                 </form>
             </div>
@@ -566,8 +566,8 @@
         var ticketEventsDB;
         var selectedEvent = "";
 
-        var badgeColors = ["danger", "secondary-warning", "warning", "success", "secondary"];
-        var statusNames = ["NIEAKTYWNY", "BRAK WPŁATY", "BRAK ZGODY", "AKTYWNY", "WYKORZYSTANY"];
+        var badgeColors = ["danger", "secondary-warning", "warning", "success", "secondary", "danger"];
+        var statusNames = ["NIEAKTYWNY", "BRAK WPŁATY", "BRAK ZGODY", "AKTYWNY", "WYKORZYSTANY", "NIEZNANY"];
 
         function reloadDB() {
             var dataTable = $('#dataTable').DataTable();
@@ -741,6 +741,20 @@
 
         function openManageTicketModal(ticketID) {
             console.log(ticketsDB[ticketID])
+
+            document.getElementById("manageTicketPaid").disabled = ""
+                document.getElementById("manageTicketSetAsPaid").classList.remove("d-none")
+                document.getElementById("manageTicketUsedGroup").classList.remove("d-none")
+                document.getElementById("manageTicketSave").classList.remove("d-none")
+
+            if (ticketEventsDB[ticketsDB[ticketID].ticket_event_id] == undefined) {
+                console.log("Wydarzenie biletowane nie istnieje")
+                document.getElementById("manageTicketPaid").disabled = "disabled"
+                document.getElementById("manageTicketSetAsPaid").classList.add("d-none")
+                document.getElementById("manageTicketUsedGroup").classList.add("d-none")
+                document.getElementById("manageTicketSave").classList.add("d-none")
+            }
+
             document.getElementById("manageTicketID").value = ticketID;
             document.getElementById("manageTicketOwner").value = ticketsDB[ticketID].owner;
             if (ticketsDB[ticketID].owner == ticketsDB[ticketID].ownerid) {
