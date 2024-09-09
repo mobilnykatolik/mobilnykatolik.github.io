@@ -186,6 +186,9 @@ function runPage() {
 
     if (localStorage.userfname != undefined) {
         document.getElementById("customer-firstName").value = localStorage.userfname
+    }
+
+    if (localStorage.usersname != undefined) {
         document.getElementById("customer-lastName").value = localStorage.usersname
     }
 }
@@ -248,7 +251,9 @@ function getClasses() {
                 }
                 document.getElementById("customer-class").innerHTML += `<option value="n">Nauczyciel</option>`
                 console.log(req.responseText)
-                document.getElementById("customer-class").value = localStorage.userclass
+                if (localStorage.userclass != undefined) {
+                    document.getElementById("customer-class").value = localStorage.userclass
+                }
             } else {
                 document.getElementById("customer-class").innerHTML = `<option value="" style="color: #a9a9a9;" selected hidden>Wystąpił błąd! Odśwież aplikację.</option>`
             }
