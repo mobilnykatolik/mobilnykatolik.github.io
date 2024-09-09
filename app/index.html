@@ -233,7 +233,7 @@
                 <aside>💡</aside>
                 <span>Pomysł dla SU</span>
             </div>
-            <div type="ind" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/store/index.html`, 'self')">
+            <div type="ind" style="display: none;" id="store-button" onclick="window.open(`https://mobilnykatolik.github.io/store/index.html`, 'self')">
                 <aside>🛍️</aside>
                 <span>Sklep (bluzy, torby)</span>
             </div>
@@ -1397,6 +1397,7 @@ function startApplication() {
             loadCalendar();
             if (data.access > 0) {
                 document.getElementById("pmk-button").style.display = "block";
+                document.getElementById("store-button").style.display = "block";
                 document.getElementById("pmk-banner").style.display = "block";
                 document.getElementById("pmk-badge").style.display = "inline";
             }
