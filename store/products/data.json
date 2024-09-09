@@ -150,7 +150,7 @@
         "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
     "b4280": {
-        "disabled": true,
+        "disabled": false,
         "name": "Bluza boxy",
         "badge": "",
         "collection": "UKLO",
