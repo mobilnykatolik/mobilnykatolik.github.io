@@ -22,8 +22,8 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Wszystkie produkty</a></li>
-                        <li class="nav-item"><a class="nav-link" href="info.html">Informacje</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Wszystkie produkty</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="info.html">Informacje</a></li>
                         <li class="nav-item"><a class="nav-link" href="check.html">Status zamówienia</a></li>
                     </ul>
                     <form class="d-flex">
@@ -38,23 +38,26 @@
         </nav>
 
         <!-- Header-->
-        <header class="py-5 bg-cristal">
+        <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Zupełnie NOWA KOLEKCJA!</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Sprawdź tegoroczne nowości</p>
+                    <h1 class="display-4 fw-bolder">Najważniejsze informacje</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Dowiedz się więcej na temat zamówień</p>
                 </div>
             </div>
         </header>
 
         <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productList">
-
-                </div>
+        <section class="py-5 px-2 px-lg-5">
+            <div class="container px-2 px-lg-2 mt-2">
+                Wizualizacje artykułów zamieszczonych na stronie mogą nieznacznie różnić się od finalnego produktu.
+                <br><br>
+                Numer rachunku do wpłat:
+                <br>ZESPÓŁ SZKÓŁ KATOLICKICH W TCZEWIE
+                <br>78 8345 0006 2002 0027 7864 0002
             </div>
         </section>
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Powered by &copy; Mobilny Katolik API</p></div>
@@ -69,33 +72,7 @@
 <script>
 
 function runPage() {
-    console.log(productsDB)
-    for (prod in productsDB) {
-        var product = productsDB[prod];
-        if (product.disabled) {
-            continue;
-        }
-        document.getElementById("productList").innerHTML += `
-            <div class="col mb-5">
-                <div class="card h-100">
 
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">${product.badge}</div>
-
-                    <img class="card-img-top" src="${product.img}" alt="..." />
-
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h5 class="fw-bolder">${product.name}</h5>
-                            <span>${product.price} zł</span>
-                        </div>
-                    </div>
-
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="item.html?id=${prod}">Wyświetl</a></div>
-                    </div>
-                </div>
-            </div>`
-    }
 }
 
 </script>

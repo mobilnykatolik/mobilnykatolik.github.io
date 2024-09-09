@@ -24,6 +24,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Wszystkie produkty</a></li>
                         <li class="nav-item"><a class="nav-link" href="info.html">Informacje</a></li>
+                        <li class="nav-item"><a class="nav-link" href="check.html">Status zamówienia</a></li>
                     </ul>
                     <form class="d-flex">
                         <a class="btn btn-outline-dark" href="cart.html">
@@ -49,11 +50,19 @@
                         </div>
                         <p class="lead" id="item-desc"></p>
                         <div id="item-options"></div>
-                        <div class="d-flex justify-content-end my-3">
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick="addToCart();">
-                                <i class="bi-cart-fill me-1"></i>
-                                Dodaj do koszyka
-                            </button>
+                        <div class="row d-flex my-3">
+                            <div class="col d-flex justify-content-start d-none" id="size-table-button">
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick="openSizeTable();">
+                                    <i class="bi-file-spreadsheet me-1"></i>
+                                    Tabela rozmiarów
+                                </button>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick="addToCart();">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Dodaj do koszyka
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,6 +82,21 @@
                 </div>
                 <div class="modal-footer">
                     <a type="button" class="btn btn-outline-dark" href="cart.html">Przejdź do koszyka</a>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Size table modal -->
+        <div class="modal fade" id="sizeTable" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tabela rozmiarów</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid" id="size-table" src="https://dummyimage.com/1730x960/dee2e6/6c757d.jpg">
                 </div>
               </div>
             </div>
@@ -102,6 +126,7 @@ function getItem(itemID) {
     document.getElementById("item-name").innerHTML = product.name;
     document.getElementById("item-price").innerHTML = parseFloat(product.price).toFixed(2);
     document.getElementById("item-desc").innerHTML = product.desc;
+    document.getElementById("item-img").src = product.img;
 
     for (option in product.options) {
         var options = ""
@@ -120,7 +145,10 @@ function getItem(itemID) {
         document.getElementById("item-options").innerHTML += optionForm;
         itemOptions.push(option)
     }
-
+    if (product.sizetable != undefined ) {
+        document.getElementById("size-table-button").classList.remove("d-none")
+        document.getElementById("size-table").src = product.sizetable
+    }
 }
 
 function optionChange() {
@@ -147,6 +175,10 @@ function addToCart() {
     console.log(itemData)
     updateCart();
     openModal("cartSuccess")
+}
+
+function openSizeTable() {
+    openModal("sizeTable");
 }
 
 </script>

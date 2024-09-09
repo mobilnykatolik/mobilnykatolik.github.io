@@ -8184,6 +8184,13 @@ textarea.form-control-lg {
   background-color: transparent !important;
 }
 
+.bg-cristal {
+  background-image: url("../img/bg-cristal.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .bg-opacity-10 {
   --bs-bg-opacity: 0.1;
 }

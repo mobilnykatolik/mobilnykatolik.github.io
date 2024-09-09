@@ -24,6 +24,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Wszystkie produkty</a></li>
                         <li class="nav-item"><a class="nav-link" href="info.html">Informacje</a></li>
+                        <li class="nav-item"><a class="nav-link" href="check.html">Status zamówienia</a></li>
                     </ul>
                     <form class="d-flex">
                         <a class="btn btn-outline-dark" href="cart.html">
@@ -45,8 +46,16 @@
             </div>
         </header>
 
+        <!-- Section -->
+        <section id="cart-empty" class="py-5 d-none mb-5">
+            <div class="container px-2 text-center">
+                <h4>Trochę tu... pusto 👀</h4>
+                <p>Wejdź w zakładkę Wszystkie produkty i dodaj interesujące Cię artykuły do koszyka</p>
+            </div>
+        </section>
+
         <!-- Section-->
-        <section class="py-5">
+        <section id="cart-section-1" class="py-5">
             <div class="container px-2 px-lg-2 mt-2">
                 <div class="row justify-content-center">
                     <ul class="list-group list-group-flush w-75" id="cartList">
@@ -57,7 +66,7 @@
         </section>
 
         <!-- Section -->
-        <section class="py-5">
+        <section id="cart-section-2" class="py-5">
             <div class="container px-2 text-center">
                 <h4>Upewnij się, że wybrane logotypy odpowiadają Twojej szkole.</h4>
                 <p>Zamówione produkty <span class="text-danger">nie podlegają zwrotowi czy wymianie</span>.</p>
@@ -65,7 +74,7 @@
         </section>
 
         <!-- Section -->
-        <section class="py-5 px-lg-5">
+        <section id="cart-section-3" class="py-5 px-lg-5">
             <div class="container px-2">
                 <h4 class="mb-3">Twoje dane</h4>
                 <form onSubmit="return makeOrder();">
@@ -143,6 +152,8 @@ var cartPrice = 0;
 const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"))
 
 function runPage() {
+    document.getElementById("cartList").innerHTML = ""
+    cartPrice = 0;
     for (prod in cart) {
         var prodOpt = []
         for (opt in cart[prod].options) {
@@ -152,18 +163,26 @@ function runPage() {
         document.getElementById("cartList").innerHTML += `
         <li class="list-group-item row d-flex align-items-center">
             <div class="col-4 col-lg-3">
-                <img class="w-100" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg">
+                <img class="w-100" src="${cart[prod].img}">
             </div>
             <div class="col-8 col-lg-7">
                 <h5 class="fw-bolder">${cart[prod].name}</h5>
                 ${prodOpt}
                 <h5 class="fw-bolder">${parseFloat(cart[prod].price).toFixed(2)} zł</h5>
+                <a class="text-danger" href="#" onClick="deleteProd('${prod}')">Usuń</a>
             </div>
         </li>
         `
         cartPrice += parseFloat(cart[prod].price);
     }
     document.getElementById("cartPrice").innerHTML = cartPrice.toFixed(2)
+
+    if (cart.length == 0) {
+        document.getElementById("cart-section-1").classList.add("d-none")
+        document.getElementById("cart-section-2").classList.add("d-none")
+        document.getElementById("cart-section-3").classList.add("d-none")
+        document.getElementById("cart-empty").classList.remove("d-none")
+    }
 }
 
 function makeOrder() {
@@ -194,10 +213,12 @@ function makeOrder() {
         if (xhr.readyState === 4) {
             if (xhr.status == 200) {
                 localStorage.removeItem("cart");
-                window.alert(xhr.responseText);
+                //window.alert(xhr.responseText);
+                window.open(`success.html?id=${xhr.responseText}`, "_self")
             } else {
                 loadingModal.hide()
                 window.alert(`Wystąpił błąd!\n${xhr.responseText}`)
+                location.reload()
             }
         };
     };
@@ -230,6 +251,12 @@ function getClasses() {
 
     req.open("GET", `https://apimobilnykatolik.glitch.me/getclasses`, true);
     req.send();
+}
+
+function deleteProd(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart))
+    location.reload()
 }
 
 getClasses();

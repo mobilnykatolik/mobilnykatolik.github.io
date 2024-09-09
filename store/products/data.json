@@ -4,7 +4,8 @@
         "badge": "ZAMIAST MUNDURKA!",
         "collection": "KSP",
         "price": 144.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b1250-navy.png",
+        "sizetable": "img/sizetable-crew.jpeg",
         "options": {
             "LOGO": [{"name": "ksp", "display": "KSP"}],
             "KOLOR": [
@@ -19,14 +20,15 @@
                 {"name": "xxl", "display": "XXL"}
             ]
         },
-        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru"
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
     },
     "b1250": {
         "name": "Bluza bez kaptura",
         "badge": "",
         "collection": "UKLO",
         "price": 144.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b1250-navy.png",
+        "sizetable": "img/sizetable-crew.jpeg",
         "options": {
             "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
@@ -45,14 +47,15 @@
                 {"name": "xxl", "display": "XXL"}
             ]
         },
-        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
     "b2250-m": {
         "name": "Bluza z kapturem",
         "badge": "ZAMIAST MUNDURKA!",
         "collection": "KSP",
         "price": 144.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b2250-navy.png",
+        "sizetable": "img/sizetable-kaptur.jpeg",
         "options": {
             "LOGO": [{"name": "ksp", "display": "KSP"}],
             "KOLOR": [
@@ -67,14 +70,15 @@
                 {"name": "xxl", "display": "XXL"}
             ]
         },
-        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru"
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
     },
     "b2250": {
         "name": "Bluza z kapturem",
         "badge": "",
         "collection": "UKLO",
         "price": 144.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b2250-borg.png",
+        "sizetable": "img/sizetable-kaptur.jpeg",
         "options": {
             "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
@@ -93,14 +97,15 @@
                 {"name": "xxl", "display": "XXL"}
             ]
         },
-        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
     "b3250-m": {
         "name": "Bluza rozpinana",
         "badge": "ZAMIAST MUNDURKA!",
         "collection": "KSP",
         "price": 164.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b3250-navy.png",
+        "sizetable": "img/sizetable-zamek.jpeg",
         "options": {
             "LOGO": [{"name": "ksp", "display": "KSP"}],
             "KOLOR": [
@@ -115,14 +120,15 @@
                 {"name": "xxl", "display": "XXL"}
             ]
         },
-        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru"
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
     },
     "b3250": {
         "name": "Bluza rozpinana",
         "badge": "",
         "collection": "UKLO",
         "price": 164.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b3250-navy.png",
+        "sizetable": "img/sizetable-zamek.jpeg",
         "options": {
             "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
@@ -141,14 +147,16 @@
                 {"name": "xxl", "display": "XXL"}
             ]
         },
-        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
     "b4280": {
+        "disabled": true,
         "name": "Bluza boxy",
         "badge": "",
         "collection": "UKLO",
         "price": 174.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/b4280.png",
+        "sizetable": "img/sizetable-boxy.jpeg",
         "options": {
             "LOGO": [{"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
@@ -165,13 +173,13 @@
                 {"name": "xl", "display": "XL"}
             ]
         },
-        "desc": "Gramatura: 280g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+        "desc": "Gramatura: 280g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
     },
     "t1280": {
         "name": "Ekotorba",
         "badge": "",
         "price": 35.00,
-        "img": "https://dummyimage.com/600x700/dee2e6/6c757d.jpg",
+        "img": "img/t1280.png",
         "options": {
             "LOGO": [{"name": "ksp", "display": "KSP"}, {"name": "uklo", "display": "UKLO"}],
             "KOLOR": [
