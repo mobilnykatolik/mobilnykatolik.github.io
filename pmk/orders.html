@@ -595,13 +595,14 @@
                         prodOptions.push(products[prod].options[opt].toUpperCase())
                     }
                     prodOptions = prodOptions.join(";")
+                    console.log(products[prod])
                     file.push([
                         orderID,
                         orderData.customer,
                         orderData.paid,
                         orderData.price,
                         orderData.status,
-                        products[prod].toUpperCase(),
+                        products[prod].name.toUpperCase(),
                         prodOptions
                     ].join(";"))
                 }
