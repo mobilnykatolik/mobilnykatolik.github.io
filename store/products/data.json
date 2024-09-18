@@ -1,1 +1,342 @@
-{}
+{
+    "b1250-m": {
+        "name": "Bluza bez kaptura",
+        "badge": "ZAMIAST MUNDURKA!",
+        "collection": "KSP",
+        "price": 144.00,
+        "img": "img/b1250-navy.png",
+        "sizetable": "img/sizetable-crew.jpeg",
+        "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
+    },
+    "b1250": {
+        "name": "Bluza bez kaptura",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 144.00,
+        "img": "img/b1250-navy.png",
+        "sizetable": "img/sizetable-crew.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b2250-m": {
+        "name": "Bluza z kapturem",
+        "badge": "ZAMIAST MUNDURKA!",
+        "collection": "KSP",
+        "price": 144.00,
+        "img": "img/b2250-navy.png",
+        "sizetable": "img/sizetable-kaptur.jpeg",
+        "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
+    },
+    "b2250": {
+        "name": "Bluza z kapturem",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 144.00,
+        "img": "img/b2250-borg.png",
+        "sizetable": "img/sizetable-kaptur.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b3250-m": {
+        "name": "Bluza rozpinana",
+        "badge": "ZAMIAST MUNDURKA!",
+        "collection": "KSP",
+        "price": 164.00,
+        "img": "img/b3250-navy.png",
+        "sizetable": "img/sizetable-zamek.jpeg",
+        "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
+    },
+    "b3250": {
+        "name": "Bluza rozpinana",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 164.00,
+        "img": "img/b3250-navy.png",
+        "sizetable": "img/sizetable-zamek.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b4280": {
+        "disabled": false,
+        "name": "Bluza boxy",
+        "badge": "",
+        "collection": "UKLO",
+        "price": 174.00,
+        "img": "img/b4280.png",
+        "sizetable": "img/sizetable-boxy.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"}
+            ]
+        },
+        "desc": "Gramatura: 280g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "t1280": {
+        "name": "Ekotorba",
+        "badge": "",
+        "price": 35.00,
+        "img": "img/t1280.png",
+        "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}, {"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "natural", "display": "BEŻOWY / NATURALNY", "img": ""}
+            ]
+        },
+        "desc": "Gramatura: 280g/m2<br>Skład: 1000% bawełny"
+    },
+    "b1250-mo": {
+        "name": "Bluza bez kaptura",
+        "badge": "KSP CLASSICS",
+        "collection": "CLASSICS",
+        "price": 144.00,
+        "img": "img/b1250-mo.png",
+        "sizetable": "img/sizetable-crew.jpeg",
+        "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
+    },
+    "b2250-mo": {
+        "name": "Bluza z kapturem",
+        "badge": "KSP CLASSICS",
+        "collection": "CLASSICS",
+        "price": 144.00,
+        "img": "img/b2250-mo.png",
+        "sizetable": "img/sizetable-kaptur.jpeg",
+        "options": {
+            "LOGO": [{"name": "ksp-classics", "display": "KSP"}],
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
+    },
+    "b3250-mo": {
+        "name": "Bluza rozpinana",
+        "badge": "KSP CLASSICS",
+        "collection": "CLASSICS",
+        "price": 164.00,
+        "img": "img/b3250-mo.png",
+        "sizetable": "img/sizetable-zamek.jpeg",
+        "options": {
+            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "KOLOR": [
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Bluza posiada logo KSP i służy jako zamiennik mundurka!</span>"
+    },
+    "b1250-o": {
+        "name": "Bluza bez kaptura",
+        "badge": "UKLO CLASSICS",
+        "collection": "CLASSICS",
+        "price": 144.00,
+        "img": "img/b1250-o.png",
+        "sizetable": "img/sizetable-crew.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Bluza uszyta jest z przyjemnego i miękkiego materiału o gramaturze 250gram/m2.<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b2250-o": {
+        "name": "Bluza z kapturem",
+        "badge": "UKLO CLASSICS",
+        "collection": "CLASSICS",
+        "price": 144.00,
+        "img": "img/b2250-o.png",
+        "sizetable": "img/sizetable-kaptur.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    },
+    "b3250-o": {
+        "name": "Bluza rozpinana",
+        "badge": "UKLO CLASSICS",
+        "collection": "CLASSICS",
+        "price": 164.00,
+        "img": "img/b3250-o.png",
+        "sizetable": "img/sizetable-zamek.jpeg",
+        "options": {
+            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "KOLOR": [
+                {"name": "black", "display": "CZARNY", "img": ""},
+                {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
+                {"name": "borg", "display": "BORDOWY", "img": ""},
+                {"name": "pink", "display": "RÓŻOWY", "img": ""},
+                {"name": "navy", "display": "GRANATOWY", "img": ""}
+            ],
+            "ROZMIAR": [
+                {"name": "xs", "display": "XS"},
+                {"name": "s", "display": "S"},
+                {"name": "m", "display": "M"},
+                {"name": "l", "display": "L"},
+                {"name": "xl", "display": "XL"},
+                {"name": "xxl", "display": "XXL"}
+            ]
+        },
+        "desc": "Gramatura: 250g/m2<br>Skład: 90% bawełny, 10% poliestru<br>Logo wykonane z dżetów (kryształków)<br><span class='text-danger'>Artykuł tylko dla uczniów UKLO!</span>"
+    }
+}
