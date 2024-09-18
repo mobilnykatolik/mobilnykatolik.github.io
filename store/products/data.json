@@ -197,7 +197,7 @@
         "img": "img/b1250-mo.png",
         "sizetable": "img/sizetable-crew.jpeg",
         "options": {
-            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "LOGO": [{"name": "ksp-classics", "display": "KSP"}],
             "KOLOR": [
                 {"name": "navy", "display": "GRANATOWY", "img": ""}
             ],
@@ -243,7 +243,7 @@
         "img": "img/b3250-mo.png",
         "sizetable": "img/sizetable-zamek.jpeg",
         "options": {
-            "LOGO": [{"name": "ksp", "display": "KSP"}],
+            "LOGO": [{"name": "ksp-classics", "display": "KSP"}],
             "KOLOR": [
                 {"name": "navy", "display": "GRANATOWY", "img": ""}
             ],
@@ -266,7 +266,7 @@
         "img": "img/b1250-o.png",
         "sizetable": "img/sizetable-crew.jpeg",
         "options": {
-            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "LOGO": [{"name": "uklo-classics", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
@@ -293,7 +293,7 @@
         "img": "img/b2250-o.png",
         "sizetable": "img/sizetable-kaptur.jpeg",
         "options": {
-            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "LOGO": [{"name": "uklo-classics", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
@@ -320,7 +320,7 @@
         "img": "img/b3250-o.png",
         "sizetable": "img/sizetable-zamek.jpeg",
         "options": {
-            "LOGO": [{"name": "uklo", "display": "UKLO"}],
+            "LOGO": [{"name": "uklo-classics", "display": "UKLO"}],
             "KOLOR": [
                 {"name": "black", "display": "CZARNY", "img": ""},
                 {"name": "gray", "display": "SZARY MELANŻ", "img": ""},
