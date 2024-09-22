@@ -652,6 +652,9 @@
                             if (entryState == "after_casting") {
                                 entryState = `<div class="badge badge-info">SPRAWDZANIE</div>`
                             }
+                            if (entryState == "casting_rejected") {
+                                entryState = `<div class="badge badge-danger">ODRZUCONE PO CASTINGU</div>`
+                            }
                             if (entryState == "qualified") {
                                 entryState = `<div class="badge badge-success">FINAŁ</div>`
                             }
