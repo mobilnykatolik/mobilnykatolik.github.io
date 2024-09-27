@@ -582,7 +582,7 @@
                 orderIDs.push(filteredRows[x][0])
             }
 
-            var file = ["ID;KUPUJĄCY;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;PRODUKT"]
+            var file = ["ID;KUPUJĄCY;ADRES EMAIL;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;PRODUKT"]
 
             for (order in orderIDs) {
                 var orderID = orderIDs[order]
@@ -595,14 +595,16 @@
                         prodOptions.push(products[prod].options[opt].toUpperCase())
                     }
                     prodOptions = prodOptions.join(";")
-                    console.log(products[prod])
+                    //console.log(products[prod])
+                    console.log(orderData)
                     file.push([
                         orderID,
                         orderData.customer,
+                        orderData.email,
                         orderData.paid,
                         orderData.price,
                         orderData.status,
-                        products[prod].name.toUpperCase(),
+                        `${products[prod].name.toUpperCase()} (${products[prod].id.toUpperCase()})`,
                         prodOptions
                     ].join(";"))
                 }
