@@ -232,11 +232,17 @@
                         </div>
                     </div>
                     <div class="row justify-content-end mb-4 mt-1 mr-0">
-                        <a onClick="downloadCsv();" class="btn btn-primary btn-icon-split justify-content-end">
+                        <a onClick="downloadOrdersCsv();" class="btn btn-primary btn-icon-split justify-content-end mx-2">
                             <span class="icon text-white-50">
                                 <i class="fas fa-file-download"></i>
                             </span>
                             <span class="text">Pobierz zamówienia (.csv)</span>
+                        </a>
+                        <a onClick="downloadCsv();" class="btn btn-primary btn-icon-split justify-content-end mx-2">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-file-download"></i>
+                            </span>
+                            <span class="text">Pobierz sumę zamówień (.csv)</span>
                         </a>
                     </div>
                     
@@ -621,6 +627,58 @@
             const a = document.createElement('a');
             a.href = url;
             a.download = 'orders.csv';
+
+            // Dodajemy element <a> do dokumentu, klikamy go i usuwamy
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Zwolnienie pamięci
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadOrdersCsv() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var orderIDs = []
+            for (x in filteredRows) {
+                orderIDs.push(filteredRows[x][0])
+            }
+
+            var file = ["ID;KUPUJĄCY;ADRES EMAIL;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;ZAMÓWIENIE"]
+
+            for (order in orderIDs) {
+                var orderID = orderIDs[order]
+                var orderData = ordersDB[orderID]
+                var products = ordersDB[orderID].products
+                var productsList = []
+
+                for (prod in products) {
+                    productsList.push(`${products[prod].name.toUpperCase()} (${products[prod].id.toUpperCase()})`)
+                }
+                productsList = productsList.join(", ")
+
+                file.push([
+                    orderID,
+                    orderData.customer,
+                    orderData.email,
+                    orderData.paid,
+                    orderData.price,
+                    orderData.status,
+                    productsList
+                ].join(";"))
+            }
+
+            file = file.join("\n")
+
+            // Tworzymy Blob z zawartością CSV
+            const blob = new Blob(['\uFEFF' + file], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            // Tworzymy element <a>, który będzie odpowiedzialny za pobranie pliku
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'orders-list.csv';
 
             // Dodajemy element <a> do dokumentu, klikamy go i usuwamy
             document.body.appendChild(a);
