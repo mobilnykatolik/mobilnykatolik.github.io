@@ -379,7 +379,7 @@
     <!-- Manage Event Modal-->
     <div class="modal fade" id="manageEventModal" tabindex="-1" role="dialog" aria-labelledby="manageEventModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="manageEventModalLabel">Dodaj/modyfikuj wydarzenie</h5>
@@ -389,69 +389,75 @@
                 </div>
                 <form onSubmit="return manageEvent();">
                     <div class="modal-body">
-                        <div class="form-group" style="display: none;">
-                            <label for="manageEventID">ID wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventID">
-                        </div>
-                        <div class="form-group">
-                            <label for="manageEventName">Nazwa wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventName" required>
-                        </div>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group" style="display: none;">
+                                    <label for="manageEventID">ID wydarzenia</label>
+                                    <input type="text" class="form-control" id="manageEventID">
+                                </div>
                                 <div class="form-group">
-                                    <label for="manageEventStartDate">Data rozpoczęcia</label>
-                                    <input type="date" class="form-control" id="manageEventStartDate" required>
+                                    <label for="manageEventName">Nazwa wydarzenia</label>
+                                    <input type="text" class="form-control" id="manageEventName" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="manageEventStartDate">Data rozpoczęcia</label>
+                                            <input type="date" class="form-control" id="manageEventStartDate" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="manageEventStartTime">Godzina</label>
+                                            <input type="time" class="form-control" id="manageEventStartTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="manageEventEndDate">Data zakończenia</label>
+                                            <input type="date" class="form-control" id="manageEventEndDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="manageEventEndTime">Godzina</label>
+                                            <input type="time" class="form-control" id="manageEventEndTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="manageEventDescription">Opis</label>
+                                    <textarea class="form-control" id="manageEventDescription"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="manageEventType">Typ</label>
+                                    <select class="form-control" id="manageEventType" required>
+                                        <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
+                                        <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" class="custom-checkbox" id="manageEventSpecialSuit" aria-describedby="manageEventSpecialSuitHelp">
+                                    <label for="manageEventSpecialSuit" style="margin-bottom: 0;">Specjalny strój</label>
+                                    <small id="manageEventSpecialSuitHelp" class="form-text text-muted">Zaznacz, jeśli na to wydarzenie jest wymagany strój galowy</small>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label for="manageEventStartTime">Godzina</label>
-                                    <input type="time" class="form-control" id="manageEventStartTime">
+                                    <label for="manageEventFor">Odbiorcy</label>
+                                    <select class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp" multiple>
+                                    </select>
+                                    <small id="manageEventForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="manageEventBy">Koordynatorzy</label>
+                                    <select class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" multiple>
+                                    </select>
+                                    <small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label for="manageEventEndDate">Data zakończenia</label>
-                                    <input type="date" class="form-control" id="manageEventEndDate">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="manageEventEndTime">Godzina</label>
-                                    <input type="time" class="form-control" id="manageEventEndTime">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageEventDescription">Opis</label>
-                            <textarea class="form-control" id="manageEventDescription"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageEventType">Typ</label>
-                            <select class="form-control" id="manageEventType" required>
-                                <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
-                                <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageEventFor">Odbiorcy</label>
-                            <select class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp" multiple>
-                            </select>
-                            <small id="manageEventForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="manageEventBy">Koordynatorzy</label>
-                            <select class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" multiple>
-                            </select>
-                            <small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" class="custom-checkbox" id="manageEventSpecialSuit" aria-describedby="manageEventSpecialSuitHelp">
-                            <label for="manageEventSpecialSuit" style="margin-bottom: 0;">Specjalny strój</label>
-                            <small id="manageEventSpecialSuitHelp" class="form-text text-muted">Zaznacz, jeśli na to wydarzenie jest wymagany strój galowy</small>
                         </div>
                     </div>
                     <div class="modal-footer">
