@@ -257,7 +257,7 @@
                         </div>
 
                         <!-- Next event from calendar -->
-                        <div class="col-xl-12 col-md-12 mb-12">
+                        <div class="col-12 col-lg-6 mb-12">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -268,6 +268,24 @@
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Event count -->
+                        <div class="col-12 col-lg-6 mb-12">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Organizujesz w tym roku</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="eventCount">...</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-hand-holding-heart fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -408,6 +426,7 @@
             var today = new Date();
             today = today.toISOString().split('T')[0];
             console.log(eventsdb);
+            var eventCount = 0;
             for (x in eventsdb) {
                 if (!eventsdb[x].by.includes(userID)) {
                     continue;
@@ -428,10 +447,23 @@
                     } else {
                         tillDays = `za ${String(tillDays)} dni`
                     }
-                    
                     document.getElementById("nextEvent").innerHTML = `${eventsdb[x].name} (${tillDays})`;
                     break;
                 }
+            }
+            for (x in eventsdb) {
+                if (eventsdb[x].by.includes(userID)) {
+                    eventCount += 1
+                }
+            }
+            if (String(eventCount) == "0") {
+                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzeń`
+            } else if (String(eventCount) == "1") {
+                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzenie`
+            } else if (!String(eventCount).startsWith("1") && (String(eventCount).endsWith("2") || (String(eventCount).endsWith("3") || String(eventCount).endsWith("4")))) {
+                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzenia`
+            } else {
+                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzeń`
             }
         }
 
