@@ -457,15 +457,13 @@
                                     </select>
                                     <small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                                 </div>
+                                <div class="form-group">
+                                    <label for="manageEventBySearch">Nazwisko, imię</label>
+                                    <input type="text" class="form-control" id="manageEventBySearch" list="suPeople" oninput="checkSearch()">
+                                    <datalist id="suPeople">
+                                    </datalist>
+                                </div>
                                 <h4 id="manageEventByList">
-                                    <div class="badge badge-pill badge-light person">
-                                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv')"></div>
-                                        <span>SAŁEK JAKUB</span>
-                                    </div>
-                                    <div class="badge badge-pill badge-light person">
-                                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv')"></div>
-                                        <span>SAŁEK JAKUB</span>
-                                    </div>
                                 </h4>
                             </div>
                         </div>
@@ -611,9 +609,13 @@
                         document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
                     }   
                     document.getElementById("manageEventBy").innerHTML = "";
+                    document.getElementById("suPeople").innerHTML = "";
                     for (x in userList) {
                         document.getElementById("manageEventBy").innerHTML += `
                         <option value="${x}">${userList[x].lastname} ${userList[x].firstname}</option>
+                        `
+                        document.getElementById("suPeople").innerHTML += `
+                        <option value="${userList[x].lastname} ${userList[x].firstname}">
                         `
                     }
                 }
@@ -982,6 +984,30 @@
                 $('#insufficientPermissionsModal').modal('show')
             }
             
+        }
+
+        function checkSearch() {
+            var person = document.getElementById("manageEventBySearch").value
+            const selectElement = document.getElementById('manageEventBy');
+
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].innerHTML === person) {
+                    selectElement.options[i].selected = true
+                break;
+                }
+            }
+
+            document.getElementById("manageEventByList").innerHTML = "";
+            Array.from(document.getElementById("manageEventBy").options).forEach(option => {
+                if (option.selected) {
+                    document.getElementById("manageEventByList").innerHTML += `
+                    <div class="badge badge-pill badge-light person">
+                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${option.value}')"></div>
+                        <span>${option.innerHTML}</span>
+                    </div>
+                    `
+                }
+            });
         }
 
     </script>
