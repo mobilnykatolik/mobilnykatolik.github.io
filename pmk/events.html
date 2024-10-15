@@ -453,13 +453,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="manageEventBy">Koordynatorzy</label>
-                                    <select class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" multiple>
+                                    <select class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" multiple hidden>
                                     </select>
-                                    <small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manageEventBySearch">Nazwisko, imię</label>
-                                    <input type="text" class="form-control" id="manageEventBySearch" list="suPeople" oninput="checkSearch()">
+                                    <!--<small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>-->
+                                    <input type="text" class="form-control" id="manageEventBySearch" list="suPeople" oninput="checkSearch()" placeholder="Nazwisko i imię">
                                     <datalist id="suPeople">
                                     </datalist>
                                 </div>
@@ -849,17 +846,12 @@
                     option.selected = true;
                 }});
                 document.getElementById("manageEventBy").value = "";
-                document.getElementById("manageEventByList").innerHTML = "";
+                document.getElementById("manageEventBySearch").value = "";
                 Array.from(document.getElementById("manageEventBy").options).forEach(option => {
                 if (eventsdb[eventid].by.includes(option.value)) {
                     option.selected = true;
-                    document.getElementById("manageEventByList").innerHTML += `
-                    <div class="badge badge-pill badge-light person">
-                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${option.value}')"></div>
-                        <span>${option.innerHTML}</span>
-                    </div>
-                    `
                 }});
+                reloadByList()
 
                 if (document.getElementById("manageEventType").value == "szkolne") {
                     document.getElementById("manageEventBy").disabled = "disabled";
@@ -889,6 +881,7 @@
                 document.getElementById("manageEventFor").value = "";
                 document.getElementById("manageEventBy").value = userID;
                 document.getElementById("manageEventBy").disabled = "";
+                reloadByList()
                 document.getElementById("manageEventSpecialSuit").checked = "";
                 if (userAccess >= 4) {
                     document.getElementById("manageEventTypeSzkolne").disabled = ""
@@ -997,11 +990,24 @@
                 }
             }
 
+            reloadByList()
+        }
+
+        function removePerson(person) {
+            Array.from(document.getElementById("manageEventBy").options).forEach(option => {
+                if (option.value == person) {
+                    option.selected = false;
+                }
+            });
+            reloadByList()
+        }
+
+        function reloadByList() {
             document.getElementById("manageEventByList").innerHTML = "";
             Array.from(document.getElementById("manageEventBy").options).forEach(option => {
                 if (option.selected) {
                     document.getElementById("manageEventByList").innerHTML += `
-                    <div class="badge badge-pill badge-light person">
+                    <div class="badge badge-pill badge-light person" onClick="removePerson('${option.value}')">
                         <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${option.value}')"></div>
                         <span>${option.innerHTML}</span>
                     </div>
