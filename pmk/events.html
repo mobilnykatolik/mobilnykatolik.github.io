@@ -457,6 +457,16 @@
                                     </select>
                                     <small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
                                 </div>
+                                <h4 id="manageEventByList">
+                                    <div class="badge badge-pill badge-light person">
+                                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv')"></div>
+                                        <span>SAŁEK JAKUB</span>
+                                    </div>
+                                    <div class="badge badge-pill badge-light person">
+                                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv')"></div>
+                                        <span>SAŁEK JAKUB</span>
+                                    </div>
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -837,9 +847,16 @@
                     option.selected = true;
                 }});
                 document.getElementById("manageEventBy").value = "";
+                document.getElementById("manageEventByList").innerHTML = "";
                 Array.from(document.getElementById("manageEventBy").options).forEach(option => {
                 if (eventsdb[eventid].by.includes(option.value)) {
                     option.selected = true;
+                    document.getElementById("manageEventByList").innerHTML += `
+                    <div class="badge badge-pill badge-light person">
+                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${option.value}')"></div>
+                        <span>${option.innerHTML}</span>
+                    </div>
+                    `
                 }});
 
                 if (document.getElementById("manageEventType").value == "szkolne") {
