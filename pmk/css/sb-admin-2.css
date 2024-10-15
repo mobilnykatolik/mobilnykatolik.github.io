@@ -4863,7 +4863,7 @@ input[type="button"].btn-block {
   width: auto;
   vertical-align: middle;
   margin-right: 0.2em;
-  background-size: contain;
+  background-size: cover;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   display: inline-block;
