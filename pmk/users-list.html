@@ -732,6 +732,10 @@
                                     var points = 0
                                 }
 
+                                if (data[entry].access != 0) {
+                                    data[entry].access = `${data[entry].access}<span style="display: none;">#SU</span>`
+                                }
+
                                 document.getElementById("users-list-table").innerHTML += `
                                     <tr id="${entry}">
                                         <td>${data[entry].firstname}</td>
