@@ -661,6 +661,20 @@ container.badge {
     height: auto;
 }
 
+container.badge.grey {
+    display: inline-block;
+    width: fit-content;
+    position: relative;
+    background-color: #858796;
+    padding: 2px 3px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 10px;
+    vertical-align: middle;
+    margin: -3px 5px 0 0;
+    height: auto;
+}
+
 /* Kupony */
 .coupon {
     height: calc(100% - 4px)!important;
