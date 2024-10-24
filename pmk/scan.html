@@ -407,7 +407,7 @@
     var failureAudio = new Audio('img/failure.wav');
 
     if (TEID == undefined && PEID == undefined) {
-        window.location = "index.html";
+        //window.location = "index.html";
     }
 
     const video = document.getElementById('qr-scanner');
@@ -421,12 +421,12 @@
         console.log('QR Code detected:', result);
         // Handle the scanned QR code data
         // You can perform any action here with the scanned data
-        if (result.length == 9 && TEID != undefined) {
+        if (result.starstWith("C-")) {
+            qrScanner.stop();
+            scanCoupon(result);
+        } else if (result.length == 9 && TEID != undefined) {
             qrScanner.stop();
             scanTicket(result);
-        } else if (PEID != undefined && result.length == 9) {
-            qrScanner.stop()
-            scanCoupon(result)
         } else if (PEID != undefined) {
             qrScanner.stop();
             scanUser(result);
@@ -512,7 +512,6 @@ function scanTicket(ticketID) {
 
 function scanCoupon(couponID) {
     var data = {
-        "peid": PEID,
         "couponid": couponID
     }
 

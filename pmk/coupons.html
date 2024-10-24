@@ -861,7 +861,7 @@
                 var coupon = couponsDB[x]
                 dataTable.row.add([
                     x,
-                    coupon.userid,
+                    `${userDB[coupon.userid].firstname} ${userDB[coupon.userid].lastname}, ${userDB[coupon.userid].class.toUpperCase()}`,
                     coupon.cost,
                     `
                     <button onClick="returnCoupon('${x}')">Zwróć</button>
@@ -886,12 +886,14 @@
                 if (xhr.readyState === 4) {
                     console.log(xhr.responseText)
                     if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
+                        //$('#apiResponseModal').modal('show')
                         document.getElementById("apiResponse").innerHTML = xhr.responseText;
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)
-                        reloadDB();
+                        //reloadDB();
+                        delete couponsDB[couponID];
+                        drawTable();
                     } else if (xhr.status == 403) {
                         $('#insufficientPermissionsModal').modal('show')
                         setTimeout(function() {
