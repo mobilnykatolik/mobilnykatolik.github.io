@@ -679,7 +679,7 @@ container.badge.grey {
 .coupon {
     height: calc(100% - 4px)!important;
     width: calc(100% - 4px)!important;
-    /*background-color: var(--additional);*/
+    background-color: var(--additional);
     border-radius: 20px;
     display: flex;
     justify-content: center;

@@ -3688,6 +3688,12 @@ input[type="button"].btn-block {
   transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #1cc88a;
+  background-color: #1cc88a;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .custom-switch .custom-control-label::after {
     transition: none;
