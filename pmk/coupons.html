@@ -245,6 +245,46 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Kupony użytkowników</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="ECID-select">Kupon</label>
+                                        <select class="form-control" id="ECID-select" onChange="drawTable();" required>
+                                            <option value="" selected disabled hidden>Proszę czekać...</option>
+                                        </select>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Właściciel</th>
+                                                    <th>Koszt</th>
+                                                    <th>Akcje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="user-coupons-table">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <a class="btn btn-primary btn-icon-split justify-content-end" href="#" data-toggle="modal" data-target="#grantCouponModal">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                            <span class="text">Przyznaj kupon</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     
 
                 </div>
@@ -408,6 +448,41 @@
         </div>
     </div>
 
+    <!-- Grant Coupon Modal-->
+    <div class="modal fade" id="grantCouponModal" tabindex="-1" role="dialog" aria-labelledby="grantCouponModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="grantCouponModalLabel">Przyznaj kupon</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return grantCoupon();">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="grantCouponECID">Kupon</label>
+                            <select id="grantCouponECID" class="form-control" required>
+                                <option value="" hidden selected disabled>Proszę czekać...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addTicketOwner">Właściciel kuponu</label>
+                            <select id="grantCouponOwner" class="form-control" required>
+                                <option value="" hidden selected disabled>Proszę czekać...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Modal -->
     <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -496,10 +571,12 @@
         //$('#insufficientPermissionsModal').modal('show')
         var eventsdb = {}
         var eventCouponsDB = {}
+        var couponsDB = {}
         var classes;
+        var userDB = {}
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/coupons`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -508,14 +585,7 @@
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
-                    eventsdb = data;
-                    eventsdb = Object.fromEntries(
-                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
-                            const date1 = new Date(event1.startdate);
-                            const date2 = new Date(event2.startdate);
-                            return date1 - date2;
-                        })
-                    );
+                    couponsDB = data;
 
                     //Pobieranie listy kuponów
                     var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
@@ -526,7 +596,22 @@
                     if (xhrA.readyState === 4) {
                         if (xhrA.status == 200) {
                             eventCouponsDB = JSON.parse(xhrA.responseText);
+                            document.getElementById("ECID-select").innerHTML = `
+                                <option value="" selected disabled>Wybierz kupon</option>
+                            `
+                            document.getElementById("grantCouponECID").innerHTML = `
+                                <option value="" selected disabled>Wybierz kupon</option>
+                            `
+                            for (x in eventCouponsDB) {
+                                document.getElementById("ECID-select").innerHTML += `
+                                    <option value="${x}">${eventCouponsDB[x].name}</option>
+                                `
+                                document.getElementById("grantCouponECID").innerHTML += `
+                                    <option value="${x}">${eventCouponsDB[x].name}</option>
+                                `
+                            }
                             generateTable();
+                            drawTable();
                         } else if (xhrA.status == 403) {
                             $('#insufficientPermissionsModal').modal('show')
                         } else {
@@ -556,6 +641,28 @@
                     }};
 
                     xhrB.send();
+
+                    //Pobieranie użytkowników
+                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+                    var xhrC = new XMLHttpRequest();
+                    xhrC.open("GET", url);
+
+                    xhrC.onreadystatechange = function () {
+                    if (xhrC.readyState === 4) {
+                        if (xhrC.status == 200) {
+                            userDB = JSON.parse(xhrC.responseText)
+                            document.getElementById("grantCouponOwner").innerHTML = `
+                                <option value="" selected disabled>Wybierz użytkownika</option>
+                            `
+                            for (x in userDB) {
+                                document.getElementById("grantCouponOwner").innerHTML += `
+                                    <option value="${x}">${userDB[x].lastname} ${userDB[x].firstname}</option>
+                                `
+                            }
+                        }
+                    }};
+
+                    xhrC.send();
                     
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
@@ -734,6 +841,115 @@
         function deleteCouponEventModal() {
             $('#manageCouponEventModal').modal('hide')
             $('#confirmDeleteModal').modal('show')
+        }
+
+
+
+        //Kupony użytkowników
+        function drawTable() {
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            dataTable.draw();
+
+            var ECID = document.getElementById("ECID-select").value;
+            if (ECID == "") {
+                return false;
+            }
+
+            for (x in couponsDB) {
+                //ID, WŁAŚCICIEL, KOSZT, AKCJE
+                var coupon = couponsDB[x]
+                dataTable.row.add([
+                    x,
+                    coupon.userid,
+                    coupon.cost,
+                    `
+                    <button onClick="returnCoupon('${x}')">Zwróć</button>
+                    `
+                ]).draw();
+            }
+        }
+
+        function returnCoupon(couponID) {
+            $('#loadingModal').modal('show')
+            var data = {
+                "cid": couponID
+            }
+            
+            var url = `https://apimobilnykatolik.glitch.me/coupons/return`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.responseText)
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify(data));
+            return false;
+        }
+
+        function grantCoupon() {
+            $('#grantCouponModal').modal('hide')
+            $('#loadingModal').modal('show')
+            var data = {
+                "ecid": document.getElementById("grantCouponECID").value,
+                "userid": document.getElementById("grantCouponOwner").value
+            }
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/points/coupons/grant/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.responseText)
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify(data));
+            return false;
         }
 
     </script>
