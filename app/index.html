@@ -1227,6 +1227,7 @@ function switchNotifications() {
         window.alert("Urządzenie nie obsługuje powiadomień!");
         return false;
     }
+    showSplash()
     if (document.getElementById("notificationssettings-switch").checked) { //Przełącznik został włączony
         if (Notification.permission == "denied") {
             document.getElementById("notificationssettings-switch").checked = "";
@@ -1253,6 +1254,7 @@ function switchNotifications() {
 
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4) {
+                            hideSplash()
                             if (xhr.status == 200) {
                                 document.getElementById("notificationssettings-details").style.display = "block";
                                 return false;
@@ -1291,6 +1293,7 @@ function switchNotifications() {
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
+                hideSplash()
                 if (xhr.status == 200) {
                     return false;
                 } else {
@@ -1385,6 +1388,13 @@ function openLoginPopup() {
 function changeColor(color) {
     document.getElementById("startup-logo-icon-color").style.fill = color;
     document.getElementById("startup-logo-loading-color").style.stroke = color;
+}
+
+function showSplash() {
+    document.getElementById("splash-screen").style.display = "block";
+    setTimeout(function() {
+        document.getElementById("splash-screen").style.opacity = "100%";
+    }, 300)
 }
 
 function hideSplash() {
