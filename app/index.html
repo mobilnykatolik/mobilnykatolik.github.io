@@ -1234,6 +1234,8 @@ function switchNotifications() {
         if (Notification.permission == "denied") {
             document.getElementById("notificationssettings-switch").checked = "";
             window.alert("Zezwól na wysyłanie powiadomień przez aplikację Mobilny Katolik w ustawieniach telefonu.\nW razie potrzeby, wyślij zgłoszenie w zakładce Zgłoś problem.");
+            document.getElementById("notificationssettings-switch").style.display = "inline-block"
+            document.getElementById("notificationssettings-switch-loading").style.display = "none"
             return false;
         } else if (Notification.permission == "default" || Notification.permission == "granted") {
             navigator.serviceWorker.getRegistration().then(registration => {
