@@ -572,6 +572,7 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
     height: 125px;
 }
 
@@ -772,7 +773,6 @@ container.badge.grey {
 
 .coupon-overlay #coupon-info {
     font-size: 15px;
-    color: #000000;
     margin: 10px 0 0 0;
 }
 
@@ -811,4 +811,27 @@ container.badge.grey {
     font-size: 4cqw;
     color: #ffffff;
     width: fit-content;
+}
+
+.ticket-box { 
+    display: flex;
+    padding: 20px;
+    height: 90px;
+    border-radius: 20px;
+    width: calc(100% - 40px);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.ticket-icon {
+    height: 130px;
+    aspect-ratio: 1 / 1;
+    border-radius: 0px 20px 20px 0px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: -20px;
 }

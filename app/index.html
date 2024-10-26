@@ -1557,7 +1557,7 @@ function startApplication() {
                     ticketStateColor = "#ff0000"
                 }
                 console.log(data.usertickets[ticket]);
-                var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')">
+                /*var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')">
                     <div style="height: 130px; background-color: ${data.usertickets[ticket].colors[0]}; width: 100%; border-radius: 20px;">
                         <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
                             <div style="height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat; background-image: url('${data.usertickets[ticket].icon_url}')"></div>
@@ -1566,6 +1566,15 @@ function startApplication() {
                                 <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
                             </div>
                         </div>
+                    </div>
+                </li>`*/
+                var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')">
+                    <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
+                        <div>
+                            <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
+                            <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
+                        </div>
+                        <div class="ticket-icon" style="background-image: url('${data.usertickets[ticket].icon_url}')"></div>
                     </div>
                 </li>`
                 document.getElementById("my-tickets").innerHTML += ticketData;
