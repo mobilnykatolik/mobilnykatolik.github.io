@@ -2,44 +2,6 @@ const steps = ["introduction", "signin", "signup", "processing", "code", "succes
 var step = 0;
 var email;
 var accountType = "mk";
-var facebookUserId;
-
-//Logowanie Facebook
-function loginWithFacebook() {
-    accountType = "fb";
-    changeStep(3);
-  FB.login(function(response) {
-    if (response.authResponse) {
-      console.log('Zalogowano przez Facebook!');
-      console.log(response.authResponse); // Tutaj znajdziesz informacje o użytkowniku
-      checkFbCredentials(response.authResponse.userID);
-      facebookUserId = response.authResponse.userID;
-    } else {
-      console.log('Logowanie anulowane.');
-      changeStep(0);
-      accountType = "mk"
-    }
-  }); // Określ zakres uprawnień dostępu
-}
-
-function checkFbCredentials(accessToken) {
-    let req = new XMLHttpRequest();
-
-    req.onreadystatechange = () => {
-        if (req.readyState == XMLHttpRequest.DONE) {
-            if (req.status == 200) {
-                //Użytkownik figuruje w bazie danych
-                window.opener.postMessage(`${req.responseText}`, "*");
-            } else {
-                //Użytkownik nowy
-                setTimeout(changeStep(2), 500);
-            }
-        }
-    };
-
-    req.open("GET", `https://apimobilnykatolik.glitch.me/auth/${accessToken}`, true);
-    req.send();
-};
 
 function onLoad() {
     document.getElementById(steps[step]).title = "opened";
@@ -81,7 +43,7 @@ function changeStep(newStep) {
 
 function signIn() {
     document.getElementById("signin-notification").innerHTML = "";
-    email = document.getElementById("signin-email").value;
+    email = document.getElementById("signin-email").value.replaceAll(" ", "");
     if (!email.includes("@")) {
         document.getElementById("signin-notification").innerHTML = "ℹ Wprowadź prawidłowy adres e-mail!"
         document.getElementById("signin-email").focus();
@@ -129,7 +91,7 @@ function signUp() {
     //kolejnosc weryfikacji: imie, nazwisko, email, klasa, zgoda
     var firstname = document.getElementById("signup-firstname").value.toUpperCase().replaceAll(" ", "");
     var lastname = document.getElementById("signup-lastname").value.toUpperCase().replaceAll(" ", "");
-    email = document.getElementById("signup-email").value;
+    email = document.getElementById("signup-email").value.replaceAll(" ", "");
     var userclass = document.getElementById("signup-class").value;
     var rodo = document.getElementById("signup-rodo").checked;
 
@@ -173,29 +135,6 @@ function signUp() {
     return false;
 }
 
-function registerFbUser(firstname, lastname, userclass) {
-    console.log("Rejestracja użytkownika FB");
-    console.log({firstname, lastname, userclass});
-    var url = "https://apimobilnykatolik.glitch.me/fb/register";
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status == 200) {
-                window.opener.postMessage(`${xhr.responseText}`, "*");
-            } else {
-                changeStep(2);
-                document.getElementById("signup-notification").innerHTML = "ℹ Wystąpił problem komunikacji z API. Spróbuj ponownie!"
-            }
-        }
-    };
-
-    var data = `{"firstname": "${firstname}","lastname": "${lastname}","class": "${userclass}","loginid":"${facebookUserId}"}`;
-    xhr.send(data);
-}
-
 function sendSignUpCode(firstname, lastname, userclass) {
     var url = "https://apimobilnykatolik.glitch.me/register";
     var xhr = new XMLHttpRequest();
@@ -214,6 +153,9 @@ function sendSignUpCode(firstname, lastname, userclass) {
             } else if (xhr.status == 403) {
                 changeStep(2);
                 document.getElementById("signup-notification").innerHTML = "ℹ Podany adres e-mail jest już przypisany do innego konta! Spróbuj się zalogować."
+            } else if (xhr.status == 406) {
+                    changeStep(2);
+                    document.getElementById("signup-notification").innerHTML = "ℹ Konto na podane dane osobowe zostało już zarejestrowane! Spróbuj się zalogować."
             } else if (xhr.status == 404) {
               changeStep(2);
                 document.getElementById("signup-notification").innerHTML = "ℹ Nie znaleziono na liście uczniów szkoły. Sprawdź, czy dane osobowe są wpisane prawidłowo."
@@ -260,7 +202,7 @@ function sendCodeToAPI(code) {
         window.opener.postMessage(`${xhr.responseText}`, "*");
       } else if (xhr.status == 406) { //Invalid code	
         changeStep(4);	
-        document.getElementById("code-notification").innerHTML = "ℹ Kod nieprawdiłowy!"	
+        document.getElementById("code-notification").innerHTML = "ℹ Kod nieprawidłowy!"	
       } else if (xhr.status == 410) { //Code has expired	
         changeStep(4);	
         document.getElementById("code-notification").innerHTML = "ℹ Kod wygasł. Zaloguj się ponownie!"	
