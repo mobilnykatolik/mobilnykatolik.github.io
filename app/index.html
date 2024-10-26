@@ -735,6 +735,7 @@
             <div type="ind">
                 <aside>
                     <input type="checkbox" id="notificationssettings-switch" onchange="switchNotifications();">
+                    <div class="checkbox-loading" style="display: none;" id="notificationssettings-switch-loading"></div>
                 </aside>
                 <span>
                     Włącz powiadomienia
@@ -1227,7 +1228,8 @@ function switchNotifications() {
         window.alert("Urządzenie nie obsługuje powiadomień!");
         return false;
     }
-    showSplash()
+    document.getElementById("notificationssettings-switch").style.display = "none"
+    document.getElementById("notificationssettings-switch-loading").style.display = "inline-block"
     if (document.getElementById("notificationssettings-switch").checked) { //Przełącznik został włączony
         if (Notification.permission == "denied") {
             document.getElementById("notificationssettings-switch").checked = "";
@@ -1254,7 +1256,8 @@ function switchNotifications() {
 
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4) {
-                            hideSplash()
+                            document.getElementById("notificationssettings-switch").style.display = "inline-block"
+                            document.getElementById("notificationssettings-switch-loading").style.display = "none"
                             if (xhr.status == 200) {
                                 document.getElementById("notificationssettings-details").style.display = "block";
                                 return false;
@@ -1293,7 +1296,8 @@ function switchNotifications() {
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
-                hideSplash()
+                document.getElementById("notificationssettings-switch").style.display = "inline-block"
+                document.getElementById("notificationssettings-switch-loading").style.display = "none"
                 if (xhr.status == 200) {
                     return false;
                 } else {
