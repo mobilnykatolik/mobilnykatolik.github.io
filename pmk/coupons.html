@@ -853,12 +853,15 @@
 
             var ECID = document.getElementById("ECID-select").value;
             if (ECID == "") {
-                return false;
+                //return false;
             }
 
             for (x in couponsDB) {
                 //ID, WŁAŚCICIEL, KOSZT, AKCJE
                 var coupon = couponsDB[x]
+                if (coupon.ecid != ECID) {
+                    continue;
+                }
                 dataTable.row.add([
                     x,
                     `${userDB[coupon.userid].firstname} ${userDB[coupon.userid].lastname}, ${userDB[coupon.userid].class.toUpperCase()}`,
