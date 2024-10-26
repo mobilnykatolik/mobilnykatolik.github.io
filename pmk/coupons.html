@@ -230,18 +230,20 @@
                             <h6 class="m-0">Lista kuponów</h6>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr style="background-color: #f8f9fc;">
-                                        <th>Nazwa</th>
-                                        <th>Koszt</th>
-                                        <th>Dostępność</th>
-                                        <th>Akcje</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="available-coupons-list">
-                                </tbody>
-                            </table>
+                            <div style="overflow: auto;">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fc;">
+                                            <th>Nazwa</th>
+                                            <th>Koszt</th>
+                                            <th>Dostępność</th>
+                                            <th>Akcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="available-coupons-list">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -867,7 +869,9 @@
                     `${userDB[coupon.userid].firstname} ${userDB[coupon.userid].lastname}, ${userDB[coupon.userid].class.toUpperCase()}`,
                     coupon.cost,
                     `
-                    <button onClick="returnCoupon('${x}')">Zwróć</button>
+                    <button class="btn btn-sm btn-primary" type="button" onClick="returnCoupon('${x}')">
+                        Zwróć
+                    </button>
                     `
                 ]).draw();
             }
