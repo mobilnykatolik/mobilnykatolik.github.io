@@ -417,17 +417,6 @@
         <p style="font-size: 18px;">Dostępne bilety</p>
         <div style="margin-top: 10px;" class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
             <ul id="available-tickets" class="slider-container py-4">
-                <li class="slide-visible" id="crime-party-available" style="display: none;">
-                    <div style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
-                        <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
-                            <div style="height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat; background-image: url('https://i.imgur.com/uUtCdSy.png')"></div>
-                            <div style="position: absolute; top: 50%; translate: 0 -50%; width: calc(100% - 40px);">
-                                <p style="color: #ffffff;">Hollywood Party</p>
-                                <button type="button" style="margin: unset; margin-top: 15px;" onclick="window.open('#getticketapp', '_self')">20,00 zł</button>
-                            </div>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -1520,12 +1509,15 @@ function startIntroduction() {
 }
 
 //Start application
-function startApplication() {
+function startApplication(reload) {
     /*window.alert("Trwają prace serwisowe. Dostęp do aplikacji tymczasowo niemożliwy.");
     location.reload();
     return false;*/
     console.log("Uruchamiam aplikację");
-    window.location.href = "#home";
+    if (!reload) {
+        window.location.href = "#home";
+    }
+    
     var url = `https://apimobilnykatolik.glitch.me/sync/${loginid}`;
 
     var xhr = new XMLHttpRequest();
@@ -1550,11 +1542,6 @@ function startApplication() {
                 document.getElementById("joinsu-banner").style.display = "none";
                 document.getElementById("pmk-badge").style.display = "inline";
                 document.getElementById("su-settings-section").style.display = "block";
-            }
-            if (["1lo", "2lo", "3lo", "4lo"].includes(userClass)) {
-                document.getElementById("crime-party-available").style.display = "none";
-            } else {
-                document.getElementById("crime-party-available").style.display = "none";
             }
             if (data.orders != undefined) {
                 ordersdb = data.orders;
@@ -1611,6 +1598,13 @@ function startApplication() {
             ticketsdb = data.usertickets;
             for (ticket in data.usertickets) {
                 if (data.usertickets[ticket].used == true) {
+                    if (document.getElementById(`ticket-box-${ticket}`) != undefined) {
+                        document.getElementById(`ticket-box-${ticket}`).remove()
+                        document.getElementById(`home-ticket-box-${ticket}`).remove()
+                    }
+                    continue;
+                }
+                if (document.getElementById(`ticket-box-${ticket}`) != undefined) {
                     continue;
                 }
                 var ticketState, ticketStateColor;
@@ -1641,7 +1635,16 @@ function startApplication() {
                         </div>
                     </div>
                 </li>`*/
-                var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')">
+                var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')" id="ticket-box-${ticket}">
+                    <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
+                        <div>
+                            <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
+                            <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
+                        </div>
+                        <div class="ticket-icon" style="background-image: url('${data.usertickets[ticket].icon_url}')"></div>
+                    </div>
+                </li>`
+                var ticketDataHome = `<li class="slide-visible" onClick="showTicket('${ticket}')" id="home-ticket-box-${ticket}">
                     <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
                         <div>
                             <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
@@ -1651,12 +1654,13 @@ function startApplication() {
                     </div>
                 </li>`
                 document.getElementById("my-tickets").innerHTML += ticketData;
-                document.getElementById("home-slider").innerHTML = ticketData + document.getElementById("home-slider").innerHTML;
+                document.getElementById("home-slider").innerHTML = ticketDataHome + document.getElementById("home-slider").innerHTML;
             }
 
             ticketEventsDB = data.tickets;
             for (ticket in data.tickets) {
-                var ticketData = `<li class="slide-visible">
+                if (document.getElementById(`available-ticket-${ticket}`) != undefined) { continue }
+                var ticketData = `<li class="slide-visible" id="available-ticket-${ticket}">
                     <div style="height: 130px; background-color: ${data.tickets[ticket].colors[0]}; width: 100%; border-radius: 20px;">
                         <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
                             <div style="background-image: url('${data.tickets[ticket].icon_url}'); height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat;"></div>
@@ -1683,8 +1687,11 @@ function startApplication() {
             //Coupons
             couponsDB = data.coupons
             userCouponsDB = data.usercoupons
+            document.getElementById("active-coupons").innerHTML = ""
+            document.getElementById("my-coupons").innerHTML = ""
             
             for (coupon in userCouponsDB) {
+                if (document.getElementById(`coupon-${coupon}`) != undefined) { continue }
                 var couponData = `
                     <li class="slide-visible">
                         <div class="coupon owned" id="coupon-${coupon}" onClick="showCoupon('${coupon}')">
@@ -1695,7 +1702,7 @@ function startApplication() {
                     </li>
                 `
                 document.getElementById("my-coupons").innerHTML += couponData
-                document.getElementById("active-coupons").innerHTML += couponData
+                document.getElementById("active-coupons").innerHTML = couponData + document.getElementById("active-coupons").innerHTML
             }
             document.getElementById("activated-coupons-amount").innerHTML = `Aktywowane kupony: ${Object.keys(userCouponsDB).length}`
 
@@ -1707,7 +1714,7 @@ function startApplication() {
                         </div>
                     </li>
                 `
-                document.getElementById("active-coupons").innerHTML += couponData
+            document.getElementById("active-coupons").innerHTML += couponData
 
             //Sortowanie według ceny
             couponsDB = Object.fromEntries(
@@ -1715,6 +1722,7 @@ function startApplication() {
             );
 
             for (coupon in couponsDB) {
+                if (document.getElementById(`ecid-${coupon}`) != undefined) { continue }
                 if (data.points.points >= couponsDB[coupon].cost) {
                     var couponData = `
                     <li class="slide-visible">
@@ -1889,7 +1897,7 @@ const orderStatus = ["Oczekuje na wpłatę", "Zamówienie opłacone", "W realiza
 
 function loadOrders() {
     const template = `
-    <li class="slide-visible">
+    <li class="slide-visible" id="order-[ORDER_ID]">
         <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px;">
             <div style="padding: 20px;height: calc(100% - 40px);width: calc(100% - 40px);">
                 <img src="../src/img/shopping-bags.png" style="height: 100%; position: absolute; right: 0; bottom: 0; opacity: 50%; border-radius: 20px;">
@@ -1901,6 +1909,7 @@ function loadOrders() {
     </li>`
 
     for (order in ordersdb) {
+        if (document.getElementById(`order-${order}`) != undefined) {continue}
         var orderWindow = template.replaceAll("[ORDER_ID]", order);
         orderWindow = orderWindow.replaceAll("[ORDER_STATUS]", orderStatus[parseInt(ordersdb[order].status)]);
         document.getElementById("home-slider").innerHTML = orderWindow + document.getElementById("home-slider").innerHTML;
@@ -2135,6 +2144,7 @@ function loadSLS(slsData) {
 }
 
 function loadCalendar() {
+    document.getElementById("event-list").innerHTML = ""
     eventsdb = Object.fromEntries(
         Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
             const date1 = new Date(event1.startdate);
@@ -2342,5 +2352,11 @@ function logOut() {
         location.reload();
     }  
 }
+
+navigator.serviceWorker.addEventListener('message', function(event) {
+    const message = event.data;
+
+    window.alert(message.action)
+});
 
 </script>

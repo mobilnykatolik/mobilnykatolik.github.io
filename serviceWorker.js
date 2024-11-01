@@ -73,4 +73,12 @@ self.addEventListener("push", event => {
       timestamp: context.timestamp
     };
    self.registration.showNotification(context.title, options);
+
+   if (context.action != undefined) {
+        self.clients.matchAll().then(clients => {
+            clients.forEach(client => {
+                client.postMessage({action: context.action});
+            });
+        });
+    }
 })
