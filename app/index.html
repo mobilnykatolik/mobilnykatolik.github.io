@@ -1196,6 +1196,9 @@ window.addEventListener("hashchange", function(event) {
             const element = document.getElementById("calendar-event-"+nextEventID);
             element.scrollIntoView();
         }
+        if (window.location.href.endsWith("qr")) {
+            startApplication(true);
+        }
     }, 10);
 });
 
