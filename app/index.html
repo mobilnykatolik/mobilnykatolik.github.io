@@ -195,7 +195,7 @@
                     </div>
                 </div>
             </li>
-            <li class="slide-visible" onclick="window.open('#qrapp', '_self')">
+            <li class="slide-visible" onclick="window.open('#qr', '_self')">
                 <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px;">
                     <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
                         <div style="position: relative; top: 50%; transform: translate(0, -50%);">
@@ -213,7 +213,7 @@
     </div>
 
     <div style="height: 80px; width: 100%; font-size: 14px;">
-        <div style="width: calc(100% / 3); height: 100%; float: left;" onclick="window.open('#pointsapp', '_self')">
+        <div style="width: calc(100% / 3); height: 100%; float: left;" onclick="window.open('#qr', '_self')">
             <div style="background-color: var(--additional2); height: 80%; aspect-ratio: 1/1; border-radius: 50%; margin: auto; margin-bottom: 5px; line-height: 64px; text-align: center; font-size: 25px;">🐟</div>
             <div style="height: 20%; text-align: center;">Wirtualne rybki</div>
         </div>
@@ -251,7 +251,7 @@
                 <aside>📸</aside>
                 <span>Profil SU na Instagramie</span>
             </div>
-            <div type="ind" onclick="window.open('#pointsapp', '_self')">
+            <div type="ind" style="display: none;" onclick="window.open('#pointsapp', '_self')">
                 <aside>🐟</aside>
                 <span>Wirtualne rybki</span>
             </div>
@@ -314,7 +314,7 @@
 
                 </div>
                 <div class="points-ring" style="height: 70%; aspect-ratio: 1/1; top: 50%; position: relative; translate: 15px -50%; border: 3px solid var(--theme-color); border-radius: 50%; text-align: center; font-size: 30px; line-height: 91px;">
-                    <span id="points-amount">0</span>
+                    <span>0</span>
                     <div style="width: 45%; height: 20px; background-color: var(--additional); margin: auto; position: relative; top: -15px; border-radius: 40px; line-height: 100%; font-size: 23px;">🐟</div>
                 </div>
             </div>
@@ -368,19 +368,22 @@
     </div>
 </div>
 
-<div class="page" id="qrapp">
-    <div class="page-name">
-        <svg onClick="history.back();" version="1.0" xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px; position: absolute; left: 15px; margin-top: 2px;" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
-            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" style="fill: var(--theme-color); transition: fill 0.5s ease;" stroke="none">
-            <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
-            </g>
-        </svg>
-        Twój kod QR
-    </div>
-    <div class="page-content" style="display: flex; flex-direction: column; justify-content: center;">
-        <div>
-            <div id="qrcode"></div>
-            <div id="qrdetails">
+<div class="page" id="qr">
+    <div style="overflow: auto; height: 100%;">
+        <div class="qr-waves">
+            <div class="qr-wave-1"></div>
+            <div class="qr-wave-2"></div>
+            <div class="qr-wave-3"></div>
+        </div>
+        <div class="qr-bg">
+            <h1 id="points-amount"></h1>
+            <h2 id="activated-coupons-amount">Aktywowane kupony: 0</h2>
+        </div>
+        <div class="qr" id="qrcode">
+
+        </div>
+        <div style="padding: 20px; width: calc(100% - 40px);">
+            <div>
                 
             </div>
         </div>
@@ -941,6 +944,73 @@
                 </g>
             </svg>
         </div>
+        <!--QR icon-->
+        <div onclick="window.open('#qr', '_self')">
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+                preserveAspectRatio="xMidYMid meet">
+                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                class="menubar-icon" stroke="none" id="menubar-qr">
+                <path d="M523 4945 c-175 -48 -317 -195 -353 -368 -7 -35 -10 -226 -8 -584 3
+                -519 3 -532 24 -559 39 -53 71 -69 134 -69 63 0 95 16 134 69 20 27 21 42 26
+                566 5 524 6 539 26 566 11 15 33 37 48 48 27 20 42 21 566 26 524 5 539 6 566
+                26 53 39 69 71 69 134 0 63 -16 95 -69 134 -27 21 -39 21 -569 23 -442 2 -552
+                -1 -594 -12z"/>
+                <path d="M3455 4946 c-118 -51 -124 -224 -11 -289 15 -9 160 -13 558 -17 522
+                -5 537 -6 564 -26 15 -11 37 -33 48 -48 20 -27 21 -42 26 -566 5 -524 6 -539
+                26 -566 39 -53 71 -69 134 -69 63 0 95 16 134 69 21 27 21 40 24 559 2 358 -1
+                549 -8 584 -37 175 -179 322 -357 368 -80 21 -1091 22 -1138 1z"/>
+                <path d="M895 4306 c-41 -18 -83 -69 -90 -109 -3 -18 -5 -262 -3 -544 3 -499
+                4 -512 24 -539 11 -15 33 -37 48 -48 27 -21 38 -21 566 -21 528 0 539 0 566
+                21 15 11 37 33 48 48 21 27 21 38 21 566 0 528 0 539 -21 566 -11 15 -33 37
+                -48 48 -27 21 -40 21 -554 23 -423 2 -533 0 -557 -11z m865 -626 l0 -320 -320
+                0 -320 0 0 320 0 320 320 0 320 0 0 -320z"/>
+                <path d="M2495 4306 c-94 -41 -124 -168 -58 -247 52 -61 24 -59 827 -59 l735
+                0 3 -269 c3 -254 4 -271 24 -297 39 -53 71 -69 134 -69 63 0 95 16 134 69 20
+                27 21 39 21 406 0 367 -1 379 -21 406 -11 15 -33 37 -48 48 -27 21 -36 21
+                -874 23 -689 2 -853 0 -877 -11z"/>
+                <path d="M2495 3666 c-41 -18 -83 -69 -90 -109 -4 -18 -5 -118 -3 -224 3 -210
+                5 -218 72 -267 39 -29 133 -29 172 0 68 51 69 53 69 294 0 205 -1 220 -21 246
+                -11 15 -32 37 -46 47 -33 25 -113 32 -153 13z"/>
+                <path d="M3135 3666 c-41 -18 -83 -69 -90 -109 -3 -18 -5 -262 -3 -544 3 -499
+                4 -512 24 -539 39 -53 71 -69 134 -69 63 0 95 16 134 69 20 27 21 41 24 456
+                l3 428 109 4 c117 3 140 12 184 72 29 39 29 133 0 172 -50 67 -55 69 -282 71
+                -157 2 -214 0 -237 -11z"/>
+                <path d="M3775 3026 c-94 -42 -124 -169 -58 -247 40 -47 79 -59 187 -59 l94 0
+                4 -109 c3 -118 12 -141 72 -185 39 -29 133 -29 172 0 68 51 69 53 69 294 0
+                205 -1 220 -21 246 -50 67 -55 69 -282 71 -157 2 -214 0 -237 -11z"/>
+                <path d="M895 2706 c-67 -29 -105 -106 -91 -181 9 -47 59 -102 104 -115 25 -8
+                184 -10 474 -8 423 3 437 4 464 24 53 39 69 71 69 134 0 63 -16 95 -69 134
+                -27 20 -40 21 -474 23 -356 2 -453 0 -477 -11z"/>
+                <path d="M2335 2706 c-97 -43 -124 -171 -54 -251 42 -47 84 -57 221 -53 99 2
+                121 6 144 24 53 39 69 71 69 134 0 63 -16 95 -69 134 -24 18 -44 21 -154 24
+                -91 1 -136 -2 -157 -12z"/>
+                <path d="M895 2066 c-41 -18 -83 -69 -90 -109 -3 -18 -5 -262 -3 -544 3 -499
+                4 -512 24 -539 11 -15 33 -37 48 -48 27 -21 38 -21 566 -21 528 0 539 0 566
+                21 15 11 37 33 48 48 21 27 21 38 21 566 0 528 0 539 -21 566 -11 15 -33 37
+                -48 48 -27 21 -40 21 -554 23 -423 2 -533 0 -557 -11z m865 -626 l0 -320 -320
+                0 -320 0 0 320 0 320 320 0 320 0 0 -320z"/>
+                <path d="M2495 2066 c-41 -18 -83 -69 -90 -109 -3 -18 -5 -262 -3 -544 3 -499
+                4 -512 24 -539 39 -53 71 -69 134 -69 63 0 95 16 134 69 21 27 21 38 21 566 0
+                528 0 539 -21 566 -11 15 -32 37 -46 47 -33 25 -113 32 -153 13z"/>
+                <path d="M3135 2066 c-41 -18 -83 -69 -90 -109 -3 -18 -5 -262 -3 -544 3 -499
+                4 -512 24 -539 11 -15 33 -37 48 -48 27 -21 38 -21 566 -21 528 0 539 0 566
+                21 15 11 37 33 48 48 21 27 21 38 21 566 0 528 0 539 -21 566 -11 15 -33 37
+                -48 48 -27 21 -40 21 -554 23 -423 2 -533 0 -557 -11z m865 -626 l0 -320 -320
+                0 -320 0 0 320 0 320 320 0 320 0 0 -320z"/>
+                <path d="M255 1746 c-37 -17 -70 -52 -84 -89 -7 -19 -11 -205 -11 -551 0 -566
+                1 -580 56 -688 59 -116 196 -220 327 -248 35 -7 226 -10 584 -8 519 3 532 3
+                559 24 53 39 69 71 69 134 0 63 -16 95 -69 134 -27 20 -42 21 -566 26 -524 5
+                -539 6 -566 26 -15 11 -37 33 -48 48 -20 27 -21 42 -26 566 -5 524 -6 539 -26
+                566 -11 15 -32 37 -46 47 -34 25 -113 32 -153 13z"/>
+                <path d="M4740 1749 c-29 -12 -67 -46 -83 -74 -9 -14 -13 -177 -17 -557 -5
+                -522 -6 -537 -26 -564 -11 -15 -33 -37 -48 -48 -27 -20 -42 -21 -566 -26 -524
+                -5 -539 -6 -566 -26 -53 -39 -69 -71 -69 -134 0 -63 16 -95 69 -134 27 -21 40
+                -21 559 -24 358 -2 549 1 584 8 179 38 336 195 373 375 7 33 10 236 8 582 -3
+                519 -3 532 -24 559 -11 15 -32 37 -46 47 -31 23 -111 32 -148 16z"/>
+                </g>
+            </svg>
+        </div>
         <!--Calendar icon-->
         <div onclick="window.open('#calendar', '_self')">
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
@@ -1119,7 +1189,7 @@ function addToSlider() {
     document.getElementById("home-slider").innerHTML += `<li class="slide-visible"> <div style="height: 130px; background-color: #ececec; width: 100%; border-radius: 20px;"> <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);"> TEST </div> </div> </li>`;
 }
 
-const menubarPages = ["home", "app", "calendar", "settings"];
+const menubarPages = ["home", "app", "qr", "calendar", "settings"];
 
 window.addEventListener("hashchange", function(event) {
     setTimeout(function() {
@@ -1673,9 +1743,9 @@ function startApplication() {
                 document.getElementById("usersettings-deleteprofilepic").style.display = "none";
             }
             document.getElementById("widget-points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ececec")`
-            document.getElementById("points-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
             document.getElementById("qrcode").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
-            document.getElementById("qrdetails").innerHTML = `<p>${userFirstName.toUpperCase()} ${userSurname.toUpperCase()}</p><p style="font-size: 17px; opacity: 70%;">${userClass.toUpperCase()}</p>`
+            //document.getElementById("qrcode").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userID}&bgcolor=ffffff")`
+            //document.getElementById("qrdetails").innerHTML = `<p>${userFirstName.toUpperCase()} ${userSurname.toUpperCase()}</p><p style="font-size: 17px; opacity: 70%;">${userClass.toUpperCase()}</p>`
             document.getElementById("settingsUserID").innerHTML = userID;
             
             loadUIdata();
