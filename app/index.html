@@ -2326,6 +2326,9 @@ function checkNotifications(endpoint) {
     if (Notification.permission === "granted") {
         console.log("Uprawnienia do powiadomień przyznane")
         navigator.serviceWorker.getRegistration().then(registration => {
+            if (registration) {
+                registration.update(); // Wymusza sprawdzenie aktualizacji
+            }
             registration.pushManager
                 .getSubscription()
                 .then((subscription) => {
