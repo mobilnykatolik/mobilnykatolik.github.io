@@ -1182,6 +1182,7 @@ function addToSlider() {
 }
 
 const menubarPages = ["home", "app", "qr", "calendar", "settings"];
+var firstTimeCalendar = true;
 
 window.addEventListener("hashchange", function(event) {
     setTimeout(function() {
@@ -1192,9 +1193,10 @@ window.addEventListener("hashchange", function(event) {
                 document.getElementById(`menubar-${menubarPages[x]}`).classList.remove("selected");
             }
         }
-        if (window.location.href.endsWith("calendar")) {
+        if (window.location.href.endsWith("calendar") && firstTimeCalendar == true) {
             const element = document.getElementById("calendar-event-"+nextEventID);
             element.scrollIntoView();
+            firstTimeCalendar = false;
         }
         if (window.location.href.endsWith("qr")) {
             startApplication(true);
