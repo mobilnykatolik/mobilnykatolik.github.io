@@ -383,8 +383,10 @@
 
         </div>
         <div style="padding: 20px; width: calc(100% - 40px);">
-            <div>
-                
+            <p style="font-size: 18px;">Kupony</p>
+            <div style="margin-top: 10px;" class="slider-item-ratio slider-item-ratio-3x4 swiffy-slider swiffy-slider-coupon slider-item-show4 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
+                <ul id="active-coupons" class="slider-container py-4">
+                </ul>
             </div>
         </div>
     </div>
@@ -526,7 +528,6 @@
             <div id="coupon-banner"></div>
             <h1 id="coupon-name">-</h1>
             <p id="coupon-info">-</p>
-            <div id="coupon-qr"></div>
             <button id="coupon-btn" onClick="getCoupon(`${this.name}`)">Odbierz za - 🐟</button>
         </div>
     </div>
@@ -1692,6 +1693,7 @@ function startApplication() {
                     </li>
                 `
                 document.getElementById("my-coupons").innerHTML += couponData
+                document.getElementById("active-coupons").innerHTML += couponData
             }
 
             //Sortowanie według ceny
@@ -2015,8 +2017,8 @@ function showCoupon(ID) { //Otwieranie kuponu: posiadanego oraz możliwego do od
         document.getElementById("coupon-info").innerHTML = couponData.info
 
         document.getElementById("coupon-btn").style.display = "none"
-        document.getElementById("coupon-qr").style.display = "block"
-        document.getElementById("coupon-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ID}")`
+        //document.getElementById("coupon-qr").style.display = "block"
+        //document.getElementById("coupon-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ID}")`
         window.open("#coupon", "_self");
     } else if (couponsDB[ID] != undefined) {
         var couponData = couponsDB[ID]
@@ -2032,7 +2034,6 @@ function showCoupon(ID) { //Otwieranie kuponu: posiadanego oraz możliwego do od
         }
 
         document.getElementById("coupon-btn").style.display = "block"
-        document.getElementById("coupon-qr").style.display = "none"
 
         window.open("#coupon", "_self");
     } else {

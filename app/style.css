@@ -697,23 +697,23 @@ container.badge.grey {
 
 /* Kupony */
 .coupon {
-    height: calc(100% - 4px)!important;
-    width: calc(100% - 4px)!important;
+    height: calc(100% - 2px)!important;
+    width: calc(100% - 2px)!important;
     background-color: var(--additional);
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px dashed var(--theme-color);
+    border: 1px dashed var(--theme-color);
     flex-direction: column;
 }
 
 .coupon.disabled {
-    border: 2px dashed #555555;
+    border: 1px dashed #555555;
 }
 
 .coupon.owned {
-    border: 2px solid var(--theme-color);
+    border: 1px solid var(--additional2);
 }
 
 .coupon-icon {
@@ -835,10 +835,13 @@ container.badge.grey {
     height: 50px;
 }
 
+.qr-waves div {
+    background-image: url('../src/img/wave-1e6091.png');
+}
+
 .qr-wave-1 {
     width: 100%;
     height: 100%;
-    background-image: url(../src/img/wave2.png);
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: 500px 50px;
@@ -850,7 +853,6 @@ container.badge.grey {
 .qr-wave-2 {
     width: 100%;
     height: 100%;
-    background-image: url(../src/img/wave2.png);
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: 500px 50px;
@@ -863,7 +865,6 @@ container.badge.grey {
 .qr-wave-3 {
     width: 100%;
     height: 100%;
-    background-image: url(../src/img/wave2.png);
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: 500px 50px;
@@ -875,35 +876,37 @@ container.badge.grey {
 
 .qr-bg {
     width: 100%;
-    height: 150px;
-    background-color: #a80c2f;
+    height: 190px;
+    background-color: #1e6091;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 0;
+    border-bottom-left-radius: 200px 5px;
+    border-bottom-right-radius: 200px 5px;
 }
 
 .qr-bg h1 {
     font-weight: 450;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 .qr-bg h2 {
     font-weight: normal;
     font-size: 13px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .qr {
     width: 200px;
     height: 200px;
     background-color: #ffffff;
-    border: 1px var(--additional2) solid;
+    border: 1px #ececec solid;
     border-radius: 20px;
     margin: auto;
-    top: -30px;
-    position: relative;
+    margin-top: -50px;
     background-size: 75%;
     background-position: center;
     background-repeat: no-repeat;
