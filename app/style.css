@@ -874,10 +874,11 @@ container.badge.grey {
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: 500px 50px;
-    animation: wave3 10s ease-in-out infinite;
+    animation: wave3 10s cubic-bezier(0.54, 0.59, 0.77, 0.28) infinite;
     position: relative;
     top: -100px;
     opacity: 80%;
+    transform: scaleX(-1)
 }
 
 .qr-bg {
