@@ -1,4 +1,4 @@
-const cacheName = "mobilnykatolik-assets-v1";
+const cacheName = "mobilnykatolik-assets-v2";
 const cacheAssets = [
   "serviceWorker.js",
   "manifest.webmanifest",
