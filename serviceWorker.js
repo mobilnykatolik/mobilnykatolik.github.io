@@ -72,7 +72,7 @@ self.addEventListener("push", event => {
       body: context.content,
       timestamp: context.timestamp
     };
-   self.registration.showNotification(context.action, options);
+   self.registration.showNotification(context.title, options);
 
    if (context.action != undefined) {
         self.clients.matchAll().then(clients => {
