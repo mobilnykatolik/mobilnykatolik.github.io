@@ -1669,7 +1669,7 @@ function startApplication() {
 
             if (data.points != undefined) {
                 document.getElementById("widget-points-amount").innerHTML = `${data.points.points}`;
-                document.getElementById("points-amount").innerHTML = data.points.points;
+                document.getElementById("points-amount").innerHTML = `${data.points.points} 🐟`;
             } else {
                 data.points = {
                     "points": 0
