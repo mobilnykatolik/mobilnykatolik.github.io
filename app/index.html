@@ -1697,6 +1697,16 @@ function startApplication() {
             }
             document.getElementById("activated-coupons-amount").innerHTML = `Aktywowane kupony: ${Object.keys(userCouponsDB).length}`
 
+            var couponData = `
+                    <li class="slide-visible">
+                        <div class="coupon lnk" onclick="window.open('#ticketsapp', '_self')">
+                            <div class="coupon-name">Sprawdź dostępne kupony</div>
+                            <div style="background-image: url(../src/img/next.png);width: 30px;height: 30px;background-size: 100%;margin-top: 15px;"></div>
+                        </div>
+                    </li>
+                `
+                document.getElementById("active-coupons").innerHTML += couponData
+
             //Sortowanie według ceny
             couponsDB = Object.fromEntries(
                 Object.entries(couponsDB).sort(([,a], [,b]) => a.cost - b.cost)

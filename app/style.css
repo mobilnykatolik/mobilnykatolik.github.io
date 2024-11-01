@@ -716,6 +716,12 @@ container.badge.grey {
     border: 1px solid var(--additional2);
 }
 
+.coupon.lnk {
+    border: 1px solid var(--additional2);
+    background-color: var(--additional2);
+    color: grey;
+}
+
 .coupon-icon {
     width: 75%;
     aspect-ratio: 1/1;
