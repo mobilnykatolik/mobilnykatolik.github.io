@@ -2358,6 +2358,7 @@ function logOut() {
 
 navigator.serviceWorker.addEventListener('message', function(event) {
     const message = event.data;
+    console.log(`Wywołano akcję: ${message.action}`)
     if (message.action == "reload") {
         startApplication(true);
     }
