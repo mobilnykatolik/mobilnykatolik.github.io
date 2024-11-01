@@ -1695,6 +1695,7 @@ function startApplication() {
                 document.getElementById("my-coupons").innerHTML += couponData
                 document.getElementById("active-coupons").innerHTML += couponData
             }
+            document.getElementById("activated-coupons-amount").innerHTML = `Aktywowane kupony: ${Object.keys(userCouponsDB).length}`
 
             //Sortowanie według ceny
             couponsDB = Object.fromEntries(
