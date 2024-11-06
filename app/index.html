@@ -462,8 +462,44 @@
         </svg>
         Bilet
     </div>
-    <div class="page-content">
+    <div class="page-content" style="display: flex; flex-direction: column; align-items: center;">
         <div class="ticket">
+            <div class="ticket-section">
+                <div>
+                    <h1 id="ticket-name">Nazwa biletu</h1>
+                    <p id="ticket-state">Status biletu</p>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: space-between;">
+                <div>
+                    <p>Data</p>
+                    <h1 id="ticket-date">[DATA]</h1>
+                </div>
+                <div>
+                    <p>Godzina</p>
+                    <h1 id="ticket-time">[GODZINA]</h1>
+                </div>
+                <div>
+                    <p>Miejsce</p>
+                    <h1 id="ticket-place">[MIEJSCE]</h1>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: space-between;">
+                <div>
+                    <h1>Cena biletu</h1>
+                </div>
+                <div>
+                    <h1 id="ticket-price">-</h1>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: center;">
+               <div class="ticket-qr" id="ticket-qr"></div>
+            </div>
+            <div class="ticket-section-bottom">
+                <span id="ticket-info"></span>
+            </div>
+        </div>
+        <!--<div class="ticket">
             <div class="ticket-banner" id="ticket-banner"></div>
             <div style="padding: 10px;">
                 <h1 id="ticket-name">-</h1>
@@ -477,10 +513,10 @@
                 <p style="margin-top: 5px; opacity: 75%; font-size: 15px;">Dodatkowe informacje</p>
                 <h3>Więcej informacji znajduje się pod kodem QR</h3>
             </div>
-            <div class="ticket-qr" id="ticket-qr"></div>
+            <divclass="ticket-qr" id="ticket-qr"></div>
         </div>
         <br>
-        <div id="ticket-info"></div>
+        <div id="ticket-info"></div>-->
     </div>
 </div>
 
@@ -1958,9 +1994,13 @@ function loadTicket(ticketID) {
     document.getElementById("ticket-date").innerHTML = ticketData.date;
     document.getElementById("ticket-time").innerHTML = ticketData.time;
     document.getElementById("ticket-place").innerHTML = ticketData.place;
-    document.getElementById("ticket-banner").style.backgroundImage = `url("${ticketData.banner_url}")`
+    document.getElementById("ticket-price").innerHTML = `${parseFloat(ticketData.cost).toFixed(2)} zł`;
+    //document.getElementById("ticket-banner").style.backgroundImage = `url("${ticketData.banner_url}")`
     document.getElementById("ticket-qr").style.backgroundImage = `url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${ticketID}")`
     document.getElementById("ticket-info").innerHTML = ticketData.info;
+    if (ticketData.info == "") {
+        document.getElementById("ticket-info").innerHTML = "Przed wejściem na wydarzenie należy okazać widoczny powyżej kod QR"
+    }
     //document.getElementById("payment-title").innerHTML = `Bilet nr ${ticketID}`
 
     var ticketState, ticketStateColor;
@@ -1977,7 +2017,7 @@ function loadTicket(ticketID) {
     }
 
     document.getElementById("ticket-state").innerHTML = ticketState;
-    document.getElementById("ticket-state").style.color = ticketStateColor;
+    //document.getElementById("ticket-state").style.color = ticketStateColor;
 
 }
 
