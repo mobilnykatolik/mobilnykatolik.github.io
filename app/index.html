@@ -1725,7 +1725,7 @@ function startApplication(reload) {
                 var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')" id="ticket-box-${ticket}">
                     <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
                         <div style="z-index: 1;">
-                            <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
+                            <p style="color: ${data.usertickets[ticket].colors[1]}; font-size: 16px;">${data.usertickets[ticket].name}</p>
                             <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
                         </div>
                         <div class="ticket-icon" style="background-image: url('${data.usertickets[ticket].icon_url}')"></div>
@@ -1734,7 +1734,7 @@ function startApplication(reload) {
                 var ticketDataHome = `<li class="slide-visible" onClick="showTicket('${ticket}')" id="home-ticket-box-${ticket}">
                     <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
                         <div style="z-index: 1;">
-                            <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
+                            <p style="color: ${data.usertickets[ticket].colors[1]}; font-size: 16px;">${data.usertickets[ticket].name}</p>
                             <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
                         </div>
                         <div class="ticket-icon" style="background-image: url('${data.usertickets[ticket].icon_url}')"></div>
@@ -1752,7 +1752,7 @@ function startApplication(reload) {
                         <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px);">
                             <div style="background-image: url('${data.tickets[ticket].icon_url}'); height: 130px; aspect-ratio: 1/1; position: absolute; top: 0; right: 0; border-radius: 0px 20px 20px 0px; background-size: 100%; background-position: center; background-repeat: no-repeat;"></div>
                             <div style="position: absolute; top: 50%; translate: 0 -50%; width: calc(100% - 40px);">
-                                <p style="color: ${data.tickets[ticket].colors[1]};">${data.tickets[ticket].name}</p>
+                                <p style="color: ${data.tickets[ticket].colors[1]}; font-size: 16px;">${data.tickets[ticket].name}</p>
                                 <button type="button" style="margin: unset; margin-top: 15px;" onclick="showBuyTicket('${ticket}');">${parseFloat(data.tickets[ticket].cost).toFixed(2)} zł</button>
                             </div>
                         </div>
