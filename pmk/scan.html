@@ -380,6 +380,29 @@
         </div>
     </div>
 
+    <!-- Scanner 2.0: Select coupons to use -->
+    <div class="modal fade" id="couponsResponseModal" tabindex="-1" role="dialog" aria-labelledby="couponsResponseModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="couponsResponseModalLabel">Wybierz kupony do użycia</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Kliknij kupon, aby zaznaczyć
+                    <div id="coupons-list"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                    <button class="btn btn-success" onClick="scanUserNext();" type="button" data-dismiss="modal">Zatwierdź</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -548,7 +571,12 @@ function scanCoupon(couponID) {
     xhr.send(JSON.stringify(data));
 }
 
+
+var coupons = {}
+var user;
+
 function scanUser(userid) {
+    user = userid
     if (PEID != undefined) {
         var data = {
             "peid": PEID,
@@ -571,15 +599,88 @@ function scanUser(userid) {
         if (xhr.readyState === 4) {
             if (xhr.status == 200) {
                 var response = JSON.parse(xhr.responseText)
+                successAudio.play();
+                if (response.success && response.coupons != undefined) {
+                    coupons = response.coupons
+                    document.getElementById("coupons-list").innerHTML = ""
+                    for (coupon in coupons) {
+                        document.getElementById("coupons-list").innerHTML += `
+                        <div class="card mt-3 border-success" id="couponSelect-${coupon}" onClick="this.classList.toggle('border-success')">
+                            <div class="card-header">
+                                ${coupons[coupon].name}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><small class="text-muted">${coupons[coupon].info}</small></p>
+                            </div>
+                        </div>
+                        `
+                    }
+                    $('#couponsResponseModal').modal('show')
+                } else if (response.success) {
+                    scanPoints(user);
+                }
+            } else if (xhr.status == 403) {
+                $('#insufficientPermissionsModal').modal('show')
+            } else if (xhr.status == 423) {
+                failureAudio.play();
+                document.getElementById("pointsResponseModalLabel").innerHTML = `<i class="far fa-times-circle fa-fw"></i> Wystąpil błąd!`
+                document.getElementById("pointsResponseModalLabel").classList.remove("text-success");
+                document.getElementById("pointsResponseModalLabel").classList.add("text-danger");
+                document.getElementById("pointsResponseOwner").innerHTML = "-";
+                document.getElementById("pointsResponseAmount").innerHTML = "-";
+                $('#pointsResponseModal').modal('show')
+            } else {
+                $('#apiErrorModal').modal('show')
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+function scanUserNext() {
+    var selectedCoupons = []
+    for (coupon in coupons) {
+        if (document.getElementById(`couponSelect-${coupon}`).classList.contains("border-success")) {
+            selectedCoupons.push(coupon);
+        }
+    }
+    if (selectedCoupons.length == 0) {
+        scanPoints(user);
+    } else {
+        scanCoupon(selectedCoupons);
+    }
+}
+
+function scanPoints(userid) {
+    if (PEID == undefined) {
+        return false;
+    }
+
+    var data = {
+        "peid": PEID,
+        "userid": userid
+    }
+    
+
+    var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText)
                 if (response.success) {
                     successAudio.play();
-                    document.getElementById("pointsResponseModalLabel").innerHTML = `<i class="far fa-check-circle fa-fw"></i> Pomyślnie dodano WR!`
+                    document.getElementById("pointsResponseModalLabel").innerHTML = `<i class="far fa-check-circle fa-fw"></i> Przyznano punkty!`
                     document.getElementById("pointsResponseModalLabel").classList.add("text-success");
                     document.getElementById("pointsResponseModalLabel").classList.remove("text-danger");
                     document.getElementById("pointsResponseOwner").innerHTML = response.owner;
                     document.getElementById("pointsResponseAmount").innerHTML = response.points;
+                    $('#pointsResponseModal').modal('show')
                 }
-                $('#pointsResponseModal').modal('show')
             } else if (xhr.status == 403) {
                 $('#insufficientPermissionsModal').modal('show')
             } else if (xhr.status == 423) {
