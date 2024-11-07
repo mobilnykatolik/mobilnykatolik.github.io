@@ -599,7 +599,6 @@ function scanUser(userid) {
         if (xhr.readyState === 4) {
             if (xhr.status == 200) {
                 var response = JSON.parse(xhr.responseText)
-                successAudio.play();
                 if (response.success && response.coupons != undefined) {
                     coupons = response.coupons
                     document.getElementById("coupons-list").innerHTML = ""
