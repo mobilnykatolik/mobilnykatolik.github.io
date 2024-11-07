@@ -421,13 +421,10 @@
         console.log('QR Code detected:', result);
         // Handle the scanned QR code data
         // You can perform any action here with the scanned data
-        if (result.startsWith("C-")) {
-            qrScanner.stop();
-            scanCoupon(result);
-        } else if (result.length == 9 && TEID != undefined) {
+        if (result.length == 9 && TEID != undefined) {
             qrScanner.stop();
             scanTicket(result);
-        } else if (PEID != undefined) {
+        } else if (result.length == 16) { //Skanowanie do Wirtualnych Rybek i do kuponów
             qrScanner.stop();
             scanUser(result);
         }
@@ -552,12 +549,19 @@ function scanCoupon(couponID) {
 }
 
 function scanUser(userid) {
-    var data = {
-        "peid": PEID,
-        "userid": userid
+    if (PEID != undefined) {
+        var data = {
+            "peid": PEID,
+            "userid": userid
+        }
+    } else {
+        var data = {
+            "userid": userid
+        }
     }
+    
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+    var url = `https://apimobilnykatolik.glitch.me/pmk/scan/user/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
