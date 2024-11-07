@@ -439,11 +439,11 @@
                             <input type="url" class="form-control" id="manageEventTicketIconURL" aria-describedby="manageEventTicketIconURLHelp" placeholder="URL grafiki" required>
                             <small id="manageEventTicketIconURLHelp" class="form-text text-muted">Wymiary grafiki: 500x500 px (1:1)<br>Grafika widnieje na okładce biletu</small>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="manageEventTicketThumbnailURL">Tło biletu</label>
                             <input type="url" class="form-control" id="manageEventTicketThumbnailURL" aria-describedby="manageEventTicketThumbnailURLHelp" placeholder="URL grafiki" required>
                             <small id="manageEventTicketThumbnailURLHelp" class="form-text text-muted">Wymiary grafiki: 1920x1080 px (16:9)<br>Grafika pojawia się po otwarciu biletu</small>
-                        </div>
+                        </div>-->
                         <label>Podgląd</label>
                         <div style="margin-bottom: 15px;">
                             <div id="manageEventTicketDisplayColor" style="height: 130px; background-color: #000000; width: 100%; border-radius: 20px;">
@@ -725,7 +725,7 @@
                 document.getElementById("manageEventTicketBgColor").value = ticketEventsDB[teid].colors[0];
                 document.getElementById("manageEventTicketTextColor").value = ticketEventsDB[teid].colors[1];
                 document.getElementById("manageEventTicketIconURL").value = ticketEventsDB[teid].icon_url;
-                document.getElementById("manageEventTicketThumbnailURL").value = ticketEventsDB[teid].banner_url;
+                //document.getElementById("manageEventTicketThumbnailURL").value = ticketEventsDB[teid].banner_url;
                 document.getElementById("manageEventTicketQuantity").value = ticketEventsDB[teid].quantity;
                 document.getElementById("manageEventTicketCost").value = ticketEventsDB[teid].cost;
                 document.getElementById("manageEventTicketConsentFile").value = ticketEventsDB[teid].file;
@@ -755,7 +755,7 @@
                 document.getElementById("manageEventTicketBgColor").value = "#000000";
                 document.getElementById("manageEventTicketTextColor").value = "#ffffff";
                 document.getElementById("manageEventTicketIconURL").value = "https://dummyimage.com/500x500/000/fff";
-                document.getElementById("manageEventTicketThumbnailURL").value = "https://dummyimage.com/1920x1080/000/fff";
+                //document.getElementById("manageEventTicketThumbnailURL").value = "https://dummyimage.com/1920x1080/000/fff";
                 document.getElementById("manageEventTicketQuantity").value = 0;
                 document.getElementById("manageEventTicketCost").value = 0;
                 document.getElementById("manageEventTicketFor").value = "";
@@ -785,7 +785,6 @@
                     "time": document.getElementById("manageEventTicketTime").value,
                     "place": document.getElementById("manageEventTicketPlace").value,
                     "for": Array.from(document.getElementById("manageEventTicketFor").selectedOptions).map(option => option.value),
-                    "banner_url": document.getElementById("manageEventTicketThumbnailURL").value,
                     "icon_url": document.getElementById("manageEventTicketIconURL").value,
                     "colors": [document.getElementById("manageEventTicketBgColor").value, document.getElementById("manageEventTicketTextColor").value],
                     "sales_start": document.getElementById("manageEventTicketSalesStart").value,
