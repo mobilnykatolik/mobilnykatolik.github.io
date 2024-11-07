@@ -397,6 +397,25 @@ p {
     color: var(--text);
 }
 
+a.button {
+    margin: auto;
+    position: relative;
+    border: 0px;
+    background-color: var(--theme-color);
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    transition: background-color 0.5s ease;
+    display: block;
+    text-decoration: none;
+}
+
+a.button:disabled {
+    background-color: var(--additional2);
+    color: var(--text);
+}
+
 .menubar {
     width: calc(100% - 40px);
     height: 60px;

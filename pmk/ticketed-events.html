@@ -382,6 +382,10 @@
                             <label for="manageEventTicketConsent" style="margin-bottom: 0;">Wymagana zgoda</label>
                         </div>
                         <div class="form-group">
+                            <label for="manageEventTicketConsentFile">Wzór zgody</label>
+                            <input type="url" class="form-control" id="manageEventTicketConsentFile" placeholder="Adres URL do wzoru zgody">
+                        </div>
+                        <div class="form-group">
                             <label for="manageEventTicketInfo">Dodatkowe informacje</label>
                             <textarea class="form-control" aria-describedby="manageEventTicketInfoHelp" id="manageEventTicketInfo"></textarea>
                             <small id="manageEventTicketInfoHelp" class="form-text text-muted">Informacje będą wyświetlanie przed i po zakupie biletu.</small>
@@ -724,6 +728,7 @@
                 document.getElementById("manageEventTicketThumbnailURL").value = ticketEventsDB[teid].banner_url;
                 document.getElementById("manageEventTicketQuantity").value = ticketEventsDB[teid].quantity;
                 document.getElementById("manageEventTicketCost").value = ticketEventsDB[teid].cost;
+                document.getElementById("manageEventTicketConsentFile").value = ticketEventsDB[teid].file;
                 if (ticketEventsDB[teid].consent) {
                     document.getElementById("manageEventTicketConsent").checked = "checked"
                 } else {
@@ -755,6 +760,7 @@
                 document.getElementById("manageEventTicketCost").value = 0;
                 document.getElementById("manageEventTicketFor").value = "";
                 document.getElementById("manageEventTicketConsent").checked = ""
+                document.getElementById("manageEventTicketConsentFile").value = ""
                 updateEventTicketDisplay();
             }
             
@@ -786,6 +792,7 @@
                     "sales_end": document.getElementById("manageEventTicketSalesEnd").value,
                     "quantity": document.getElementById("manageEventTicketQuantity").value,
                     "consent": false,
+                    "file": document.getElementById("manageEventTicketConsentFile").value,
                     "cost": document.getElementById("manageEventTicketCost").value,
                     "info": document.getElementById("manageEventTicketInfo").value.replaceAll("\n", "<br>"),
                     "paymentinfo": document.getElementById("manageEventTicketPaymentInfo").value.replaceAll("\n", "<br>")

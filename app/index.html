@@ -499,6 +499,7 @@
                 <span id="ticket-payment-info"></span>
             </div>
             <div class="ticket-section-bottom">
+                <a class="button" target="_blank" href="" id="ticket-consent">Pobierz zgodę</a>
                 <span id="ticket-info"></span>
             </div>
         </div>
@@ -2063,6 +2064,13 @@ function loadTicket(ticketID) {
         ticketState = `Bilet nieopłacony<br>Do zapłaty: ${(ticketData.cost-ticketData.paid).toFixed(2)} zł`
         ticketStateColor = "#ff0000"
         document.getElementById("ticket-payment-info-section").style.display = "flex"
+    }
+
+    if (ticketData.file != "" && (ticketData.consent_required == true && ticketData.consent == false)) {
+        document.getElementById("ticket-consent").href = ticketData.file
+        document.getElementById("ticket-consent").style.display = "block"
+    } else {
+        document.getElementById("ticket-consent").style.display = "none"
     }
 
     document.getElementById("ticket-state").innerHTML = ticketState;
