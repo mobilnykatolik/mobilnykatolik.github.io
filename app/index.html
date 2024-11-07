@@ -2048,7 +2048,7 @@ function loadTicket(ticketID) {
     if (ticketData.info == "") {
         document.getElementById("ticket-info").innerHTML = "Przed wejściem na wydarzenie należy okazać widoczny powyżej kod QR"
     }
-    document.getElementById("ticket-payment-info").innerHTML = ticketData.paymentinfo;
+    document.getElementById("ticket-payment-info").innerHTML = ticketData.paymentinfo.replaceAll("[TicketID]", ticketID);
     //document.getElementById("payment-title").innerHTML = `Bilet nr ${ticketID}`
 
     var ticketState, ticketStateColor;
