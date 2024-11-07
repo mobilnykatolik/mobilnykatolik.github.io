@@ -495,6 +495,9 @@
             <div class="ticket-section" style="justify-content: center;">
                <div class="ticket-qr" id="ticket-qr"></div>
             </div>
+            <div class="ticket-section" id="ticket-payment-info-section">
+                <span id="ticket-payment-info"></span>
+            </div>
             <div class="ticket-section-bottom">
                 <span id="ticket-info"></span>
             </div>
@@ -2032,6 +2035,7 @@ function showOrder(orderID) {
 
 function loadTicket(ticketID) {
     var ticketData = ticketsdb[ticketID];
+    console.log(ticketData)
     document.getElementById("ticket-name").innerHTML = ticketData.name;
     document.getElementById("ticket-date").innerHTML = ticketData.date;
     document.getElementById("ticket-time").innerHTML = ticketData.time;
@@ -2043,6 +2047,7 @@ function loadTicket(ticketID) {
     if (ticketData.info == "") {
         document.getElementById("ticket-info").innerHTML = "Przed wejściem na wydarzenie należy okazać widoczny powyżej kod QR"
     }
+    document.getElementById("ticket-payment-info").innerHTML = ticketData.paymentinfo;
     //document.getElementById("payment-title").innerHTML = `Bilet nr ${ticketID}`
 
     var ticketState, ticketStateColor;
@@ -2053,9 +2058,11 @@ function loadTicket(ticketID) {
             ticketState = "Niedostarczona zgoda"
             ticketStateColor = "#ff0000"
         }
+        document.getElementById("ticket-payment-info-section").style.display = "none"
     } else {
         ticketState = `Bilet nieopłacony<br>Do zapłaty: ${(ticketData.cost-ticketData.paid).toFixed(2)} zł`
         ticketStateColor = "#ff0000"
+        document.getElementById("ticket-payment-info-section").style.display = "flex"
     }
 
     document.getElementById("ticket-state").innerHTML = ticketState;

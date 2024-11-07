@@ -384,7 +384,12 @@
                         <div class="form-group">
                             <label for="manageEventTicketInfo">Dodatkowe informacje</label>
                             <textarea class="form-control" aria-describedby="manageEventTicketInfoHelp" id="manageEventTicketInfo"></textarea>
-                            <small id="manageEventTicketInfoHelp" class="form-text text-muted">Informacje będą wyświetlanie przed i po zakupie biletu.<br>Zamieść informacje o sposobach płatności i innych ważnych szczegółach.</small>
+                            <small id="manageEventTicketInfoHelp" class="form-text text-muted">Informacje będą wyświetlanie przed i po zakupie biletu.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageEventTicketPaymentInfo">Informacje o płatności</label>
+                            <textarea class="form-control" aria-describedby="manageEventTicketPaymentInfoHelp" id="manageEventTicketPaymentInfo"></textarea>
+                            <small id="manageEventTicketPaymentInfoHelp" class="form-text text-muted">Zamieść informacje o płatności, które będą widoczne przy nieopłaconych biletach.</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -710,6 +715,7 @@
                 document.getElementById("manageEventTicketTime").value = ticketEventsDB[teid].time;
                 document.getElementById("manageEventTicketPlace").value = ticketEventsDB[teid].place;
                 document.getElementById("manageEventTicketInfo").value = ticketEventsDB[teid].info.replaceAll("<br>", "\n");
+                document.getElementById("manageEventTicketPaymentInfo").value = ticketEventsDB[teid].paymentinfo.replaceAll("<br>", "\n");
                 document.getElementById("manageEventTicketSalesStart").value = ticketEventsDB[teid].sales_start;
                 document.getElementById("manageEventTicketSalesEnd").value = ticketEventsDB[teid].sales_end;
                 document.getElementById("manageEventTicketBgColor").value = ticketEventsDB[teid].colors[0];
@@ -738,6 +744,7 @@
                 document.getElementById("manageEventTicketTime").value = "";
                 document.getElementById("manageEventTicketPlace").value = "";
                 document.getElementById("manageEventTicketInfo").value = "";
+                document.getElementById("manageEventTicketPaymentInfo").value = "";
                 document.getElementById("manageEventTicketSalesStart").value = "";
                 document.getElementById("manageEventTicketSalesEnd").value = "";
                 document.getElementById("manageEventTicketBgColor").value = "#000000";
@@ -780,7 +787,8 @@
                     "quantity": document.getElementById("manageEventTicketQuantity").value,
                     "consent": false,
                     "cost": document.getElementById("manageEventTicketCost").value,
-                    "info": document.getElementById("manageEventTicketInfo").value.replaceAll("\n", "<br>")
+                    "info": document.getElementById("manageEventTicketInfo").value.replaceAll("\n", "<br>"),
+                    "paymentinfo": document.getElementById("manageEventTicketPaymentInfo").value.replaceAll("\n", "<br>")
                 }
                 if (data.teid == "") {
                     delete data.teid;
