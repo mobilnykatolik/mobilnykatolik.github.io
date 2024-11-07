@@ -527,9 +527,9 @@
             <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
             </g>
         </svg>
-        Kup bilet/kupon
+        Kup bilet
     </div>
-    <div class="page-content">
+    <!--<div class="page-content">
         <p style="text-align: center; margin-bottom: 10px;" id="getTicketName">Hollywood Party</p>
         <p style="font-size: 18px;">Informacje o wydarzeniu</p>
         <p style="font-size: 15px; margin-bottom: 10px;" id="getTicketInfo">25 stycznia, godz. 17:30-22:30<br>Aula ZSK, ul. Wodna 6, Tczew</p>
@@ -538,6 +538,48 @@
         <p style="font-size: 15px; margin-bottom: 10px; color: #ff0000; text-align: center; font-weight: bold;">JEDEN BILET UPOWAŻNIA WYŁĄCZNIE JEDNĄ OSOBĘ DO WSTĘPU NA WYDARZENIE</p>
         <p style="font-size: 18px; margin-bottom: 10px; margin-top: 20px; text-align: center;" id="getTicketCost">Do zapłaty: 20,00 zł</p>
         <button type="button" id="buy-ticket-button" onClick="buyTicket()">Zamawiam z obowiązkiem zapłaty</button>
+    </div>-->
+    <div class="page-content" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="ticket">
+            <div class="ticket-section">
+                <div>
+                    <h1 id="getTicketName">-</h1>
+                    <p>Bilet</p>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: space-between;">
+                <div style="max-width: 100%;">
+                    <p>Data</p>
+                    <h1 id="getTicketDate">[DATA]</h1>
+                </div>
+                <div style="max-width: 100%;">
+                    <p>Godzina</p>
+                    <h1 id="getTicketTime">[GODZINA]</h1>
+                </div>
+                <div style="max-width: 100%;">
+                    <p>Miejsce</p>
+                    <h1 id="getTicketPlace">[MIEJSCE]</h1>
+                </div>
+                <div style="max-width: 100%;" id="getTicketConsent">
+                    <p>Ważne</p>
+                    <h1 id="getTicketPlace">Wymagana zgoda</h1>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: space-between;">
+                <div>
+                    <h1>Cena biletu</h1>
+                </div>
+                <div>
+                    <h1 id="getTicketCost">-</h1>
+                </div>
+            </div>
+            <div class="ticket-section" id="getTicketAdditionalInfoSection">
+                <span id="getTicketAdditionalInfo"></span>
+            </div>
+            <div class="ticket-section-bottom">
+                <button type="button" id="buy-ticket-button" onClick="buyTicket()">Zamawiam z obowiązkiem zapłaty</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -1678,7 +1720,7 @@ function startApplication(reload) {
                 </li>`*/
                 var ticketData = `<li class="slide-visible" onClick="showTicket('${ticket}')" id="ticket-box-${ticket}">
                     <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
-                        <div>
+                        <div style="z-index: 1;">
                             <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
                             <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
                         </div>
@@ -1687,7 +1729,7 @@ function startApplication(reload) {
                 </li>`
                 var ticketDataHome = `<li class="slide-visible" onClick="showTicket('${ticket}')" id="home-ticket-box-${ticket}">
                     <div style="background-color: ${data.usertickets[ticket].colors[0]};" class="ticket-box">
-                        <div>
+                        <div style="z-index: 1;">
                             <p style="color: ${data.usertickets[ticket].colors[1]};">${data.usertickets[ticket].name}</p>
                             <p style="font-size: 15px; color: ${ticketStateColor};">${ticketState}</p>
                         </div>
@@ -2029,9 +2071,17 @@ function showTicket(ticketID) {
 function showBuyTicket(ticketEventID) {
     window.open("#getticketapp", "_self");
     document.getElementById("getTicketName").innerHTML = ticketEventsDB[ticketEventID].name;
-    document.getElementById("getTicketInfo").innerHTML = `${ticketEventsDB[ticketEventID].date}, ${ticketEventsDB[ticketEventID].time}<br>${ticketEventsDB[ticketEventID].place}`;
+    //document.getElementById("getTicketInfo").innerHTML = `${ticketEventsDB[ticketEventID].date}, ${ticketEventsDB[ticketEventID].time}<br>${ticketEventsDB[ticketEventID].place}`;
+    document.getElementById("getTicketDate").innerHTML = ticketEventsDB[ticketEventID].date;
+    document.getElementById("getTicketTime").innerHTML = ticketEventsDB[ticketEventID].time;
+    document.getElementById("getTicketPlace").innerHTML = ticketEventsDB[ticketEventID].place;
     document.getElementById("getTicketAdditionalInfo").innerHTML = ticketEventsDB[ticketEventID].info;
-    document.getElementById("getTicketCost").innerHTML = `Do zapłaty: ${parseFloat(ticketEventsDB[ticketEventID].cost).toFixed(2)} zł`
+    if (ticketEventsDB[ticketEventID].info != "") {
+        document.getElementById("getTicketAdditionalInfoSection").style.display = "flex"
+    } else {
+        document.getElementById("getTicketAdditionalInfoSection").style.display = "none"
+    }
+    document.getElementById("getTicketCost").innerHTML = `${parseFloat(ticketEventsDB[ticketEventID].cost).toFixed(2)} zł`
     if (ticketEventsDB[ticketEventID].consent) {
         document.getElementById("getTicketConsent").style.display = "block";
     } else {
