@@ -635,13 +635,14 @@
 
             for (entry in data) {
                 //STATUS, ID, WŁAŚCICIEL, WPŁATA, AKCJE
+                console.log(data[entry])
                 if (selectedEvent != "ALL" && selectedEvent != data[entry].ticket_event_id) {
                     continue;
                 }
                 dataTable.row.add([`
                 <div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>
                 `,
-                entry, data[entry].owner, `${parseFloat(data[entry].paid).toFixed(2)} zł`, `
+                entry, data[entry].owner, `${parseFloat(data[entry].paid).toFixed(2)} zł / ${parseFloat(data[entry].cost).toFixed(2)} zł`, `
                 <button class="btn btn-sm btn-primary" type="button" onclick="openManageTicketModal('${entry}')">Zarządzaj</button>
                 `]).draw();
                 statusStats[statusNames[data[entry].status]] += 1;

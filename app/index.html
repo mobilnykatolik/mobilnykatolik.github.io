@@ -1641,8 +1641,8 @@ function startApplication(reload) {
             localStorage.setItem("usernickname", userNickname);
             localStorage.setItem("userclass", userClass);
             //
-            userFirstName = userFirstName.charAt(0).toUpperCase() + userFirstName.slice(1).toLowerCase();
-            userSurname = userSurname.charAt(0).toUpperCase() + userSurname.slice(1).toLowerCase();
+            userFirstName = capitalizeWords(userFirstName);
+            userSurname = capitalizeWords(userSurname)
             //
 
             //Lucky number
@@ -1695,7 +1695,7 @@ function startApplication(reload) {
                     continue;
                 }
                 var ticketState, ticketStateColor;
-                if (data.usertickets[ticket].cost == data.usertickets[ticket].paid) {
+                if (data.usertickets[ticket].paid >= data.usertickets[ticket].cost) {
                     ticketState = "Bilet aktywny"
                     ticketStateColor = "#00ff00"
                     if (data.usertickets[ticket].consent_required == true && data.usertickets[ticket].consent == false) {
@@ -2052,7 +2052,7 @@ function loadTicket(ticketID) {
     //document.getElementById("payment-title").innerHTML = `Bilet nr ${ticketID}`
 
     var ticketState, ticketStateColor;
-    if (ticketData.cost == ticketData.paid) {
+    if (ticketData.paid >= ticketData.cost) {
         ticketState = "Bilet aktywny"
         ticketStateColor = "#00ff00"
         if (ticketData.consent_required == true && ticketData.consent == false) {
@@ -2464,6 +2464,17 @@ function logOut() {
         localStorage.clear();
         location.reload();
     }  
+}
+
+function capitalizeWords(str) {
+    // Rozdzielanie stringu na słowa rozdzielone spacją
+    return str.split(' ').map(word => {
+        // Rozdzielanie słów z myślnikiem
+        return word.split('-').map(part => {
+            // Zamiana pierwszej litery na wielką, a reszty na małe
+            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+        }).join('-'); // Połącz z powrotem słowa z myślnikiem
+    }).join(' '); // Połącz z powrotem słowa rozdzielone spacją
 }
 
 navigator.serviceWorker.addEventListener('message', function(event) {
