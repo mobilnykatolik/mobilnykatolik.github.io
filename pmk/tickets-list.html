@@ -450,8 +450,11 @@
                         </div>
                         <div class="form-group">
                             <label for="addTicketOwner">Właściciel biletu</label>
-                            <input type="text" class="form-control" id="addTicketOwner" aria-describedby="addTicketOwnerHelp" required>
-                            <small id="addTicketOwnerHelp" class="form-text text-muted">ID użytkownika lub imię, nazwisko i klasa (np. JAN KOWALSKI, 1LO)</small>
+                            <!--<input type="text" class="form-control" id="addTicketOwner" aria-describedby="addTicketOwnerHelp" required>-->
+                            <input type="text" class="form-control" id="addTicketOwner" aria-describedby="addTicketOwnerHelp"list="peopleList" placeholder="Imię i nazwisko, klasa" required>
+                            <datalist id="peopleList">
+                            </datalist>
+                            <small id="addTicketOwnerHelp" class="form-text text-muted">Imię, nazwisko i klasa (np. JAN KOWALSKI, 1LO)</small>
                         </div>
                         <div class="form-group">
                             <label for="addTicketPaid">Wpłata</label>
@@ -569,6 +572,8 @@
         var badgeColors = ["danger", "secondary-warning", "warning", "success", "secondary", "danger"];
         var statusNames = ["NIEAKTYWNY", "BRAK WPŁATY", "BRAK ZGODY", "AKTYWNY", "WYKORZYSTANY", "NIEZNANY"];
 
+        var userDB;
+
         function reloadDB() {
             var dataTable = $('#dataTable').DataTable();
             dataTable.clear();
@@ -611,6 +616,26 @@
             }};
 
             xhr.send();
+
+            //Pobieranie użytkowników
+            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+                    var xhrC = new XMLHttpRequest();
+                    xhrC.open("GET", url);
+
+                    xhrC.onreadystatechange = function () {
+                    if (xhrC.readyState === 4) {
+                        if (xhrC.status == 200) {
+                            userDB = JSON.parse(xhrC.responseText)
+                            document.getElementById("peopleList").innerHTML = ""
+                            for (x in userDB) {
+                                document.getElementById("peopleList").innerHTML += `
+                                    <option value="${userDB[x].firstname} ${userDB[x].lastname}, ${userDB[x].class.toUpperCase()}">
+                                `
+                            }
+                        }
+                    }};
+
+                    xhrC.send();
         }
 
         reloadDB();
