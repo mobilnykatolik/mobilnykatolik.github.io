@@ -652,6 +652,7 @@ function scanUserNext() {
 
 function scanPoints(userid) {
     if (PEID == undefined) {
+        qrScanner.start();
         return false;
     }
 
