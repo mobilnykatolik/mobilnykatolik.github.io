@@ -61,34 +61,62 @@
                 Projekty
             </div>
 
-            <!-- Nav Item - Project management Collapse Menu -->
+            <!-- Nav Item - Kalendarz -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="events.html">
                     <i class="fas fa-calendar fa-fw"></i>
-                    <span>Wydarzenia</span>
+                    <span>Kalendarz</span></a>
+            </li>
+
+            <!-- Nav Item - Bilety -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-tickets"
+                    aria-expanded="true" aria-controls="collapse-tickets">
+                    <i class="fas fa-ticket-alt fa-fw"></i>
+                    <span>Bilety</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapse-tickets" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kalendarz</h6>
-                        <a class="collapse-item" href="events.html">Wyświetl</a>
-                        <h6 class="collapse-header">Bilety</h6>
                         <a class="collapse-item" href="tickets-list.html">Zarządzaj biletami</a>
                         <a class="collapse-item" href="ticketed-events.html">Wydarzenia biletowane</a>
-                        <h6 class="collapse-header">Wirtualne rybki</h6>
-                        <a class="collapse-item" href="points.html">Zarządzaj</a>
-                        <a class="collapse-item" href="coupons.html">Kupony</a>
-                        <h6 class="collapse-header">SLS</h6>
-                        <a class="collapse-item" href="sls.html">Szkolna Liga Sportowa</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Lucky number -->
+            <!-- Nav Item - Wirtualne Rybki -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-points"
+                    aria-expanded="true" aria-controls="collapse-points">
+                    <i class="fas fa-fish fa-fw"></i>
+                    <span>Wirtualne Rybki</span>
+                </a>
+                <div id="collapse-points" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="points.html">Wydarzenia</a>
+                        <a class="collapse-item" href="coupons.html">Kupony</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Skaner -->
+            <li class="nav-item active">
+                <a class="nav-link" href="scan-settings.html">
+                    <i class="fas fa-qrcode fa-fw"></i>
+                    <span>Skaner</span></a>
+            </li>
+
+            <!-- Nav Item - Lucky number -->
+            <li class="nav-item d-none">
                 <a class="nav-link" href="#">
                     <i class="fas fa-gem fa-fw"></i>
                     <span>Szczęśliwy numerek</span></a>
+            </li>
+
+            <!-- Nav Item - Tczew ma talent -->
+            <li class="nav-item d-none">
+                <a class="nav-link" href="tmt.html">
+                    <i class="fas fa-star fa-fw"></i>
+                    <span>Tczew ma talent</span></a>
             </li>
 
             <!-- Divider -->
@@ -96,21 +124,30 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Inne
+                Aplikacja
             </div>
 
-            <!-- Nav Item - Scanner -->
-            <li class="nav-item active">
-                <a class="nav-link" href="scan-settings.html">
-                    <i class="fas fa-qrcode fa-fw"></i>
-                    <span>Skaner</span></a>
-            </li>
 
             <!-- Nav Item - Ideas -->
-            <li class="nav-item">
+            <li class="nav-item d-none">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-lightbulb"></i>
                     <span>Pomysły</span></a>
+            </li>
+
+            <!-- Nav Item - Użytkownicy -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-users"
+                    aria-expanded="true" aria-controls="collapse-users">
+                    <i class="fas fa-user fa-fw"></i>
+                    <span>Użytkownicy</span>
+                </a>
+                <div id="collapse-users" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="users-list.html">Zarządzaj użytkownikami</a>
+                        <a class="collapse-item" href="manage-classes.html">Modyfikuj klasy</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Orders -->
@@ -118,28 +155,6 @@
                 <a class="nav-link" href="orders.html">
                     <i class="fas fa-shopping-cart fa-fw"></i>
                     <span>Zamówienia</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider" style="opacity: 0;">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Użytkownicy
-            </div>
-
-            <!-- Nav Item - User management -->
-            <li class="nav-item">
-                <a class="nav-link" href="users-list.html">
-                    <i class="fas fa-fw fa-user-cog"></i>
-                    <span>Zarządzaj</span></a>
-            </li>
-
-            <!-- Nav Item - Class management -->
-            <li class="nav-item">
-                <a class="nav-link" href="manage-classes.html">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Ustawienia klas</span></a>
             </li>
 
 
