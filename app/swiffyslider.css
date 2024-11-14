@@ -115,6 +115,9 @@
 .slider-item-ratio-3x4{
     --swiffy-slider-item-ratio:3/4
 }
+.slider-item-ratio-3x8{
+    --swiffy-slider-item-ratio:3/8
+}
 .slider-nav-scrollbar{
     --swiffy-slider-track-height:0.5rem
 }

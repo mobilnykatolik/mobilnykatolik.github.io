@@ -776,7 +776,7 @@ container.badge.grey {
     align-items: center;
     flex-direction: column;
     background-size: cover;
-    background-position: center;
+    background-position: left center;
     background-repeat: no-repeat;
 }
 
