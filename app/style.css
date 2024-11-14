@@ -764,6 +764,22 @@ container.badge.grey {
     height: auto;
 }
 
+/* Fotobudka */
+
+.photobox-photo {
+    height: calc(100% - 0px)!important;
+    width: calc(100% - 0px)!important;
+    background-color: var(--additional);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 /* Kupony */
 .coupon {
     height: calc(100% - 2px)!important;
