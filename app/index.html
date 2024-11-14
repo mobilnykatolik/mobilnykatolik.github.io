@@ -435,9 +435,10 @@
         </svg>
         Zdjęcia z fotobudki
     </div>
-    <div class="page-content">
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: center;">
         <div style="margin-top: 10px;" class="slider-item-ratio slider-item-ratio-3x8 swiffy-slider slider-item-show4 swiffy-slider-photo slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
             <ul id="photobooth" class="slider-container py-4">
+                Nie masz żadnych zdjęć!
             </ul>
         </div>
     </div>
@@ -1677,6 +1678,9 @@ function startApplication(reload) {
                         </div>
                     </li>
                 `
+            }
+            if (document.getElementById("photobooth").innerHTML == "") {
+                document.getElementById("photobooth").innerHTML = "Nie masz żadnych zdjęć z fotobudki!"
             }
 
             //Lucky number
