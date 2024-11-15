@@ -446,7 +446,7 @@
     --swiffy-slider-item-count:6;
     --swiffy-slider-nav-zoom:0.5;
 }
-@media (max-width: 55rem) {
+@media (max-width: 53rem) {
     .swiffy-slider-photo{
         --swiffy-slider-track-height:0rem;
         --swiffy-slider-item-reveal:0rem;
@@ -454,7 +454,7 @@
         --swiffy-slider-nav-zoom:0.5;
     }
 }
-@media (max-width:50rem){
+@media (max-width:45rem){
     .swiffy-slider{
         --swiffy-slider-track-height:0rem;
         --swiffy-slider-item-reveal:0rem;
