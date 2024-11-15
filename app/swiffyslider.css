@@ -443,8 +443,16 @@
 .swiffy-slider-photo{
     --swiffy-slider-track-height:0rem;
     --swiffy-slider-item-reveal:0rem;
-    --swiffy-slider-item-count:3;
+    --swiffy-slider-item-count:6;
     --swiffy-slider-nav-zoom:0.5;
+}
+@media (max-width: 55rem) {
+    .swiffy-slider-photo{
+        --swiffy-slider-track-height:0rem;
+        --swiffy-slider-item-reveal:0rem;
+        --swiffy-slider-item-count:3;
+        --swiffy-slider-nav-zoom:0.5;
+    }
 }
 @media (max-width:50rem){
     .swiffy-slider{
