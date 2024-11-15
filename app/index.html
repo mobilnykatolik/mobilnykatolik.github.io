@@ -1673,7 +1673,7 @@ function startApplication(reload) {
             for (p in photobox) {
                 document.getElementById("photobooth").innerHTML += `
                     <li class="slide-visible">
-                        <div class="photobox-photo" style="background-image: url('${photobox[p].url}')" onclick='window.open("http://apimobilnykatolik.glitch.me/photo/download/${p}", "_blank")'>
+                        <div class="photobox-photo" style="background-image: url('${photobox[p].url}')" onclick='window.open("http://apimobilnykatolik.glitch.me/photo/download/${p}", "_self")'>
                             
                         </div>
                     </li>
