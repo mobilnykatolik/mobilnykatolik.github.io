@@ -512,12 +512,16 @@
             for (entry in data) {
                 console.log(data[entry])
                 //ID, KUPUJACY, ZAPLACONO / WARTOSC ZAMOWIENIA, STATUS
+                var url = `https://mobilnykatolik.github.io/store/check.html?id=${String(entry)}`
                 dataTable.row.add([
                     entry,
                     data[entry].customer,
                     `${parseFloat(data[entry].paid).toFixed(2)} / ${parseFloat(data[entry].price).toFixed(2)} zł`,
                     `<div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>`,
-                    `<button class="btn btn-sm btn-primary" type="button" onClick="openManageOrder('${entry}')">Zarządzaj</button>`
+                    `
+                    <button class="btn btn-sm btn-primary" type="button" onClick="openManageOrder('${entry}')">Zarządzaj</button>
+                    <a class="btn btn-sm btn-primary" href="${url}" target="_blank">Wyświetl</a>
+                    `
                 ]).draw();
             }   
             dataTable.draw();   
