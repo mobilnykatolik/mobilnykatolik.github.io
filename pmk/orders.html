@@ -372,6 +372,10 @@
                                 <option value=5>ANULOWANE</option>
                             </select>
                         </div>
+                        Szczegóły zamówienia
+                        <table id="order-details">
+                            
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
@@ -520,7 +524,7 @@
                     `<div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>`,
                     `
                     <button class="btn btn-sm btn-primary" type="button" onClick="openManageOrder('${entry}')">Zarządzaj</button>
-                    <a class="btn btn-sm btn-primary" href="${url}" target="_blank">Wyświetl</a>
+                    <!--<a class="btn btn-sm btn-primary" href="${url}" target="_blank">Wyświetl</a>-->
                     `
                 ]).draw();
             }   
@@ -535,6 +539,27 @@
             document.getElementById("order-paid").value = parseFloat(ordersDB[orderID].paid).toFixed(2)
             document.getElementById("order-status").value = ordersDB[orderID].status
             document.getElementById("order-id").value = orderID
+            document.getElementById("order-details").innerHTML = ""
+
+            for (i in ordersDB[orderID].products) {
+                let pos = ordersDB[orderID].products[i]
+                var posOptions = []
+                for (opt in pos.options) {
+                    posOptions.push(`${opt.toUpperCase()}: ${pos.options[opt].toUpperCase()}`)
+                }
+                posOptions = posOptions.join("<br>")
+                document.getElementById("order-details").innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="order-product-img" style="background-image: url('${pos.img}')"></div>
+                        </td>
+                        <td>
+                            <h5>${pos.name}</h5>
+                            <p>${posOptions}<br>${parseFloat(pos.price).toFixed(2)} zł</p>
+                        </td>
+                    </tr>
+                `
+            }
 
             if (userAccess >= 4) {
                 $('#manageTicketModal').modal('show')

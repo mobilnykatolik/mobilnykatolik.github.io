@@ -11336,3 +11336,28 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+.order-product-img {
+  width: 75px;
+  aspect-ratio: 6/7;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+}
+
+#order-details h5, #order-details p {
+  margin: 0;
+}
+
+#order-details h5 {
+  font-size: 1em;
+}
+
+#order-details p {
+  font-size: 0.75em;
+}
+
+table#order-details, #order-details tr, #order-details td {
+  padding: 10px 15px 0 0;
+}
