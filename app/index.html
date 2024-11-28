@@ -2113,13 +2113,9 @@ function loadOrders() {
     document.getElementById("my-orders").innerHTML = ""
 
     for (order in ordersdb) {
-        if (document.getElementById(`order-${order}`) != undefined) {continue}
-        var orderWindow = template.replaceAll("[ORDER_ID]", order);
-        orderWindow = orderWindow.replaceAll("[ORDER_STATUS]", orderStatus[parseInt(ordersdb[order].status)]);
-        document.getElementById("home-slider").innerHTML = orderWindow + document.getElementById("home-slider").innerHTML;
-        let opacity = "100"
+        let opacity = 100
         if (parseInt(ordersdb[order].status) == 4 || parseInt(ordersdb[order].status) == 5) {
-            opacity = "70"
+            opacity = 70
         }
         document.getElementById("my-orders").innerHTML = `
             <div type="ind" onClick="showOrder('${order}')" style="opacity: ${opacity}%;">
@@ -2131,6 +2127,12 @@ function loadOrders() {
                 <container>${parseFloat(ordersdb[order].price).toFixed(2)} ZŁ</container>
             </div>
         ` + document.getElementById("my-orders").innerHTML
+
+        if (document.getElementById(`order-${order}`) != undefined) {continue}
+        if (opacity == 70) {continue}
+        var orderWindow = template.replaceAll("[ORDER_ID]", order);
+        orderWindow = orderWindow.replaceAll("[ORDER_STATUS]", orderStatus[parseInt(ordersdb[order].status)]);
+        document.getElementById("home-slider").innerHTML = orderWindow + document.getElementById("home-slider").innerHTML;
     }
 }
 
