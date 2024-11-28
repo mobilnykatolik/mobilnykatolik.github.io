@@ -8191,6 +8191,13 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
 }
 
+.bg-christmas {
+  background-image: url("https://t4.ftcdn.net/jpg/09/28/20/77/360_F_928207775_xzGpqxiGv4ZqWIk5Q8hiZXHjw9GzRGGR.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .bg-opacity-10 {
   --bs-bg-opacity: 0.1;
 }

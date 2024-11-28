@@ -27,6 +27,7 @@ fetch('products/data.json')
     .catch(error => {
         // Obsługa błędów
         console.error('There was a problem with the fetch operation:', error);
+        //runPage() //USUNAC TA LINIJKE
     });
 
 

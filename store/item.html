@@ -49,21 +49,23 @@
                             <span id="item-price"></span> <span>zł</span>
                         </div>
                         <p class="lead" id="item-desc"></p>
-                        <div id="item-options"></div>
-                        <div class="row d-flex my-3">
-                            <div class="col d-flex justify-content-start d-none" id="size-table-button">
-                                <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick="openSizeTable();">
-                                    <i class="bi-file-spreadsheet me-1"></i>
-                                    Rozmiary
-                                </button>
+                        <form onsubmit="return addToCart();">
+                            <div id="item-options"></div>
+                            <div class="row d-flex my-3">
+                                <div class="col d-flex justify-content-start d-none" id="size-table-button">
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick="openSizeTable();">
+                                        <i class="bi-file-spreadsheet me-1"></i>
+                                        Rozmiary
+                                    </button>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Dodaj do koszyka
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col d-flex justify-content-end">
-                                <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick="addToCart();">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Dodaj do koszyka
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -129,21 +131,32 @@ function getItem(itemID) {
     document.getElementById("item-img").src = product.img;
 
     for (option in product.options) {
-        var options = ""
-        for (val in product.options[option]) {
-            var name = product.options[option][val].name
-            var display = product.options[option][val].display
-            options += `<option value="${name}">${display}</option>`
+        if (product.options[option].length >= 1) {
+            var options = ""
+            for (val in product.options[option]) {
+                var name = product.options[option][val].name
+                var display = product.options[option][val].display
+                options += `<option value="${name}">${display}</option>`
+            }
+            var optionForm = `
+            <div class="form-floating my-3">
+                <select class="form-select" id="item-option-${option}" onChange="optionChange();" required>
+                    ${options}
+                </select>
+                <label>${option}</label>
+            </div>`
+            document.getElementById("item-options").innerHTML += optionForm;
+            itemOptions.push(option)
+        } else {
+            var optionForm = `
+            <div class="form-floating my-3">
+                <input class="form-control" type="text" id="item-option-${option}" placeholder=" " required>
+                <label>${option}</label>
+            </div>`
+            document.getElementById("item-options").innerHTML += optionForm;
+            itemOptions.push(option)
         }
-        var optionForm = `
-        <div class="form-floating my-3">
-            <select class="form-select" id="item-option-${option}" onChange="optionChange();">
-                ${options}
-            </select>
-            <label>${option}</label>
-        </div>`
-        document.getElementById("item-options").innerHTML += optionForm;
-        itemOptions.push(option)
+        
     }
     if (product.sizetable != undefined ) {
         document.getElementById("size-table-button").classList.remove("d-none")
@@ -175,6 +188,7 @@ function addToCart() {
     console.log(itemData)
     updateCart();
     openModal("cartSuccess")
+    return false;
 }
 
 function openSizeTable() {
