@@ -453,7 +453,41 @@
         </svg>
         Zamówienie
     </div>
-    <div class="page-content">
+    <div class="page-content" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="order">
+            <div class="order-section" style="justify-content: space-between;">
+                <div style="max-width: 100%;">
+                    <p>ID zamówienia</p>
+                    <h1 id="order-id">-</h1>
+                </div>
+                <div style="max-width: 100%;">
+                    <p>Suma</p>
+                    <h1 id="order-price">-</h1>
+                </div>
+                <div style="max-width: 100%;">
+                    <p>Do zapłaty</p>
+                    <h1 id="order-cost">-</h1>
+                </div>
+            </div>
+            <div class="order-section">
+                <div style="max-width: 100%;">
+                    <p>Status</p>
+                    <h1 id="order-status">-</h1>
+                </div>
+            </div>
+            <div class="order-section">
+                <div>
+                    <h1>Szczegóły zamówienia</h1>
+                </div>
+                <div>
+                    <table style="width: 100%;" id="order-details">
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="page-content">
         <p style="font-size: 15px;">ID zamówienia</p>
         <p style="font-size: 18px; margin-bottom: 10px;" id="order-id"></p>
         <p style="font-size: 15px;">Status</p>
@@ -472,7 +506,7 @@
             tytułem <b id="order-payment-title"></b>
 
         </p>
-    </div>
+    </div>-->
 </div>
 
 <div class="page" id="ticket">
@@ -2046,10 +2080,10 @@ function loadOrders() {
 function loadOrder(orderID) {
     document.getElementById("order-id").innerHTML = `#${orderID}`;
     document.getElementById("order-status").innerHTML = orderStatus[parseInt(ordersdb[orderID].status)];
-    document.getElementById("order-price").innerHTML = `${ordersdb[orderID].price},00 zł`
-    document.getElementById("order-cost").innerHTML = `${parseInt(ordersdb[orderID].price)-parseInt(ordersdb[orderID].paid)},00 zł`
+    document.getElementById("order-price").innerHTML = `${parseFloat(ordersdb[orderID].price).toFixed(2)} zł`
+    document.getElementById("order-cost").innerHTML = `${parseFloat(parseInt(ordersdb[orderID].price)-parseInt(ordersdb[orderID].paid)).toFixed(2)} zł`
 
-    var orderDetails = "<tr><td>Produkt</td><td>Opis</td><td>Cena</td></tr>";
+    var orderDetails = "";
     for (pos in ordersdb[orderID].products) {
         var pos = ordersdb[orderID].products[pos];
         var posOptions = []
@@ -2059,9 +2093,14 @@ function loadOrder(orderID) {
         posOptions = posOptions.join(" / ")
         orderDetails += `
         <tr>
-            <td>${pos.name}</td>
-            <td>${posOptions}</td>
-            <td>${pos.price},00 zł</td>
+            <td>
+                <div class="order-product-img" style="background-image: url('${pos.img}')"></div>
+            </td>
+            <td>
+                <h1>${pos.name}</h1>
+                <p>${posOptions}</p>
+                <p>${parseFloat(pos.price).toFixed(2)} zł</p>
+            </td>
         </tr>
         `
     }

@@ -1029,3 +1029,56 @@ container.badge.grey {
         background-position-x: -500px;
     }
 }
+
+/* ZAMÓWIENIA */
+.order {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-section {
+    background-color: var(--additional);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.order h1 {
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.order p {
+    font-size: 12px;
+    opacity: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.order span {
+    font-size: 11px;
+    opacity: 70%;
+}
+
+.order table, .order tr, .order td {
+    padding: 10px 15px 0 0;
+}
+
+.order-product-img {
+    height: 75px;
+    width: 75px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
