@@ -526,7 +526,7 @@
                     <h1 id="order-status">-</h1>
                 </div>
             </div>
-            <div class="order-section">
+            <div class="order-section" style="flex-direction: column;">
                 <div>
                     <h1>Szczegóły zamówienia</h1>
                 </div>
@@ -534,6 +534,15 @@
                     <table style="width: 100%;" id="order-details">
                         
                     </table>
+                </div>
+            </div>
+            <div class="order-section">
+                <div style="max-width: 100%;">
+                    <h1>Informacje o płatności</h1>
+                    <p>
+                        Wpłaty gotówką przyjmują Łucja Czapp (2LO) oraz Anastazja Pustkowska (2LO)
+                        <br>Możesz również wykonać przelew BLIK na numer <b>694 865 608</b>
+                    </p>
                 </div>
             </div>
         </div>
@@ -2163,7 +2172,7 @@ function loadOrder(orderID) {
         posOptions = posOptions.join("<br>")
         orderDetails += `
         <tr>
-            <td>
+            <td style="width: 75px;">
                 <div class="order-product-img" style="background-image: url('${pos.img}')"></div>
             </td>
             <td>
