@@ -4,8 +4,8 @@
         "collection": "XMAS",
         "badge": "",
         "price": 3.00,
-        "img": "img/cc-1.jpg",
-        "carousel": ["img/cc-1.jpg", "img/cc-2.jpg", "img/cc-3.jpg"],
+        "img": "img/cc01.jpg",
+        "carousel": ["img/cc01.jpg", "img/cc02.jpg", "img/cc03.jpg"],
         "options": {
             "ODBIORCA": []
         },
