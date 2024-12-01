@@ -41,7 +41,22 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" id="item-img" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6">
+                        <img class="card-img-top mb-5 mb-md-0" id="item-img" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
+                        <div id="carouselExampleInterval" class="carousel slide mb-5 mb-md-0" data-bs-ride="carousel">
+                            <div class="carousel-inner" id="carousel-items">
+
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="small mb-1">ID: <span id="item-id"></span></div>
                         <h1 class="display-5 fw-bolder" id="item-name"></h1>
@@ -129,6 +144,25 @@ function getItem(itemID) {
     document.getElementById("item-price").innerHTML = parseFloat(product.price).toFixed(2);
     document.getElementById("item-desc").innerHTML = product.desc;
     document.getElementById("item-img").src = product.img;
+
+    if (product.carousel != undefined && product.carousel.length > 1) {
+        document.getElementById("item-img").classList.add("d-none")
+        document.getElementById("carousel-items").innerHTML = ""
+        for (i in product.carousel) {
+            if (i == 0) {
+                document.getElementById("carousel-items").innerHTML += `
+                <div class="carousel-item active" data-bs-interval="5000">
+                    <img src="${product.carousel[i]}" class="d-block w-100">
+                </div>`
+            } else {
+                document.getElementById("carousel-items").innerHTML += `
+                <div class="carousel-item" data-bs-interval="5000">
+                    <img src="${product.carousel[i]}" class="d-block w-100">
+                </div>`
+            }
+            
+        }
+    }
 
     for (option in product.options) {
         if (product.options[option].length >= 1) {
