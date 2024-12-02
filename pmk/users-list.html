@@ -516,6 +516,41 @@
         </div>
     </div>
 
+    <!-- Change Email Address Modal-->
+    <div class="modal fade" id="changeEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Zmiana danych logowania do Profilu Mobilnego</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="changeEmailUserID">ID użytkownika</label>
+                            <input type="text" class="form-control" id="changeEmailUserID" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="changeEmailCurrent">Aktualny adres e-mail</label>
+                            <input type="email" class="form-control" id="changeEmailCurrent" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="changeEmailNew">Nowy adres e-mail</label>
+                            <input type="email" class="form-control" id="changeEmailNew">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="manageUser(true);">Wyślij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Selection Check Modal-->
     <div class="modal fade" id="selectionCheckModal" tabindex="-1" role="dialog" aria-labelledby="selectionCheckModalLabel"
         aria-hidden="true">
@@ -760,18 +795,32 @@
                                         <td>${data[entry].access}</td>
                                         <td>${points}</td>
                                         <td>
-                                            <div class="dropdown">
+                                            <!--<div class="dropdown">
                                                 <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Zarządzaj
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" onClick="openManageUserModal(['${entry}'])">Modyfikuj</a>
+                                                    <a class="dropdown-item" >Modyfikuj</a>
                                                     <a class="dropdown-item" onClick="openSendNotificationModal(['${entry}'])">Wyślij powiadomienie</a>
                                                     <a class="dropdown-item" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item text-danger" onClick="confirmDelete(['${entry}'])">Usuń</a>
                                                 </div>
-                                            </div>    
+                                            </div>-->
+
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-primary" onClick="openManageUserModal(['${entry}'])">Zarządzaj</button>
+                                                <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="sr-only">Rozwiń listę</span>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" onClick="openSendNotificationModal(['${entry}'])">Wyślij powiadomienie</a>
+                                                    <a class="dropdown-item" onClick="openManagePointsModal('${entry}')">Modyfikuj WR</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" onClick="openChangeEmailModal('${entry}')">Zmień e-mail</a>
+                                                    <a class="dropdown-item text-danger" onClick="confirmDelete(['${entry}'])">Usuń</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 `
@@ -933,7 +982,7 @@
             
         }
 
-        function manageUser() {
+        function manageUser(email) {
             var data = {
                 "users": document.getElementById("manageUserID").value.split(",")
             }
@@ -942,6 +991,16 @@
             if (document.getElementById("manageUserNickname").value != "") {data.nickname = document.getElementById("manageUserNickname").value}
             if (document.getElementById("manageUserClass").value != "") {data.class = document.getElementById("manageUserClass").value}
             if (document.getElementById("manageUserAccess").value != "") {data.access = document.getElementById("manageUserAccess").value}
+            
+            if (email == true) {
+                if (document.getElementById("changeEmailUserID").value == "") {return false;}
+                if (document.getElementById("changeEmailNew").value == "") {return false;}
+                var data = {
+                    "users": [document.getElementById("changeEmailUserID").value],
+                    "email": document.getElementById("changeEmailNew").value
+                }
+            }
+
             if (Object.keys(data).length == 1) {
                 return false;
             }
@@ -1266,6 +1325,48 @@
             xhr.send(JSON.stringify(data));
             return false;
         }
+
+        function openChangeEmailModal(userid) {
+            document.getElementById("changeEmailUserID").value = userid;
+            document.getElementById("changeEmailCurrent").value = userdb[userid].email;
+            document.getElementById("changeEmailNew").value = "";
+
+            if (userAccess >= 5) {
+                $('#changeEmailModal').modal('show')
+            } else {
+                $('#insufficientPermissionsModal').modal('show')
+            }
+
+            return false;
+
+            //Displaying user's points history
+            var pointsData = pointsDB[userid];
+            document.getElementById("points-history").innerHTML = "";
+            document.getElementById("managePointsUserID").value = userid;
+            if (pointsData == undefined) {
+                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: 0`
+            } else {
+                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
+                for (x in pointsData.history) {
+                    var element = pointsData.history[x];
+                    if (element.name == undefined) {
+                        if (element.id == undefined || eventPointsDB[element.id] == undefined) {
+                            element.name = "Modyfikacja punktów"
+                        } else {
+                            element.name = eventPointsDB[element.id].name;
+                        }
+                    }
+                    element.date = element.ts;
+                    document.getElementById("points-history").innerHTML += `
+                    <tr>
+                        <td>${element.name}</td>
+                        <td>${element.amount}</td>
+                        <td>${element.date}</td>
+                    </tr>
+                    `;
+                } 
+            }
+            }
 
 
     </script>
