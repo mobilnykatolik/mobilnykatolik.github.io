@@ -6532,6 +6532,13 @@ button.bg-danger:focus {
   background-color: #f8f9fc !important;
 }
 
+.bg-su {
+  background-image: url("../img/su-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 a.bg-light:hover, a.bg-light:focus,
 button.bg-light:hover,
 button.bg-light:focus {
