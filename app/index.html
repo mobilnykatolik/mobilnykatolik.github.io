@@ -2150,7 +2150,7 @@ function loadOrder(orderID) {
     }
 
     if (ordersdb[orderID].paymentinfo != undefined) {
-        document.getElementById("order-payment-info").innerHTML = ordersdb[orderID].paymentinfo.replaceAll("[ORDER_ID]", orderID);
+        document.getElementById("order-payment-info").innerHTML = ordersdb[orderID].paymentinfo.replaceAll("[orderID]", orderID);
     } else {
         document.getElementById("order-payment-info-section").style.display = "none"
     }
