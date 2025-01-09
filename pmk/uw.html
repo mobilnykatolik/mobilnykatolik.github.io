@@ -1,0 +1,64 @@
+<html>
+<body>
+
+<h1>Kalkulator punktów - informatyka UW</h1>
+
+<label for="polski" id="polski-label">Język polski - 30%</label><br>
+<input type="range" value="30" min="30" max="100" id="polski"><br><br>
+
+<label for="matematyka" id="matematyka-label">Matematyka (R) - 30%</label><br>
+<input type="range" value="30" min="30" max="100" id="matematyka"><br><br>
+
+<label for="angielski" id="angielski-label">Język angielski (R) - 30%</label><br>
+<input type="range" value="30" min="30" max="100" id="angielski"><br><br>
+
+<label for="informatyka" id="informatyka-label">Informatyka (R) - 30%</label><br>
+<input type="range" value="30" min="30" max="100" id="informatyka"><br><br>
+
+<h3 id="scoring">Wynik końcowy:</h3>
+
+</body>
+</html>
+
+<script>
+var wyniki = [30, 30, 30, 30] //POLSKI, MATEMATYKA (R), ANGIELSKI (R), INFORMATYKA (R)
+var scoring = 0
+
+document.getElementById("polski").addEventListener('input', () => {
+    let wynik = document.getElementById("polski").value
+    document.getElementById("polski-label").innerHTML = `Język polski - ${wynik}%`
+    wyniki[0] = wynik
+    updateScoring();
+});
+
+document.getElementById("matematyka").addEventListener('input', () => {
+    let wynik = document.getElementById("matematyka").value
+    document.getElementById("matematyka-label").innerHTML = `Matematyka (R) - ${wynik}%`
+    wyniki[1] = wynik
+    updateScoring();
+});
+
+document.getElementById("angielski").addEventListener('input', () => {
+    let wynik = document.getElementById("angielski").value
+    document.getElementById("angielski-label").innerHTML = `Język angielski (R) - ${wynik}%`
+    wyniki[2] = wynik
+    updateScoring();
+});
+
+document.getElementById("informatyka").addEventListener('input', () => {
+    let wynik = document.getElementById("informatyka").value
+    document.getElementById("informatyka-label").innerHTML = `Informatyka (R) - ${wynik}%`
+    wyniki[3] = wynik
+    updateScoring();
+});
+
+function updateScoring() {
+    scoring = 0.6*0.05*wyniki[0]+0.15*wyniki[1]+0.1*wyniki[2]+0.5*wyniki[3]+0.2*wyniki[3]
+    document.getElementById("scoring").innerHTML = `Wynik końcowy: ${Math.floor(scoring * 100) / 100}pkt.`
+}
+
+
+
+updateScoring()
+
+</script>
