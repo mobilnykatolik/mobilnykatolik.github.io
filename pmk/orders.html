@@ -227,6 +227,12 @@
                                     <h6 class="m-0">Zamówienia</h6>
                                 </div>
                                 <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="storeSelect">Sklep</label>
+                                        <select class="form-control" id="storeSelect" onChange="drawTable();" required>
+                                            <option value="" selected disabled hidden>Proszę czekać...</option>
+                                        </select>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
@@ -494,6 +500,20 @@
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
                     ordersDB = data;
+                    document.getElementById("storeSelect").innerHTML = `
+                        <option value="ALL" selected>Wszystkie zamówienia</option>
+                    `
+                    var stores = []
+                    for (order in ordersDB) {
+                        if (ordersDB[order].store != undefined && !stores.includes(ordersDB[order].store)) {
+                            stores.push(ordersDB[order].store)
+                        }
+                    }
+                    for (store in stores) {
+                        document.getElementById("storeSelect").innerHTML += `
+                        <option value="${stores[store]}">${stores[store]}</option>
+                    `
+                    }
                     drawTable();
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
@@ -513,8 +533,16 @@
             dataTable.clear();
             dataTable.draw();
 
+            var filter = document.getElementById("storeSelect").value
+            if (filter == "") {
+                filter = "ALL"
+            }
+
             for (entry in data) {
-                console.log(data[entry])
+                if (filter != "ALL" && data[entry].store != filter) {
+                    continue;
+                }
+                //console.log(data[entry])
                 //ID, KUPUJACY, ZAPLACONO / WARTOSC ZAMOWIENIA, STATUS
                 var url = `https://mobilnykatolik.github.io/store/check.html?id=${String(entry)}`
                 dataTable.row.add([

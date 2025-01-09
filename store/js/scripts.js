@@ -46,7 +46,7 @@ function updateCart() {
 updateCart()
 
 function openModal(id) {
-    myModal = new bootstrap.Modal(document.getElementById(id));
+    const myModal = new bootstrap.Modal(document.getElementById(id));
     myModal.show();
     return false;
 }

@@ -8198,6 +8198,13 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
 }
 
+.bg-valentines {
+  background-image: url("https://www.foreigntongues.co.uk/wp-content/uploads/2020/02/Valentines-Day.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .bg-opacity-10 {
   --bs-bg-opacity: 0.1;
 }
@@ -10837,4 +10844,16 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+
+.fullpage {
+  width: 100vw;
+  height: 100vh;
+}
+
+.homepage {
+  background-image: url("/assets/pos-cs-homepage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

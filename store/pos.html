@@ -18,27 +18,50 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.html">Sklep Mobilny Katolik</a>
+                <a class="navbar-brand">POS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Wszystkie produkty</a></li>
-                        <li class="nav-item"><a class="nav-link" href="info.html">Informacje</a></li>
-                        <li class="nav-item"><a class="nav-link" href="check.html">Status zamówienia</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="openNewWindow();">POS CS</a></li>
                     </ul>
-                    <form class="d-flex">
-                        <a class="btn btn-outline-dark" href="cart.html">
-                            <i class="bi-cart-fill me-1"></i>
-                            Koszyk
-                            <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-quantity">0</span>
-                        </a>
-                    </form>
                 </div>
             </div>
         </nav>
 
+        <!-- Section-->
+        <section id="cart-section-1" class="px-5 py-5">
+            <div class="row">
+                <div class="col-6">
+                    <h5>Wybór produktów</h5>
+                    <form onsubmit="return addToCart();">
+                        <div class="form-floating my-3">
+                            <select class="form-select" id="item-select" onchange="showOptions()" required>
+                                <option value="" selected>Wybierz produkt</option>
+                            </select>
+                            <label>Produkt</label>
+                        </div>
+                        <div id="item-options"></div>
+                        <div class="row d-flex my-3">
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Dodaj do koszyka
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <h5>Koszyk (<span id="cart-quantity"></span>)</h5>
+                    <br>
+                    <ul class="list-group list-group-flush w-90" id="cartList">
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- Product section-->
-        <section class="py-5">
+        <section class="py-5 d-none">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
@@ -133,38 +156,37 @@
 <script>
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const itemID = urlParams.get('id');
+var itemID;
 
 var itemOptions = []
 
-function getItem(itemID) {
-    var product = productsDB[itemID];
-    document.getElementById("item-id").innerHTML = itemID.toUpperCase();
-    document.getElementById("item-name").innerHTML = product.name;
-    document.getElementById("item-price").innerHTML = parseFloat(product.price).toFixed(2);
-    document.getElementById("item-desc").innerHTML = product.desc;
-    document.getElementById("item-img").src = product.img;
-    productsDB[itemID].finalprice = parseFloat(product.price)
+function runPage() {
+    console.log("run")
+    for (prod in productsDB) {
+        console.log(productsDB[prod])
+        document.getElementById("item-select").innerHTML += `
+        <option value="${prod}">${productsDB[prod].name}</option>`
+        productsDB[prod].finalprice = parseFloat(productsDB[prod].price)
+    }
+}
 
-    if (product.carousel != undefined && product.carousel.length > 1) {
-        document.getElementById("item-img").classList.add("d-none")
-        document.getElementById("carousel-items").innerHTML = ""
-        for (i in product.carousel) {
-            if (i == 0) {
-                document.getElementById("carousel-items").innerHTML += `
-                <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="${product.carousel[i]}" class="d-block w-100">
-                </div>`
-            } else {
-                document.getElementById("carousel-items").innerHTML += `
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="${product.carousel[i]}" class="d-block w-100">
-                </div>`
-            }
-            
+function showOptions() {
+    itemID = document.getElementById("item-select").value;
+    if (itemID == "") {
+        if (newWindow) {
+            newWindow.postMessage("lock", "*")
+        }
+        document.getElementById("item-options").innerHTML = ""
+        return false;
+    } else {
+        if (newWindow) {
+            newWindow.postMessage("unlock", "*")
         }
     }
-
+    var product = productsDB[itemID]
+    document.getElementById("item-img").src = product.img;
+    document.getElementById("item-options").innerHTML = ""
+    itemOptions = []
     for (option in product.options) {
         if (product.options[option].length >= 1) {
             var options = ""
@@ -189,7 +211,7 @@ function getItem(itemID) {
         } else {
             var optionForm = `
             <div class="form-floating my-3">
-                <input class="form-control" type="text" id="item-option-${option}" placeholder=" " required>
+                <input class="form-control" type="text" id="item-option-${option}" onfocus="showInputValue('item-option-${option}')" placeholder=" " required>
                 <label>${option}</label>
             </div>`
             document.getElementById("item-options").innerHTML += optionForm;
@@ -197,10 +219,25 @@ function getItem(itemID) {
         }
         
     }
-    if (product.sizetable != undefined ) {
-        document.getElementById("size-table-button").classList.remove("d-none")
-        document.getElementById("size-table").src = product.sizetable
-    }
+}
+
+function showInputValue(inputID) {
+    if (!newWindow) {return false;}
+    let input = document.getElementById(inputID)
+    let intervalId;
+
+    input.addEventListener("focus", () => {
+        newWindow.postMessage(`inputEditStart:${inputID.split("-")[2]}`, "*")
+        intervalId = setInterval(() => {
+            newWindow.postMessage(`inputEdit:${input.value}`, "*")
+        }, 100); // Odczytuj wartość co 100 ms (możesz dostosować)
+    });
+
+    input.addEventListener("blur", () => {
+        clearInterval(intervalId); // Zatrzymanie monitorowania po wyjściu z pola
+        newWindow.postMessage("inputEditStop", "*")
+        console.log("INPUT EDIT STOP")
+    });
 }
 
 function optionChange() {
@@ -220,10 +257,6 @@ function optionChange() {
     productsDB[itemID].finalprice = parseFloat(price)
 }
 
-function runPage() {
-    getItem(itemID);
-}
-
 function addToCart() {
     var product = productsDB[itemID];
     var itemData = {
@@ -239,12 +272,57 @@ function addToCart() {
     cart.push(itemData)
     console.log(itemData)
     updateCart();
-    openModal("cartSuccess")
+    showCart();
     return false;
 }
 
 function openSizeTable() {
     openModal("sizeTable");
 }
+
+function deleteProd(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart))
+    updateCart()
+    showCart()
+}
+
+function showCart(firstTime) {
+    document.getElementById("cartList").innerHTML = ""
+    cartPrice = 0;
+    for (prod in cart) {
+        var prodOpt = []
+        for (opt in cart[prod].options) {
+            prodOpt.push(`${opt.toUpperCase()}: ${cart[prod].options[opt].toUpperCase()}`)
+        }
+        prodOpt = prodOpt.join("<br>")
+        document.getElementById("cartList").innerHTML += `
+        <li class="list-group-item row d-flex align-items-center">
+            <div class="col-8 col-lg-10">
+                <h5 class="fw-bolder">${cart[prod].name}</h5>
+                ${prodOpt}
+                <br>
+                <a class="text-danger" href="#" onClick="deleteProd('${prod}')">Usuń</a>
+            </div>
+            <div class="col-4 col-lg-2">
+                <h5 class="fw-bolder">${parseFloat(cart[prod].price).toFixed(2)} zł</h5>
+            </div>
+        </li>
+        `
+        cartPrice += parseFloat(cart[prod].price);
+    }
+    if (!firstTime) {
+        newWindow.postMessage("reload", "*");
+    }
+    //document.getElementById("cartPrice").innerHTML = cartPrice.toFixed(2)
+}
+showCart(true);
+
+let newWindow;
+
+    function openNewWindow() {
+      // Otwórz nowe okno z konkretną stroną
+      newWindow = window.open("cs.html", "NewWindow", "width=400,height=400");
+    }
 
 </script>

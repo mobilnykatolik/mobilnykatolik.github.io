@@ -38,7 +38,26 @@
         </nav>
 
         <!-- Header-->
-        <header class="py-5 bg-christmas">
+        <header class="py-5 bg-valentines">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Walentynki 2025</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Komu podarujesz w tym roku kwiaty?</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productListValentines">
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Header-->
+        <header class="py-5 bg-christmas d-none">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Mikołajki</h1>
@@ -48,7 +67,7 @@
         </header>
 
         <!-- Section-->
-        <section class="py-5">
+        <section class="py-5 d-none">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productListChristmas">
 
@@ -117,6 +136,7 @@ function runPage() {
         var list = "productList"
         if (product.collection == "CLASSICS") { list = "productListClassics"}
         if (product.collection == "XMAS") { list = "productListChristmas"}
+        if (product.collection == "VALENTINES") { list = "productListValentines"}
         document.getElementById(list).innerHTML += `
             <div class="col mb-5">
                 <div class="card h-100">
@@ -128,7 +148,7 @@ function runPage() {
                     <div class="card-body p-4">
                         <div class="text-center">
                             <h5 class="fw-bolder">${product.name}</h5>
-                            <span>${product.price} zł</span>
+                            <span>${parseFloat(product.price).toFixed(2)} zł</span>
                         </div>
                     </div>
 
