@@ -471,28 +471,6 @@
     </div>
     <div class="page-content">
         <div class="buttons-section" type="people" id="my-orders">
-            <div type="ind">
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv');"></aside>
-                <span>
-                    Kuba Sałek
-                    <br><i>App Developer, API</i>
-                </span>
-                <container>#WKRÓTCE</container>
-            </div>
-            <div type="ind">
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/ibyfmb1stmrimw3a')"></aside>
-                <span>
-                    Filip Zalewski
-                    <br><i>UI Designer, Tester</i>
-                </span>
-            </div>
-            <div type="ind">
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/l7y8bez4r7f78qk9');"></aside>
-                <span>
-                    Aleksandra Klajda
-                    <br><i>UI Designer, Tester</i>
-                </span>
-            </div>
         </div>
     </div>
 </div>
@@ -538,12 +516,11 @@
                     </table>
                 </div>
             </div>
-            <div class="order-section">
+            <div class="order-section" id="order-payment-info-section">
                 <div style="max-width: 100%;">
                     <h1>Informacje o płatności</h1>
-                    <p style="white-space: unset;">
-                        Wpłaty gotówką przyjmują Łucja Czapp (2LO) oraz Anastazja Pustkowska (2LO)
-                        <br>Możesz również wykonać przelew BLIK na numer <b>694 865 608</b>
+                    <p style="white-space: unset;" id="order-payment-info">
+                        -
                     </p>
                 </div>
             </div>
@@ -2165,6 +2142,19 @@ function loadOrder(orderID) {
     document.getElementById("order-price").innerHTML = `${parseFloat(ordersdb[orderID].price).toFixed(2)} zł`
     document.getElementById("order-cost").innerHTML = `${parseFloat(parseInt(ordersdb[orderID].price)-parseInt(ordersdb[orderID].paid)).toFixed(2)} zł`
 
+    //Pokazywanie informacji o płatności
+    if (parseInt(ordersdb[orderID].status) == 0) {
+        document.getElementById("order-payment-info-section").style.display = "block"
+    } else {
+        document.getElementById("order-payment-info-section").style.display = "none"
+    }
+
+    if (ordersdb[orderID].paymentinfo != undefined) {
+        document.getElementById("order-payment-info").innerHTML = ordersdb[orderID].paymentinfo.replaceAll("[ORDER_ID]", orderID);
+    } else {
+        document.getElementById("order-payment-info-section").style.display = "none"
+    }
+
     var orderDetails = "";
     for (pos in ordersdb[orderID].products) {
         var pos = ordersdb[orderID].products[pos];
@@ -2188,7 +2178,6 @@ function loadOrder(orderID) {
         `
     }
     document.getElementById("order-details").innerHTML = orderDetails;
-    document.getElementById("order-payment-title").innerHTML = `Zamówienie SU nr ${orderID}`
 }
 
 function showOrder(orderID) {
