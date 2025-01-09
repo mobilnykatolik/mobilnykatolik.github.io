@@ -204,7 +204,8 @@ function makeOrder() {
         "customer": `${document.getElementById("customer-firstName").value.toUpperCase()} ${document.getElementById("customer-lastName").value.toUpperCase()}, ${document.getElementById("customer-class").value.toUpperCase()}`,
         "email": document.getElementById("customer-email").value,
         "products": cart,
-        "price": cartPrice
+        "price": cartPrice,
+        "store": "VALENTINES2025"
     }
 
     console.log(orderData);
