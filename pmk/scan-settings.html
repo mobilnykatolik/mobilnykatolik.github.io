@@ -235,6 +235,7 @@
                             <option value="tickets">Skaner biletów</option>
                             <option value="points">Skaner Wirtualnych Rybek</option>
                             <option value="coupons">Skaner kuponów</option>
+                            <option value="posconnect">POS-Connect</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -646,19 +647,25 @@
 
             sessionStorage.removeItem("teid");
             sessionStorage.removeItem("peid");
+            sessionStorage.removeItem("pos");
 
-            if (selectedMode == "coupons") {
+            if (selectedMode == "coupons" || selectedMode == "posconnect") {
                 openScanner();
             }
         }
 
         sessionStorage.removeItem("teid");
         sessionStorage.removeItem("peid");
+        sessionStorage.removeItem("pos");
 
         function openScanner() {
             var selectedMode = document.getElementById("scannerMode").value;
             var EID = document.getElementById("scannerEID").value;
             if (selectedMode == "coupons") {
+                window.open("scan.html", "_self")
+            }
+            if (selectedMode == "posconnect") {
+                sessionStorage.setItem("pos", "true")
                 window.open("scan.html", "_self")
             }
             if (EID == "" || selectedMode == "") {

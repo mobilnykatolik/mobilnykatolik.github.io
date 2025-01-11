@@ -215,6 +215,7 @@
                                 <select class="form-control" id="qrScanSourceSelect" onChange="updateSource();">
                                 </select>
                             </div>
+                            <span id="pos-connect-session"></span>
                         </div>
                     </div>
 
@@ -326,6 +327,22 @@
         </div>
     </div>
 
+    <!-- POS-Connect Response Modal-->
+    <div class="modal fade" id="posResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Przekazano do POS</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Pomyślnie przekazano zeskanowane dane</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Ticket Response Modal-->
     <div class="modal fade" id="ticketResponseModal" tabindex="-1" role="dialog" aria-labelledby="ticketResponseModalLabel"
         aria-hidden="true">
@@ -424,6 +441,7 @@
 <script>
     var TEID = sessionStorage.getItem("teid"); //Ticket Event ID
     var PEID = sessionStorage.getItem("peid"); //Points Event ID
+    var POS = sessionStorage.getItem("pos");
     var lastScan = "";
 
     var successAudio = new Audio('img/success.wav');
@@ -431,6 +449,14 @@
 
     if (TEID == undefined && PEID == undefined) {
         //window.location = "index.html";
+    }
+
+    //POS-Connect
+    if (POS == "true") {
+        let code = window.prompt("Wprowadź kod łączenia POS-Connect")
+        posConnect(code);
+    } else if (POS != null) {
+        document.getElementById("pos-connect-session").innerHTML = `Sesja POS-Connect: <b>${POS}</b>`
     }
 
     const video = document.getElementById('qr-scanner');
@@ -444,6 +470,11 @@
         console.log('QR Code detected:', result);
         // Handle the scanned QR code data
         // You can perform any action here with the scanned data
+        if (POS != null) {
+            qrScanner.stop();
+            scanPOS(result)
+            return false;
+        }
         if (result.length == 9 && TEID != undefined) {
             qrScanner.stop();
             scanTicket(result);
@@ -474,6 +505,9 @@ $("#ticketResponseModal").on("hidden.bs.modal", function () {
     qrScanner.start()
 });
 $("#pointsResponseModal").on("hidden.bs.modal", function () {
+    qrScanner.start()
+});
+$("#posResponseModal").on("hidden.bs.modal", function () {
     qrScanner.start()
 });
 
@@ -691,6 +725,67 @@ function scanPoints(userid) {
                 document.getElementById("pointsResponseOwner").innerHTML = "-";
                 document.getElementById("pointsResponseAmount").innerHTML = "-";
                 $('#pointsResponseModal').modal('show')
+            } else {
+                $('#apiErrorModal').modal('show')
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+
+//POS-Connect
+function posConnect(code) {
+    var data = {
+        "code": code
+    }
+
+    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/connect/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText)
+                document.getElementById("pos-connect-session").innerHTML = `Sesja POS-Connect: <b>${response.sessionid}</b>`
+                sessionStorage.setItem("pos", response.sessionid)
+            } else if (xhr.status == 403) {
+                $('#insufficientPermissionsModal').modal('show')
+            } else {
+                $('#apiErrorModal').modal('show')
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
+function scanPOS(scan) {
+    var data = {
+        "scan": scan,
+        "sessionid": POS
+    }
+
+    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/scan/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText)
+                if (response.success) {
+                    successAudio.play();
+                } else {
+                    failureAudio.play();
+                }
+                $('#posResponseModal').modal('show')
+            } else if (xhr.status == 403) {
+                $('#insufficientPermissionsModal').modal('show')
             } else {
                 $('#apiErrorModal').modal('show')
             }
