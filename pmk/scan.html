@@ -752,6 +752,7 @@ function posConnect(code) {
                 var response = JSON.parse(xhr.responseText)
                 document.getElementById("pos-connect-session").innerHTML = `Sesja POS-Connect: <b>${response.sessionid}</b>`
                 sessionStorage.setItem("pos", response.sessionid)
+                POS = response.sessionid
             } else if (xhr.status == 403) {
                 $('#insufficientPermissionsModal').modal('show')
             } else {

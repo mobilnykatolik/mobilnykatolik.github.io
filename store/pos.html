@@ -23,7 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="openNewWindow();">POS CS</a></li>
-                        <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="posConnect();">Uruchom POS-Connect</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="posConnect();" id="posConnectBtn">Uruchom POS-Connect</a></li>
                     </ul>
                 </div>
             </div>
@@ -325,5 +325,53 @@ let newWindow;
       // Otwórz nowe okno z konkretną stroną
       newWindow = window.open("cs.html", "NewWindow", "width=400,height=400");
     }
+
+   
+const userID = "5ifnxrpww6t92jlv"
+const userLoginID = "2889589687499576"
+
+var sessionID;
+
+function posConnect() {
+    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/new/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        if (xhr.status == 200) {
+            let data = JSON.parse(xhr.responseText);
+            document.getElementById("posConnectBtn").innerHTML = `Sesja POS-Connect: ${data.sessionid}`
+            sessionID = data.sessionid;
+            window.alert(`Kod łączenia POS-Connect: ${data.code}`)
+        } else if (xhr.status == 403) {
+            window.alert("Niewystarczający poziom uprawnień!")
+        } else {
+            window.alert("Błąd API, spróbuj ponownie!")
+        }
+    }};
+    xhr.send();
+}
+
+function posConnectScan() {
+    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/get/${sessionID}/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.responseText)
+        if (xhr.status == 200) {
+            let scan = xhr.responseText;
+            return scan;
+        } else if (xhr.status == 403) {
+            window.alert("Niewystarczający poziom uprawnień!")
+        } else {
+            window.alert("Błąd API, spróbuj ponownie!")
+        }
+        return false;
+    }};
+    xhr.send();
+}
 
 </script>
