@@ -20,6 +20,10 @@
             
         </div>
 
+        <div class="fullpage scanapp d-none" id="scanapp">
+
+        </div>
+
         <div class="fullpage d-none" id="order-cart">
             <div class="px-5 py-5">
                 <h1 class="display-4 fw-bolder">Twoje zamówienie</h1>
@@ -148,6 +152,7 @@ window.addEventListener("message", (event) => {
         document.getElementById("homepage").classList.add("d-none")
         document.getElementById("order-cart").classList.add("d-none")
         document.getElementById("cart-price").innerHTML = `${parseFloat(cartPrice).toFixed(2)} zł`
+        document.getElementById("scanapp").classList.add("d-none")
     }
     if (event.data.startsWith("inputEditStart:")) {
         inputEdit.show()
@@ -165,11 +170,17 @@ window.addEventListener("message", (event) => {
         document.getElementById("homepage").classList.remove("d-none")
         document.getElementById("order-cart").classList.add("d-none")
         document.getElementById("paymentpage").classList.add("d-none")
+        document.getElementById("scanapp").classList.add("d-none")
     }
     if (event.data == "unlock") {
         document.getElementById("homepage").classList.add("d-none")
         document.getElementById("order-cart").classList.remove("d-none")
         document.getElementById("paymentpage").classList.add("d-none")
+        document.getElementById("scanapp").classList.add("d-none")
+    }
+    if (event.data == "scanApp") {
+        document.getElementById("order-cart").classList.add("d-none")
+        document.getElementById("scanapp").classList.remove("d-none")
     }
 });
 

@@ -10857,3 +10857,15 @@ textarea.form-control-lg {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.scanapp {
+  background-image: url("/assets/pos-cs-app.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.img-profile {
+  height: 3rem;
+  width: 3rem;
+}
