@@ -36,7 +36,7 @@
                 <div class="row w-25">
                     <div class="col" style="display: flex; flex-wrap: wrap; justify-content: flex-end; flex-direction: column; align-items: flex-end;">
                         Zalogowano jako
-                        <h4 class="m-0" id="login-data">NIEZALOGOWANO</h4>
+                        <h4 class="m-0" id="login-data">BRAK</h4>
                     </div>
                     <div class="col-2 d-flex align-items-center justify-content-start">
                         <img class="rounded-circle img-profile" id="login-pfp" src="https://apimobilnykatolik.glitch.me/profilepic/get/USERID" id="profile-pic">
@@ -69,7 +69,7 @@
                     </form>
                 </div>
                 <div class="col-6">
-                    <h5>Koszyk (<span id="cart-quantity"></span>)</h5>
+                    <h5>Koszyk (<span id="cart-quantity"></span>) - <span id="cart-price"></span></h5>
                     <br>
                     <ul class="list-group list-group-flush w-90" id="cartList">
                     </ul>
@@ -98,9 +98,9 @@
                 </div>
                 <div class="col-6">
                     <h5>Płatność</h5>
-                    <form>
+                    <form onsubmit="makeOrder()">
                         <div class="form-floating my-3">
-                            <input class="form-control" type="number" value="0" placeholder="" id="payment" required onfocus="newWindow.postMessage('payment', '*')">
+                            <input class="form-control" type="number" value="0" step="0.01" placeholder="" id="payment" required onfocus="newWindow.postMessage('payment', '*')">
                             <label>Wpłata</label>
                         </div>
                         <div class="row d-flex my-3">
@@ -198,6 +198,21 @@
             </div>
         </div>
 
+        <!-- Making order -->
+        <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <h5 class="mb-0">Finalizowanie zamówienia</h5>
+                    <small class="d-block mb-0">Prosimy o chwilę cierpliwości</small>
+                    <div class="spinner-border mt-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Powered by &copy; Mobilny Katolik API</p></div>
@@ -213,6 +228,8 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var itemID;
+
+const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"))
 
 var itemOptions = []
 
@@ -367,10 +384,10 @@ function showCart(firstTime) {
         `
         cartPrice += parseFloat(cart[prod].price);
     }
+    document.getElementById("cart-price").innerHTML = `${cartPrice.toFixed(2)} zł`
     if (!firstTime) {
         newWindow.postMessage("reload", "*");
     }
-    //document.getElementById("cartPrice").innerHTML = cartPrice.toFixed(2)
 }
 showCart(true);
 
@@ -382,8 +399,8 @@ let newWindow;
     }
 
    
-var userID = "5ifnxrpww6t92jlv";
-var userLoginID = "2889589687499576";
+var userID = undefined;
+var userLoginID = undefined;
 
 var sessionID;
 
@@ -486,12 +503,67 @@ function openLoginPopup() {
 }
 
 function logOut() {
-    document.getElementById("login-data").innerHTML = `NIEZALOGOWANY`
+    document.getElementById("login-data").innerHTML = `BRAK`
     document.getElementById("login-pfp").src = `https://apimobilnykatolik.glitch.me/profilepic/get/USERID`
     document.getElementById("logInBtn").classList.remove("d-none")
     document.getElementById("logOutBtn").classList.add("d-none") 
     userID = undefined;
     userLoginID = undefined;
+}
+
+function makeOrder() {
+    if (cart.length == 0) {
+        window.alert("Koszyk jest pusty!")
+        return false;
+    }
+    
+
+    var orderData = {
+        "customer": document.getElementById("buyerData").value.toUpperCase(),
+        "products": cart,
+        "price": cartPrice,
+        "store": "VALENTINES2025",
+        "paid": parseFloat(document.getElementById("payment").value)
+    }
+
+    console.log(orderData);
+
+    loadingModal.show()
+
+    var url = `https://apimobilnykatolik.glitch.me/pmk/order/make/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                localStorage.removeItem("cart");
+                //window.alert(xhr.responseText);
+                //RESETOWANIE POS
+                console.log(xhr.responseText)
+                window.alert("SUKCES")
+                loadingModal.hide()
+                document.getElementById("item-select").value = ""
+                document.getElementById("buyerData").value = ""
+                document.getElementById("payment").value = ""
+                cart = []
+                updateCart();
+                showCart();
+                setTimeout(function() {
+                    showOptions()
+                }, 500)
+                
+            } else {
+                loadingModal.hide()
+                window.alert(`Wystąpił błąd!\n${xhr.responseText}`)
+            }
+        };
+    };
+    xhr.send(JSON.stringify(orderData));
+
+    return false;
 }
 
 </script>
