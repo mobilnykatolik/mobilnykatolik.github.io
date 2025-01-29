@@ -261,7 +261,15 @@ function showOptions() {
     document.getElementById("item-options").innerHTML = ""
     itemOptions = []
     for (option in product.options) {
-        if (product.options[option].length >= 1) {
+        if (product.options[option] == "UNREQUIRED") {
+            var optionForm = `
+            <div class="form-floating my-3">
+                <input class="form-control" type="text" id="item-option-${option}" onfocus="showInputValue('item-option-${option}')" placeholder=" ">
+                <label>${option}</label>
+            </div>`
+            document.getElementById("item-options").innerHTML += optionForm;
+            itemOptions.push(option)
+        } else if (product.options[option].length >= 1) {
             var options = ""
             for (val in product.options[option]) {
                 var name = product.options[option][val].name
@@ -385,7 +393,7 @@ function showCart(firstTime) {
         cartPrice += parseFloat(cart[prod].price);
     }
     document.getElementById("cart-price").innerHTML = `${cartPrice.toFixed(2)} zł`
-    if (!firstTime) {
+    if (!firstTime && newWindow) {
         newWindow.postMessage("reload", "*");
     }
 }
