@@ -10852,14 +10852,14 @@ textarea.form-control-lg {
 }
 
 .homepage {
-  background-image: url("/store/assets/pos-cs-homepage.png");
+  background-image: url("https://mobilnykatolik.github.io/store/assets/pos-cs-homepage.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .scanapp {
-  background-image: url("/store/assets/pos-cs-app.png");
+  background-image: url("https://mobilnykatolik.github.io/store/assets/pos-cs-app.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

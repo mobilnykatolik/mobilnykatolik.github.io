@@ -24,6 +24,8 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="openNewWindow();">POS CS</a></li>
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="posConnect();" id="posConnectBtn">Uruchom POS-Connect</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="#" onClick="openLoginPopup();" id="logInBtn">Zaloguj się</a></li>
+                        <li class="nav-item"><a class="nav-link d-none" aria-current="page" href="#" onClick="logOut();" id="logOutBtn">Wyloguj się</a></li>
                     </ul>
                 </div>
             </div>
@@ -34,10 +36,10 @@
                 <div class="row w-25">
                     <div class="col" style="display: flex; flex-wrap: wrap; justify-content: flex-end; flex-direction: column; align-items: flex-end;">
                         Zalogowano jako
-                        <h4 class="m-0">IMIĘ NAZWISKO</h4>
+                        <h4 class="m-0" id="login-data">NIEZALOGOWANO</h4>
                     </div>
                     <div class="col-2 d-flex align-items-center justify-content-start">
-                        <img class="rounded-circle img-profile" src="https://apimobilnykatolik.glitch.me/profilepic/get/USERID" id="profile-pic">
+                        <img class="rounded-circle img-profile" id="login-pfp" src="https://apimobilnykatolik.glitch.me/profilepic/get/USERID" id="profile-pic">
                     </div>
                 </div>
             </div>
@@ -82,12 +84,8 @@
                     <h5>Dane kupującego</h5>
                     <form>
                         <div class="form-floating my-3">
-                            <input class="form-control" type="text" placeholder="" id="buyerData" required>
+                            <input class="form-control" type="text" placeholder="" id="buyerData">
                             <label>Imię i nazwisko, klasa</label>
-                        </div>
-                        <div class="form-floating my-3">
-                            <input class="form-control" type="text" placeholder="" id="buyerEmail" required>
-                            <label>Adres e-mail</label>
                         </div>
                         <div class="row d-flex my-3">
                             <div class="col d-flex justify-content-end">
@@ -100,6 +98,20 @@
                 </div>
                 <div class="col-6">
                     <h5>Płatność</h5>
+                    <form>
+                        <div class="form-floating my-3">
+                            <input class="form-control" type="number" value="0" placeholder="" id="payment" required onfocus="newWindow.postMessage('payment', '*')">
+                            <label>Wpłata</label>
+                        </div>
+                        <div class="row d-flex my-3">
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-success flex-shrink-0" type="submit">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Zatwierdź zamówienie
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -187,7 +199,7 @@
         </div>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark" style="position: absolute; bottom: 0; width: 100%;">
+        <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Powered by &copy; Mobilny Katolik API</p></div>
         </footer>
         <!-- Bootstrap core JS-->
@@ -370,8 +382,8 @@ let newWindow;
     }
 
    
-const userID = "-"
-const userLoginID = "-"
+var userID = "5ifnxrpww6t92jlv";
+var userLoginID = "2889589687499576";
 
 var sessionID;
 
@@ -439,6 +451,47 @@ function getBuyerData() {
         }
     }};
     xhr.send();
+}
+
+var waitForLogin = false;
+var loginPopup;
+
+window.addEventListener(
+  "message",
+  (event) => {
+    if (waitForLogin == false) {
+        return false;
+    }
+    console.log(event.data);
+    var data = JSON.parse(event.data);
+    if (data.login == "success") {
+        userID = data.userid
+        userLoginID = data.loginid
+        loginPopup.close();
+        waitForLogin = false;
+        document.getElementById("login-data").innerHTML = `${data.firstname} ${data.lastname}`
+        document.getElementById("login-pfp").src = `https://apimobilnykatolik.glitch.me/profilepic/get/${userID}`
+        document.getElementById("logInBtn").classList.add("d-none")
+        document.getElementById("logOutBtn").classList.remove("d-none")
+    }
+  },
+  false,
+);
+
+function openLoginPopup() {
+    waitForLogin = true;
+    var left = (screen.width/2)-(500/2);
+    var top = (screen.height/2)-(650/2);
+    loginPopup = window.open("https://mobilnykatolik.github.io/app/auth/", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
+}
+
+function logOut() {
+    document.getElementById("login-data").innerHTML = `NIEZALOGOWANY`
+    document.getElementById("login-pfp").src = `https://apimobilnykatolik.glitch.me/profilepic/get/USERID`
+    document.getElementById("logInBtn").classList.remove("d-none")
+    document.getElementById("logOutBtn").classList.add("d-none") 
+    userID = undefined;
+    userLoginID = undefined;
 }
 
 </script>
