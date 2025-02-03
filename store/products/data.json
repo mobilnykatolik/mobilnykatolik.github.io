@@ -10,8 +10,7 @@
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
                 {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
-            ],
-            "WIADOMOŚĆ": "UNREQUIRED"
+            ]
         },
         "desc": "Podaruj swojej walentynce czerwoną różę!"
     },
@@ -26,8 +25,7 @@
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
                 {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
-            ],
-            "WIADOMOŚĆ": "UNREQUIRED"
+            ]
         },
         "desc": "Tulipan"
     },
@@ -42,8 +40,7 @@
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
                 {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
-            ],
-            "WIADOMOŚĆ": "UNREQUIRED"
+            ]
         },
         "desc": "Podaruj swojej walentynce różową różę!"
     },
@@ -58,8 +55,7 @@
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
                 {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
-            ],
-            "WIADOMOŚĆ": "UNREQUIRED"
+            ]
         },
         "desc": "Podaruj swojej walentynce białą różę!"
     },
@@ -77,11 +73,11 @@
                 {"name": "2", "display": "2 sztuki", "price": 8},
                 {"name": "3", "display": "3 sztuki", "price": 12},
                 {"name": "4", "display": "4 sztuki", "price": 16},
-                {"name": "5", "display": "5 sztuk", "price": 20},
-                {"name": "6", "display": "6 sztuk", "price": 24},
-                {"name": "7", "display": "7 sztuk", "price": 28},
-                {"name": "8", "display": "8 sztuk", "price": 32},
-                {"name": "9", "display": "9 sztuk", "price": 36}
+                {"name": "5", "display": "5 sztuk", "price": 19},
+                {"name": "6", "display": "6 sztuk", "price": 22},
+                {"name": "7", "display": "7 sztuk", "price": 25},
+                {"name": "8", "display": "8 sztuk", "price": 28},
+                {"name": "9", "display": "9 sztuk", "price": 31}
             ],
             "TULIPANY": [
                 {"name": "0", "display": "0 sztuk"},
@@ -89,11 +85,11 @@
                 {"name": "2", "display": "2 sztuki", "price": 6},
                 {"name": "3", "display": "3 sztuki", "price": 9},
                 {"name": "4", "display": "4 sztuki", "price": 12},
-                {"name": "5", "display": "5 sztuk", "price": 15},
-                {"name": "6", "display": "6 sztuk", "price": 18},
-                {"name": "7", "display": "7 sztuk", "price": 21},
-                {"name": "8", "display": "8 sztuk", "price": 24},
-                {"name": "9", "display": "9 sztuk", "price": 27}
+                {"name": "5", "display": "5 sztuk", "price": 14},
+                {"name": "6", "display": "6 sztuk", "price": 16},
+                {"name": "7", "display": "7 sztuk", "price": 18},
+                {"name": "8", "display": "8 sztuk", "price": 20},
+                {"name": "9", "display": "9 sztuk", "price": 22}
             ],
             "RÓŻOWE RÓŻE": [
                 {"name": "0", "display": "0 sztuk"},
@@ -101,11 +97,11 @@
                 {"name": "2", "display": "2 sztuki", "price": 8},
                 {"name": "3", "display": "3 sztuki", "price": 12},
                 {"name": "4", "display": "4 sztuki", "price": 16},
-                {"name": "5", "display": "5 sztuk", "price": 20},
-                {"name": "6", "display": "6 sztuk", "price": 24},
-                {"name": "7", "display": "7 sztuk", "price": 28},
-                {"name": "8", "display": "8 sztuk", "price": 32},
-                {"name": "9", "display": "9 sztuk", "price": 36}
+                {"name": "5", "display": "5 sztuk", "price": 19},
+                {"name": "6", "display": "6 sztuk", "price": 22},
+                {"name": "7", "display": "7 sztuk", "price": 25},
+                {"name": "8", "display": "8 sztuk", "price": 28},
+                {"name": "9", "display": "9 sztuk", "price": 31}
             ],
             "BIAŁE RÓŻE": [
                 {"name": "0", "display": "0 sztuk"},
@@ -113,11 +109,11 @@
                 {"name": "2", "display": "2 sztuki", "price": 8},
                 {"name": "3", "display": "3 sztuki", "price": 12},
                 {"name": "4", "display": "4 sztuki", "price": 16},
-                {"name": "5", "display": "5 sztuk", "price": 20},
-                {"name": "6", "display": "6 sztuk", "price": 24},
-                {"name": "7", "display": "7 sztuk", "price": 28},
-                {"name": "8", "display": "8 sztuk", "price": 32},
-                {"name": "9", "display": "9 sztuk", "price": 36}
+                {"name": "5", "display": "5 sztuk", "price": 19},
+                {"name": "6", "display": "6 sztuk", "price": 22},
+                {"name": "7", "display": "7 sztuk", "price": 25},
+                {"name": "8", "display": "8 sztuk", "price": 28},
+                {"name": "9", "display": "9 sztuk", "price": 31}
             ],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
@@ -135,10 +131,6 @@
         "img": "img/vd2025/VD25FC1.png",
         "options": {
             "ODBIORCA": [],
-            "CIASTECZKA": [
-                {"name": "NIE", "display": "Bez ciasteczek"},
-                {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
-            ],
             "WIADOMOŚĆ": "UNREQUIRED"
         },
         "desc": "Podaruj swojej walentynce białą różę!"
