@@ -157,16 +157,6 @@
 
     <div style="margin-top: 20px;" class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
         <ul id="home-slider" class="slider-container py-4">
-            <li class="slide-visible" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/store`, '_self')">
-                <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px;">
-                    <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px); text-align: center;">
-                        <div style="position: absolute; width: 100%; left: 0; top: 50%; translate: 0 -50%;">
-                        <p>Zamów ciasteczko</p>
-                        <b class="highlight" style="font-size: 20px;">dla przyjaciela</b> 🎅🏻
-                        </div>
-                    </div>
-                </div>
-            </li>
             <li class="slide-visible" id="joinsu-banner" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/pmk/auth.html?lid=${loginID}`, '_self')">
                 <div style="height: 130px; background-color: var(--additional2); width: 100%; border-radius: 20px; font-size: 18px;">
                     <div style="padding: 20px; height: calc(100% - 40px); width: calc(100% - 40px); text-align: center;">
@@ -233,9 +223,13 @@
             <div style="background-color: var(--additional2); height: 80%; aspect-ratio: 1/1; border-radius: 50%; margin: auto; margin-bottom: 5px; line-height: 64px; text-align: center; font-size: 25px;">🎫</div>
             <div style="height: 20%; text-align: center;">Bilety i kupony</div>
         </div>
-        <div style="width: calc(100% / 3); height: 100%; float: left;" onclick="window.open('#calendar', '_self')">
+        <div style="width: calc(100% / 3); height: 100%; float: left; display: none;" onclick="window.open('#calendar', '_self')">
             <div style="background-color: var(--additional2); height: 80%; aspect-ratio: 1/1; border-radius: 50%; margin: auto; margin-bottom: 5px; line-height: 64px; text-align: center; font-size: 25px;">📅</div>
             <div style="height: 20%; text-align: center;">Kalendarz</div>
+        </div>
+        <div style="width: calc(100% / 3); height: 100%; float: left;" onclick="window.open(`https://mobilnykatolik.github.io/store`, '_self')">
+            <div style="background-color: var(--additional2); height: 80%; aspect-ratio: 1/1; border-radius: 50%; margin: auto; margin-bottom: 5px; line-height: 64px; text-align: center; font-size: 25px;">💝</div>
+            <div style="height: 20%; text-align: center;">Walentynki</div>
         </div>
     </div>
     
@@ -260,9 +254,9 @@
                 <aside>💡</aside>
                 <span>Pomysł dla SU</span>
             </div>
-            <div type="ind" style="display: none;" onclick="window.open(`https://mobilnykatolik.github.io/store/index.html`, 'self')">
-                <aside>🛍️</aside>
-                <span>Sklep</span>
+            <div type="ind" onclick="window.open(`https://mobilnykatolik.github.io/store/index.html`, 'self')">
+                <aside>💘</aside>
+                <span>Sklep Walentynkowy</span>
             </div>
             <div type="ind" onClick="openInstagram();">
                 <aside>📸</aside>

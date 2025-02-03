@@ -77,7 +77,13 @@
                 {"name": "6", "display": "6 sztuk", "price": 22},
                 {"name": "7", "display": "7 sztuk", "price": 25},
                 {"name": "8", "display": "8 sztuk", "price": 28},
-                {"name": "9", "display": "9 sztuk", "price": 31}
+                {"name": "9", "display": "9 sztuk", "price": 31},
+                {"name": "10", "display": "10 sztuk", "price": 34},
+                {"name": "11", "display": "11 sztuk", "price": 37},
+                {"name": "12", "display": "12 sztuk", "price": 40},
+                {"name": "13", "display": "13 sztuk", "price": 43},
+                {"name": "14", "display": "14 sztuk", "price": 46},
+                {"name": "15", "display": "15 sztuk", "price": 49}
             ],
             "TULIPANY": [
                 {"name": "0", "display": "0 sztuk"},
@@ -89,7 +95,13 @@
                 {"name": "6", "display": "6 sztuk", "price": 16},
                 {"name": "7", "display": "7 sztuk", "price": 18},
                 {"name": "8", "display": "8 sztuk", "price": 20},
-                {"name": "9", "display": "9 sztuk", "price": 22}
+                {"name": "9", "display": "9 sztuk", "price": 22},
+                {"name": "10", "display": "10 sztuk", "price": 24},
+                {"name": "11", "display": "11 sztuk", "price": 26},
+                {"name": "12", "display": "12 sztuk", "price": 28},
+                {"name": "13", "display": "13 sztuk", "price": 30},
+                {"name": "14", "display": "14 sztuk", "price": 32},
+                {"name": "15", "display": "15 sztuk", "price": 34}
             ],
             "RÓŻOWE RÓŻE": [
                 {"name": "0", "display": "0 sztuk"},
@@ -101,7 +113,13 @@
                 {"name": "6", "display": "6 sztuk", "price": 22},
                 {"name": "7", "display": "7 sztuk", "price": 25},
                 {"name": "8", "display": "8 sztuk", "price": 28},
-                {"name": "9", "display": "9 sztuk", "price": 31}
+                {"name": "9", "display": "9 sztuk", "price": 31},
+                {"name": "10", "display": "10 sztuk", "price": 34},
+                {"name": "11", "display": "11 sztuk", "price": 37},
+                {"name": "12", "display": "12 sztuk", "price": 40},
+                {"name": "13", "display": "13 sztuk", "price": 43},
+                {"name": "14", "display": "14 sztuk", "price": 46},
+                {"name": "15", "display": "15 sztuk", "price": 49}
             ],
             "BIAŁE RÓŻE": [
                 {"name": "0", "display": "0 sztuk"},
@@ -113,7 +131,13 @@
                 {"name": "6", "display": "6 sztuk", "price": 22},
                 {"name": "7", "display": "7 sztuk", "price": 25},
                 {"name": "8", "display": "8 sztuk", "price": 28},
-                {"name": "9", "display": "9 sztuk", "price": 31}
+                {"name": "9", "display": "9 sztuk", "price": 31},
+                {"name": "10", "display": "10 sztuk", "price": 34},
+                {"name": "11", "display": "11 sztuk", "price": 37},
+                {"name": "12", "display": "12 sztuk", "price": 40},
+                {"name": "13", "display": "13 sztuk", "price": 43},
+                {"name": "14", "display": "14 sztuk", "price": 46},
+                {"name": "15", "display": "15 sztuk", "price": 49}
             ],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
