@@ -105,10 +105,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row d-none">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="customer-email" placeholder=" " required>
+                                <input type="email" class="form-control" id="customer-email" placeholder=" ">
                                 <label>Adres e-mail</label>
                             </div>
                         </div>
@@ -204,10 +204,10 @@ function makeOrder() {
         return false;
     }
     
-
+    //document.getElementById("customer-email").value
     var orderData = {
         "customer": `${document.getElementById("customer-firstName").value.toUpperCase()} ${document.getElementById("customer-lastName").value.toUpperCase()}, ${document.getElementById("customer-class").value.toUpperCase()}`,
-        "email": document.getElementById("customer-email").value,
+        "email": "mobilnykatolik@gmail.com",
         "products": cart,
         "price": cartPrice,
         "store": "VALENTINES2025"
