@@ -9,7 +9,7 @@
             "ODBIORCA": [],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
-                {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
+                {"name": "TAK", "display": "Z ciasteczkami", "price": 3}
             ]
         },
         "desc": "Zamów klasyczną czerwoną różę dla dowolnego ucznia lub pracownika szkoły, a my dostarczymy ją za Ciebie już 14 lutego.<br><br>Skorzystaj z „Zestawu Amora”, dołącz do róży 3 pyszne ciasteczka w promocyjnej cenie i podaruj uśmiech bliskiej osobie.<br><br>W polu „Odbiorca” wpisz imię, nazwisko i klasę adresata. W przypadku jego nieobecności w dniu dostawy, zwrócimy Ci koszty zakupu.<br><br>Nie czekaj i spraw komuś miłą niespodziankę."
@@ -24,7 +24,7 @@
             "ODBIORCA": [],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
-                {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
+                {"name": "TAK", "display": "Z ciasteczkami", "price": 3}
             ]
         },
         "desc": "Zamów pięknego tulipana dla dowolnego ucznia lub pracownika szkoły, a my dostarczymy go za Ciebie już 14 lutego.<br><br>Skorzystaj z „Zestawu Amora”, dołącz do kwiatu 3 pyszne ciasteczka w promocyjnej cenie i podaruj uśmiech bliskiej osobie.<br><br>W polu „Odbiorca” wpisz imię, nazwisko i klasę adresata. W przypadku jego nieobecności w dniu dostawy, zwrócimy Ci koszty zakupu.<br><br>Nie czekaj i spraw komuś miłą niespodziankę."
@@ -39,7 +39,7 @@
             "ODBIORCA": [],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
-                {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
+                {"name": "TAK", "display": "Z ciasteczkami", "price": 3}
             ]
         },
         "desc": "Zamów klasyczną różową różę dla dowolnego ucznia lub pracownika szkoły, a my dostarczymy ją za Ciebie już 14 lutego.<br><br>Skorzystaj z „Zestawu Amora”, dołącz do róży 3 pyszne ciasteczka w promocyjnej cenie i podaruj uśmiech bliskiej osobie.<br><br>W polu „Odbiorca” wpisz imię, nazwisko i klasę adresata. W przypadku jego nieobecności w dniu dostawy, zwrócimy Ci koszty zakupu.<br><br>Nie czekaj i spraw komuś miłą niespodziankę."
@@ -54,7 +54,7 @@
             "ODBIORCA": [],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
-                {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
+                {"name": "TAK", "display": "Z ciasteczkami", "price": 3}
             ]
         },
         "desc": "Zamów klasyczną białą różę dla dowolnego ucznia lub pracownika szkoły, a my dostarczymy ją za Ciebie już 14 lutego.<br><br>Skorzystaj z „Zestawu Amora”, dołącz do róży 3 pyszne ciasteczka w promocyjnej cenie i podaruj uśmiech bliskiej osobie.<br><br>W polu „Odbiorca” wpisz imię, nazwisko i klasę adresata. W przypadku jego nieobecności w dniu dostawy, zwrócimy Ci koszty zakupu.<br><br>Nie czekaj i spraw komuś miłą niespodziankę."
@@ -141,7 +141,7 @@
             ],
             "CIASTECZKA": [
                 {"name": "NIE", "display": "Bez ciasteczek"},
-                {"name": "TAK", "display": "Z ciasteczkami", "price": 2}
+                {"name": "TAK", "display": "Z ciasteczkami", "price": 3}
             ],
             "WIADOMOŚĆ": "UNREQUIRED"
         },
@@ -151,7 +151,7 @@
         "name": "Ciasteczka",
         "collection": "VALENTINES",
         "badge": "",
-        "price": 4.00,
+        "price": 5.00,
         "img": "img/vd2025/VD25FC1.png",
         "options": {
             "ODBIORCA": [],
