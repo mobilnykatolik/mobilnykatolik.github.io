@@ -467,6 +467,7 @@ function getBuyerData() {
     if (xhr.readyState === 4) {
         if (xhr.status == 200) {
             let data = JSON.parse(xhr.responseText);
+            console.log(data)
             document.getElementById("buyerData").value = `${data.firstname} ${data.lastname}, ${data.class.toUpperCase()}`
             document.getElementById("buyerEmail").value = data.email
         } else if (xhr.status == 403) {
