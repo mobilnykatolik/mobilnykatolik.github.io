@@ -546,12 +546,16 @@
                 //console.log(data[entry])
                 //ID, KUPUJACY, ZAPLACONO / WARTOSC ZAMOWIENIA, STATUS
                 var url = `https://mobilnykatolik.github.io/store/check.html?id=${String(entry)}`
-                if (data[entry].type != undefined) {
+                /*if (data[entry].type != undefined) {
                     entry = `<div class="badge badge-secondary">${data[entry].type}</div>`+entry
+                }*/
+                let customer = data[entry].customer;
+                if (data[entry].type != undefined) {
+                    customer = data[entry].customer+` <div class="badge badge-secondary">${data[entry].type}</div>`
                 }
                 dataTable.row.add([
                     entry,
-                    data[entry].customer,
+                    customer,
                     `${parseFloat(data[entry].paid).toFixed(2)} / ${parseFloat(data[entry].price).toFixed(2)} zł`,
                     `<div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>`,
                     `

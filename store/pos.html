@@ -470,7 +470,7 @@ function getBuyerData() {
         if (xhr.status == 200) {
             let data = JSON.parse(xhr.responseText);
             console.log(data)
-            buyerID = data.userID;
+            buyerID = data.userid;
             document.getElementById("buyerData").value = `${data.firstname} ${data.lastname}, ${data.class.toUpperCase()}`
             document.getElementById("buyerEmail").value = data.email
         } else if (xhr.status == 403) {
@@ -524,11 +524,13 @@ function logOut() {
 }
 
 function addPoints(id) {
+    console.log("DODAWANIE PUNKTÓW")
     var data = {
         "peid": "dhif3fbg",
         "amount": Math.floor(parseFloat(document.getElementById("payment").value)*2),
         "userid": id
     }
+    console.log(data)
             
     var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
@@ -538,6 +540,7 @@ function addPoints(id) {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
+            buyerID = undefined;
             if (xhr.status == 200) {
                 console.log("Przyznano rybki!")
             };
@@ -582,8 +585,6 @@ function makeOrder() {
                 //window.alert(xhr.responseText);
                 //RESETOWANIE POS
                 console.log(xhr.responseText)
-                buyerID = undefined;
-                window.alert("SUKCES")
                 loadingModal.hide()
                 document.getElementById("item-select").value = ""
                 document.getElementById("buyerData").value = ""
@@ -593,11 +594,14 @@ function makeOrder() {
                 showCart();
                 setTimeout(function() {
                     showOptions()
+                    window.alert("SUKCES")
                 }, 500)
                 
             } else {
                 loadingModal.hide()
-                window.alert(`Wystąpił błąd!\n${xhr.responseText}`)
+                setTimeout(function() {
+                    window.alert(`Wystąpił błąd!\n${xhr.responseText}`)
+                }, 500)
             }
         };
     };
