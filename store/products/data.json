@@ -158,5 +158,15 @@
             "WIADOMOŚĆ": "UNREQUIRED"
         },
         "desc": "Podaruj komuś odrobinę słodyczy! Wyślij zestaw 3 pysznych ciasteczek dowolnemu uczniowi lub pracownikowi szkoły, a my dostarczymy je już 14 lutego.<br><br>W polu „Odbiorca” wpisz imię, nazwisko i klasę adresata. W przypadku jego nieobecności w dniu dostawy, zwrócimy Ci koszty zakupu.<br><br>Nie czekaj i spraw komuś słodką niespodziankę."
+    },
+    "coupon-c1": {
+        "name": "Kupon Ciasteczka za 2 zł",
+        "collection": "VALENTINES",
+        "oop": true,
+        "badge": "",
+        "price": -3.00,
+        "img": "img/vd2025/VD25FC1.png",
+        "options": {},
+        "desc": "Kupon Ciasteczka za 2 zł"
     }
 }

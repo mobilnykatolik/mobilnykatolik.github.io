@@ -133,6 +133,9 @@ function runPage() {
         if (product.disabled) {
             continue;
         }
+        if (product.oop) {
+            continue;
+        }
         var list = "productList"
         if (product.collection == "CLASSICS") { list = "productListClassics"}
         if (product.collection == "XMAS") { list = "productListChristmas"}

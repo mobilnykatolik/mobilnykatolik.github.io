@@ -234,6 +234,10 @@ function runPage() {
 
 function addToCart() {
     var product = productsDB[itemID];
+    if (product.oop) {
+        window.alert("Nie możesz dodać tego produktu do koszyka!")
+        return false;
+    }
     var itemData = {
         "id": itemID,
         "name": product.name,
