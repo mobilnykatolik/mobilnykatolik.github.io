@@ -458,6 +458,8 @@ function posConnectScan(elemID) {
     xhr.send();
 }
 
+var buyerID;
+
 function getBuyerData() {
     var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/getuser/${sessionID}/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
@@ -468,6 +470,7 @@ function getBuyerData() {
         if (xhr.status == 200) {
             let data = JSON.parse(xhr.responseText);
             console.log(data)
+            buyerID = data.userID;
             document.getElementById("buyerData").value = `${data.firstname} ${data.lastname}, ${data.class.toUpperCase()}`
             document.getElementById("buyerEmail").value = data.email
         } else if (xhr.status == 403) {
@@ -520,10 +523,37 @@ function logOut() {
     userLoginID = undefined;
 }
 
+function addPoints(id) {
+    var data = {
+        "peid": "dhif3fbg",
+        "amount": Math.floor(parseFloat(document.getElementById("payment").value)*2),
+        "userid": id
+    }
+            
+    var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                console.log("Przyznano rybki!")
+            };
+        }
+    };
+    xhr.send(JSON.stringify(data));
+}
+
 function makeOrder() {
     if (cart.length == 0) {
         window.alert("Koszyk jest pusty!")
         return false;
+    }
+
+    if (buyerID != undefined) {
+        addPoints(buyerID);
     }
     
 
@@ -552,6 +582,7 @@ function makeOrder() {
                 //window.alert(xhr.responseText);
                 //RESETOWANIE POS
                 console.log(xhr.responseText)
+                buyerID = undefined;
                 window.alert("SUKCES")
                 loadingModal.hide()
                 document.getElementById("item-select").value = ""

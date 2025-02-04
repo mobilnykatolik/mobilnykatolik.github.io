@@ -546,6 +546,9 @@
                 //console.log(data[entry])
                 //ID, KUPUJACY, ZAPLACONO / WARTOSC ZAMOWIENIA, STATUS
                 var url = `https://mobilnykatolik.github.io/store/check.html?id=${String(entry)}`
+                if (data[entry].type != undefined) {
+                    entry = `<div class="badge badge-secondary">${data[entry].type}</div>`+entry
+                }
                 dataTable.row.add([
                     entry,
                     data[entry].customer,
