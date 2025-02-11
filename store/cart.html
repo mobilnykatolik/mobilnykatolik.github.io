@@ -92,13 +92,13 @@
                         </div>
                         <div class="col-lg-5">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="customer-lastName" placeholder=" " required disabled>
+                                <input type="text" class="form-control" id="customer-lastName" placeholder=" " required>
                                 <label>Nazwisko</label>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-floating mb-3">
-                                <select class="form-control" id="customer-class" placeholder=" " required disabled>
+                                <select class="form-control" id="customer-class" placeholder=" " required>
                                     <option value="">Ładowanie...</option>
                                 </select>
                                 <label>Klasa</label>
@@ -191,10 +191,12 @@ function runPage() {
 
     if (localStorage.userfname != undefined) {
         document.getElementById("customer-firstName").value = localStorage.userfname
+        document.getElementById("customer-firstName").disabled = "disabled"
     }
 
     if (localStorage.usersname != undefined) {
         document.getElementById("customer-lastName").value = localStorage.usersname
+        document.getElementById("customer-lastName").disabled = "disabled"
     }
 }
 
@@ -259,6 +261,7 @@ function getClasses() {
                 console.log(req.responseText)
                 if (localStorage.userclass != undefined) {
                     document.getElementById("customer-class").value = localStorage.userclass
+                    document.getElementById("customer-class").disabled = "disabled"
                 }
             } else {
                 document.getElementById("customer-class").innerHTML = `<option value="" style="color: #a9a9a9;" selected hidden>Wystąpił błąd! Odśwież aplikację.</option>`
