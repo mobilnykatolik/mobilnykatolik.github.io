@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Wirtualne Rybki</title>
+    <title>Panel Mobilny Katolik - Sklep</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -22,14 +22,6 @@
     <link href="css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <style>
-        td[colspan="3"] {
-            text-align: center;
-        }
-        tr, td {
-            vertical-align: middle!important;
-        }
-    </style>
 
 </head>
 
@@ -84,15 +76,15 @@
             </li>
 
             <!-- Nav Item - Wirtualne Rybki -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-points"
                     aria-expanded="true" aria-controls="collapse-points">
                     <i class="fas fa-fish fa-fw"></i>
                     <span>Wirtualne Rybki</span>
                 </a>
-                <div id="collapse-points" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapse-points" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="points.html">Wydarzenia</a>
+                        <a class="collapse-item" href="points.html">Wydarzenia</a>
                         <a class="collapse-item" href="coupons.html">Kupony</a>
                     </div>
                 </div>
@@ -151,12 +143,11 @@
             </li>
 
             <!-- Nav Item - Stores -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="store.html">
                     <i class="fas fa-shopping-bag fa-fw"></i>
                     <span>Sklep</span></a>
             </li>
-
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -187,11 +178,13 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
+                    <select id="storeSelect" onChange="drawTable();" class="form-control mr-auto" style="width: 100%; max-width: 300px;">
+                        <option disabled hidden selected>Proszę czekać...</option>
+                    </select>
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!--<div class="topbar-divider d-none d-sm-block"></div>-->
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -223,73 +216,108 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Zarządzanie Wirtualnymi Rybkami</h1>
-                    </div>
-
-
-                    <div class="row justify-content-end mb-4 mt-4 mr-0">
-                        <a href="#" onClick="openManageEventPointsModal()" class="btn btn-primary btn-icon-split justify-content-end">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span class="text">Dodaj punkty do wydarzenia</span>
-                        </a>
-                    </div>
-
-                    <!--<input type="datetime-local" class="form-control" id="selectDate">-->
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0">Lista wydarzeń</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <input type="checkbox" class="custom-checkbox" id="hidePastEvents" aria-describedby="manageEventSpecialSuitHelp" onchange="generateTable()">
-                                <label for="hidePastEvents" style="margin-bottom: 0;">Ukryj minione wydarzenia</label>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr style="background-color: #f8f9fc;">
-                                            <th colspan="3" style="text-align: center;">Nazwa wydarzenia</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Nazwa</th>
-                                            <th>Ilość punktów</th>
-                                            <th>Akcje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="event-points-list">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
-                        <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Pomoc</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample">
-                                    <div class="card-body">
-                                        W tej zakładce możesz dodać Wirtualne Rybki do wydarzeń.
-                                        <br>
-                                        Aby dodać Wirtualne Rybki do kont użytkowników, skorzystaj z zakładki <b>Zarządzanie użytkownikami <i class="fas fa-long-arrow-alt-right"></i> Modyfikuj WR</b>.
+                        <!-- Active orders count -->
+                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Aktywne zamówienia
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="activeOrders">-</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-shopping-basket fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Waiting for payment orders count -->
+                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Zamówienia nieopłacone
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="waitingForPaymentOrders">-</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wpłaty -->
+                        <div class="col-xl-6 col-lg-4 col-md-12 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Suma wpłat
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="cashSummary">-</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-cash-register fa-2x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- DataTales Example -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Zamówienia</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Kupujący</th>
+                                                    <th>Suma</th>
+                                                    <th>Status</th>
+                                                    <th>Akcje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="orders-list-table">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-end mb-4 mt-1 mr-0">
+                        <a onClick="downloadOrdersCsv();" class="btn btn-primary btn-icon-split justify-content-end mx-2">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-file-download"></i>
+                            </span>
+                            <span class="text">Pobierz zamówienia (.csv)</span>
+                        </a>
+                        <a onClick="downloadCsv();" class="btn btn-primary btn-icon-split justify-content-end mx-2">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-file-download"></i>
+                            </span>
+                            <span class="text">Pobierz sumę zamówień (.csv)</span>
+                        </a>
+                    </div>
                     
 
                 </div>
@@ -366,65 +394,53 @@
         </div>
     </div>
 
-    <!-- Manage Event Modal-->
-    <div class="modal fade" id="manageEventPointsModal" tabindex="-1" role="dialog" aria-labelledby="manageEventPointsModalLabel"
+    <!-- Manage Order Modal-->
+    <div class="modal fade" id="manageOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="manageEventPointsModalLabel">Modyfikuj/dodaj punkty do wydarzenia</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Zarządzanie zamówieniem</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form onSubmit="return manageEventPoints();">
+                <form onSubmit="return manageOrder();">
                     <div class="modal-body">
-                        <div class="form-group" style="display: none;">
-                            <label for="manageEventPointsID">ID wydarzenia</label>
-                            <input type="text" class="form-control" id="manageEventPointsID">
+                        <div class="form-group">
+                            <label for="manageTicketID">ID zamówienia</label>
+                            <input type="text" class="form-control" id="order-id" required disabled>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsEventID">Wydarzenie</label>
-                            <select type="text" class="form-control" id="manageEventPointsEventID" required></select>
+                            <label for="manageTicketID">Dane kupującego</label>
+                            <input type="text" class="form-control" id="order-customer" required>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsName">Nazwa wyświetlana</label>
-                            <input type="text" class="form-control" id="manageEventPointsName" aria-describedby="manageEventPointsNameHelp" required>
-                            <small id="manageEventPointsNameHelp" class="form-text text-muted">Nazwa będzie wyświetlana w historii punktów użytkowników</small>
+                            <label for="manageTicketPaid">Wpłata</label>
+                            <input type="number" class="form-control" id="order-paid" min=0 step="0.01" required>
                         </div>
                         <div class="form-group">
-                            <label for="manageEventPointsAmount">Liczba punktów</label>
-                            <input type="number" class="form-control" id="manageEventPointsAmount" min="1">
+                            <label for="manageTicketPaid">Status zamówienia</label>
+                            <select class="form-control" id="order-status" required>
+                                <option value=0>BRAK WPŁATY</option>
+                                <option value=1>OPŁACONE</option>
+                                <option value=2>W REALIZACJI</option>
+                                <option value=3>GOTOWE DO ODBIORU</option>
+                                <option value=4>ZAKOŃCZONE</option>
+                                <option value=5>ANULOWANE</option>
+                                <option value="DELETE">Usuń zamówienie z systemu</option>
+                            </select>
                         </div>
+                        Szczegóły zamówienia
+                        <table id="order-details">
+                            
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
                         <input type="submit" class="btn btn-primary" value="Zapisz">
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirm Delete Modal-->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć punkty z wydarzenia?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" id="deleteEventPointsID" style="display: none;">
-                    Kliknij <b>Potwierdź</b>, aby usunąć.
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-danger" data-dismiss="modal" href="#" onclick="manageEventPoints(true);">Potwierdź</a>
-                </div>
             </div>
         </div>
     </div>
@@ -507,18 +523,27 @@
     <script src="js/sb-admin-2.js"></script>
 
     <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var eventsdb = {}
-        var eventPointsDB = {}
+        var ordersDB;
+
+        var badgeColors = ["danger", "success", "success", "success", "secondary", "danger"];
+        var statusNames = ["BRAK WPŁATY", "OPŁACONE", "W REALIZACJI", "GOTOWE DO ODBIORU", "ZAKOŃCZONE", "ANULOWANE"];
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            dataTable.draw();
+
+            var url = `https://apimobilnykatolik.glitch.me/pmk/order/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -527,41 +552,30 @@
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
-                    eventsdb = data;
-                    eventsdb = Object.fromEntries(
-                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
-                            const date1 = new Date(event1.startdate);
-                            const date2 = new Date(event2.startdate);
-                            return date1 - date2;
-                        })
-                    );
-                    document.getElementById("manageEventPointsEventID").innerHTML = `<option value="" selected disabled>Wybierz wydarzenie</option>`;
-                    for (event in eventsdb) {
-                        if (eventsdb[event].type.toUpperCase() == "SZKOLNE") {continue;}
-                        document.getElementById("manageEventPointsEventID").innerHTML += `
-                        <option value="${event}">${eventsdb[event].name} (${eventsdb[event].startdate.split("T")[0]})</option>
+                    ordersDB = data;
+                    var selectedStore;
+                    if (document.getElementById("storeSelect").value != "") {
+                        selectedStore = document.getElementById("storeSelect").value;
+                    }
+                    document.getElementById("storeSelect").innerHTML = `
+                        <option value="" disabled hidden selected>Wybierz sklep</option>
+                    `
+                    var stores = []
+                    for (order in ordersDB) {
+                        if (ordersDB[order].store != undefined && !stores.includes(ordersDB[order].store)) {
+                            stores.push(ordersDB[order].store)
+                        }
+                    }
+                    for (store in stores) {
+                        var ifSelect = ""
+                        if (stores[store] == selectedStore) {
+                            ifSelect = "selected"
+                        }
+                        document.getElementById("storeSelect").innerHTML += `
+                        <option value="${stores[store]}" ${ifSelect}>${stores[store]}</option>
                         `
                     }
-
-                    //Pobieranie listy wydarzeń z Wirtualnymi Rybkami
-                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
-                    var xhrA = new XMLHttpRequest();
-                    xhrA.open("GET", url);
-
-                    xhrA.onreadystatechange = function () {
-                    if (xhrA.readyState === 4) {
-                        if (xhrA.status == 200) {
-                            eventPointsDB = JSON.parse(xhrA.responseText);
-                            generateTable();
-                        } else if (xhrA.status == 403) {
-                            $('#insufficientPermissionsModal').modal('show')
-                        } else {
-                            $('#apiErrorModal').modal('show')
-                        }
-                    }};
-
-                    xhrA.send();
-                    
+                    drawTable();
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -572,137 +586,115 @@
             xhr.send();
         }
 
-        function generateTable() {
-            var today = new Date();
-            today = today.toISOString().split('T')[0];
-            document.getElementById("event-points-list").innerHTML = "";
-            var hidePast = false;
-            if (document.getElementById("hidePastEvents").checked) {
-                hidePast = true;
-            }
-            const eventPointsDBCopy = eventPointsDB;
-            for (x in eventsdb) {
-                if (hidePast == true) {
-                    if (eventsdb[x].enddate != "") {
-                        if (eventsdb[x].enddate.split('T')[0] < today) {
-                            continue;
-                        }
-                    } else {
-                        if (eventsdb[x].startdate.split('T')[0] < today) {
-                            continue;
-                        }
-                    }
-                }
-                var eventPoints = "";
-                for (i in eventPointsDB) {
-                    if (eventPointsDB[i].eventid == x) {
-                        eventPoints += `
-                        <tr>
-                            <td>${eventPointsDB[i].name}</td>
-                            <td>${eventPointsDB[i].amount}</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
-                                    Zarządzaj
-                                </button>
-                                <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
-                                    Usuń
-                                </button>
-                            </td>
-                        </tr>`
-                    }
-                }
-                if (eventPoints != "") {
-                    document.getElementById("event-points-list").innerHTML += `
-                    <tr style="background-color: #f8f9fc;">
-                        <td colspan="3"><b>${eventsdb[x].name}</b></td>
-                    </tr>
-                    ${eventPoints}`
-                }
-            }
-            eventPoints = "";
-            for (i in eventPointsDB) {
-                if (Object.keys(eventsdb).includes(eventPointsDB[i].eventid)) {
-                    continue;
-                }
-                eventPoints += `
-                    <tr>
-                        <td>${eventPointsDB[i].name}</td>
-                        <td>${eventPointsDB[i].amount}</td>
-                        <td>
-                            <button class="btn btn-sm btn-secondary" type="button" id="dropdownMenuButton" onclick="openManageEventPointsModal('${i}')">
-                                Zarządzaj
-                            </button>
-                            <button class="btn btn-sm btn-danger" type="button" id="dropdownMenuButton" onclick="confirmDelete('${i}')">
-                                Usuń
-                            </button>
-                        </td>
-                    </tr>`
-            }
-            if (eventPoints != "") {
-                document.getElementById("event-points-list").innerHTML += `
-                <tr style="background-color: #f8f9fc;">
-                    <td colspan="3"><b>Wydarzenia usunięte</b></td>
-                </tr>
-                ${eventPoints}`
-            }
-        }
-
         reloadDB();
 
-        function getManageEventFor() {
-            console.log(Array.from(document.getElementById("manageEventFor").selectedOptions).map(option => option.value));
-            return false;
-        }
-        
+        function drawTable() {
+            var data = ordersDB;
+            var dataTable = $('#dataTable').DataTable();
+            dataTable.clear();
+            dataTable.draw();
 
-        function openManageEventPointsModal(eventid) {
-            if (userAccess < 4) {
+            var filter = document.getElementById("storeSelect").value
+            if (filter == "") {
+                filter = "NONE"
+            }
+
+            var activeOrders = 0;
+            var waitingForPaymentOrders = 0;
+            var cashSummary = [0, 0]
+
+            for (entry in data) {
+                if (filter != "ALL" && data[entry].store != filter) {
+                    continue;
+                }
+                if (filter == "NONE") {
+                    continue;
+                }
+                if (data[entry].status != 4 && data[entry].status != 5) {
+                    activeOrders += 1
+                }
+                if (data[entry].status == 0) {
+                    waitingForPaymentOrders += 1
+                }
+                cashSummary[0] += data[entry].paid
+                //console.log(data[entry])
+                //ID, KUPUJACY, ZAPLACONO / WARTOSC ZAMOWIENIA, STATUS
+                var url = `https://mobilnykatolik.github.io/store/check.html?id=${String(entry)}`
+                /*if (data[entry].type != undefined) {
+                    entry = `<div class="badge badge-secondary">${data[entry].type}</div>`+entry
+                }*/
+                let customer = data[entry].customer;
+                if (data[entry].type != undefined) {
+                    customer = data[entry].customer+` <div class="badge badge-secondary">${data[entry].type}</div>`
+                }
+                dataTable.row.add([
+                    entry,
+                    customer,
+                    `${parseFloat(data[entry].paid).toFixed(2)} / ${parseFloat(data[entry].price).toFixed(2)} zł`,
+                    `<div class="badge badge-${badgeColors[data[entry].status]}">${statusNames[data[entry].status]}</div>`,
+                    `
+                    <button class="btn btn-sm btn-primary" type="button" onClick="openManageOrder('${entry}')">Zarządzaj</button>
+                    <!--<a class="btn btn-sm btn-primary" href="${url}" target="_blank">Wyświetl</a>-->
+                    `
+                ]).draw();
+            }   
+            dataTable.draw();   
+            document.getElementById("activeOrders").innerHTML = activeOrders
+            document.getElementById("waitingForPaymentOrders").innerHTML = waitingForPaymentOrders
+            document.getElementById("cashSummary").innerHTML = `${parseFloat(cashSummary[0]).toFixed(2)} zł`
+        }      
+
+        function openManageOrder(orderID) {
+            $('#manageOrder').modal('show')
+            console.log(ordersDB[orderID])
+
+            document.getElementById("order-customer").value = ordersDB[orderID].customer
+            document.getElementById("order-paid").value = parseFloat(ordersDB[orderID].paid).toFixed(2)
+            document.getElementById("order-status").value = ordersDB[orderID].status
+            document.getElementById("order-id").value = orderID
+            document.getElementById("order-details").innerHTML = ""
+
+            for (i in ordersDB[orderID].products) {
+                let pos = ordersDB[orderID].products[i]
+                var posOptions = []
+                for (opt in pos.options) {
+                    posOptions.push(`${opt.toUpperCase()}: ${pos.options[opt].toUpperCase()}`)
+                }
+                posOptions = posOptions.join("<br>")
+                document.getElementById("order-details").innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="order-product-img" style="background-image: url('${pos.img}')"></div>
+                        </td>
+                        <td>
+                            <h5>${pos.name}</h5>
+                            <p>${posOptions}<br>${parseFloat(pos.price).toFixed(2)} zł</p>
+                        </td>
+                    </tr>
+                `
+            }
+
+            if (userAccess >= 4) {
+                $('#manageTicketModal').modal('show')
+            } else {
                 $('#insufficientPermissionsModal').modal('show')
-                return false;
-            } else {
-                $('#manageEventPointsModal').modal('show')
             }
-            if (eventid != undefined) { //Modifying event
-                document.getElementById("manageEventPointsID").value = eventid;
-                document.getElementById("manageEventPointsName").value = eventPointsDB[eventid].name;
-                document.getElementById("manageEventPointsAmount").value = parseInt(eventPointsDB[eventid].amount);
-                document.getElementById("manageEventPointsEventID").value = eventPointsDB[eventid].eventid;
-                
-            } else { //New event
-                document.getElementById("manageEventPointsID").value = "";
-                document.getElementById("manageEventPointsName").value = "";
-                document.getElementById("manageEventPointsAmount").value = 0;
-                document.getElementById("manageEventPointsEventID").value = "";
-            }
-            
-            
             
         }
 
-        function manageEventPoints(remove) {
-            $('#manageEventPointsModal').modal('hide')
+        function manageOrder() {
+            $('#manageOrder').modal('hide')
 
-            if (remove == true) {
-                var data = {
-                    "id": document.getElementById("deleteEventPointsID").value,
-                    "delete": true
-                }
-            } else {
-                var data = {
-                    "id": document.getElementById("manageEventPointsID").value,
-                    "name": document.getElementById("manageEventPointsName").value,
-                    "amount": document.getElementById("manageEventPointsAmount").value,
-                    "eventid": document.getElementById("manageEventPointsEventID").value
-                }
-                if (data.id == "") {
-                    delete data.id;
-                }
+            var data = {
+                "orderID": document.getElementById("order-id").value,
+                "customer": document.getElementById("order-customer").value,
+                "paid": parseFloat(document.getElementById("order-paid").value),
+                "status": document.getElementById("order-status").value
             }
 
             $('#loadingModal').modal('show')
-            console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/eventpoints/modify/${userID}/${userLoginID}`;
+            var url = `https://apimobilnykatolik.glitch.me/pmk/order/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -730,14 +722,128 @@
                     }
                 }
             };
-
             xhr.send(JSON.stringify(data));
             return false;
         }
 
-        function confirmDelete(eventPointsID) {
-            document.getElementById("deleteEventPointsID").value = eventPointsID;
-            $('#confirmDeleteModal').modal('show')
+        function getIds() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var multipleID = []
+            for (user in filteredRows) {
+                multipleID.push(filteredRows[user][3])
+            }
+            //console.log(multipleID);
+            return multipleID;
+        }
+
+        function downloadCsv() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var orderIDs = []
+            for (x in filteredRows) {
+                orderIDs.push(filteredRows[x][0])
+            }
+
+            var file = ["ID;KUPUJĄCY;ADRES EMAIL;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;PRODUKT"]
+
+            for (order in orderIDs) {
+                var orderID = orderIDs[order]
+                var orderData = ordersDB[orderID]
+                var products = ordersDB[orderID].products
+
+                for (prod in products) {
+                    var prodOptions = []
+                    for (opt in products[prod].options) {
+                        prodOptions.push(products[prod].options[opt].toUpperCase())
+                    }
+                    prodOptions = prodOptions.join(";")
+                    //console.log(products[prod])
+                    console.log(orderData)
+                    file.push([
+                        orderID,
+                        orderData.customer,
+                        orderData.email,
+                        orderData.paid,
+                        orderData.price,
+                        orderData.status,
+                        `${products[prod].name.toUpperCase()} (${products[prod].id.toUpperCase()})`,
+                        prodOptions
+                    ].join(";"))
+                }
+
+            }
+
+            file = file.join("\n")
+
+            // Tworzymy Blob z zawartością CSV
+            const blob = new Blob(['\uFEFF' + file], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            // Tworzymy element <a>, który będzie odpowiedzialny za pobranie pliku
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'orders.csv';
+
+            // Dodajemy element <a> do dokumentu, klikamy go i usuwamy
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Zwolnienie pamięci
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadOrdersCsv() {
+            var dataTable = $('#dataTable').DataTable();
+            var filteredRows = dataTable.rows({search: "applied"}).data().toArray();
+            var orderIDs = []
+            for (x in filteredRows) {
+                orderIDs.push(filteredRows[x][0])
+            }
+
+            var file = ["ID;KUPUJĄCY;ADRES EMAIL;WPŁATA;WARTOŚĆ ZAMÓWIENIA;STATUS;ZAMÓWIENIE"]
+
+            for (order in orderIDs) {
+                var orderID = orderIDs[order]
+                var orderData = ordersDB[orderID]
+                var products = ordersDB[orderID].products
+                var productsList = []
+
+                for (prod in products) {
+                    productsList.push(`${products[prod].name.toUpperCase()} (${products[prod].id.toUpperCase()})`)
+                }
+                productsList = productsList.join(", ")
+
+                file.push([
+                    orderID,
+                    orderData.customer,
+                    orderData.email,
+                    orderData.paid,
+                    orderData.price,
+                    orderData.status,
+                    productsList
+                ].join(";"))
+            }
+
+            file = file.join("\n")
+
+            // Tworzymy Blob z zawartością CSV
+            const blob = new Blob(['\uFEFF' + file], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            // Tworzymy element <a>, który będzie odpowiedzialny za pobranie pliku
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'orders-list.csv';
+
+            // Dodajemy element <a> do dokumentu, klikamy go i usuwamy
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Zwolnienie pamięci
+            URL.revokeObjectURL(url);
         }
 
     </script>
