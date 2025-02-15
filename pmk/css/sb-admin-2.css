@@ -10640,6 +10640,10 @@ a:focus {
     overflow: visible;
     width: 6.5rem !important;
   }
+  .sidebar.toggled.fullscreen {
+    width: 0 !important;
+    overflow: hidden;
+  }
   .sidebar.toggled .nav-item .collapse {
     position: absolute;
     left: calc(6.5rem + 1.5rem / 2);

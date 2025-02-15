@@ -31,7 +31,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled fullscreen" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -174,7 +174,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
@@ -315,6 +315,43 @@
                                     <div class="row justify-content-center mt-2">
                                         <p class="text-center">Spisy zamówień zawierają wyłącznie pozycje wyświetlane w tabeli (po filtracji)</p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products table -->
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-9">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Produkty w sklepie</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="productsTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Produkt</th>
+                                                    <th>Cena</th>
+                                                    <th>Dostępność</th>
+                                                    <th>Akcje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="products-list-table">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0">Lorem ipsum</h6>
+                                </div>
+                                <div class="card-body">
+                                    Lorem ipsum dolor sit amet
                                 </div>
                             </div>
                         </div>
@@ -538,6 +575,7 @@
 
     <script>
         var ordersDB;
+        var storesDB;
 
         var badgeColors = ["danger", "success", "success", "success", "secondary", "danger"];
         var statusNames = ["BRAK WPŁATY", "OPŁACONE", "W REALIZACJI", "GOTOWE DO ODBIORU", "ZAKOŃCZONE", "ANULOWANE"];
@@ -546,6 +584,10 @@
             var dataTable = $('#dataTable').DataTable();
             dataTable.clear();
             dataTable.draw();
+
+            var prodTable = $('#productsTable').DataTable();
+            prodTable.clear();
+            prodTable.draw();
 
             var url = `https://apimobilnykatolik.glitch.me/pmk/order/list/${userID}/${userLoginID}`;
 
@@ -557,6 +599,29 @@
                 if (xhr.status == 200) {
                     var data = JSON.parse(xhr.responseText);
                     ordersDB = data;
+                    getStores();
+                    drawTable();
+                } else if (xhr.status == 403) {
+                    $('#insufficientPermissionsModal').modal('show')
+                } else {
+                    $('#apiErrorModal').modal('show')
+                }
+            }};
+
+            xhr.send();
+        }
+
+        function getStores() {
+            var url = `https://apimobilnykatolik.glitch.me/pmk/store/list/${userID}/${userLoginID}`;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+
+            xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    storesDB = data;
                     var selectedStore;
                     if (document.getElementById("storeSelect").value != "") {
                         selectedStore = document.getElementById("storeSelect").value;
@@ -564,23 +629,16 @@
                     document.getElementById("storeSelect").innerHTML = `
                         <option value="" disabled hidden selected>Wybierz sklep</option>
                     `
-                    var stores = []
-                    for (order in ordersDB) {
-                        if (ordersDB[order].store != undefined && !stores.includes(ordersDB[order].store)) {
-                            stores.push(ordersDB[order].store)
-                        }
-                    }
-                    for (store in stores) {
+                    for (store in storesDB) {
                         var ifSelect = ""
-                        if (stores[store] == selectedStore) {
+                        if (store == selectedStore) {
                             ifSelect = "selected"
                         }
                         document.getElementById("storeSelect").innerHTML += `
-                        <option value="${stores[store]}" ${ifSelect}>${stores[store]}</option>
+                        <option value="${store}" ${ifSelect}>${storesDB[store].displayname}</option>
                         `
                     }
                     document.getElementById("storeSelect").innerHTML += `<option value="ADD">+ Stwórz nowy sklep</option>`
-                    drawTable();
                 } else if (xhr.status == 403) {
                     $('#insufficientPermissionsModal').modal('show')
                 } else {
@@ -593,13 +651,23 @@
 
         reloadDB();
 
+
         function drawTable() {
             document.getElementById("downloadBtn1").disabled = "disabled"
             document.getElementById("downloadBtn2").disabled = "disabled"
             var data = ordersDB;
+
+            //Tabela zamówień
             var dataTable = $('#dataTable').DataTable();
             dataTable.clear();
             dataTable.draw();
+
+            //Tabela produktów
+            var prodTable = $('#productsTable').DataTable();
+            prodTable.clear();
+            prodTable.draw();
+
+            var selectedStore = document.getElementById("storeSelect").value
 
             var filter = document.getElementById("storeSelect").value
             if (filter == "") {
