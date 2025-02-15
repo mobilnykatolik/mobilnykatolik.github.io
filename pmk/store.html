@@ -171,15 +171,15 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav id="navbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow" style="position: fixed; top: 0; z-index: 1030; width: 100vw;">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                    <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3" onclick="updateNavbarWidth();">
                         <i class="fa fa-bars"></i>
                     </button>
 
                     <select id="storeSelect" onChange="selectStore();" class="form-control mr-auto" style="width: 100%; max-width: 400px;">
-                        <option disabled hidden selected>Proszę czekać...</option>
+                        <option disabled hidden selected value="">Proszę czekać...</option>
                     </select>
 
 
@@ -214,7 +214,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="margin-top: 6rem !important;">
 
                     <div class="row">
                         <!-- Active orders count -->
@@ -651,6 +651,33 @@
 
         reloadDB();
 
+        function showProducts(store) {
+            //Tabela produktów
+            var prodTable = $('#productsTable').DataTable();
+            prodTable.clear();
+            prodTable.draw();
+
+            for (let prod in storesDB[store].products) {
+                let product = storesDB[store].products[prod]
+                if (product.disabled) {
+                    ifChecked = ""
+                } else {
+                    ifChecked = "checked"
+                }
+                prodTable.row.add([
+                    `${product.name} <div class="badge bg-dark text-white">${product.badge}</div>`,
+                    `${parseFloat(product.price).toFixed(2)} zł`,
+                    `
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="prod-avail-${prod}" onChange="changeAvailability('${prod}', document.getElementById('prod-avail-${prod}').checked)" ${ifChecked} disabled>
+                        <label class="custom-control-label" for="prod-avail-${prod}"></label>
+                    </div>
+                    `,
+                    "Modyfikuj"
+                ]).draw();
+            }
+
+        }
 
         function drawTable() {
             document.getElementById("downloadBtn1").disabled = "disabled"
@@ -662,19 +689,14 @@
             dataTable.clear();
             dataTable.draw();
 
-            //Tabela produktów
-            var prodTable = $('#productsTable').DataTable();
-            prodTable.clear();
-            prodTable.draw();
-
-            var selectedStore = document.getElementById("storeSelect").value
-
             var filter = document.getElementById("storeSelect").value
             if (filter == "") {
                 filter = "NONE"
             } else {
                 document.getElementById("downloadBtn1").disabled = ""
                 document.getElementById("downloadBtn2").disabled = ""
+                var selectedStore = document.getElementById("storeSelect").value
+                showProducts(selectedStore);
             }
 
             var activeOrders = 0;
@@ -934,6 +956,12 @@
             } else { 
                 drawTable()
             }
+        }
+
+        function updateNavbarWidth() {
+            setTimeout(function() {
+                document.getElementById('navbar').style.width = `calc(100vw - ${document.getElementById("accordionSidebar").offsetWidth}px)`
+            }, 1)
         }
 
     </script>
