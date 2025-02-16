@@ -59,7 +59,42 @@
             <div class="container px-2 px-lg-2 mt-2">
                 <div class="row justify-content-center">
                     <ul class="list-group list-group-flush w-75" id="cartList">
-                        
+                        <li class="list-group-item row d-flex align-items-center">
+                            <div class="col-4 col-lg-3 placeholder-glow">
+                                <img class="w-100 placeholder" src="https://dummyimage.com/600x700/858e96/858e96.jpg">
+                            </div>
+                            <div class="col-8 col-lg-7 placeholder-wave">
+                                <h5 class="fw-bolder placeholder col-3"></h5><br>
+                                <span class="placeholder col-4"></span><br>
+                                <span class="placeholder col-5"></span><br>
+                                <span class="placeholder col-2"></span><br><br>
+                                <h5 class="fw-bolder placeholder col-1"></h5>
+                            </div>
+                        </li>
+                        <li class="list-group-item row d-flex align-items-center">
+                            <div class="col-4 col-lg-3 placeholder-glow">
+                                <img class="w-100 placeholder" src="https://dummyimage.com/600x700/858e96/858e96.jpg">
+                            </div>
+                            <div class="col-8 col-lg-7 placeholder-wave">
+                                <h5 class="fw-bolder placeholder col-3"></h5><br>
+                                <span class="placeholder col-4"></span><br>
+                                <span class="placeholder col-5"></span><br>
+                                <span class="placeholder col-2"></span><br><br>
+                                <h5 class="fw-bolder placeholder col-1"></h5>
+                            </div>
+                        </li>
+                        <li class="list-group-item row d-flex align-items-center">
+                            <div class="col-4 col-lg-3 placeholder-glow">
+                                <img class="w-100 placeholder" src="https://dummyimage.com/600x700/858e96/858e96.jpg">
+                            </div>
+                            <div class="col-8 col-lg-7 placeholder-wave">
+                                <h5 class="fw-bolder placeholder col-3"></h5><br>
+                                <span class="placeholder col-4"></span><br>
+                                <span class="placeholder col-5"></span><br>
+                                <span class="placeholder col-2"></span><br><br>
+                                <h5 class="fw-bolder placeholder col-1"></h5>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -68,21 +103,16 @@
         <!-- Section -->
         <section id="cart-section-2" class="py-5 d-none">
             <div class="container px-2 text-center">
-                <h4>Upewnij się, że wybrane logotypy odpowiadają Twojej szkole.</h4>
-                <p>Zamówione produkty <span class="text-danger">nie podlegają zwrotowi czy wymianie</span>.</p>
+                <h4>Upewnij się, że wybrałeś(-aś) prawidłowe produkty.</h4>
+                <p>Zapoznaj się z zasadami sprzedaży, aby dowiedzieć się więcej na temat zwrotów czy wymiany.</p>
             </div>
         </section>
 
         <!-- Section -->
-        <section id="cart-section-3" class="py-5 px-lg-5">
+        <section id="cart-section-3" class="py-5 px-lg-5 d-none">
             <div class="container px-2">
                 <h4 class="mb-3">Twoje dane</h4>
                 <form onSubmit="return makeOrder();">
-                    <div class="row">
-                        <div class="col-12">
-                            <p>KWIATY I CIASTECZKA SĄ DOSTARCZANE ANONIMOWO!<br>W przypadku nieobecności osoby obdarowywanej będziemy mogli zwrócić Ci koszty.</p>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-floating mb-3">
@@ -105,11 +135,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row d-none">
+                    <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="customer-email" placeholder=" ">
+                                <input type="email" class="form-control" id="customer-email" placeholder=" " required>
                                 <label>Adres e-mail</label>
+                                <small>Na podany adres wyślemy potwierdzenie zamówienia wraz ze szczegółami dotyczącymi płatności.</small>
                             </div>
                         </div>
                     </div>
@@ -187,6 +218,9 @@ function runPage() {
         document.getElementById("cart-section-2").classList.add("d-none")
         document.getElementById("cart-section-3").classList.add("d-none")
         document.getElementById("cart-empty").classList.remove("d-none")
+    } else {
+        document.getElementById("cart-section-2").classList.remove("d-none")
+        document.getElementById("cart-section-3").classList.remove("d-none")
     }
 
     if (localStorage.userfname != undefined) {
@@ -206,13 +240,15 @@ function makeOrder() {
         return false;
     }
     
-    //document.getElementById("customer-email").value
+    updateCart()
+
+    
     var orderData = {
         "customer": `${document.getElementById("customer-firstName").value.toUpperCase()} ${document.getElementById("customer-lastName").value.toUpperCase()}, ${document.getElementById("customer-class").value.toUpperCase()}`,
-        "email": "mobilnykatolik@gmail.com",
+        "email": document.getElementById("customer-email").value,
         "products": cart,
         "price": cartPrice,
-        "store": "VALENTINES2025"
+        "store": cart[0].store
     }
 
     console.log(orderData);

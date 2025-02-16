@@ -38,44 +38,6 @@
         </nav>
 
         <!-- Header-->
-        <header class="py-5 bg-valentines">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder" style="opacity: 0;">.</h1>
-                    <p class="lead fw-normal text-white-50 mb-0" style="opacity: 0;">.</p>
-                </div>
-            </div>
-        </header>
-
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productListValentines">
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Header-->
-        <header class="py-5 bg-christmas d-none">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Mikołajki</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Świąteczne prezenty!</p>
-                </div>
-            </div>
-        </header>
-
-        <!-- Section-->
-        <section class="py-5 d-none">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productListChristmas">
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Header-->
         <header class="py-5 bg-cristal d-none">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
@@ -88,26 +50,80 @@
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="text-center d-none" id="no-products">Brak produktów do wyświetlenia!</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productList">
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Header-->
-        <header class="py-5 bg-dark d-none">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Kolekcja CLASSICS</h1>
-                </div>
-            </div>
-        </header>
-
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productListClassics">
-
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <div class="placeholder-glow">
+                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center placeholder-wave">
+                                    <h5 class="placeholder fw-bolder col-9"></h5>
+                                    <span class="placeholder col-6"></span>
+                                </div>
+                            </div>
+        
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
+                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <div class="placeholder-glow">
+                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center placeholder-wave">
+                                    <h5 class="placeholder fw-bolder col-9"></h5>
+                                    <span class="placeholder col-6"></span>
+                                </div>
+                            </div>
+        
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
+                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <div class="placeholder-glow">
+                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center placeholder-wave">
+                                    <h5 class="placeholder fw-bolder col-9"></h5>
+                                    <span class="placeholder col-6"></span>
+                                </div>
+                            </div>
+        
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
+                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <div class="placeholder-glow">
+                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <div class="text-center placeholder-wave">
+                                    <h5 class="placeholder fw-bolder col-9"></h5>
+                                    <span class="placeholder col-6"></span>
+                                </div>
+                            </div>
+        
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
+                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -128,6 +144,8 @@
 
 function runPage() {
     console.log(productsDB)
+    document.getElementById("productList").innerHTML = ""
+    var prodCounter = 0
     for (prod in productsDB) {
         var product = productsDB[prod];
         if (product.disabled) {
@@ -137,9 +155,11 @@ function runPage() {
             continue;
         }
         var list = "productList"
+        /*
         if (product.collection == "CLASSICS") { list = "productListClassics"}
         if (product.collection == "XMAS") { list = "productListChristmas"}
         if (product.collection == "VALENTINES") { list = "productListValentines"}
+        */
         document.getElementById(list).innerHTML += `
             <div class="col mb-5">
                 <div class="card h-100">
@@ -160,6 +180,10 @@ function runPage() {
                     </div>
                 </div>
             </div>`
+        prodCounter += 1
+    }
+    if (prodCounter == 0) {
+        document.getElementById("no-products").classList.remove("d-none")
     }
 }
 

@@ -39,23 +39,37 @@
 
         <!-- Product section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
+            <div class="container px-4 px-lg-5 my-5" id="placeholder-container">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6 placeholder-glow">
+                        <img class="card-img-top mb-5 mb-md-0 placeholder" src="https://dummyimage.com/600x700/858e96/858e96.jpg" alt="..." />
+                    </div>
+                    <div class="col-md-6 placeholder-glow">
+                        <div class="small mb-1"><span class="placeholder col-2"></span></div>
+                        <h1 class="display-5 fw-bolder placeholder col-6"></h1>
+                        <div class="fs-5 mb-5">
+                            <span class="placeholder col-3"></span>
+                        </div>
+                        <p class="lead placeholder col-5"></p><br>
+                        <p class="lead placeholder col-7"></p><br>
+                        <p class="lead placeholder col-4"></p>
+                        <form onsubmit="return addToCart();">
+                            <div class="row d-flex my-3">
+                                <div class="col d-flex justify-content-end">
+                                    <button class="btn btn-outline-dark flex-shrink-0 placeholder col-3" type="submit">
+                                        <i class="bi-cart-fill me-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container px-4 px-lg-5 my-5 d-none" id="item-container">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
-                        <img class="card-img-top mb-5 mb-md-0" id="item-img" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." />
-                        <div id="carouselExampleInterval" class="carousel slide mb-5 mb-md-0" data-bs-ride="carousel">
-                            <div class="carousel-inner" id="carousel-items">
-
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        <img class="card-img-top mb-5 mb-md-0" id="item-img" src="https://dummyimage.com/600x700/858e96/858e96.jpg" alt="..." />
                     </div>
                     <div class="col-md-6">
                         <div class="small mb-1">ID: <span id="item-id"></span></div>
@@ -146,25 +160,6 @@ function getItem(itemID) {
     document.getElementById("item-img").src = product.img;
     productsDB[itemID].finalprice = parseFloat(product.price)
 
-    if (product.carousel != undefined && product.carousel.length > 1) {
-        document.getElementById("item-img").classList.add("d-none")
-        document.getElementById("carousel-items").innerHTML = ""
-        for (i in product.carousel) {
-            if (i == 0) {
-                document.getElementById("carousel-items").innerHTML += `
-                <div class="carousel-item active" data-bs-interval="5000">
-                    <img src="${product.carousel[i]}" class="d-block w-100">
-                </div>`
-            } else {
-                document.getElementById("carousel-items").innerHTML += `
-                <div class="carousel-item" data-bs-interval="5000">
-                    <img src="${product.carousel[i]}" class="d-block w-100">
-                </div>`
-            }
-            
-        }
-    }
-
     for (option in product.options) {
         if (product.options[option] == "UNREQUIRED") {
             var optionForm = `
@@ -209,6 +204,8 @@ function getItem(itemID) {
         document.getElementById("size-table-button").classList.remove("d-none")
         document.getElementById("size-table").src = product.sizetable
     }
+    document.getElementById("item-container").classList.remove("d-none")
+    document.getElementById("placeholder-container").classList.add("d-none")
 }
 
 function optionChange() {
@@ -238,12 +235,25 @@ function addToCart() {
         window.alert("Nie możesz dodać tego produktu do koszyka!")
         return false;
     }
+    if (product.disabled) {
+        window.alert("Nie możesz dodać tego produktu do koszyka!")
+        return false;
+    }
+    if (cart.length != 0) {
+        if (cart[cart.length - 1].store != product.store) {
+            if (!window.confirm("Wybrany produkt znajduje się w innym sklepie niż produkty znajdujące się w koszyku. Przejście dalej spowoduje wyczyszczenie koszyka.\nCzy chcesz kontynuować?")) {
+                return false;
+            }
+        }
+    }
+    
     var itemData = {
         "id": itemID,
         "name": product.name,
         "price": parseFloat(product.finalprice),
         "img": document.getElementById("item-img").src,
-        "options": {}
+        "options": {},
+        "store": product.store
     }
     for (opt in itemOptions) {
         itemData.options[itemOptions[opt]] = document.getElementById(`item-option-${itemOptions[opt]}`).value

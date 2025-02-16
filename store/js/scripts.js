@@ -8,7 +8,7 @@
 
 var productsDB = {}
 
-fetch('products/data.json')
+/*fetch('products/data.json')
     .then(response => {
         // Sprawdzenie, czy odpowiedź jest OK
         if (!response.ok) {
@@ -28,7 +28,36 @@ fetch('products/data.json')
         // Obsługa błędów
         console.error('There was a problem with the fetch operation:', error);
         //runPage() //USUNAC TA LINIJKE
-    });
+    });*/
+
+function getStores() {
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+        if (req.readyState == XMLHttpRequest.DONE) {
+            if (req.status == 200) {
+                //Sukces
+                var data = JSON.parse(req.responseText)
+                for (store in data) {
+                    for (prod in data[store].products) {
+                        productsDB[prod] = data[store].products[prod]
+                    }
+                }
+                //productsDB = data["MERCHANDISE2024-2"].products;
+                updateCart();
+                runPage();
+            } else {
+                //Błąd
+            }
+        }
+    };
+
+    req.open("GET", `https://apimobilnykatolik.glitch.me/store/getall`, true);
+    req.send();
+}
+    
+getStores();
+
 
 
 var cart = localStorage.getItem("cart")
@@ -39,11 +68,36 @@ if (cart == null || cart == undefined) {
 }
 
 function updateCart() {
+    let newCart = []
+    let selectedStore;
+    if (cart.length != 0) {
+        selectedStore = cart[cart.length - 1].store
+    }
+    console.log(`Wybrany sklep: ${selectedStore}`)
+    for (prod in cart) {
+        if (cart[prod].store == undefined) {
+            continue;
+        }
+        
+        if (productsDB[cart[prod].id] == undefined) {
+            continue;
+        }
+
+        cart[prod].price = productsDB[cart[prod].id].price
+        cart[prod].name = productsDB[cart[prod].id].name
+        cart[prod].store = productsDB[cart[prod].id].store
+
+        if (cart[prod].store != selectedStore) {
+            continue;
+        }
+
+        newCart.push(cart[prod])
+    }
+    cart = newCart
+
     localStorage.setItem("cart", JSON.stringify(cart))
     document.getElementById("cart-quantity").innerHTML = cart.length
 }
-
-updateCart()
 
 function openModal(id) {
     const myModal = new bootstrap.Modal(document.getElementById(id));
