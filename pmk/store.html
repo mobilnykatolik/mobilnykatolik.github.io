@@ -322,7 +322,7 @@
 
                     <!-- Products table -->
                     <div class="row">
-                        <div class="col-xl-9 col-lg-9">
+                        <div class="col-xl-8 col-lg-8">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0">Produkty w sklepie</h6>
@@ -332,7 +332,7 @@
                                         <table class="table table-bordered" id="productsTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>Produkt</th>
+                                                    <th style="width: 50%;">Produkt</th>
                                                     <th>Cena</th>
                                                     <th>Dostępność</th>
                                                     <th>Akcje</th>
@@ -345,13 +345,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3">
+                        <div class="col-xl-4 col-lg-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0">Lorem ipsum</h6>
+                                    <h6 class="m-0">Ustawienia sklepu</h6>
                                 </div>
                                 <div class="card-body">
-                                    Lorem ipsum dolor sit amet
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="store-settings-displayname">Nazwa sklepu</label>
+                                                <input type="text" class="form-control" id="store-settings-displayname" required disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="store-settings-displayname">Informacje nt. płatności</label>
+                                                <textarea class="form-control" id="store-settings-paymentinfo" required disabled></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="store-settings-active" disabled>
+                                                <label class="custom-control-label" for="store-settings-active" id="store-settings-active-label">Sklep wyłączony</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -652,6 +675,15 @@
         reloadDB();
 
         function showProducts(store) {
+            if (storesDB[store].active) {
+                document.getElementById("store-settings-active").checked = "checked"
+                document.getElementById("store-settings-active-label").innerHTML = "Sklep włączony"
+            } else {
+                document.getElementById("store-settings-active").checked = ""
+                document.getElementById("store-settings-active-label").innerHTML = "Sklep wyłączony"
+            }
+            document.getElementById("store-settings-displayname").value = storesDB[store].displayname
+            document.getElementById("store-settings-paymentinfo").value = storesDB[store].paymentinfo.replaceAll("<br>", "\n")
             //Tabela produktów
             var prodTable = $('#productsTable').DataTable();
             prodTable.clear();

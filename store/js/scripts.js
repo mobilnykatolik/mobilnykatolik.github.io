@@ -7,6 +7,7 @@
 // Use this file to add JavaScript to your project
 
 var productsDB = {}
+var storesDB = {}
 
 /*fetch('products/data.json')
     .then(response => {
@@ -38,6 +39,7 @@ function getStores() {
             if (req.status == 200) {
                 //Sukces
                 var data = JSON.parse(req.responseText)
+                storesDB = data
                 for (store in data) {
                     for (prod in data[store].products) {
                         productsDB[prod] = data[store].products[prod]
