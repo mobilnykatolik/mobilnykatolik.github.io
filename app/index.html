@@ -86,13 +86,6 @@
             <button type="button" class="introduction-button-next" style="display: block; margin: auto; margin-top: 20px; float: unset;" onClick="openLoginPopup();">Zaloguj się</button>
         </div>
         <div class="introduction-page" id="introduction-step-3">
-            <p style="color: darkgray; font-size: 17px;">Czy chcesz otrzymywać powiadomienia z aplikacji?</p>
-            <button type="button" id="introduction-ask-for-permission" class="introduction-button-next" style="display: block; margin: auto; margin-top: 20px; float: unset;" onClick="askForPermission();">Przyznaj uprawnienia</button>
-            <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%; left: 0;">
-                <button class="introduction-button-next" onclick="introductionNextStep();">Pomiń</button>
-            </div>
-        </div>
-        <div class="introduction-page" id="introduction-step-4">
             <p style="color: darkgray; font-size: 17px;">Możesz wybrać motyw aplikacji</p>
             <div class="buttons-section" type="theme" style="margin-top: 20px;">
                 <div type="top" onclick="changeTheme('a80c2f');">
@@ -125,7 +118,13 @@
                 </select>
             </div>
             <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%; left: 0;">
-                <button class="introduction-button-next" onclick="introductionNextStep();">Dalej</button>
+                <button class="introduction-button-next" onclick="askForPermission();">Dalej</button>
+            </div>
+        </div>
+        <div class="introduction-page" id="introduction-step-4">
+            <p style="color: darkgray; font-size: 17px;">Czy chcesz otrzymywać powiadomienia z aplikacji?</p>
+            <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%; left: 0;">
+                <button class="introduction-button-next" onclick="introductionNextStep();">Pomiń</button>
             </div>
         </div>
         <div class="introduction-page" id="introduction-step-5">
@@ -1558,7 +1557,8 @@ function switchNotifications() {
 }
 
 function askForPermission() {
-    document.getElementById("introduction-ask-for-permission").style.display = "none";
+    introductionNextStep();
+    //document.getElementById("introduction-ask-for-permission").style.display = "none";
     var NotificationIsSupported = !!(window.Notification || window.webkitNotifications || navigator.mozNotification)  
     if (NotificationIsSupported == false) {
         window.alert("Urządzenie nie obsługuje powiadomień!");
