@@ -73,6 +73,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="small mb-1">ID: <span id="item-id"></span></div>
+                        <div class="badge bg-dark text-white my-0" id="item-badge"></div>
                         <h1 class="display-5 fw-bolder" id="item-name"></h1>
                         <div class="fs-5 mb-5">
                             <span id="item-price"></span> <span>zł</span>
@@ -154,6 +155,7 @@ var itemOptions = []
 function getItem(itemID) {
     var product = productsDB[itemID];
     document.getElementById("item-id").innerHTML = itemID.toUpperCase();
+    document.getElementById("item-badge").innerHTML = product.badge.toUpperCase();
     document.getElementById("item-name").innerHTML = product.name;
     document.getElementById("item-price").innerHTML = parseFloat(product.price).toFixed(2);
     document.getElementById("item-desc").innerHTML = product.desc;

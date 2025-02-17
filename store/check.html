@@ -100,7 +100,7 @@
                 <div class="container px-2 px-lg-2 mt-2">
                     <div class="row">
                         <h4 class="text-center">Informacje dot. płatności:</h4>
-                        Informacje zostały przesłane na Twój adres email.
+                        <span id="payment-info">Informacje zostały przesłane na Twój adres e-mail. Znajdziesz je również w aplikacji Mobilny Katolik.</span>
                     </div>
                 </div>
             </section>
@@ -156,7 +156,8 @@ function checkOrder() {
                 }
                 items = data.products
                 showItems()
-                document.getElementById("payment-section-order-id").innerHTML = data.id
+                //document.getElementById("payment-section-order-id").innerHTML = data.id
+                document.getElementById("payment-info").innerHTML = data.paymentinfo.replaceAll("[orderID]", data.id)
                 document.getElementById("info-section").classList.remove("d-none")
                 document.getElementById("check-section").classList.add("d-none")
             } else {
