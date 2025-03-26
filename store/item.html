@@ -149,6 +149,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const itemID = urlParams.get('id');
+var finalprice = 0;
 
 var itemOptions = []
 
@@ -225,7 +226,7 @@ function optionChange() {
     }
 
     document.getElementById("item-price").innerHTML = parseFloat(price).toFixed(2)
-    productsDB[itemID].finalprice = parseFloat(price)
+    finalprice = parseFloat(price)
 }
 
 function runPage() {
@@ -234,6 +235,7 @@ function runPage() {
 
 function addToCart() {
     var product = productsDB[itemID];
+    //console.log(product)
     if (product.oop) {
         window.alert("Nie możesz dodać tego produktu do koszyka!")
         return false;
@@ -250,19 +252,20 @@ function addToCart() {
         }
     }
     
-    var itemData = {
+    let cartData = {
         "id": itemID,
         "name": product.name,
-        "price": parseFloat(product.finalprice),
         "img": document.getElementById("item-img").src,
+        "price": finalprice,
         "options": {},
         "store": product.store
     }
     for (opt in itemOptions) {
-        itemData.options[itemOptions[opt]] = document.getElementById(`item-option-${itemOptions[opt]}`).value
+        cartData.options[itemOptions[opt]] = document.getElementById(`item-option-${itemOptions[opt]}`).value
     }
-    cart.push(itemData)
-    console.log(itemData)
+    //var cartData = JSON.parse(JSON.stringify(itemData))
+    console.log(cartData)
+    cart.push(cartData)
     updateCart();
     openModal("cartSuccess")
     return false;

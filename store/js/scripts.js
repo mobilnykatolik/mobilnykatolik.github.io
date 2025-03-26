@@ -85,7 +85,7 @@ function updateCart() {
             continue;
         }
 
-        cart[prod].price = productsDB[cart[prod].id].price
+        //cart[prod].price = productsDB[cart[prod].id].price NIE MOZEMY BO WTEDY FINAL PRICE SIE NIE ZGADZA
         cart[prod].name = productsDB[cart[prod].id].name
         cart[prod].store = productsDB[cart[prod].id].store
 
