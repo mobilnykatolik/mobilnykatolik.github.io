@@ -301,13 +301,13 @@
                                     <div class="row justify-content-center mr-0">
                                         <button onClick="downloadOrdersCsv();" id="downloadBtn1" class="btn btn-primary btn-icon-split justify-content-end mx-2 mt-2" disabled>
                                             <span class="icon text-white-50">
-                                                <i class="fas fa-file-download"></i>
+                                                <i class="fas fa-file-csv"></i>
                                             </span>
                                             <span class="text">Pobierz zamówienia</span>
                                         </button>
                                         <button onClick="downloadCsv();" id="downloadBtn2" class="btn btn-primary btn-icon-split justify-content-end mx-2 mt-2" disabled>
                                             <span class="icon text-white-50">
-                                                <i class="fas fa-file-download"></i>
+                                                <i class="fas fa-file-csv"></i>
                                             </span>
                                             <span class="text">Pobierz szczegóły zamówień</span>
                                         </button>
@@ -354,6 +354,14 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="store-settings-name">ID sklepu</label>
+                                                <input type="text" class="form-control" id="store-settings-name" required disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="store-settings-displayname">Nazwa sklepu</label>
                                                 <input type="text" class="form-control" id="store-settings-displayname" required disabled>
                                             </div>
@@ -362,7 +370,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="store-settings-displayname">Informacje nt. płatności</label>
+                                                <label for="store-settings-paymentinfo">Informacje nt. płatności</label>
                                                 <textarea class="form-control" id="store-settings-paymentinfo" required disabled></textarea>
                                             </div>
                                         </div>
@@ -373,6 +381,16 @@
                                                 <input type="checkbox" class="custom-control-input" id="store-settings-active" disabled>
                                                 <label class="custom-control-label" for="store-settings-active" id="store-settings-active-label">Sklep wyłączony</label>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-center align-items-center">
+                                            <button onClick="window.alert('abc')" id="downloadBtn1" class="btn btn-sm btn-primary btn-icon-split justify-content-end mt-2">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-save"></i>
+                                                </span>
+                                                <span class="text">Zapisz zmiany</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -499,6 +517,121 @@
                         <table id="order-details">
                             
                         </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Store Item Modal-->
+    <div class="modal fade" id="manageItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Zarządzanie produktem</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageItem();">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 col-lg-8">
+                                <div class="form-group">
+                                    <label for="product-id">ID produktu</label>
+                                    <input type="text" class="form-control" id="product-id" required disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-storeid">ID sklepu</label>
+                                    <input type="text" class="form-control" id="product-storeid" required disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-name">Nazwa</label>
+                                    <input type="text" class="form-control" id="product-name" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="product-badge">Badge</label>
+                                            <input type="text" class="form-control" id="product-badge">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="product-price">Cena</label>
+                                            <input type="text" class="form-control" id="product-price" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-img">Zdjęcie produktu</label>
+                                    <input type="url" class="form-control" id="product-img" placeholder="Link do grafiki (np. Imgur)" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-sizetable">Rozmiarówka</label>
+                                    <input type="url" class="form-control" id="product-sizetable" placeholder="Link do grafiki (np. Imgur)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-desc">Opis</label>
+                                    <textarea type="text" class="form-control" id="product-desc" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-7 col-lg-4 align-items-center d-none">
+                                <div class="card">
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">BADGE</div>
+                                    <img class="card-img-top" id="product-img-disp" src="https://dummyimage.com/600x700/000/fff" alt="..." />
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder" id="product-name-disp">NAZWA</h5>
+                                            <span id="product-price-disp">0.00 zł</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="mt-3 mb-0">Opcje</p>
+                                <small class="form-text text-muted my-0">Przed edytowaniem opcji produktu zapoznaj się z instrukcją formatowania wariantów artykułów w PMK</small>
+                                <table class="table mt-2 table" id="options">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nazwa</th>
+                                            <th scope="col">Opcje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="options-tbody">
+                                        <tr>
+                                            <th>
+                                                <input type="text" class="form-control">
+                                            </th>
+                                            <td>
+                                                <textarea class="form-control"></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <button onClick="addOptionField()" type="button" class="mx-1 btn btn-sm btn-primary btn-icon-split justify-content-end mt-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Dodaj opcję</span>
+                                </button>
+                                <button onClick="removeEmptyOptions()" type="button" class="mx-1 btn btn-sm btn-danger btn-icon-split justify-content-end mt-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Wyczyść puste</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
@@ -683,6 +816,7 @@
                 document.getElementById("store-settings-active-label").innerHTML = "Sklep wyłączony"
             }
             document.getElementById("store-settings-displayname").value = storesDB[store].displayname
+            document.getElementById("store-settings-name").value = store
             document.getElementById("store-settings-paymentinfo").value = storesDB[store].paymentinfo.replaceAll("<br>", "\n")
             //Tabela produktów
             var prodTable = $('#productsTable').DataTable();
@@ -705,7 +839,7 @@
                         <label class="custom-control-label" for="prod-avail-${prod}"></label>
                     </div>
                     `,
-                    "Modyfikuj"
+                    `<button class="btn btn-sm btn-primary" type="button" onClick="openManageItem('${prod}')">Zarządzaj</button>`
                 ]).draw();
             }
 
@@ -995,6 +1129,191 @@
                 document.getElementById('navbar').style.width = `calc(100vw - ${document.getElementById("accordionSidebar").offsetWidth}px)`
             }, 1)
         }
+
+        function addOptionField() {
+            /*document.getElementById("options-tbody").innerHTML += `
+            <tr>
+                <th>
+                    <input type="text" class="form-control">
+                </th>
+                <td>
+                    <textarea class="form-control"></textarea>
+                </td>
+            </tr>
+            `*/
+            const tableBody = document.querySelector("#options tbody");
+
+            // Tworzenie nowego wiersza
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <th><input type="text" class="form-control"></th>
+                <td><textarea class="form-control"></textarea></td>
+            `;
+
+            // Dodanie nowego wiersza do tabeli
+            tableBody.appendChild(newRow);
+        }
+
+        function removeEmptyOptions() {
+            const rows = document.querySelectorAll("#options tbody tr");
+
+            rows.forEach(row => {
+                const input = row.querySelector("th input");
+                if (input && input.value.trim() === "") {
+                    row.remove(); // Usuwa cały wiersz
+                }
+            });
+        }
+
+        function getOptions() {
+            const rows = document.querySelectorAll("#options tbody tr");
+            let data = [];
+
+            rows.forEach(row => {
+                const input = row.querySelector("input");
+                const name = input ? input.value.trim().toUpperCase() : "";
+                const textarea = row.querySelector("textarea");
+                const value = textarea ? textarea.value.trim() : "";
+
+                if (name != "") {
+                    data.push({ name, value });
+                }
+            });
+
+            var options = {}
+
+            for (let opt in data) {
+                if (data[opt].value == "") {
+                    options[data[opt].name] = []
+                } else if (data[opt].value == "#") {
+                    options[data[opt].name] = "UNREQUIRED"
+                } else {
+                    var values = data[opt].value.split("\n")
+                    var valuesJSON = []
+                    for (val in values) {
+                        let selector = values[val].split(";")
+                        if (selector.length == 1) {
+                            continue
+                        }
+                        var opcje = {}
+                        if (selector[0] != undefined) { opcje.name = selector[0]}
+                        if (selector[1] != undefined) { opcje.display = selector[1]}
+                        if (selector[2] != undefined) { opcje.price = selector[2]}
+                        valuesJSON.push(opcje)
+                    }
+                    if (Object.keys(valuesJSON).length == 0) {
+                        continue
+                    }
+                    options[data[opt].name] = valuesJSON
+                }
+            }
+            return options;
+        }
+
+        function openManageItem(itemID) {
+            var storeID = document.getElementById("storeSelect").value
+            console.log(storesDB[storeID].products[itemID])
+            $('#manageItem').modal('show')
+
+            var productData = storesDB[storeID].products[itemID]
+
+            document.getElementById("product-id").value = itemID
+            document.getElementById("product-storeid").value = storeID
+            document.getElementById("product-name").value = productData.name
+            document.getElementById("product-badge").value = productData.badge
+            document.getElementById("product-price").value = productData.price
+            document.getElementById("product-img").value = productData.img
+            document.getElementById("product-desc").value = productData.desc.replaceAll("<br>", "\n")
+            document.getElementById("product-sizetable").value = productData.sizetable
+
+            var productOptions = productData.options
+            console.log(productOptions)
+            document.getElementById("options-tbody").innerHTML = ""
+            for (let opt in productOptions) {
+                //console.log(productOptions[opt])
+                var selector = ""
+                if (productOptions[opt] == "UNREQUIRED") {
+                    selector = "#"
+                } else if (productOptions[opt].length == 0) {
+                    selector = ""
+                } else {
+                    selector = []
+                    for (x in productOptions[opt]) {
+                        record = []
+                        for (i in productOptions[opt][x]) {
+                            record.push(productOptions[opt][x][i])
+                        }
+                        record = record.join(";")
+                        selector.push(record)
+                    }
+                    selector = selector.join("\n")
+                }
+                console.log(selector)
+                document.getElementById("options-tbody").innerHTML += `
+                <tr>
+                    <th>
+                        <input type="text" class="form-control" value="${opt}">
+                    </th>
+                    <td>
+                        <textarea class="form-control">${selector}</textarea>
+                    </td>
+                </tr>
+                `
+            }
+
+        }
+
+        function manageItem() {
+            $('#manageItem').modal('hide')
+
+            var productData = {
+                "store": document.getElementById("product-storeid").value,
+                "name": document.getElementById("product-name").value,
+                "badge": document.getElementById("product-badge").value,
+                "price": parseFloat(document.getElementById("product-price").value),
+                "img": document.getElementById("product-img").value,
+                "desc": document.getElementById("product-desc").value.replaceAll("\n", "<br>"),
+                "sizetable": document.getElementById("product-sizetable").value,
+                "options": getOptions(),
+                "id": document.getElementById("product-id").value,
+                "disabled": false
+            }
+            console.log(productData)
+
+            $('#loadingModal').modal('show')
+            
+            var url = `https://apimobilnykatolik.glitch.me/pmk/product/manage/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        $('#apiResponseModal').modal('show')
+                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        reloadDB();
+                    } else if (xhr.status == 403) {
+                        $('#insufficientPermissionsModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    } else {
+                        $('#apiErrorModal').modal('show')
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)  
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(productData));
+            return false;
+        }
+        
 
     </script>
 
