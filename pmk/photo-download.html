@@ -172,6 +172,7 @@
                         <div class="mt-4 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-7 d-flex flex-column justify-content-center align-items-center">
                             <h4>Pobierz zdjęcie</h4>
                             <button class="btn btn-primary d-block" onClick="downloadPhoto();">Pobierz</button>
+                            <button onclick="shareOnInstagram()">Udostępnij na Instagram Stories</button>
                         </div>
                     </div>
                 </div>
@@ -198,13 +199,21 @@
 
 <script>
 
+    function shareOnInstagram() {
+            const imageUrl = "https://apimobilnykatolik.glitch.me/photo/get/BMACC"; // URL do obrazu
+            const encodedUrl = encodeURIComponent(imageUrl);
+            const instagramUri = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end;`;
+            
+            window.location.href = instagramUri;
+        }
+
 var photoCode;
 
 function searchPhoto() {
     $('#loadingModal').modal('show')
     photoCode = document.getElementById("photoCode").value;
 
-    var url = `https://apimobilnykatolik.glitch.me/photobox/get/${photoCode}`;
+    var url = `https://apimobilnykatolik.glitch.me/photo/get/${photoCode}`;
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
