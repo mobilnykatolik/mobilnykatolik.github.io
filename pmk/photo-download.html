@@ -198,18 +198,26 @@
 
 <script>
 
-    function shareOnInstagram() {
-            const imageUrl = "https://apimobilnykatolik.glitch.me/photo/get/0KW5S"; // URL do obrazu
+    async function shareOnInstagram() {
+            const imageUrl = "https://i.imgur.com/dDbtZEt.jpeg"; // URL do obrazu
 
-            if (navigator.share) {
-                navigator.share({
-                    title: "Sprawdź to zdjęcie!",
-                    text: "Zapisz lub udostępnij ten obraz.",
-                    url: imageUrl
-                }).then(() => console.log("Udostępniono!"))
-                .catch(err => console.log("Błąd udostępniania:", err));
-            } else {
-                alert("Twoja przeglądarka nie obsługuje udostępniania.");
+            try {
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                const file = new File([blob], "obraz.jpg", { type: blob.type });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: "Sprawdź to zdjęcie!",
+                        text: "Zapisz lub udostępnij ten obraz."
+                    });
+                    console.log("Udostępniono!");
+                } else {
+                    alert("Twoje urządzenie nie obsługuje udostępniania plików.");
+                }
+            } catch (error) {
+                console.error("Błąd udostępniania:", error);
             }
         }
 
