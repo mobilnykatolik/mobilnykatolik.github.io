@@ -231,7 +231,7 @@ function searchPhoto() {
         }, 500)
         console.log(xhr.response);
         if (xhr.status == 200) {
-            document.getElementById("photo").style.backgroundImage = `url("https://apimobilnykatolik.glitch.me/photobox/get/${photoCode}")`
+            document.getElementById("photo").style.backgroundImage = `url("https://apimobilnykatolik.glitch.me/photo/get/${photoCode}")`
             $('#downloadPhotoModal').modal('show')
         } else {
             $('#apiErrorModal').modal('show')
