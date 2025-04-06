@@ -199,7 +199,10 @@
 <script>
 
     async function shareOnInstagram() {
-            const imageUrl = "https://i.imgur.com/dDbtZEt.jpeg"; // URL do obrazu
+            photoCode = document.getElementById("photoCode").value;
+
+            const imageUrl = `https://apimobilnykatolik.glitch.me/photo/get/${photoCode}`;
+            //const imageUrl = "https://i.imgur.com/dDbtZEt.jpeg"; // URL do obrazu
 
             try {
                 const response = await fetch(imageUrl);
@@ -208,7 +211,9 @@
 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
-                        files: [file]
+                        files: [file],
+                        title: "Sprawdź to zdjęcie!",
+                        text: "Zapisz lub udostępnij ten obraz."
                     });
                     console.log("Udostępniono!");
                 } else {
