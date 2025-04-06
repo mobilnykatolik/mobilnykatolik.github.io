@@ -21,9 +21,33 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
 
+    <style>
+        #preloader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: white; /* lub inny kolor tła */
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+          opacity: 100;
+          transition: opacity ease-in-out 1s;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
+
+    <div id="preloader">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+    </div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -35,28 +59,27 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    Mobilny Katolik
-
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow justify-content-center">
+                    Fotobudka - Samorząd Uczniowski Katolika
                 </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-8 col-md-6 col-lg-6 col-xl-4 mb-4">
-                            <h2 class="text-center">Pobierz swoje zdjęcie z fotobudki</h2>
-                            <form onSubmit="return searchPhoto();">
-                                <div class="form-group">
-                                    <label for="photoCode">Wpisz kod zdjęcia</label>
-                                    <input type="text" class="form-control" id="photoCode" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" class="form-control btn-primary" value="Pobierz">
-                                </div>
-                            </form>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-12 col-sm-8 col-md-6 col-lg-6 col-xl-4 d-flex justify-content-center">
+                            <img class="img-fluid" style="max-height: 80vh; margin: 0; border-radius: 10px;" id="photobooth" src="">
                         </div>
+                    </div>
+
+                    <div class="row justify-content-center mb-3">
+                        <a class="btn btn-primary btn-circle btn mx-1" onClick="downloadPhoto();">
+                            <i class="fas fa-download"></i>
+                        </a>
+                        <a class="btn btn-primary btn-circle btn mx-1" onClick="share();">
+                            <i class="fas fa-share-alt"></i>
+                        </a>
                     </div>
 
                     
@@ -196,66 +219,65 @@
     <script src="js/demo/chart-pie-demo.js"></script>
     <script src="js/qr/qr-scanner.umd.min.js"></script>
 
+    <script>
+        document.getElementById("photobooth").addEventListener('load', function () {
+          const preloader = document.getElementById('preloader');
+          preloader.style.opacity = "0%"
+          setTimeout(function() {
+            preloader.style.display = 'none';
+          }, 1000)
+        });
+    </script>
+
 <script>
+const params = new URLSearchParams(window.location.search);
+const pc = params.get('id');
+console.log(pc)
 
-    async function shareOnInstagram() {
-            photoCode = document.getElementById("photoCode").value;
-
-            const imageUrl = `https://apimobilnykatolik.glitch.me/photo/get/${photoCode}`;
-            //const imageUrl = "https://i.imgur.com/dDbtZEt.jpeg"; // URL do obrazu
-
-            try {
-                const response = await fetch(imageUrl);
-                const blob = await response.blob();
-                const file = new File([blob], "Fotobudka.jpeg", { type: blob.type });
-
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file]
-                    });
-                    console.log("Udostępniono!");
-                } else {
-                    alert("Twoje urządzenie nie obsługuje udostępniania plików.");
-                }
-            } catch (error) {
-                console.error("Błąd udostępniania:", error);
-            }
-        }
-
-var photoCode;
-
-function searchPhoto() {
-    $('#loadingModal').modal('show')
-    photoCode = document.getElementById("photoCode").value;
-
-    var url = `https://apimobilnykatolik.glitch.me/photo/get/${photoCode}`;
+if (pc != "" || pc != undefined) {
+    var url = `https://apimobilnykatolik.glitch.me/photo/get/${pc}`;
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-        setTimeout(function() {
-            $('#loadingModal').modal('hide')
-        }, 500)
-        console.log(xhr.response);
         if (xhr.status == 200) {
-            document.getElementById("photo").style.backgroundImage = `url("https://apimobilnykatolik.glitch.me/photo/get/${photoCode}")`
-            $('#downloadPhotoModal').modal('show')
+            document.getElementById("photobooth").src = `https://apimobilnykatolik.glitch.me/photo/get/${pc}`
         } else {
-            $('#apiErrorModal').modal('show')
+
         }
     }};
 
     xhr.send();
-    return false;
+}
+
+async function share() {
+    const imageUrl = `https://apimobilnykatolik.glitch.me/photo/get/${pc}`;
+
+    try {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], "Fotobudka.jpeg", { type: blob.type });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file]
+            });
+            console.log("Udostępniono!");
+        } else {
+            alert("Twoje urządzenie nie obsługuje udostępniania plików.");
+        }
+    } catch (error) {
+        console.error("Błąd udostępniania:", error);
+    }
 }
 
 function downloadPhoto() {
-    if (photoCode == undefined) {
+    if (pc == undefined) {
         return false;
     }
-    window.open(`https://apimobilnykatolik.glitch.me/photobox/download/${photoCode}`, '_self')
+    window.open(`https://apimobilnykatolik.glitch.me/photo/download/${pc}`, '_self')
 }
 
 
