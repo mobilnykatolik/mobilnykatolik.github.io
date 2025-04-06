@@ -204,7 +204,7 @@
             try {
                 const response = await fetch(imageUrl);
                 const blob = await response.blob();
-                const file = new File([blob], "obraz.jpg", { type: blob.type });
+                const file = new File([blob], "Fotobudka.jpeg", { type: blob.type });
 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
