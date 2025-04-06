@@ -200,11 +200,18 @@
 <script>
 
     function shareOnInstagram() {
-            const imageUrl = "https://apimobilnykatolik.glitch.me/photo/get/BMACC"; // URL do obrazu
-            const encodedUrl = encodeURIComponent(imageUrl);
-            const instagramUri = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end;`;
-            
-            window.location.href = instagramUri;
+            const imageUrl = "https://apimobilnykatolik.glitch.me/photo/get/0KW5S"; // URL do obrazu
+
+            if (navigator.share) {
+                navigator.share({
+                    title: "Sprawdź to zdjęcie!",
+                    text: "Zapisz lub udostępnij ten obraz.",
+                    url: imageUrl
+                }).then(() => console.log("Udostępniono!"))
+                .catch(err => console.log("Błąd udostępniania:", err));
+            } else {
+                alert("Twoja przeglądarka nie obsługuje udostępniania.");
+            }
         }
 
 var photoCode;
