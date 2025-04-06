@@ -208,9 +208,7 @@
 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
-                        files: [file],
-                        title: "Sprawdź to zdjęcie!",
-                        text: "Zapisz lub udostępnij ten obraz."
+                        files: [file]
                     });
                     console.log("Udostępniono!");
                 } else {
