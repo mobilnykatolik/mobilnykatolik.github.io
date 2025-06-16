@@ -187,6 +187,23 @@ div.startup-logo {
     margin-bottom: 10px;
 }
 
+.buttons-section div[type="ind"].stars {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.buttons-section div[type="ind"].stars i {
+    font-size: 25px;
+    color: var(--additional2);
+    transition: color ease-in-out 0.3s;
+}
+
+.buttons-section div[type="ind"].stars i.active {
+    color: var(--theme-color);
+    transition: color ease-in-out 0.3s;
+}
+
 .buttons-section div container {
     float: right;
     width: fit-content;
