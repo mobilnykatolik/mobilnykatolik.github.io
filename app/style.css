@@ -388,7 +388,7 @@ p {
     background-color: var(--additional2);
 }
 
-.page-content input[type="submit"] {
+.page-content button[type="submit"] {
     margin: auto;
     position: relative;
     border: 0px;
@@ -400,6 +400,7 @@ p {
     transition: background-color 0.5s ease;
     display: block;
     outline: none;
+    font-weight: normal;
 }
 
 .page-content button {
