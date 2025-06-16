@@ -1416,6 +1416,31 @@
             return false;
         }
 
+        let htmlText = "";
+
+        fetch("../store-sheet.html")
+            .then(response => response.text())
+            .then(data => {
+                htmlText = data;
+                console.log("Załadowano HTML:", htmlText);
+                // Możesz teraz np. wywołać printHtml(htmlText);
+            })
+            .catch(error => console.error("Błąd ładowania:", error));
+
+
+       
+        function printHtml() {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write(htmlText);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.onload = () => {
+            printWindow.print();
+            // printWindow.close(); // opcjonalnie automatyczne zamknięcie
+            };
+        }
+
         
 
     </script>
