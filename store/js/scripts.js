@@ -54,7 +54,7 @@ function getStores() {
         }
     };
 
-    req.open("GET", `https://apimobilnykatolik.glitch.me/store/getall`, true);
+    req.open("GET", `https://api.mobilnykatolik.pl/store/getall`, true);
     req.send();
 }
     

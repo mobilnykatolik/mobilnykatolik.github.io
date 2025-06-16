@@ -39,7 +39,7 @@
                         <h4 class="m-0" id="login-data">BRAK</h4>
                     </div>
                     <div class="col-2 d-flex align-items-center justify-content-start">
-                        <img class="rounded-circle img-profile" id="login-pfp" src="https://apimobilnykatolik.glitch.me/profilepic/get/USERID" id="profile-pic">
+                        <img class="rounded-circle img-profile" id="login-pfp" src="https://api.mobilnykatolik.pl/profilepic/get/USERID" id="profile-pic">
                     </div>
                 </div>
             </div>
@@ -414,7 +414,7 @@ var sessionID;
 
 function posConnect() {
     document.getElementById("posConnectBtn").innerHTML = `Sesja POS-Connect: -`
-    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/new/${userID}/${userLoginID}`;
+    var url = `https://api.mobilnykatolik.pl/pmk/posconnect/new/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -435,7 +435,7 @@ function posConnect() {
 }
 
 function posConnectScan(elemID) {
-    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/get/${sessionID}/${userID}/${userLoginID}`;
+    var url = `https://api.mobilnykatolik.pl/pmk/posconnect/get/${sessionID}/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -461,7 +461,7 @@ function posConnectScan(elemID) {
 var buyerID;
 
 function getBuyerData() {
-    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/getuser/${sessionID}/${userID}/${userLoginID}`;
+    var url = `https://api.mobilnykatolik.pl/pmk/posconnect/getuser/${sessionID}/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -499,7 +499,7 @@ window.addEventListener(
         loginPopup.close();
         waitForLogin = false;
         document.getElementById("login-data").innerHTML = `${data.firstname} ${data.lastname}`
-        document.getElementById("login-pfp").src = `https://apimobilnykatolik.glitch.me/profilepic/get/${userID}`
+        document.getElementById("login-pfp").src = `https://api.mobilnykatolik.pl/profilepic/get/${userID}`
         document.getElementById("logInBtn").classList.add("d-none")
         document.getElementById("logOutBtn").classList.remove("d-none")
     }
@@ -516,7 +516,7 @@ function openLoginPopup() {
 
 function logOut() {
     document.getElementById("login-data").innerHTML = `BRAK`
-    document.getElementById("login-pfp").src = `https://apimobilnykatolik.glitch.me/profilepic/get/USERID`
+    document.getElementById("login-pfp").src = `https://api.mobilnykatolik.pl/profilepic/get/USERID`
     document.getElementById("logInBtn").classList.remove("d-none")
     document.getElementById("logOutBtn").classList.add("d-none") 
     userID = undefined;
@@ -532,7 +532,7 @@ function addPoints(id) {
     }
     console.log(data)
             
-    var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+    var url = `https://api.mobilnykatolik.pl/pmk/points/modify/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -572,7 +572,7 @@ function makeOrder() {
 
     loadingModal.show()
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/order/make/${userID}/${userLoginID}`;
+    var url = `https://api.mobilnykatolik.pl/pmk/order/make/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
