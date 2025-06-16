@@ -23,10 +23,12 @@ stars2.forEach((star, index1) => {
 })
 
 function sendReview() {
+    let answersData = []
     const answers = document.querySelectorAll("#projectReviewForm input")
     answers.forEach((elem) => {
-        console.log(elem.id, elem.value)
+        answersData.push(elem.value)
     })
+    console.log(answersData)
     history.back()
     return false;
 }
