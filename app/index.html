@@ -488,7 +488,7 @@
         Ewaluacja projektu
     </div>
     <div class="page-content">
-        <form>
+        <form id="projectReviewForm" onsubmit="return sendReview()">
             <!--QUESTION 1-->
             <p style="font-size: 18px;">Jak oceniasz przebieg akcji?</p>
             <p style="font-size: 14px; opacity: 60%;">1 - bardzo źle, 5 - bardzo dobrze</p>
@@ -524,6 +524,8 @@
             <!--QUESTION 4-->
             <p style="font-size: 18px;">Czy jest coś, co według Ciebie można byłoby poprawić?</p>
             <input type="text" placeholder="Twoja odpowiedź" id="pr-4" style="margin-top: 10px; margin-bottom: 20px;" required>
+
+            <button type="submit">Zapisz sprawozdanie</button>
         </form>
     </div>
 </div>

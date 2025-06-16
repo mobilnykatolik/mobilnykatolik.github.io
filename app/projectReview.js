@@ -21,3 +21,12 @@ stars2.forEach((star, index1) => {
         document.getElementById("pr-2").value = rate
     })
 })
+
+function sendReview() {
+    const answers = document.querySelectorAll("#projectReviewForm input")
+    answers.forEach((elem) => {
+        console.log(elem.id, elem.value)
+    })
+    history.back()
+    return false;
+}

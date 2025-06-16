@@ -388,6 +388,20 @@ p {
     background-color: var(--additional2);
 }
 
+.page-content input[type="submit"] {
+    margin: auto;
+    position: relative;
+    border: 0px;
+    background-color: var(--theme-color);
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    transition: background-color 0.5s ease;
+    display: block;
+    outline: none;
+}
+
 .page-content button {
     margin: auto;
     position: relative;
