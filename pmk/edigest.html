@@ -580,7 +580,7 @@
 
         function reloadDB() {
             //Pobieranie listy członków SU
-            var url = `http://vps15179.awhost.cloud/pmk/su/userlist/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/su/userlist/${userID}/${userLoginID}`;
             var xhrA = new XMLHttpRequest();
             xhrA.open("GET", url);
 
@@ -603,7 +603,7 @@
             xhrA.send();
 
             //Pobieranie klas
-            var url = `http://vps15179.awhost.cloud/getclasses`;
+            var url = `https://api.mobilnykatolik.pl/getclasses`;
             var xhrB = new XMLHttpRequest();
             xhrB.open("GET", url);
 
@@ -624,7 +624,7 @@
 
             xhrB.send();
 
-            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/events`;
+            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -917,7 +917,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `http://vps15179.awhost.cloud/pmk/events/modify/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/events/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

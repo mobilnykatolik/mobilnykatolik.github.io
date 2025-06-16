@@ -605,7 +605,7 @@
             document.getElementById("chartCard").style.display = "none";
             document.getElementById("chartNoData").style.display = "block";
 
-            var url = `http://vps15179.awhost.cloud/pmk/tickets/list/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/tickets/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -641,7 +641,7 @@
             xhr.send();
 
             //Pobieranie użytkowników
-            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/userdb/users`;
+            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/userdb/users`;
                     var xhrC = new XMLHttpRequest();
                     xhrC.open("GET", url);
 
@@ -852,7 +852,7 @@
 
             $('#loadingModal').modal('show')
             
-            var url = `http://vps15179.awhost.cloud/pmk/tickets/manage/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/tickets/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -902,7 +902,7 @@
 
             $('#loadingModal').modal('show')
             
-            var url = `http://vps15179.awhost.cloud/pmk/tickets/manage/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/tickets/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

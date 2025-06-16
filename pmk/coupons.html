@@ -593,7 +593,7 @@
         var userDB = {}
 
         function reloadDB() {
-            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/coupons`;
+            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/coupons`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -605,7 +605,7 @@
                     couponsDB = data;
 
                     //Pobieranie listy kuponów
-                    var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
+                    var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
 
@@ -639,7 +639,7 @@
                     xhrA.send();
 
                     //Pobieranie listy klas
-                    var url = `http://vps15179.awhost.cloud/getclasses`;
+                    var url = `https://api.mobilnykatolik.pl/getclasses`;
                     var xhrB = new XMLHttpRequest();
                     xhrB.open("GET", url);
 
@@ -660,7 +660,7 @@
                     xhrB.send();
 
                     //Pobieranie użytkowników
-                    var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/userdb/users`;
+                    var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/userdb/users`;
                     var xhrC = new XMLHttpRequest();
                     xhrC.open("GET", url);
 
@@ -763,7 +763,7 @@
             }
             $('#loadingModal').modal('show')
             
-            var url = `http://vps15179.awhost.cloud/pmk/points/coupons/manage/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/points/coupons/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -821,7 +821,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `http://vps15179.awhost.cloud/pmk/points/coupons/manage/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/points/coupons/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -898,7 +898,7 @@
                 "cid": couponID
             }
             
-            var url = `http://vps15179.awhost.cloud/coupons/return`;
+            var url = `https://api.mobilnykatolik.pl/coupons/return`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -942,7 +942,7 @@
                 "userid": document.getElementById("grantCouponOwner").value
             }
             
-            var url = `http://vps15179.awhost.cloud/pmk/points/coupons/grant/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/points/coupons/grant/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

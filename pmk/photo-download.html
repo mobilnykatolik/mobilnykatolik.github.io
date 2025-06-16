@@ -201,7 +201,7 @@
     async function shareOnInstagram() {
             photoCode = document.getElementById("photoCode").value;
 
-            const imageUrl = `http://vps15179.awhost.cloud/photo/get/${photoCode}`;
+            const imageUrl = `https://api.mobilnykatolik.pl/photo/get/${photoCode}`;
             //const imageUrl = "https://i.imgur.com/dDbtZEt.jpeg"; // URL do obrazu
 
             try {
@@ -228,7 +228,7 @@ function searchPhoto() {
     $('#loadingModal').modal('show')
     photoCode = document.getElementById("photoCode").value;
 
-    var url = `http://vps15179.awhost.cloud/photo/get/${photoCode}`;
+    var url = `https://api.mobilnykatolik.pl/photo/get/${photoCode}`;
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -240,7 +240,7 @@ function searchPhoto() {
         }, 500)
         console.log(xhr.response);
         if (xhr.status == 200) {
-            document.getElementById("photo").style.backgroundImage = `url("http://vps15179.awhost.cloud/photo/get/${photoCode}")`
+            document.getElementById("photo").style.backgroundImage = `url("https://api.mobilnykatolik.pl/photo/get/${photoCode}")`
             $('#downloadPhotoModal').modal('show')
         } else {
             $('#apiErrorModal').modal('show')
@@ -255,7 +255,7 @@ function downloadPhoto() {
     if (photoCode == undefined) {
         return false;
     }
-    window.open(`http://vps15179.awhost.cloud/photobox/download/${photoCode}`, '_self')
+    window.open(`https://api.mobilnykatolik.pl/photobox/download/${photoCode}`, '_self')
 }
 
 

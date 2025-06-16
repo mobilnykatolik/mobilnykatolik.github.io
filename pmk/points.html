@@ -518,7 +518,7 @@
         var eventPointsDB = {}
 
         function reloadDB() {
-            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/events`;
+            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -544,7 +544,7 @@
                     }
 
                     //Pobieranie listy wydarzeń z Wirtualnymi Rybkami
-                    var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+                    var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
 
@@ -702,7 +702,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `http://vps15179.awhost.cloud/pmk/eventpoints/modify/${userID}/${userLoginID}`;
+            var url = `https://api.mobilnykatolik.pl/pmk/eventpoints/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
