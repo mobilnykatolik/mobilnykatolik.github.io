@@ -288,11 +288,6 @@
                     <span>e-Indeks</span>
                     <container>SU</container>
                 </div>
-                <div type="ind" onclick="window.open('#projectreviewapp', '_self')">
-                    <aside>📋</aside>
-                    <span>Sprawozdania</span>
-                    <container>SU</container>
-                </div>
             </section>
         </div>
     </div>
@@ -474,7 +469,24 @@
         e-Indeks
     </div>
     <div class="page-content">
-        e-Indeks
+        <div class="buttons-section" type="apps" style="display: none;">
+            <div type="ind">
+                <aside><i class="fa-solid fa-circle-check" style="color: #1cc88a"></i></aside>
+                <span>
+                    Jesteś na bieżąco
+                    <br><i>Wszystkie sprawozdania wysłane</i>
+                </span>
+            </div>
+        </div>
+        <div class="buttons-section" type="apps">
+            <div type="ind" onclick="window.open('#projectreviewapp', '_self')">
+                <aside><i class="fa-solid fa-circle-exclamation" style="color: #f6c23e"></i></aside>
+                <span>
+                    Brakujące sprawozdanie
+                    <br><i>Kliknij tutaj, aby uzupełnić</i>
+                </span>
+            </div>
+        </div>
     </div>
 </div>
 
