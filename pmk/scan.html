@@ -528,7 +528,7 @@ function scanTicket(ticketID) {
         "ticketid": ticketID
     }
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/tickets/scan/${userID}/${userLoginID}`;
+    var url = `http://vps15179.awhost.cloud/pmk/tickets/scan/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -569,7 +569,7 @@ function scanCoupon(couponID) {
         "couponid": couponID
     }
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/coupons/scan/${userID}/${userLoginID}`;
+    var url = `http://vps15179.awhost.cloud/pmk/coupons/scan/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -623,7 +623,7 @@ function scanUser(userid) {
     }
     
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/scan/user/${userID}/${userLoginID}`;
+    var url = `http://vps15179.awhost.cloud/pmk/scan/user/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -696,7 +696,7 @@ function scanPoints(userid) {
     }
     
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+    var url = `http://vps15179.awhost.cloud/pmk/points/modify/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -740,7 +740,7 @@ function posConnect(code) {
         "code": code
     }
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/connect/${userID}/${userLoginID}`;
+    var url = `http://vps15179.awhost.cloud/pmk/posconnect/connect/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -769,7 +769,7 @@ function scanPOS(scan) {
         "sessionid": POS
     }
 
-    var url = `https://apimobilnykatolik.glitch.me/pmk/posconnect/scan/${userID}/${userLoginID}`;
+    var url = `http://vps15179.awhost.cloud/pmk/posconnect/scan/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");

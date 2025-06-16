@@ -610,7 +610,7 @@
 
         function reloadDB() {
             //Pobieranie listy członków SU
-            var url = `https://apimobilnykatolik.glitch.me/pmk/su/userlist/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/su/userlist/${userID}/${userLoginID}`;
             var xhrA = new XMLHttpRequest();
             xhrA.open("GET", url);
 
@@ -637,7 +637,7 @@
             xhrA.send();
 
             //Pobieranie klas
-            var url = `https://apimobilnykatolik.glitch.me/getclasses`;
+            var url = `http://vps15179.awhost.cloud/getclasses`;
             var xhrB = new XMLHttpRequest();
             xhrB.open("GET", url);
 
@@ -658,7 +658,7 @@
 
             xhrB.send();
 
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -952,7 +952,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/events/modify/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/events/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1026,7 +1026,7 @@
                 if (option.selected) {
                     document.getElementById("manageEventByList").innerHTML += `
                     <div class="badge badge-pill badge-light person" onClick="removePerson('${option.value}')">
-                        <div class="badge-img" style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${option.value}')"></div>
+                        <div class="badge-img" style="background-image: url('http://vps15179.awhost.cloud/profilepic/get/${option.value}')"></div>
                         <span>${option.innerHTML}</span>
                     </div>
                     `

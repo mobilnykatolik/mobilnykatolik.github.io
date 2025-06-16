@@ -946,21 +946,21 @@
     <div class="page-content">
         <div class="buttons-section" type="people">
             <div type="top">
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/5ifnxrpww6t92jlv');"></aside>
+                <aside style="background-image: url('http://vps15179.awhost.cloud/profilepic/get/5ifnxrpww6t92jlv');"></aside>
                 <span>
                     Kuba Sałek
                     <br><i>App Developer, API</i>
                 </span>
             </div>
             <div>
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/ibyfmb1stmrimw3a')"></aside>
+                <aside style="background-image: url('http://vps15179.awhost.cloud/profilepic/get/ibyfmb1stmrimw3a')"></aside>
                 <span>
                     Filip Zalewski
                     <br><i>UI Designer, Tester</i>
                 </span>
             </div>
             <div type="bottom">
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/l7y8bez4r7f78qk9');"></aside>
+                <aside style="background-image: url('http://vps15179.awhost.cloud/profilepic/get/l7y8bez4r7f78qk9');"></aside>
                 <span>
                     Aleksandra Klajda
                     <br><i>UI Designer, Tester</i>
@@ -1288,7 +1288,7 @@ document.getElementById('usersettings-profilepic-input').addEventListener('chang
     formData.append('json', JSON.stringify(jsonData));
     
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://apimobilnykatolik.glitch.me/profilepic/upload', true);
+    xhr.open('POST', 'http://vps15179.awhost.cloud/profilepic/upload', true);
     xhr.onload = function() {
         if (xhr.status === 200) {
             document.getElementById("usersettings-profilepic").classList.remove("change")
@@ -1319,7 +1319,7 @@ function deleteProfilePic() {
     document.getElementById("usersettings-deleteprofilepic").disabled = "disabled";
     var data = {userID, loginID}
     console.log(data);
-    var url = `https://apimobilnykatolik.glitch.me/profilepic/delete`;
+    var url = `http://vps15179.awhost.cloud/profilepic/delete`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -1492,7 +1492,7 @@ function switchNotifications() {
                         "userid": localStorage.getItem("id"),
                         "loginid": localStorage.getItem("loginid")
                     }
-                    var url = `https://apimobilnykatolik.glitch.me/push/register`;
+                    var url = `http://vps15179.awhost.cloud/push/register`;
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", url);
                     xhr.setRequestHeader("Content-Type", "application/json");
@@ -1532,7 +1532,7 @@ function switchNotifications() {
             "userid": localStorage.getItem("id"),
             "loginid": localStorage.getItem("loginid")
         }
-        var url = `https://apimobilnykatolik.glitch.me/push/register`;
+        var url = `http://vps15179.awhost.cloud/push/register`;
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -1580,7 +1580,7 @@ function askForPermission() {
             if (document.getElementById("introduction-nickname").value != "") {
                 data.nickname = document.getElementById("introduction-nickname").value;
             }
-            var url = `https://apimobilnykatolik.glitch.me/push/register`;
+            var url = `http://vps15179.awhost.cloud/push/register`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1696,7 +1696,7 @@ function startApplication(reload) {
         window.location.href = "#home";
     }
     
-    var url = `https://apimobilnykatolik.glitch.me/sync/${loginid}`;
+    var url = `http://vps15179.awhost.cloud/sync/${loginid}`;
 
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -2068,7 +2068,7 @@ function userSettingsSave() {
         "loginid": loginid
     }
     data.nickname = document.getElementById("UInickname").value;
-    var url = `https://apimobilnykatolik.glitch.me/data/update`;
+    var url = `http://vps15179.awhost.cloud/data/update`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -2264,7 +2264,7 @@ function buyTicket() {
         "userid": userID,
         "ticket_event_id": ticketEventID
     }
-    var url = `https://apimobilnykatolik.glitch.me/tickets/add`;
+    var url = `http://vps15179.awhost.cloud/tickets/add`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -2332,7 +2332,7 @@ function getCoupon(ECID) {
         "userid": userID,
         "ecid": ECID
     }
-    var url = `https://apimobilnykatolik.glitch.me/coupons/get`;
+    var url = `http://vps15179.awhost.cloud/coupons/get`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -2511,7 +2511,7 @@ function openEvent(eventID) {
     } else if (eventBy.length == 1) {
         document.getElementById("event-by").innerHTML += `
         <div type="ind">
-            <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${eventBy[0].id}');"></aside>
+            <aside style="background-image: url('http://vps15179.awhost.cloud/profilepic/get/${eventBy[0].id}');"></aside>
             <span>
                 ${eventBy[0].name}
                 <br><i>${eventBy[0].class}</i>
@@ -2529,7 +2529,7 @@ function openEvent(eventID) {
             }
             document.getElementById("event-by").innerHTML += `
             <div type="${pos}">
-                <aside style="background-image: url('https://apimobilnykatolik.glitch.me/profilepic/get/${eventBy[x].id}');"></aside>
+                <aside style="background-image: url('http://vps15179.awhost.cloud/profilepic/get/${eventBy[x].id}');"></aside>
                 <span>
                     ${eventBy[x].name}
                     <br><i>${eventBy[x].class}</i>

@@ -698,7 +698,7 @@
 
         function getClasses() {
             //Pobieranie klas
-            var url = `https://apimobilnykatolik.glitch.me/getclasses`;
+            var url = `http://vps15179.awhost.cloud/getclasses`;
             var xhrB = new XMLHttpRequest();
             xhrB.open("GET", url);
 
@@ -723,7 +723,7 @@
         getClasses();
 
         function reloadDB(managePoints) {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/users`;
+            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/userdb/users`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -731,7 +731,7 @@
             xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
-                    var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+                    var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
 
@@ -751,7 +751,7 @@
 
                     xhrA.send();
 
-                    var urlB = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/points`;
+                    var urlB = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/userdb/points`;
                     var xhrB = new XMLHttpRequest();
                     xhrB.open("GET", urlB);
 
@@ -1008,7 +1008,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/manageusers/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1075,9 +1075,9 @@
             $('#loadingModal').modal('show')
 
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/push/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/push/${userID}/${userLoginID}`;
             if (data.users == "GLOBAL") {
-                url = `https://apimobilnykatolik.glitch.me/pmk/pushall/${userID}/${userLoginID}`;
+                url = `http://vps15179.awhost.cloud/pmk/pushall/${userID}/${userLoginID}`;
             }
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
@@ -1163,7 +1163,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/points/modify/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/points/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1266,7 +1266,7 @@
             
             $('#loadingModal').modal('show')
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/manageusers/delete/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/manageusers/delete/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

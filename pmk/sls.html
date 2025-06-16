@@ -479,7 +479,7 @@
         });
 
         function reloadDB() {
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/userdb/sls`;
+            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/userdb/sls`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -579,7 +579,7 @@
             }
             slsData = {participants: slsData};
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/sls/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -668,7 +668,7 @@
             var data = {page: document.getElementById("slsPageContent").value.replaceAll("\n", "<NL>")}
             console.log(data);
             
-            var url = `https://apimobilnykatolik.glitch.me/pmk/sls/${userID}/${userLoginID}`;
+            var url = `http://vps15179.awhost.cloud/pmk/sls/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

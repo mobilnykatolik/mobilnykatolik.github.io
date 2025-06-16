@@ -568,7 +568,7 @@
 
         function reloadDB() {
             //Pobieranie listy wydarzeń biletowanych
-            var url = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventTickets`;
+            var url = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/eventTickets`;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
 
@@ -585,7 +585,7 @@
             xhr.send();
 
             //Pobieranie listy wydarzeń z punktami
-            var urlA = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
+            var urlA = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/eventPoints`;
             var xhrA = new XMLHttpRequest();
             xhrA.open("GET", urlA);
 
@@ -602,7 +602,7 @@
             xhrA.send();
 
             //Pobieranie listy wydarzeń
-            var urlB = `https://apimobilnykatolik.glitch.me/pmk/db/${userID}/${userLoginID}/events/events`;
+            var urlB = `http://vps15179.awhost.cloud/pmk/db/${userID}/${userLoginID}/events/events`;
             var xhrB = new XMLHttpRequest();
             xhrB.open("GET", urlB);
 
