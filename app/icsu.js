@@ -47,7 +47,7 @@ function updateICSU() {
             }
             for (e in pastEvents) {
                 document.getElementById("icsu-past-events").innerHTML = `
-                <div type="ind">
+                <div type="ind" onClick="openReview('${pastEvents[e].eventID}')">
                     <span>
                         ${pastEvents[e].name}
                         <br><i>${eventsdb[pastEvents[e].eventID].date.split("<br>")[0]}</i>
