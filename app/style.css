@@ -225,6 +225,14 @@ div.startup-logo {
     background-color: #1cc88a;
 }
 
+.buttons-section div container.secondary {
+    background-color: #858796
+}
+
+.buttons-section div container.danger {
+    background-color: #e74a3b
+}
+
 container.soon {
     width: fit-content;
     position: relative;
@@ -393,6 +401,54 @@ p {
 }
 
 .page-content input[type="text"]:disabled {
+    background-color: var(--additional2);
+}
+
+.page-content input[type="date"] {
+    border: 0px;
+    border-radius: 10px;
+    width: calc(100% - 20px);
+    padding: 20px 10px 20px 10px;
+    font-size: 15px;
+    outline: none;
+    margin: 0 0 10px 0;
+    background-color: var(--additional);
+    color: var(--text);
+}
+
+.page-content input[type="date"]:disabled {
+    background-color: var(--additional2);
+}
+
+.page-content input[type="time"] {
+    border: 0px;
+    border-radius: 10px;
+    width: calc(100% - 20px);
+    padding: 20px 10px 20px 10px;
+    font-size: 15px;
+    outline: none;
+    margin: 0 0 10px 0;
+    background-color: var(--additional);
+    color: var(--text);
+}
+
+.page-content input[type="time"]:disabled {
+    background-color: var(--additional2);
+}
+
+.page-content select {
+    border: 0px;
+    border-radius: 10px;
+    width: calc(100%);
+    padding: 20px 10px 20px 10px;
+    font-size: 15px;
+    outline: none;
+    margin: 0 0 10px 0;
+    background-color: var(--additional);
+    color: var(--text);
+}
+
+.page-content select:disabled {
     background-color: var(--additional2);
 }
 
