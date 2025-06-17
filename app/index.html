@@ -491,14 +491,23 @@
         </div>
         <p style="font-size: 16px; margin-top: 20px;">Zakończone projekty</p>
         <p style="font-size: 12px; opacity: 60%;">Kliknij, aby wyświetlić sprawozdanie</p>
-        <div class="buttons-section" type="text" style="margin-top: 10px;">
+        <div class="buttons-section" type="text" style="margin-top: 10px; display: none;">
             <div type="ind">
                 <span>
                     <center><i>Brak zakończonych projektów</i></center>
                 </span>
             </div>
         </div>
-        <div class="buttons-section" type="text" style="margin-top: 10px; display: none;">
+        <div class="buttons-section" type="apps" style="margin-top: 10px;">
+            <div type="ind">
+                <aside><i class="fa-solid fa-circle-exclamation" style="color: #f6c23e"></i></aside>
+                <span>
+                    Kiermasz podręczników
+                    <br><i>Dodaj sprawozdanie</i>
+                </span>
+            </div>
+        </div>
+        <div class="buttons-section" type="text" style="margin-top: 10px;">
             <div type="top">
                 <span>
                     Wakacyjny Festyn Samorządu Uczniowskiego
@@ -561,8 +570,8 @@
     <div class="page-content">
         <form id="projectReviewForm" onsubmit="return sendReview()">
             <!--QUESTION 1-->
-            <p style="font-size: 18px;">Jak oceniasz przebieg akcji?</p>
-            <p style="font-size: 14px; opacity: 60%;">1 - bardzo źle, 5 - bardzo dobrze</p>
+            <p style="font-size: 16px;">Jak oceniasz przebieg akcji?</p>
+            <p style="font-size: 12px; opacity: 60%;">1 - bardzo źle, 5 - bardzo dobrze</p>
             <div class="buttons-section" style="margin-top: 10px; margin-bottom: 20px;">
                 <div type="ind" class="stars" id="starRating1">
                     <i class="fa-solid fa-star active"></i>
@@ -575,8 +584,8 @@
             <input type="number" id="pr-1" value="3" hidden>
 
             <!--QUESTION 2-->
-            <p style="font-size: 18px;">Jak oceniasz swoje zaangażowanie w organizację wydarzenia?</p>
-            <p style="font-size: 14px; opacity: 60%;">1 - mało zaangażowany, 5 - bardzo zaangażowany</p>
+            <p style="font-size: 16px;">Jak oceniasz swoje zaangażowanie w organizację wydarzenia?</p>
+            <p style="font-size: 12px; opacity: 60%;">1 - mało zaangażowany, 5 - bardzo zaangażowany</p>
             <div class="buttons-section" style="margin-top: 10px; margin-bottom: 20px;">
                 <div type="ind" class="stars" id="starRating2">
                     <i class="fa-solid fa-star active"></i>
@@ -589,11 +598,11 @@
             <input type="number" id="pr-2" value="3" hidden>
 
             <!--QUESTION 3-->
-            <p style="font-size: 18px;">Co podobało Ci się najbardziej w organizowanej akcji?</p>
+            <p style="font-size: 16px;">Co podobało Ci się najbardziej w organizowanej akcji?</p>
             <input type="text" placeholder="Twoja odpowiedź" id="pr-3" style="margin-top: 10px; margin-bottom: 20px;" required>
 
             <!--QUESTION 4-->
-            <p style="font-size: 18px;">Czy jest coś, co według Ciebie można byłoby poprawić?</p>
+            <p style="font-size: 16px;">Czy jest coś, co według Ciebie można byłoby poprawić?</p>
             <input type="text" placeholder="Twoja odpowiedź" id="pr-4" style="margin-top: 10px; margin-bottom: 20px;" required>
 
             <button type="submit">Zapisz sprawozdanie</button>
