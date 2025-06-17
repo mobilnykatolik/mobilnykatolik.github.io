@@ -69,7 +69,7 @@ function updateICSU() {
                     </div>`
                 }
             }
-
+            document.getElementById("icsu").style.display = "block"
         }
     };
     xhr.send();
@@ -82,4 +82,5 @@ function resetDigest() {
     document.getElementById("icsu-no-exemptions").style.display = "block"
     document.getElementById("icsu-exemptions").style.display = "none"
     document.getElementById("icsu-exemptions").innerHTML = ""
+    document.getElementById("icsu").style.display = "none"
 }
