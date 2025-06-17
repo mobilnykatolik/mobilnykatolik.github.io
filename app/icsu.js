@@ -1,5 +1,6 @@
 var exDB = {}
 var waitingReviews = []
+var pastEvents = []
 
 const exStatus = ["OCZEKUJĄCE", "AKTYWNE", "ODRZUCONE", "ZARCHIWIZOWANE"]
 const exColor = ["warning", "success", "danger", "secondary"]
@@ -13,33 +14,45 @@ function updateICSU() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             let icsu = JSON.parse(xhr.responseText)
+            console.log(icsu)
             waitingReviews = icsu.waitingReviews
+            pastEvents = icsu.pastEvents
             exDB = icsu.exemptions
 
             //Oczekujące sprawozdania
             if (waitingReviews.length > 0) {
                 document.getElementById("icsu-indicator-warning").style.display = "block"
+                document.getElementById("icsu-waiting-reviews").style.display = "block"
+                document.getElementById("icsu-no-projects").style.display = "none"
             } else {
                 document.getElementById("icsu-indicator-success").style.display = "block"
+                document.getElementById("icsu-waiting-reviews").style.display = "none"
+            }
+
+            for (wr in waitingReviews) {
+                document.getElementById("icsu-waiting-reviews").innerHTML += `
+                <div type="ind">
+                    <aside><i class="fa-solid fa-circle-exclamation" style="color: #f6c23e"></i></aside>
+                    <span>
+                        ${waitingReviews[wr].name}
+                        <br><i>Dodaj sprawozdanie</i>
+                    </span>
+                </div>`
             }
 
             //Zakończone projekty
-            var projectsCount = 0
-            for (e in eventsdb) {
-                if (!eventsdb[e].my) {continue}
-                if (waitingReviews.includes(e)) {continue}
-                projectsCount += 1
+            if (pastEvents.length > 0) {
+                document.getElementById("icsu-past-events").style.display = "block"
+                document.getElementById("icsu-no-projects").style.display = "none"
+            }
+            for (e in pastEvents) {
                 document.getElementById("icsu-past-events").innerHTML = `
                 <div type="ind">
                     <span>
-                        ${eventsdb[e].name}
-                        <br><i>${eventsdb[e].date.split("<br>")[0]}</i>
+                        ${pastEvents[e].name}
+                        <br><i>${eventsdb[pastEvents[e].eventid].date.split("<br>")[0]}</i>
                     </span>
                 </div>` + document.getElementById("icsu-past-events").innerHTML
-            }
-            if (projectsCount > 0) {
-                document.getElementById("icsu-past-events").style.display = "block"
-                document.getElementById("icsu-no-projects").style.display = "none"
             }
 
             //Zwolnienia
@@ -108,4 +121,8 @@ function resetDigest() {
     //Zakończone projekty
     document.getElementById("icsu-past-events").innerHTML = ""
     document.getElementById("icsu-past-events").style.display = "none"
+
+    //Oczekujące sprawozdania
+    document.getElementById("icsu-waiting-reviews").style.display = "none"
+    document.getElementById("icsu-waiting-reviews").innerHTML = ""
 }
