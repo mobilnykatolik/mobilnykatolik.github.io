@@ -217,6 +217,14 @@ div.startup-logo {
     font-size: 10px;
 }
 
+.buttons-section div container.warning {
+    background-color: #f6c23e;
+}
+
+.buttons-section div container.success {
+    background-color: #1cc88a;
+}
+
 container.soon {
     width: fit-content;
     position: relative;
