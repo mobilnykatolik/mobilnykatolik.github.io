@@ -22,6 +22,14 @@ stars2.forEach((star, index1) => {
     })
 })
 
+function makeReview(eID) {
+    window.alert("UWAGA! Jesteś w wersji testowej. Sprawozdanie nie zostanie przesłane.")
+    document.getElementById("projectReviewName").innerHTML = eventsdb[eID].name
+    document.getElementById("pr-3").value = ""
+    document.getElementById("pr-4").value = ""
+    window.open('#projectreviewapp', '_self')
+}
+
 function sendReview() {
     let answersData = []
     const answers = document.querySelectorAll("#projectReviewForm input")
@@ -30,5 +38,6 @@ function sendReview() {
     })
     console.log(answersData)
     history.back()
+    window.alert("Wysyłanie sprawozdań jest aktualnie niedostępne!")
     return false;
 }

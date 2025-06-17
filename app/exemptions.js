@@ -10,6 +10,8 @@ function sendExemptionAsk() {
     if (!window.confirm("Czy na pewno chcesz wysłać tę prośbę o zwolnienie?")) {
         return false;
     }
+    window.alert("Moduł Zwolnienia jest wyłączony!")
+    return false;
     var data = {
         "userid": userID,
         "eventID": document.getElementById("newExemption1").value,

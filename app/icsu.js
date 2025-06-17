@@ -31,7 +31,7 @@ function updateICSU() {
 
             for (wr in waitingReviews) {
                 document.getElementById("icsu-waiting-reviews").innerHTML += `
-                <div type="ind">
+                <div type="ind" onClick="makeReview('${waitingReviews[wr].eventID}')">
                     <aside><i class="fa-solid fa-circle-exclamation" style="color: #f6c23e"></i></aside>
                     <span>
                         ${waitingReviews[wr].name}
@@ -50,7 +50,7 @@ function updateICSU() {
                 <div type="ind">
                     <span>
                         ${pastEvents[e].name}
-                        <br><i>${eventsdb[pastEvents[e].eventid].date.split("<br>")[0]}</i>
+                        <br><i>${eventsdb[pastEvents[e].eventID].date.split("<br>")[0]}</i>
                     </span>
                 </div>` + document.getElementById("icsu-past-events").innerHTML
             }
