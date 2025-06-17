@@ -23,6 +23,25 @@ function updateICSU() {
                 document.getElementById("icsu-indicator-success").style.display = "block"
             }
 
+            //Zakończone projekty
+            var projectsCount = 0
+            for (e in eventsdb) {
+                if (!eventsdb[e].my) {continue}
+                if (waitingReviews.includes(e)) {continue}
+                projectsCount += 1
+                document.getElementById("icsu-past-events").innerHTML = `
+                <div type="ind">
+                    <span>
+                        ${eventsdb[e].name}
+                        <br><i>${eventsdb[e].date.split("<br>")[0]}</i>
+                    </span>
+                </div>` + document.getElementById("icsu-past-events").innerHTML
+            }
+            if (projectsCount > 0) {
+                document.getElementById("icsu-past-events").style.display = "block"
+                document.getElementById("icsu-no-projects").style.display = "none"
+            }
+
             //Zwolnienia
             var exCount = 0
             if (Object.keys(exDB).length > 0) {
@@ -70,6 +89,7 @@ function updateICSU() {
                 }
             }
             document.getElementById("icsu").style.display = "block"
+            document.getElementById("icsu-loading").style.display = "none"
         }
     };
     xhr.send();
@@ -83,4 +103,9 @@ function resetDigest() {
     document.getElementById("icsu-exemptions").style.display = "none"
     document.getElementById("icsu-exemptions").innerHTML = ""
     document.getElementById("icsu").style.display = "none"
+    document.getElementById("icsu-loading").style.display = "flex"
+
+    //Zakończone projekty
+    document.getElementById("icsu-past-events").innerHTML = ""
+    document.getElementById("icsu-past-events").style.display = "none"
 }
