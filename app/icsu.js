@@ -1,6 +1,7 @@
 var exDB = {}
 var waitingReviews = []
 var pastEvents = []
+var myEvents = {}
 
 const exStatus = ["OCZEKUJĄCE", "AKTYWNE", "ODRZUCONE", "ZARCHIWIZOWANE"]
 const exColor = ["warning", "success", "danger", "secondary"]
@@ -18,6 +19,14 @@ function updateICSU() {
             waitingReviews = icsu.waitingReviews
             pastEvents = icsu.pastEvents
             exDB = icsu.exemptions
+            myEvents = icsu.myEvents
+
+            //Projekty do zwolnień
+            document.getElementById("newExemption1").innerHTML = `<option value="Inne">Inne</option>`
+            for (event in myEvents) {
+                document.getElementById("newExemption1").innerHTML = `<option value="${event}">${myEvents[event].name}</option>` + document.getElementById("newExemption1").innerHTML
+            }
+            document.getElementById("newExemption1").innerHTML = `<option selected disabled value="">Wybierz projekt, którego dotyczy zwolnienie</option>` + document.getElementById("newExemption1").innerHTML
 
             //Oczekujące sprawozdania
             if (waitingReviews.length > 0) {
