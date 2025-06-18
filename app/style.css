@@ -402,6 +402,9 @@ p {
 }
 
 .page-content input[type="text"] {
+    -webkit-appearance: none; /* Safari, iOS */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard */
     border: 0px;
     border-radius: 10px;
     width: calc(100% - 20px);
@@ -418,6 +421,9 @@ p {
 }
 
 .page-content input[type="date"] {
+    -webkit-appearance: none; /* Safari, iOS */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard */
     border: 0px;
     border-radius: 10px;
     width: calc(100% - 20px);
@@ -434,6 +440,9 @@ p {
 }
 
 .page-content input[type="time"] {
+    -webkit-appearance: none; /* Safari, iOS */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard */
     border: 0px;
     border-radius: 10px;
     width: calc(100% - 20px);
@@ -450,6 +459,9 @@ p {
 }
 
 .page-content select {
+    -webkit-appearance: none; /* Safari, iOS */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard */
     border: 0px;
     border-radius: 10px;
     width: calc(100%);
