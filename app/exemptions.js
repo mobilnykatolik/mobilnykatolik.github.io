@@ -12,7 +12,7 @@ function sendExemptionAsk() {
     }
     var data = {
         "userid": userID,
-        "eventID": document.getElementById("newExemption1").value,
+        "projectName": document.getElementById("newExemption1").value,
         "date": document.getElementById("newExemption2").value,
         "start": document.getElementById("newExemption3").value,
         "end": document.getElementById("newExemption4").value,
