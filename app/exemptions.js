@@ -41,5 +41,49 @@ function sendExemptionAsk() {
 }
 
 function openExemption(exID) {
-    window.alert("Funkcja jest aktualnie niedostępna!")
+    document.getElementById("exemption-heading").innerHTML = `Zwolnienie dla ${userFirstName} ${userSurname}`
+    document.getElementById("exemption-status").innerHTML = `${exStatus[exDB[exID].status]}`
+    if (eventsdb[exDB[exID].event] == undefined) {
+        document.getElementById("exemption-project").innerHTML = "Inne"
+    } else {
+        document.getElementById("exemption-project").innerHTML = eventsdb[exDB[exID].event].name
+    }
+    if (exDB[exID].status == 1) {
+        document.getElementById("exemption-large-status").classList.add("success")
+        document.getElementById("exemption-large-status").classList.remove("danger")
+        document.getElementById("exemption-large-status").innerHTML = `ZWOLNIENIE AKTYWNE<text id="exemption-current-date">-</text>`
+        document.getElementById("exemption-by").innerHTML = `<i class="fa-solid fa-user-shield verified"></i> ${exDB[exID].by}`
+        document.getElementById("exemption-by-visibility").style.display = "block"
+        document.getElementById("exemption-approval").innerHTML = `Zwolnienie zostało autoryzowane przez ${exDB[exID].by} (${exDB[exID].time})`
+    } else {
+        document.getElementById("exemption-approval").innerHTML = ``
+        document.getElementById("exemption-large-status").classList.remove("success")
+        document.getElementById("exemption-large-status").classList.add("danger")
+        document.getElementById("exemption-large-status").innerHTML = `ZWOLNIENIE NIEWAŻNE<text id="exemption-current-date">-</text>`
+        document.getElementById("exemption-by-visibility").style.display = "none"
+    }
+    document.getElementById("exemption-date").innerHTML = exDB[exID].date
+    
+
+    window.open('#exemptionapp', '_self')
 }
+
+function getFormattedDate() {
+  const now = new Date();
+
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yyyy = now.getFullYear();
+
+  const HH = String(now.getHours()).padStart(2, '0');
+  const MM = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+
+  return `${dd}.${mm}.${yyyy} ${HH}:${MM}:${ss}`;
+}
+
+var timeUpdate = setInterval(function() {
+    let currentDate = getFormattedDate()
+    console.log(currentDate)
+    document.getElementById("exemption-current-date").innerHTML = currentDate
+}, 1000)

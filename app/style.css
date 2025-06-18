@@ -725,6 +725,24 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     row-gap: 10px;
 }
 
+.ticket-section-bottom.danger {
+    background-color: #e74a3b;
+    color: #f7a79e;
+    justify-content: center;
+    font-weight: 1000;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.ticket-section-bottom.success {
+    background-color: #1cc88a;
+    color: #a0e4c5;
+    justify-content: center;
+    font-weight: 1000;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
 .ticket-section::after {
     content: "";
     position: absolute;
@@ -1215,4 +1233,14 @@ hr {
     border-top: 1px solid var(--additional2);
     margin: 1em 0;
     padding: 0;
+}
+
+.verified {
+    color: #42a5f5;
+}
+
+@keyframes pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.5); }
+    100% { transform: scale(1); }
 }
