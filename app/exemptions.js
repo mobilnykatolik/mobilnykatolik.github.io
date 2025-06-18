@@ -84,6 +84,6 @@ function getFormattedDate() {
 
 var timeUpdate = setInterval(function() {
     let currentDate = getFormattedDate()
-    console.log(currentDate)
+    //console.log(currentDate)
     document.getElementById("exemption-current-date").innerHTML = currentDate
 }, 1000)
