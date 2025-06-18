@@ -66,14 +66,21 @@ function updateICSU() {
 
             //Zwolnienia
             var exCount = 0
-            if (Object.keys(exDB).length > 0) {
+            var allExCount = 0
+
+            for (ex in exDB) {
+                if (exDB[ex].status == 3) { continue }
+                allExCount += 1
+            }
+
+            if (allExCount > 0) {
                 document.getElementById("icsu-no-exemptions").style.display = "none"
                 document.getElementById("icsu-exemptions").style.display = "block"
             }
             for (ex in exDB) {
                 if (exDB[ex].status == 3) { continue }
                 exCount += 1
-                if (exCount == 1 && Object.keys(exDB).length != 1) {
+                if (exCount == 1 && allExCount != 1) {
                     document.getElementById("icsu-exemptions").innerHTML += `
                     <div type="top" onClick="openExemption('${ex}')">
                         <span>
@@ -82,7 +89,7 @@ function updateICSU() {
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
                     </div>`
-                } else if (exCount == Object.keys(exDB).length && Object.keys(exDB).length != 1) {
+                } else if (exCount == allExCount && allExCount != 1) {
                     document.getElementById("icsu-exemptions").innerHTML += `
                     <div type="bottom" onClick="openExemption('${ex}')">
                         <span>
@@ -91,7 +98,7 @@ function updateICSU() {
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
                     </div>`
-                } else if (Object.keys(exDB).length == 1) {
+                } else if (allExCount == 1) {
                     document.getElementById("icsu-exemptions").innerHTML += `
                     <div type="ind" onClick="openExemption('${ex}')">
                         <span>
