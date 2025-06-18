@@ -21,7 +21,7 @@ function updateICSU() {
 
             //Oczekujące sprawozdania
             if (waitingReviews.length > 0) {
-                document.getElementById("icsu-indicator-warning").style.display = "block"
+                //document.getElementById("icsu-indicator-warning").style.display = "block"
                 document.getElementById("icsu-waiting-reviews").style.display = "block"
                 document.getElementById("icsu-no-projects").style.display = "none"
             } else {
@@ -34,8 +34,8 @@ function updateICSU() {
                 <div type="ind" onClick="makeReview('${waitingReviews[wr].eventID}')">
                     <aside><i class="fa-solid fa-circle-exclamation" style="color: #f6c23e"></i></aside>
                     <span>
-                        ${waitingReviews[wr].name}
-                        <br><i>Dodaj sprawozdanie</i>
+                        <h6>${waitingReviews[wr].name}</h6>
+                        <i>Dodaj sprawozdanie</i>
                     </span>
                 </div>`
             }
@@ -49,8 +49,8 @@ function updateICSU() {
                 document.getElementById("icsu-past-events").innerHTML = `
                 <div type="ind" onClick="openReview('${pastEvents[e].eventID}')">
                     <span>
-                        ${pastEvents[e].name}
-                        <br><i>${eventsdb[pastEvents[e].eventID].date.split("<br>")[0]}</i>
+                        <h6>${pastEvents[e].name}</h6>
+                        <i>${eventsdb[pastEvents[e].eventID].date.split("<br>")[0]}</i>
                     </span>
                 </div>` + document.getElementById("icsu-past-events").innerHTML
             }

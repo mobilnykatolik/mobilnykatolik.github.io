@@ -253,7 +253,7 @@
                 <span>Bilety i kupony</span>
                 <!--<container>#WKRÓTCE</container>-->
             </div>
-            <div type="ind" onclick="window.open(`https://forms.gle/SKZWcXtuj6D2rkbv6`, '_self')">
+            <div type="ind" onclick="window.open('#ideasapp', '_self')">
                 <aside>💡</aside>
                 <span>Pomysł dla SU</span>
             </div>
@@ -316,6 +316,20 @@
             <table class="luckynumber" style="width: 100%; margin-top: 10px;" id="ln-tomorrow-table">
             </table>
         </div>
+    </div>
+</div>
+
+<div class="page" id="ideasapp">
+    <div class="page-name">
+        <svg onClick="history.back();" version="1.0" xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px; position: absolute; left: 15px; margin-top: 2px;" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" style="fill: var(--theme-color); transition: fill 0.5s ease;" stroke="none">
+            <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
+            </g>
+        </svg>
+        Zgłoś pomysł
+    </div>
+    <div class="page-content">
+        Wkrótce
     </div>
 </div>
 
@@ -474,14 +488,14 @@
     </div>
     <div class="page-content" id="icsu">
         <div class="buttons-section" type="apps">
-            <div type="ind" id="icsu-indicator-success" style="display: none;">
+            <div type="ind" id="icsu-indicator-success" style="margin-bottom: 20px; display: none;">
                 <aside><i class="fa-solid fa-circle-check" style="color: #1cc88a"></i></aside>
                 <span>
                     Jesteś na bieżąco
                     <br><i>Nie masz oczekujących sprawozdań</i>
                 </span>
             </div>
-            <div type="ind" id="icsu-indicator-warning" style="display: none;">
+            <div type="ind" id="icsu-indicator-warning" style="margin-bottom: 20px; display: none;">
                 <aside><i class="fa-solid fa-circle-exclamation" style="color: #f6c23e"></i></aside>
                 <span>
                     Brakujące sprawozdanie
@@ -489,7 +503,7 @@
                 </span>
             </div>
         </div>
-        <p style="font-size: 16px; margin-top: 20px;">Zakończone projekty</p>
+        <p style="font-size: 16px;">Zakończone projekty</p>
         <p style="font-size: 12px; opacity: 60%;">Kliknij, aby wyświetlić sprawozdanie</p>
         <div class="buttons-section" id="icsu-no-projects" type="text" style="margin-top: 10px;">
             <div type="ind">
@@ -522,10 +536,10 @@
         <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <p style="font-size: 16px;">Zwolnienia</p>
-                <p style="font-size: 12px; opacity: 60%;">Archiwalne zwolnienia znajdziesz w PMK</p>
+                <p style="font-size: 12px; opacity: 60%;">Wyślij prośbę do opiekuna SU</p>
             </div>
             <div>
-                <button onClick="newExemption()"><i class="fa-solid fa-plus" style="margin-right: 8px;"></i>  Nowe</button>
+                <button onClick="newExemption()"><i class="fa-solid fa-plus"></i></button>
             </div>
         </div>
         <div class="buttons-section" id="icsu-no-exemptions" type="text" style="margin-top: 10px;">
@@ -537,6 +551,15 @@
         </div>
         <div class="buttons-section" id="icsu-exemptions" type="text" style="margin-top: 10px;">
             
+        </div>
+        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-size: 16px;">Moje pomysły</p>
+                <p style="font-size: 12px; opacity: 60%;">Uzupełnij formularz i zgłoś pomysł na akcję</p>
+            </div>
+            <div>
+                <button onclick="window.open('#ideasapp', '_self')"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
         </div>
     </div>
     <div class="page-content" id="icsu-loading" style="display: flex; justify-content: center; align-items: center;">
@@ -2645,11 +2668,12 @@ function loadCalendar() {
         if (event.specialsuit == true) {
             descriptionVisibility = "block";
         }
+        event.badgename = event.name
         if (event.type == "szkolne") {
-            event.name = `<container class="badge">SZKOLNE</container>`+event.name;
+            event.badgename = `<container class="badge">SZKOLNE</container>`+event.name;
         }
         if (event.hidden) {
-            event.name = `<container class="badge grey">UKRYTE</container>`+event.name;
+            event.badgename = `<container class="badge grey">UKRYTE</container>`+event.name;
         }
         /*if (event.hidden == true) {
            event.name = `<container class="badge">UKRYTE</container>`+event.name;
@@ -2672,7 +2696,7 @@ function loadCalendar() {
                 <div class="calendar-dot" style="background-color: ${pastDot};"></div>
             </div>
             <div class="calendar-event" style="opacity: ${past};" onClick="openEvent('${eventID}')">
-                <h1>${event.name}</h1>
+                <h1>${event.badgename}</h1>
                 <p>${event.date}</p>
                 <span style="display: ${descriptionVisibility}">Obowiązuje strój galowy 👔</span>
             </div>

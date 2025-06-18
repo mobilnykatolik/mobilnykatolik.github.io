@@ -324,11 +324,24 @@ aside.selected {
     display: inline-block;
 }
 
+div.page-content#icsu .buttons-section#icsu-waiting-reviews span {
+    width: 80%;
+}
+
 .buttons-section span i {
     font-style: normal;
     color: var(--text);
     opacity: 60%;
     font-size: 13px;
+}
+
+.buttons-section span h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 h1, h2, h3, h4, h5, h6, p {
