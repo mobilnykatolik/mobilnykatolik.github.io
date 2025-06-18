@@ -8,7 +8,7 @@ const exColor = ["warning", "success", "danger", "secondary"]
 
 function updateICSU() {
     resetDigest()
-    var url = `https://api.mobilnykatolik.pl/icsu/${loginid}`;
+    var url = `https://api.mobilnykatolik.pl/icsu/${userID}/${loginID}/true`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -71,6 +71,7 @@ function updateICSU() {
                 document.getElementById("icsu-exemptions").style.display = "block"
             }
             for (ex in exDB) {
+                if (exDB[ex].status == 3) { continue }
                 exCount += 1
                 if (exCount == 1 && Object.keys(exDB).length != 1) {
                     document.getElementById("icsu-exemptions").innerHTML += `

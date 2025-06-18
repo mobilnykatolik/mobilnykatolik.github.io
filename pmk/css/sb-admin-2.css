@@ -4507,6 +4507,16 @@ input[type="button"].btn-block {
   border-radius: 0.35rem;
 }
 
+.card.edigest {
+  border-radius: 0 0 0.35rem 0.35rem;
+  border-top: 0;
+  display: none;
+}
+
+.card.edigest.active {
+  display: block;
+}
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
