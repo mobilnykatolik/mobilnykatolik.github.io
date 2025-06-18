@@ -56,7 +56,7 @@ function openExemption(exID) {
         document.getElementById("exemption-by-visibility").style.display = "block"
         document.getElementById("exemption-approval").innerHTML = `Zwolnienie zostało autoryzowane przez ${exDB[exID].by} (${exDB[exID].time})`
     } else {
-        document.getElementById("exemption-approval").innerHTML = ``
+        document.getElementById("exemption-approval").innerHTML = `Zwolnienie wygenerowane w aplikacji Mobilny Katolik.`
         document.getElementById("exemption-large-status").classList.remove("success")
         document.getElementById("exemption-large-status").classList.add("danger")
         document.getElementById("exemption-large-status").innerHTML = `ZWOLNIENIE NIEWAŻNE<text id="exemption-current-date">-</text>`
