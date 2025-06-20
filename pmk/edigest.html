@@ -493,6 +493,11 @@ function resetDigest() {
 }
 
 function getPeopleList() {
+    if (userAccess < 5) {
+        document.getElementById("choosePersonInput").disabled = "disabled"
+        document.getElementById("choosePersonInput").innerHTML = `<option value="">Nie masz wystarczających uprawnień</option>`
+        return false;
+    }
     var url = `https://api.mobilnykatolik.pl/pmk/su/userlist/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -513,7 +518,7 @@ getPeopleList()
 function updateICSU(UID) {
     resetDigest()
     var checkedUserID;
-    if (UID == undefined) {
+    if (UID == undefined || UID == "") {
         checkedUserID = "true"
     } else {
         checkedUserID = UID
