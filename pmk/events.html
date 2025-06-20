@@ -458,6 +458,7 @@
                                     <select class="form-control" id="manageEventType" required>
                                         <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
                                         <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
+                                        <option value="spotkanie" disabled id="manageEventTypeSpotkanie">Spotkanie Samorządu Uczniowskiego (tylko dla SU)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -738,6 +739,9 @@
                         if (sortedEvents[event].type.toUpperCase() == "SZKOLNE") {
                             badgeColor = "dark";
                         }
+                        if (sortedEvents[event].type.toUpperCase() == "SPOTKANIE") {
+                            badgeColor = "warning";
+                        }
 
                         if (sortedEvents[event].by.includes(userID)) {
                             myBadge = `
@@ -876,11 +880,18 @@
                 }});
                 reloadByList()
 
-                if (document.getElementById("manageEventType").value == "szkolne") {
+                if (document.getElementById("manageEventType").value == "szkolne" || document.getElementById("manageEventType").value == "spotkanie") {
                     document.getElementById("manageEventBy").disabled = "disabled";
                 } else {
                     document.getElementById("manageEventBy").disabled = "";
                 }
+
+                if (document.getElementById("manageEventType").value == "spotkanie") {
+                    document.getElementById("manageEventFor").disabled = "disabled";
+                } else {
+                    document.getElementById("manageEventFor").disabled = "";
+                }
+
                 if (eventsdb[eventid].specialsuit == true) {
                     document.getElementById("manageEventSpecialSuit").checked = "checked";
                 } else {
@@ -911,6 +922,11 @@
                     document.getElementById("manageEventTypeSzkolne").disabled = ""
                 } else {
                     document.getElementById("manageEventTypeSzkolne").disabled = "disabled"
+                }
+                if (userAccess >= 5) {
+                    document.getElementById("manageEventTypeSpotkanie").disabled = ""
+                } else {
+                    document.getElementById("manageEventTypeSpotkanie").disabled = "disabled"
                 }
             }
             

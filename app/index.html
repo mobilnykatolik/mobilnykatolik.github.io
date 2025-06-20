@@ -2734,6 +2734,9 @@ function loadCalendar() {
         if (event.type == "szkolne") {
             event.badgename = `<container class="badge">SZKOLNE</container>`+event.name;
         }
+        if (event.type == "spotkanie") {
+            event.badgename = `<container class="badge">SPOTKANIE SU</container>`+event.name;
+        }
         if (event.hidden) {
             event.badgename = `<container class="badge grey">UKRYTE</container>`+event.name;
         }

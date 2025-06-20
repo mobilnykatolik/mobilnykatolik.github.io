@@ -231,6 +231,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">e-Indeks</h1>
+                        <small class="form-text text-muted">Jakub Sałek</small>
                     </div>
 
                     <ul class="nav nav-tabs">
@@ -240,17 +241,36 @@
                         <li class="nav-item">
                             <a class="nav-link" data-target="exemptions">Zwolnienia</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="meetings">Spotkania</a>
+                        </li>
                     </ul>
 
                     <div class="card edigest" id="reviews">
                         <div class="card-body">
-                            Sprawozdania
+                            <div class="accordion" id="projectReviews"></div>
                         </div>
                     </div>
 
                     <div class="card edigest" id="exemptions">
                         <div class="card-body">
-                            Zwolnienia
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Data zwolnienia</th>
+                                        <th scope="col">Zatwierdzone przez</th>
+                                        <th scope="col">Data zatwierdzenia</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="exemptionsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card edigest" id="meetings">
+                        <div class="card-body">
+                            Spotkania Samorządu Uczniowskiego
                         </div>
                     </div>
                     
@@ -326,105 +346,6 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manage Event Modal-->
-    <div class="modal fade" id="manageEventModal" tabindex="-1" role="dialog" aria-labelledby="manageEventModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="manageEventModalLabel">Dodaj/modyfikuj wydarzenie</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form onSubmit="return manageEvent();">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <div class="form-group" style="display: none;">
-                                    <label for="manageEventID">ID wydarzenia</label>
-                                    <input type="text" class="form-control" id="manageEventID">
-                                </div>
-                                <div class="form-group">
-                                    <label for="manageEventName">Nazwa wydarzenia</label>
-                                    <input type="text" class="form-control" id="manageEventName" required>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label for="manageEventStartDate">Data rozpoczęcia</label>
-                                            <input type="date" class="form-control" id="manageEventStartDate" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="manageEventStartTime">Godzina</label>
-                                            <input type="time" class="form-control" id="manageEventStartTime">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label for="manageEventEndDate">Data zakończenia</label>
-                                            <input type="date" class="form-control" id="manageEventEndDate">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="manageEventEndTime">Godzina</label>
-                                            <input type="time" class="form-control" id="manageEventEndTime">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manageEventDescription">Opis</label>
-                                    <textarea class="form-control" id="manageEventDescription"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manageEventType">Typ</label>
-                                    <select class="form-control" id="manageEventType" required>
-                                        <option value="su">Wydarzenie Samorządu Uczniowskiego</option>
-                                        <option value="szkolne" disabled id="manageEventTypeSzkolne">Wydarzenie szkolne</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" class="custom-checkbox" id="manageEventSpecialSuit" aria-describedby="manageEventSpecialSuitHelp">
-                                    <label for="manageEventSpecialSuit" style="margin-bottom: 0;">Specjalny strój</label>
-                                    <small id="manageEventSpecialSuitHelp" class="form-text text-muted">Zaznacz, jeśli na to wydarzenie jest wymagany strój galowy</small>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <div class="form-group">
-                                    <label for="manageEventFor">Odbiorcy</label>
-                                    <select class="form-control" id="manageEventFor" aria-describedby="manageEventForHelp" multiple>
-                                    </select>
-                                    <small id="manageEventForHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="manageEventBy">Koordynatorzy</label>
-                                    <select class="form-control" id="manageEventBy" aria-describedby="manageEventByHelp" multiple hidden>
-                                    </select>
-                                    <!--<small id="manageEventByHelp" class="form-text text-muted">Aby zaznaczyć kilka, przytrzymaj ⌘/CTRL</small>-->
-                                    <input type="text" class="form-control" id="manageEventBySearch" list="suPeople" oninput="checkSearch()" placeholder="Nazwisko i imię">
-                                    <datalist id="suPeople">
-                                    </datalist>
-                                    <small id="manageEventBySearchHelp" class="form-text text-muted">Aby usunąć osobę, wybierz jej kafelek</small>
-                                </div>
-                                <h5 id="manageEventByList">
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                        <input type="submit" class="btn btn-primary" value="Zapisz">
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -537,15 +458,110 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        var eventsdb = {}
+        var eventsDB = {}
         var userList;
         var sortedEvents;
+        var ICSU = {}
+        var pastEvents = []
+        var exemptions = {}
 
     </script>
 
 </body>
 
 </html>
+
+<script>
+
+function resetDigest() {
+    document.getElementById("projectReviews").innerHTML = ""
+    document.getElementById("exemptionsTable").innerHTML = ""
+    console.log("reset digest")
+}
+
+function updateICSU(UID) {
+    resetDigest()
+    var checkedUserID;
+    if (UID == undefined) {
+        checkedUserID = "true"
+    } else {
+        checkedUserID = UID
+    }
+    var url = `https://api.mobilnykatolik.pl/icsu/${userID}/${userLoginID}/${checkedUserID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status == 200) {
+            ICSU = JSON.parse(xhr.responseText)
+            console.log(ICSU)
+
+            pastEvents = ICSU.pastEvents
+            eventsDB = ICSU.myEvents
+            exemptions = sortExemptions(ICSU.exemptions)
+
+            for (r in pastEvents) {
+                document.getElementById("projectReviews").innerHTML += `
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#${pastEvents[r].eventID}" aria-expanded="true" aria-controls="collapseOne">
+                                    ${pastEvents[r].name}
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="${pastEvents[r].eventID}" class="collapse">
+                            <div class="card-body">
+                                <p class="my-0"><strong>Sprawozdanie</strong></p>
+                                <div class="row">
+                                    <div class="col-12 col-lg-3">
+                                        Ocena akcji
+                                        <br><code>${pastEvents[r].answers[0]}/5</code>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        Samoocena zaangażowania
+                                        <br><code>${pastEvents[r].answers[1]}/5</code> 
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        Mocne strony
+                                        <br><code>${pastEvents[r].answers[2]}</code>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        Słabe strony
+                                        <br><code>${pastEvents[r].answers[3]}</code> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+            }
+
+            for (e in exemptions) {
+                document.getElementById("exemptionsTable").innerHTML += `
+                    <tr>
+                        <td>${e}</td>
+                        <td>${exemptions[e].date}</td>
+                        <td>${exemptions[e].by ?? "-"}</td>
+                        <td>${exemptions[e].time ?? "-"}</td>
+                    </tr>`
+            }
+            
+        }
+    };
+    xhr.send();
+}
+
+function sortExemptions(ex) {
+    const sortedEntries = Object.entries(ex).sort(
+        ([, a], [, b]) => a.start_date - b.start_date
+    );
+
+    return Object.fromEntries(sortedEntries);
+}
+
+updateICSU()
+
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
