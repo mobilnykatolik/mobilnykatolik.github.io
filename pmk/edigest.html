@@ -231,7 +231,14 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">e-Indeks</h1>
-                        <small class="form-text text-muted">Jakub Sałek</small>
+                        <div>
+                            <small class="form-text text-muted my-0 text-right" id="icsuOwner">
+                                Ładowanie...
+                            </small>
+                            <small class="form-text text-muted my-0 text-right">
+                                <a href="#" data-toggle="modal" data-target="#choosePerson">Przełącz</a>
+                            </small>
+                        </div>
                     </div>
 
                     <ul class="nav nav-tabs">
@@ -260,10 +267,9 @@
 
                     <div class="card edigest" id="exemptions">
                         <div class="card-body">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-responsive-md">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
                                         <th scope="col">Data zwolnienia</th>
                                         <th scope="col">Zatwierdzone przez</th>
                                         <th scope="col">Data zatwierdzenia</th>
@@ -357,23 +363,24 @@
     </div>
 
     <!-- Confirm Delete Modal-->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+    <div class="modal fade" id="choosePerson" tabindex="-1" role="dialog" aria-labelledby="choosePersonLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć wydarzenie []?</h5>
+                    <h5 class="modal-title" id="choosePersonLabel">Wybierz e-Indeks</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="deleteEventID" style="display: none;">
-                    Kliknij <b>Potwierdź</b>, aby usunąć.
+                    <select class="form-control" id="choosePersonInput">
+                        
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-danger" data-dismiss="modal" onclick="manageEvent(true);">Potwierdź</a>
+                    <a class="btn btn-primary" data-dismiss="modal" onClick="updateICSU(document.getElementById('choosePersonInput').value)">Przejdź</a>
                 </div>
             </div>
         </div>
@@ -445,7 +452,6 @@
         </div>
     </div>
 
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -482,8 +488,27 @@
 function resetDigest() {
     document.getElementById("projectReviews").innerHTML = ""
     document.getElementById("exemptionsTable").innerHTML = ""
-    console.log("reset digest")
+    document.getElementById("missingReviewsAlert").style.display = "none"
+    document.getElementById("missingReviewsAlert").classList.remove("show")
 }
+
+function getPeopleList() {
+    var url = `https://api.mobilnykatolik.pl/pmk/su/userlist/${userID}/${userLoginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status == 200) {
+            var peoplelist = JSON.parse(xhr.responseText)
+            for (u in peoplelist) {
+                document.getElementById("choosePersonInput").innerHTML += `
+                <option value="${u}">${peoplelist[u].lastname} ${peoplelist[u].firstname}, ${peoplelist[u].class.toUpperCase()}</option>`
+            }
+        }
+    };
+    xhr.send();
+}
+getPeopleList()
 
 function updateICSU(UID) {
     resetDigest()
@@ -500,6 +525,7 @@ function updateICSU(UID) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status == 200) {
             ICSU = JSON.parse(xhr.responseText)
+            document.getElementById("icsuOwner").innerHTML = `${ICSU.lastname} ${ICSU.firstname}`
             console.log(ICSU)
 
             pastEvents = ICSU.pastEvents
@@ -517,12 +543,12 @@ function updateICSU(UID) {
                     <div class="card">
                         <div class="card-header">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#${pastEvents[r].eventID}" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#review-${pastEvents[r].eventID}" aria-expanded="true" aria-controls="collapseOne">
                                     ${pastEvents[r].name}
                                 </button>
                             </h2>
                         </div>
-                        <div id="${pastEvents[r].eventID}" class="collapse">
+                        <div id="review-${pastEvents[r].eventID}" class="collapse">
                             <div class="card-body">
                                 <p class="my-0"><strong>Sprawozdanie</strong></p>
                                 <div class="row">
@@ -551,13 +577,15 @@ function updateICSU(UID) {
             for (e in exemptions) {
                 document.getElementById("exemptionsTable").innerHTML += `
                     <tr>
-                        <td>${e}</td>
                         <td>${exemptions[e].date}</td>
                         <td>${exemptions[e].by ?? "-"}</td>
                         <td>${exemptions[e].time ?? "-"}</td>
                     </tr>`
             }
             
+        } else if (xhr.status == 403) {
+            $('#insufficientPermissionsModal').modal('show')
+            updateICSU()
         }
     };
     xhr.send();
