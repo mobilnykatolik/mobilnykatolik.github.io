@@ -516,6 +516,7 @@ function getPeopleList() {
 getPeopleList()
 
 function updateICSU(UID) {
+    $('#loadingModal').modal('show')
     resetDigest()
     var checkedUserID;
     if (UID == undefined || UID == "") {
@@ -529,12 +530,19 @@ function updateICSU(UID) {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status == 200) {
+            setTimeout(function() {
+                $('#loadingModal').modal('hide')
+            }, 500)
             ICSU = JSON.parse(xhr.responseText)
-            document.getElementById("icsuOwner").innerHTML = `${ICSU.lastname} ${ICSU.firstname}`
+            document.getElementById("icsuOwner").innerHTML = `${ICSU.lastname} ${ICSU.firstname} (${ICSU.class.toUpperCase()})`
             console.log(ICSU)
 
             pastEvents = ICSU.pastEvents
             eventsDB = ICSU.myEvents
+
+            for (e in eventsDB) {
+                console.log(eventsDB[e].name)
+            }
             exemptions = sortExemptions(ICSU.exemptions)
             if (ICSU.waitingReviews.length > 0) {
                 document.getElementById("missingReviewsAlert").style.display = "block"
@@ -543,36 +551,41 @@ function updateICSU(UID) {
                 }, 200)
             }
 
-            for (r in pastEvents) {
+            for (event in eventsDB) {
                 document.getElementById("projectReviews").innerHTML += `
-                    <div class="card">
+                    <div class="card" id="project-${event}">
                         <div class="card-header">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#review-${pastEvents[r].eventID}" aria-expanded="true" aria-controls="collapseOne">
-                                    ${pastEvents[r].name}
+                                <button disabled id="reviewBtn-${event}" class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#review-${event}" aria-expanded="true">
+                                    ${eventsDB[event].name}
                                 </button>
                             </h2>
                         </div>
-                        <div id="review-${pastEvents[r].eventID}" class="collapse">
-                            <div class="card-body">
-                                <p class="my-0"><strong>Sprawozdanie</strong></p>
-                                <div class="row">
-                                    <div class="col-12 col-lg-3">
-                                        Ocena akcji
-                                        <br><code>${pastEvents[r].answers[0]}/5</code>
-                                    </div>
-                                    <div class="col-12 col-lg-3">
-                                        Samoocena zaangażowania
-                                        <br><code>${pastEvents[r].answers[1]}/5</code> 
-                                    </div>
-                                    <div class="col-12 col-lg-3">
-                                        Mocne strony
-                                        <br><code>${pastEvents[r].answers[2]}</code>
-                                    </div>
-                                    <div class="col-12 col-lg-3">
-                                        Słabe strony
-                                        <br><code>${pastEvents[r].answers[3]}</code> 
-                                    </div>
+                    </div>`
+            }
+
+            for (r in pastEvents) {
+                document.getElementById(`reviewBtn-${pastEvents[r].eventID}`).disabled = "";
+                document.getElementById(`project-${pastEvents[r].eventID}`).innerHTML += `
+                    <div id="review-${pastEvents[r].eventID}" class="collapse">
+                        <div class="card-body">
+                            <p class="my-0"><strong>Sprawozdanie</strong></p>
+                            <div class="row">
+                                <div class="col-12 col-lg-3">
+                                    Ocena akcji
+                                    <br><code>${pastEvents[r].answers[0]}/5</code>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    Samoocena zaangażowania
+                                    <br><code>${pastEvents[r].answers[1]}/5</code> 
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    Mocne strony
+                                    <br><code>${pastEvents[r].answers[2]}</code>
+                                </div>
+                                <div class="col-12 col-lg-3">
+                                    Słabe strony
+                                    <br><code>${pastEvents[r].answers[3]}</code> 
                                 </div>
                             </div>
                         </div>
@@ -589,6 +602,9 @@ function updateICSU(UID) {
             }
             
         } else if (xhr.status == 403) {
+            setTimeout(function() {
+                $('#loadingModal').modal('hide')
+            }, 200)
             $('#insufficientPermissionsModal').modal('show')
             updateICSU()
         }
