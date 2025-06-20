@@ -769,7 +769,7 @@
                             </td>
                         </tr>
                         `
-                        if (sortedEvents[event].type.toUpperCase() == "SU") {
+                        if (sortedEvents[event].type.toUpperCase() == "SU" || sortedEvents[event].type.toUpperCase() == "SPOTKANIE") {
                             var date = new Date(sortedEvents[event].startdate);
                             date = `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}`
                             document.getElementById("su-events-list-table").innerHTML += `
