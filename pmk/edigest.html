@@ -236,7 +236,7 @@
 
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" data-target="reviews">Zakończone projekty</a>
+                            <a class="nav-link" data-target="reviews">Projekty</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-target="exemptions">Zwolnienia</a>
@@ -248,6 +248,12 @@
 
                     <div class="card edigest" id="reviews">
                         <div class="card-body">
+                            <div class="alert alert-warning alert-dismissible fade" style="display: none;" id="missingReviewsAlert" role="alert">
+                                <strong>Masz nieuzupełnione sprawozdania!</strong> Sprawdź e-Indeks w aplikacji Mobilny Katolik i je uzupełnij.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="accordion" id="projectReviews"></div>
                         </div>
                     </div>
@@ -499,6 +505,12 @@ function updateICSU(UID) {
             pastEvents = ICSU.pastEvents
             eventsDB = ICSU.myEvents
             exemptions = sortExemptions(ICSU.exemptions)
+            if (ICSU.waitingReviews.length > 0) {
+                document.getElementById("missingReviewsAlert").style.display = "block"
+                setTimeout(function() {
+                    document.getElementById("missingReviewsAlert").classList.add("show")
+                }, 200)
+            }
 
             for (r in pastEvents) {
                 document.getElementById("projectReviews").innerHTML += `
