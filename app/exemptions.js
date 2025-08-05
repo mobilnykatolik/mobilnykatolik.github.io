@@ -103,16 +103,30 @@ function loadWaitingExemptions() {
             }
 
             document.getElementById("waiting-exemptions").innerHTML = ""
+            document.getElementById("accepted-exemptions").innerHTML = ""
+            document.getElementById("rejected-exemptions").innerHTML = ""
 
             for (ex in exDB) {
                 if (exDB[ex].status == 0) {
                     document.getElementById("waiting-exemptions").innerHTML += `
-                        <div type="ind" onClick="openExemption('${ex}')">
-                            <span>
-                                ${exDB[ex].for}
-                                <br><i>${exDB[ex].date}</i>
-                                <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
-                            </span>
+                        <div style="font-size: 15px; width: 100%; border-radius: 10px; background-color: var(--additional);">
+                            <div style="padding: 10px; display: flex; flex-direction: column;">
+                                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                    <span>
+                                        ${exDB[ex].for}
+                                        <br>
+                                        <small>
+                                            ${exDB[ex].date}
+                                            <br>${exDB[ex].event}
+                                        </small>
+                                    </span>
+                                    <container class="status ${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
+                                </div>
+                                <div style="display: flex; justify-content: space-evenly; margin-top: 10px;">
+                                    <button type="button" style="margin: 0; background-color: #e74a3b;" onClick="exemptionApproval('${ex}', false)">Odrzuć</button>
+                                    <button type="button" style="margin: 0; background-color: #1cc88a;" onClick="exemptionApproval('${ex}', true)">Zatwierdź</button>
+                                </div>
+                            </div>
                         </div>`
                 }
                 if (exDB[ex].status == 1) {
@@ -139,4 +153,43 @@ function loadWaitingExemptions() {
         }
     };
     xhr.send();
+}
+
+function exemptionApproval(exID, approval) {
+    if (approval == true) {
+        if (!window.confirm("Czy na pewno chcesz zatwierdzić zwolnienie?")) {
+            return false;
+        }
+    } else if (approval == false) {
+        if (!window.confirm("Czy na pewno chcesz odrzucić zwolnienie?")) {
+            return false;
+        }
+    }
+    if (approval == undefined) { return false; }
+    
+    var data = {
+        "exid": exID,
+        "accept": approval
+    }
+    console.log(data);
+    var url = `https://api.mobilnykatolik.pl/pmk/exemptions/manage/${userID}/${loginID}`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                window.alert("Pomyślnie wprowadzono zmiany!")
+                loadWaitingExemptions()
+                return false;
+            } else {
+                window.alert("Wystąpił błąd. Spróbuj ponownie!");
+                return false;
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
+    return false;
 }
