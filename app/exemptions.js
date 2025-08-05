@@ -41,7 +41,7 @@ function sendExemptionAsk() {
 }
 
 function openExemption(exID) {
-    document.getElementById("exemption-heading").innerHTML = `Zwolnienie dla ${userFirstName} ${userSurname}`
+    document.getElementById("exemption-heading").innerHTML = `Zwolnienie dla ${exDB[exID].for}`
     document.getElementById("exemption-status").innerHTML = `${exStatus[exDB[exID].status]}`
     if (eventsdb[exDB[exID].event] != undefined) {
         document.getElementById("exemption-project").innerHTML = eventsdb[exDB[exID].event].name
