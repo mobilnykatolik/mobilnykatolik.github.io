@@ -79,6 +79,7 @@ function updateICSU() {
             }
             for (ex in exDB) {
                 if (exDB[ex].status == 3) { continue }
+                exDB[ex].for = `${userFirstName.toUpperCase()} ${userSurname.toUpperCase()}, ${userClass.toUpperCase()}`
                 exCount += 1
                 if (exCount == 1 && allExCount != 1) {
                     document.getElementById("icsu-exemptions").innerHTML += `
