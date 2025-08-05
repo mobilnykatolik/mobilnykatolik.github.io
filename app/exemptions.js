@@ -109,7 +109,7 @@ function loadWaitingExemptions() {
                     document.getElementById("waiting-exemptions").innerHTML += `
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
-                                Zwolnienie
+                                ${exDB[ex].for}
                                 <br><i>${exDB[ex].date}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
@@ -119,7 +119,7 @@ function loadWaitingExemptions() {
                     document.getElementById("accepted-exemptions").innerHTML += `
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
-                                Zwolnienie
+                                ${exDB[ex].for}
                                 <br><i>${exDB[ex].date}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
@@ -129,7 +129,7 @@ function loadWaitingExemptions() {
                     document.getElementById("rejected-exemptions").innerHTML += `
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
-                                Zwolnienie
+                                ${exDB[ex].for}
                                 <br><i>${exDB[ex].date}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
