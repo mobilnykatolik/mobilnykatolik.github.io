@@ -1232,7 +1232,7 @@
                     for (val in values) {
                         let selector = values[val].split(";")
                         if (selector.length == 1) {
-                            continue
+                            selector[1] = selector[0]
                         }
                         var opcje = {}
                         if (selector[0] != undefined) { opcje.name = selector[0]}
@@ -1270,6 +1270,8 @@
                 document.getElementById("product-sizetable").value = ""
                 document.getElementById("options-tbody").innerHTML = ""
                 document.getElementById("manageProductDelete").classList.add("d-none")
+            } else if (itemID == true) {
+                //
             } else {
                 document.getElementById("manageProductDelete").classList.remove("d-none")
                 document.getElementById("product-id").disabled = "disabled"
@@ -1359,8 +1361,16 @@
                             $('#loadingModal').modal('hide')
                         }, 500)
                         reloadDB();
+                    } else if (xhr.status == 404) {
+                        showResponse(xhr.status, xhr.responseText)
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                        }, 500)
+                        setTimeout(function() {
+                            openManageItem(true)
+                        }, 1000)
                     } else {
-                        showResponse(xhr.status)
+                        showResponse(xhr.status, xhr.responseText)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)  
@@ -1393,7 +1403,7 @@
                             $('#loadingModal').modal('hide')
                         }, 500)
                     } else {
-                        showResponse(xhr.status)
+                        showResponse(xhr.status, xhr.responseText)
                         document.getElementById(`prod-avail-${itemID}`).checked = !state
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
