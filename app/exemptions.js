@@ -43,10 +43,10 @@ function sendExemptionAsk() {
 function openExemption(exID) {
     document.getElementById("exemption-heading").innerHTML = `Zwolnienie dla ${userFirstName} ${userSurname}`
     document.getElementById("exemption-status").innerHTML = `${exStatus[exDB[exID].status]}`
-    if (eventsdb[exDB[exID].event] == undefined) {
-        document.getElementById("exemption-project").innerHTML = "Inne"
-    } else {
+    if (eventsdb[exDB[exID].event] != undefined) {
         document.getElementById("exemption-project").innerHTML = eventsdb[exDB[exID].event].name
+    } else {
+        document.getElementById("exemption-project").innerHTML = exDB[exID].event
     }
     if (exDB[exID].status == 1) {
         document.getElementById("exemption-large-status").classList.add("success")
@@ -107,6 +107,9 @@ function loadWaitingExemptions() {
             document.getElementById("rejected-exemptions").innerHTML = ""
 
             for (ex in exDB) {
+                if (eventsdb[exDB[ex].event] != undefined) {
+                    exDB[ex].event = eventsdb[exDB[ex].event].name
+                }
                 if (exDB[ex].status == 0) {
                     document.getElementById("waiting-exemptions").innerHTML += `
                         <div style="font-size: 15px; width: 100%; border-radius: 10px; background-color: var(--additional);">
