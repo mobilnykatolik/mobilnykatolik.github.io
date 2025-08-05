@@ -55,6 +55,12 @@ function openExemption(exID) {
         document.getElementById("exemption-by").innerHTML = `<i class="fa-solid fa-user-shield verified"></i> ${exDB[exID].by}`
         document.getElementById("exemption-by-visibility").style.display = "block"
         document.getElementById("exemption-approval").innerHTML = `Zwolnienie zostało autoryzowane przez ${exDB[exID].by} (${exDB[exID].time})`
+    } else if (exDB[exID].status == 2) {
+        document.getElementById("exemption-approval").innerHTML = `Zwolnienie zostało odrzucone przez ${exDB[exID].by}.`
+        document.getElementById("exemption-large-status").classList.remove("success")
+        document.getElementById("exemption-large-status").classList.add("danger")
+        document.getElementById("exemption-large-status").innerHTML = `ZWOLNIENIE NIEWAŻNE<text id="exemption-current-date">-</text>`
+        document.getElementById("exemption-by-visibility").style.display = "none"
     } else {
         document.getElementById("exemption-approval").innerHTML = `Zwolnienie wygenerowane w aplikacji Mobilny Katolik.`
         document.getElementById("exemption-large-status").classList.remove("success")
