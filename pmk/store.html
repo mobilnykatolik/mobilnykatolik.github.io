@@ -582,7 +582,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="product-price">Cena</label>
-                                            <input type="text" class="form-control" id="product-price" required>
+                                            <input type="number" step="0.01" class="form-control" id="product-price" required>
                                         </div>
                                     </div>
                                 </div>
@@ -1312,7 +1312,7 @@
         function openManageItem(itemID) {
             var storeID = document.getElementById("storeSelect").value
             if (storeID == "") {
-                window.alert("Wybierz sklep!")
+                showResponse(400, "Wybierz sklep!")
                 return false;
             }
             //console.log(storesDB[storeID].products[itemID])
