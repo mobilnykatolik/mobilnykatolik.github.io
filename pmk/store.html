@@ -406,6 +406,11 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-center align-items-center">
+                                            <a href="#" class="link text-danger small mt-1" data-toggle="modal" data-target="#removeStoreModal">Usuń sklep</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -594,9 +599,9 @@
                                     <textarea type="text" class="form-control" id="product-desc" required></textarea>
                                 </div>
                             </div>
-                            <div class="col-7 col-lg-4 align-items-center d-none">
+                            <div class="col-7 col-lg-4 align-items-center d-flex">
                                 <div class="card">
-                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">BADGE</div>
+                                    <div class="badge bg-dark text-white position-absolute" id="product-badge-disp" style="top: 0.5rem; right: 0.5rem"></div>
                                     <img class="card-img-top" id="product-img-disp" src="https://dummyimage.com/600x700/000/fff" alt="..." />
                                     <div class="card-body p-4">
                                         <div class="text-center">
@@ -699,6 +704,32 @@
                     </button>
                 </div>
                 <form onSubmit="return manageItem(true);">
+                    <div class="modal-body">
+                        <span class="text-danger">
+                            Ta operacja jest nieodwracalna!
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-danger" value="Usuń">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Store Confirm Modal-->
+    <div class="modal fade" id="removeStoreModal" tabindex="-1" role="dialog" aria-labelledby="removeStoreModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="removeStoreModalLabel"><i class="fas fa-exclamation-circle fa-fw"></i> Czy na pewno chcesz usunąć sklep?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageStore(true);">
                     <div class="modal-body">
                         <span class="text-danger">
                             Ta operacja jest nieodwracalna!
@@ -1294,7 +1325,7 @@
                 document.getElementById("product-name").value = ""
                 document.getElementById("product-badge").value = ""
                 document.getElementById("product-price").value = ""
-                document.getElementById("product-img").value = ""
+                document.getElementById("product-img").value = "https://dummyimage.com/600x700/000/fff"
                 document.getElementById("product-desc").value = ""
                 document.getElementById("product-sizetable").value = ""
                 document.getElementById("options-tbody").innerHTML = ""
@@ -1346,6 +1377,10 @@
                     `
                 }
             }
+            document.getElementById("product-name-disp").innerHTML = document.getElementById("product-name").value
+            document.getElementById("product-badge-disp").innerHTML = document.getElementById("product-badge").value
+            document.getElementById("product-img-disp").src = document.getElementById("product-img").value;
+            document.getElementById("product-price-disp").innerHTML = `${parseFloat(document.getElementById("product-price").value).toFixed(2)} zł`;
         }
 
         function manageItem(del) {
@@ -1471,12 +1506,21 @@
 
         //Moderowanie sklepu (edytuj sklep / utwórz sklep / usuń sklep)
         function manageStore(del) {
-            var data = {
-                "id": document.getElementById("store-settings-name").value,
-                "displayname": document.getElementById("store-settings-displayname").value,
-                "paymentinfo": document.getElementById("store-settings-paymentinfo").value,
-                "active": document.getElementById("store-settings-active").checked
+            if (del) {
+                var data = {
+                    "id": document.getElementById("store-settings-name").value,
+                    "del": true
+                }
+                $('#removeStoreModal').modal('hide')
+            } else {
+                var data = {
+                    "id": document.getElementById("store-settings-name").value,
+                    "displayname": document.getElementById("store-settings-displayname").value,
+                    "paymentinfo": document.getElementById("store-settings-paymentinfo").value,
+                    "active": document.getElementById("store-settings-active").checked
+                }
             }
+            
             
             var url = `https://api.mobilnykatolik.pl/pmk/store/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
@@ -1490,7 +1534,7 @@
                         showResponse(xhr.status, xhr.responseText)
                         reloadDB();
                     } else {
-                        showResponse(xhr.status)
+                        showResponse(xhr.status, xhr.responseText)
                         reloadDB();
                     }
                 }
@@ -1513,7 +1557,12 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
+                        $('#createStore').modal('hide')
                         showResponse(xhr.status, xhr.responseText)
+                        document.getElementById("storeSelect").innerHTML += `
+                        <option value="${data.id.toUpperCase()}">-</option>
+                        `
+                        document.getElementById("storeSelect").value = data.id.toUpperCase()
                         reloadDB();
                     } else {
                         showResponse(xhr.status, xhr.responseText)
@@ -1544,6 +1593,23 @@
 
         // Nasłuchiwanie zmian stanu checkboxa
         checkbox.addEventListener("change", updateLabel);
+
+        document.getElementById("product-name").addEventListener('input', () => {
+            document.getElementById("product-name-disp").innerHTML = document.getElementById("product-name").value
+        })
+
+        document.getElementById("product-badge").addEventListener('input', () => {
+            document.getElementById("product-badge-disp").innerHTML = document.getElementById("product-badge").value
+        })
+
+        document.getElementById("product-img").addEventListener('input', () => {
+            document.getElementById("product-img-disp").src = document.getElementById("product-img").value;
+        })
+
+        document.getElementById("product-price").addEventListener('input', () => {
+            document.getElementById("product-price-disp").innerHTML = `${parseFloat(document.getElementById("product-price").value).toFixed(2)} zł`;
+        })
+
     </script>
 
     <div aria-live="polite" aria-atomic="true" class="position-fixed fixed-bottom w-100 p-3" style="z-index:1080; display: grid; justify-items: end;" id="toasts"></div>
