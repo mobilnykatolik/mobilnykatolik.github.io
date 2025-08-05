@@ -203,7 +203,7 @@ function getItem(itemID) {
         }
         
     }
-    if (!product.sizetable) {
+    if (product.sizetable != undefined && product.sizetable != "") {
         document.getElementById("size-table-button").classList.remove("d-none")
         document.getElementById("size-table").src = product.sizetable
     }
