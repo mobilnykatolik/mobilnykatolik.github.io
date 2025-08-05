@@ -376,7 +376,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="store-settings-displayname">Nazwa sklepu</label>
-                                                <input type="text" class="form-control" id="store-settings-displayname" required disabled>
+                                                <input type="text" class="form-control" id="store-settings-displayname" required>
                                             </div>
                                         </div>
                                     </div>
@@ -384,21 +384,21 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="store-settings-paymentinfo">Informacje nt. płatności</label>
-                                                <textarea class="form-control" id="store-settings-paymentinfo" required disabled></textarea>
+                                                <textarea class="form-control" id="store-settings-paymentinfo" required></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="store-settings-active" disabled>
+                                                <input type="checkbox" class="custom-control-input" id="store-settings-active">
                                                 <label class="custom-control-label" for="store-settings-active" id="store-settings-active-label">Sklep wyłączony</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 d-flex justify-content-center align-items-center">
-                                            <button disabled onClick="window.alert('abc')" id="downloadBtn1" class="btn btn-sm btn-primary btn-icon-split justify-content-end mt-2">
+                                            <button onClick="manageStore()" id="downloadBtn1" class="btn btn-sm btn-primary btn-icon-split justify-content-end mt-2">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-save"></i>
                                                 </span>
@@ -660,6 +660,33 @@
         </div>
     </div>
 
+    <!-- Create Store Modal-->
+    <div class="modal fade" id="createStore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Stwórz nowy sklep</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return createStore();">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="createStoreID">ID sklepu</label>
+                            <input type="text" class="form-control" id="createStoreID" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Stwórz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Delete Confirm Modal-->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel"
         aria-hidden="true">
@@ -838,10 +865,10 @@
                         <option value="${store}" ${ifSelect}>${storesDB[store].displayname}</option>
                         `
                     }
-                    if (selectedStore != undefined) {
+                    if (selectedStore != undefined && storesDB[selectedStore] != undefined) {
                         showProducts(selectedStore)
                     }
-                    document.getElementById("storeSelect").innerHTML += `<option value="ADD" disabled>+ Stwórz nowy sklep</option>`
+                    document.getElementById("storeSelect").innerHTML += `<option value="ADD">+ Stwórz nowy sklep</option>`
                 } else {
                     showResponse(xhr.status)
                 }
@@ -1157,7 +1184,9 @@
         function selectStore() {
             let value = document.getElementById("storeSelect").value
             if (value == "ADD") {
-                window.alert("Funkcja nie jest jeszcze dostępna!")
+                $('#createStore').modal('show')
+                document.getElementById("createStoreID").value = ""
+                document.getElementById("storeSelect").value = ""
             } else { 
                 drawTable()
             }
@@ -1387,7 +1416,7 @@
                 "availability": state
             }
 
-            $('#loadingModal').modal('show')
+            //$('#loadingModal').modal('show')
             console.log(data)
             
             var url = `https://api.mobilnykatolik.pl/pmk/product/availability/${userID}/${userLoginID}`;
@@ -1399,15 +1428,15 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
-                        setTimeout(function() {
+                        showResponse(xhr.status, xhr.responseText)
+                        /*setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)
+                        }, 500)*/
                     } else {
                         showResponse(xhr.status, xhr.responseText)
-                        document.getElementById(`prod-avail-${itemID}`).checked = !state
                         setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
+                            document.getElementById(`prod-avail-${itemID}`).checked = !state
+                        }, 200)
                     }
                 }
             };
@@ -1440,8 +1469,81 @@
             };
         }
 
+        //Moderowanie sklepu (edytuj sklep / utwórz sklep / usuń sklep)
+        function manageStore(del) {
+            var data = {
+                "id": document.getElementById("store-settings-name").value,
+                "displayname": document.getElementById("store-settings-displayname").value,
+                "paymentinfo": document.getElementById("store-settings-paymentinfo").value,
+                "active": document.getElementById("store-settings-active").checked
+            }
+            
+            var url = `https://api.mobilnykatolik.pl/pmk/store/manage/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        showResponse(xhr.status, xhr.responseText)
+                        reloadDB();
+                    } else {
+                        showResponse(xhr.status)
+                        reloadDB();
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+            return false;
+        }
+
+        function createStore() {
+            var data = {
+                "id": document.getElementById("createStoreID").value
+            }
+            
+            var url = `https://api.mobilnykatolik.pl/pmk/store/manage/${userID}/${userLoginID}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        showResponse(xhr.status, xhr.responseText)
+                        reloadDB();
+                    } else {
+                        showResponse(xhr.status, xhr.responseText)
+                        reloadDB();
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+            return false;
+        }
+
         
 
+    </script>
+
+    <script>
+        const checkbox = document.getElementById("store-settings-active");
+        const label = document.getElementById("store-settings-active-label");
+
+        // Funkcja aktualizująca label
+        function updateLabel() {
+            if (checkbox.checked) {
+            label.textContent = "Sklep włączony";
+            } else {
+            label.textContent = "Sklep wyłączony";
+            }
+        }
+
+        // Nasłuchiwanie zmian stanu checkboxa
+        checkbox.addEventListener("change", updateLabel);
     </script>
 
     <div aria-live="polite" aria-atomic="true" class="position-fixed fixed-bottom w-100 p-3" style="z-index:1080; display: grid; justify-items: end;" id="toasts"></div>

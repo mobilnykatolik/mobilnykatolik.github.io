@@ -90,6 +90,7 @@ var userFullName = userFirstName.toUpperCase()+" "+userlastName.toUpperCase()
 document.getElementById("welcome-text").innerHTML = `Cześć, ${userFirstName[0].toUpperCase()}${userFirstName.slice(1, userFirstName.length).toLowerCase()}!`
 
 function showResponse(status, msg) {
+  document.getElementById("toasts").style.pointerEvents = "none"
   const responseToast = document.createElement('div');
   responseToast.className = 'toast text-white hide responseToast';
   responseToast.setAttribute('role', 'alert');
