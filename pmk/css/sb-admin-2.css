@@ -5664,6 +5664,7 @@ a.close.disabled {
 .toast {
   flex-basis: 350px;
   max-width: 350px;
+  min-width: 343px;
   font-size: 0.875rem;
   background-color: rgba(255, 255, 255, 0.85);
   background-clip: padding-box;
@@ -11388,15 +11389,15 @@ table#order-details, #order-details tr, #order-details td {
   padding: 10px 15px 0 0;
 }
 
-div#responseToast.success {
+div.responseToast.success {
   background-color: #1cc88a;
 }
 
-div#responseToast.danger {
+div.responseToast.danger {
   background-color: #e74a3b;
 }
 
-div#responseToast.success::after {
+div.responseToast.success::after {
   content: '';
   width: 0%;
   height: 5px;
@@ -11404,7 +11405,7 @@ div#responseToast.success::after {
   display: flex;
 }
 
-div#responseToast.danger::after {
+div.responseToast.danger::after {
   content: '';
   width: 0%;
   height: 5px;

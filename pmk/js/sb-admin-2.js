@@ -90,31 +90,43 @@ var userFullName = userFirstName.toUpperCase()+" "+userlastName.toUpperCase()
 document.getElementById("welcome-text").innerHTML = `Cześć, ${userFirstName[0].toUpperCase()}${userFirstName.slice(1, userFirstName.length).toLowerCase()}!`
 
 function showResponse(status, msg) {
+  const responseToast = document.createElement('div');
+  responseToast.className = 'toast text-white hide responseToast';
+  responseToast.setAttribute('role', 'alert');
+  responseToast.setAttribute('aria-live', 'assertive');
+  responseToast.setAttribute('aria-atomic', 'true');
+  responseToast.setAttribute('data-delay', '5000');
+
+  // Tworzymy wewnętrzny div.toast-body
+  const toastBody = document.createElement('div');
+  toastBody.className = 'toast-body';
+
   const div = document.getElementById('responseToast');
-  const $t = $('#responseToast');
   if (status == 200) {
-    div.classList.add("success")
-    div.classList.remove("danger")
+    responseToast.classList.add("success")
+    responseToast.classList.remove("danger")
     if (!msg) {
       msg = "Operacja przebiegła pomyślnie"
     }
   } else if (status == 403){
-    div.classList.add("danger")
-    div.classList.remove("success")
+    responseToast.classList.add("danger")
+    responseToast.classList.remove("success")
     msg = "Nie masz wymaganych uprawnień!"
-  } else if (status == 0) {
-    div.classList.add("danger")
-    div.classList.remove("success")
-    msg = "Błąd połączenia!"
   } else {
-    div.classList.add("danger")
-    div.classList.remove("success")
+    responseToast.classList.add("danger")
+    responseToast.classList.remove("success")
     if (!msg) {
       msg = `Wystąpił błąd! (Kod: ${status})`
     }
   }
-  $t.find('.toast-body').text(msg);
+  toastBody.textContent = msg
+
+  // Składamy całość
+  responseToast.appendChild(toastBody);
+  document.getElementById('toasts').appendChild(responseToast);
+
+  const $t = $(responseToast);
   $t.toast({ autohide: true, delay: 5000 });
   $t.toast('show');
-  div.classList.add('animate-progress');
+  responseToast.classList.add('animate-progress');
 }
