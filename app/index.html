@@ -291,6 +291,13 @@
                     <container>SU</container>
                 </div>
             </section>
+            <section id="access-5-only">
+                <div type="ind" onclick="window.open('#exemptionsapp', '_self')">
+                    <aside>📂</aside>
+                    <span>e-Zwolnienia</span>
+                    <container>OPIEKUN SU</container>
+                </div>
+            </section>
         </div>
     </div>
 </div>
@@ -674,6 +681,50 @@
                 ZWOLNIENIE NIEWAŻNE
                 <text id="exemption-current-date"></text>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="page" id="exemptionsapp">
+    <div class="page-name">
+        <svg onClick="history.back();" version="1.0" xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px; position: absolute; left: 15px; margin-top: 2px;" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" style="fill: var(--theme-color); transition: fill 0.5s ease;" stroke="none">
+            <path d="M3620 5103 c-39 -13 -198 -168 -1238 -1207 -1095 -1093 -1194 -1195 -1212 -1244 -25 -67 -25 -117 0 -184 18 -49 117 -151 1212 -1244 1141 -1140 1195 -1193 1247 -1209 214 -69 408 147 315 352 -11 25 -377 398 -1093 1115 l-1076 1078 1076 1077 c701 703 1082 1091 1093 1115 61 135 -4 297 -140 348 -64 23 -121 24 -184 3z"/>
+            </g>
+        </svg>
+        e-Zwolnienia
+        <br>
+        <p style="font-size: 14px; opacity: 60%;">Wersja testowa</p>
+    </div>
+    <div class="page-content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-size: 16px;">Oczekujące</p>
+                <p style="font-size: 12px; opacity: 60%;">Zwolnienia oczekujące na zatwierdzenie</p>
+            </div>
+        </div>
+        <div class="buttons-section" id="waiting-exemptions" type="text" style="margin-top: 10px;">
+            
+        </div>
+
+        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-size: 16px;">Zaakceptowane</p>
+                <p style="font-size: 12px; opacity: 60%;">Zwolnienia zatwierdzone</p>
+            </div>
+        </div>
+        <div class="buttons-section" id="accepted-exemptions" type="text" style="margin-top: 10px;">
+            
+        </div>
+
+        <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="font-size: 16px;">Odrzucone</p>
+                <p style="font-size: 12px; opacity: 60%;">Zwolnienia odrzucone</p>
+            </div>
+        </div>
+        <div class="buttons-section" id="rejected-exemptions" type="text" style="margin-top: 10px;">
+            
         </div>
     </div>
 </div>
@@ -1653,6 +1704,9 @@ window.addEventListener("hashchange", function(event) {
         if (window.location.href.endsWith("edigestapp")) {
              updateICSU()
         }
+        if (window.location.href.endsWith("exemptionsapp")) {
+            loadWaitingExemptions()
+        }
     }, 10);
 });
 
@@ -2001,6 +2055,9 @@ function startApplication(reload) {
                 document.getElementById("joinsu-banner").style.display = "none";
                 document.getElementById("pmk-badge").style.display = "inline";
                 document.getElementById("su-settings-section").style.display = "block";
+            }
+            if (data.access >= 5) {
+                document.getElementById("access-5-only").style.display = "block";
             }
             if (data.orders != undefined) {
                 ordersdb = data.orders;

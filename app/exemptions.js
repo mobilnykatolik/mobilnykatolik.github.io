@@ -87,3 +87,56 @@ var timeUpdate = setInterval(function() {
     //console.log(currentDate)
     document.getElementById("exemption-current-date").innerHTML = currentDate
 }, 1000)
+
+function loadWaitingExemptions() {
+    var url = `https://api.mobilnykatolik.pl/pmk/exemptions/list/${userID}/${loginID}/`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            exDB = JSON.parse(xhr.responseText)
+            console.log(exDB)
+
+            if (true) {
+                document.getElementById("waiting-exemptions").style.display = "block"
+            }
+
+            document.getElementById("waiting-exemptions").innerHTML = ""
+
+            for (ex in exDB) {
+                if (exDB[ex].status == 0) {
+                    document.getElementById("waiting-exemptions").innerHTML += `
+                        <div type="ind" onClick="openExemption('${ex}')">
+                            <span>
+                                Zwolnienie
+                                <br><i>${exDB[ex].date}</i>
+                                <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
+                            </span>
+                        </div>`
+                }
+                if (exDB[ex].status == 1) {
+                    document.getElementById("accepted-exemptions").innerHTML += `
+                        <div type="ind" onClick="openExemption('${ex}')">
+                            <span>
+                                Zwolnienie
+                                <br><i>${exDB[ex].date}</i>
+                                <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
+                            </span>
+                        </div>`
+                }
+                if (exDB[ex].status == 2) {
+                    document.getElementById("rejected-exemptions").innerHTML += `
+                        <div type="ind" onClick="openExemption('${ex}')">
+                            <span>
+                                Zwolnienie
+                                <br><i>${exDB[ex].date}</i>
+                                <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
+                            </span>
+                        </div>`
+                }
+            }
+        }
+    };
+    xhr.send();
+}

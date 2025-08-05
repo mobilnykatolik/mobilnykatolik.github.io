@@ -314,6 +314,7 @@
         </div>
         <!-- End of Content Wrapper -->
 
+
     </div>
     <!-- End of Page Wrapper -->
 
@@ -321,6 +322,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -844,10 +846,8 @@
                     }};
 
                     xhrB.send();    
-                } else if (xhr.status == 403) {
-                    $('#insufficientPermissionsModal').modal('show')
                 } else {
-                    $('#apiErrorModal').modal('show')
+                    showResponse(xhr.status)
                 }
             }};
 
@@ -1023,24 +1023,11 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)
-                        reloadDB();
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
+                    showResponse(xhr.status, xhr.responseText)
+                    if (xhr.status == 200) { reloadDB(); }
+                    setTimeout(function() {
+                        $('#loadingModal').modal('hide')
+                    }, 500)
                 }
             };
             xhr.send(JSON.stringify(data));
@@ -1093,23 +1080,10 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
-                    if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)    
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    }
+                    showResponse(xhr.status, xhr.responseText)
+                    setTimeout(function() {
+                        $('#loadingModal').modal('hide')
+                    }, 500)
                 }
             };
             xhr.send(JSON.stringify(data));
@@ -1180,23 +1154,18 @@
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
                         var response = JSON.parse(xhr.responseText);
-                        //$('#apiResponseModal').modal('show')
-                        //document.getElementById("apiResponse").innerHTML = `Operacja zakończona pomyślnie!<br>Aktualny stan punktów użytkownika ${response.owner}: ${response.points}`;
+                        showResponse(200, `Operacja zakończona pomyślnie!\nAktualny stan punktów użytkownika ${response.owner}: ${response.points}`)
+                        setTimeout(function() {
+                            $('#loadingModal').modal('hide')
+                            reloadDB(data.userid);
+                        }, 500)
+                    } else {
+                        showResponse(xhr.status)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)
-                        reloadDB(data.userid);
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
-                    } else {
-                        $('#apiErrorModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
                     }
+                    
                 }
             };
             xhr.send(JSON.stringify(data));
@@ -1283,8 +1252,9 @@
                 if (xhr.readyState === 4) {
                     document.getElementById("deleteAccountsOWR").value = "";
                     if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-
+                        setTimeout(function() {
+                            $('#apiResponseModal').modal('show')
+                        }, 500)
                         var response = JSON.parse(xhr.responseText)
                         document.getElementById("apiResponse").innerHTML = `Zlecenie usunięcia ${response.overallSuccess+response.overallFailure} zostało zrealizowane. Usunięto (${response.overallSuccess}) kont.`;
                         delete response.overallFailure;
@@ -1308,10 +1278,10 @@
 
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)
+                        }, 1000)
                         reloadDB();
                     } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
+                        showResponse(403)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)  
@@ -1322,7 +1292,7 @@
                             $('#loadingModal').modal('hide')
                         }, 500)  
                     } else {
-                        $('#apiErrorModal').modal('show')
+                        showResponse(xhr.status)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)  
@@ -1345,38 +1315,16 @@
             }
 
             return false;
-
-            //Displaying user's points history
-            var pointsData = pointsDB[userid];
-            document.getElementById("points-history").innerHTML = "";
-            document.getElementById("managePointsUserID").value = userid;
-            if (pointsData == undefined) {
-                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: 0`
-            } else {
-                document.getElementById("managePointsAll").innerHTML = `Stan aktualny: ${pointsDB[userid].points}`
-                for (x in pointsData.history) {
-                    var element = pointsData.history[x];
-                    if (element.name == undefined) {
-                        if (element.id == undefined || eventPointsDB[element.id] == undefined) {
-                            element.name = "Modyfikacja punktów"
-                        } else {
-                            element.name = eventPointsDB[element.id].name;
-                        }
-                    }
-                    element.date = element.ts;
-                    document.getElementById("points-history").innerHTML += `
-                    <tr>
-                        <td>${element.name}</td>
-                        <td>${element.amount}</td>
-                        <td>${element.date}</td>
-                    </tr>
-                    `;
-                } 
-            }
             }
 
 
     </script>
+
+    <div aria-live="polite" aria-atomic="true" class="position-fixed fixed-bottom w-100 p-3 d-flex justify-content-end" style="z-index:1080;">
+      <div id="responseToast" class="toast text-white hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-body"></div>
+      </div>
+    </div>
 
 </body>
 

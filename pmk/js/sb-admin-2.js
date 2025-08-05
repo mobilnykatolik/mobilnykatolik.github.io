@@ -88,3 +88,33 @@ imgProfile.onload = function() {
 
 var userFullName = userFirstName.toUpperCase()+" "+userlastName.toUpperCase()
 document.getElementById("welcome-text").innerHTML = `Cześć, ${userFirstName[0].toUpperCase()}${userFirstName.slice(1, userFirstName.length).toLowerCase()}!`
+
+function showResponse(status, msg) {
+  const div = document.getElementById('responseToast');
+  const $t = $('#responseToast');
+  if (status == 200) {
+    div.classList.add("success")
+    div.classList.remove("danger")
+    if (!msg) {
+      msg = "Operacja przebiegła pomyślnie"
+    }
+  } else if (status == 403){
+    div.classList.add("danger")
+    div.classList.remove("success")
+    msg = "Nie masz wymaganych uprawnień!"
+  } else if (status == 0) {
+    div.classList.add("danger")
+    div.classList.remove("success")
+    msg = "Błąd połączenia!"
+  } else {
+    div.classList.add("danger")
+    div.classList.remove("success")
+    if (!msg) {
+      msg = `Wystąpił błąd! (Kod: ${status})`
+    }
+  }
+  $t.find('.toast-body').text(msg);
+  $t.toast({ autohide: true, delay: 5000 });
+  $t.toast('show');
+  div.classList.add('animate-progress');
+}

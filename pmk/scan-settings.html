@@ -583,10 +583,8 @@
             if (xhr.readyState === 4) {
                 if (xhr.status == 200) {
                     ticketEventsDB = JSON.parse(xhr.responseText);
-                } else if (xhr.status == 403) {
-                    $('#insufficientPermissionsModal').modal('show')
                 } else {
-                    $('#apiErrorModal').modal('show')
+                    showResponse(xhr.status)
                 }
             }};
             xhr.send();
@@ -601,9 +599,9 @@
                 if (xhrA.status == 200) {
                     pointsEventsDB = JSON.parse(xhrA.responseText);
                 } else if (xhrA.status == 403) {
-                    $('#insufficientPermissionsModal').modal('show')
+                    showResponse(xhrA.status)
                 } else {
-                    $('#apiErrorModal').modal('show')
+                    showResponse(xhrA.status)
                 }
             }};
             xhrA.send();
@@ -618,9 +616,9 @@
                 if (xhrB.status == 200) {
                     eventsDB = JSON.parse(xhrB.responseText);
                 } else if (xhrB.status == 403) {
-                    $('#insufficientPermissionsModal').modal('show')
+                    showResponse(xhrB.status)
                 } else {
-                    $('#apiErrorModal').modal('show')
+                    showResponse(xhrB.status)
                 }
             }};
             xhrB.send();
@@ -688,6 +686,12 @@
         }
 
     </script>
+
+    <div aria-live="polite" aria-atomic="true" class="position-fixed fixed-bottom w-100 p-3 d-flex justify-content-end" style="z-index:1080;">
+      <div id="responseToast" class="toast text-white hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-body"></div>
+      </div>
+    </div>
 
 </body>
 

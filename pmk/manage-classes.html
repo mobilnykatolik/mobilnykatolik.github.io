@@ -538,10 +538,8 @@
                         </div>
                         `
                     }
-                } else if (xhr.status == 403) {
-                    $('#insufficientPermissionsModal').modal('show')
                 } else {
-                    $('#apiErrorModal').modal('show')
+                    showResponse(xhr.status)
                 }
             }};
 
@@ -604,19 +602,13 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status == 200) {
-                        $('#apiResponseModal').modal('show')
-                        document.getElementById("apiResponse").innerHTML = xhr.responseText;
+                        showResponse(xhr.status, xhr.responseText)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)
                         reloadDB();
-                    } else if (xhr.status == 403) {
-                        $('#insufficientPermissionsModal').modal('show')
-                        setTimeout(function() {
-                            $('#loadingModal').modal('hide')
-                        }, 500)  
                     } else {
-                        $('#apiErrorModal').modal('show')
+                        showResponse(xhr.status)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                         }, 500)  
@@ -637,6 +629,12 @@
         }
 
     </script>
+
+    <div aria-live="polite" aria-atomic="true" class="position-fixed fixed-bottom w-100 p-3 d-flex justify-content-end" style="z-index:1080;">
+      <div id="responseToast" class="toast text-white hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-body"></div>
+      </div>
+    </div>
 
 </body>
 

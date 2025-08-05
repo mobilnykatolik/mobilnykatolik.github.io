@@ -11,6 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
+  --responseToast-progress: 0%;
   --blue: #a80c2f;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -11385,4 +11386,41 @@ body.sidebar-toggled footer.sticky-footer {
 
 table#order-details, #order-details tr, #order-details td {
   padding: 10px 15px 0 0;
+}
+
+div#responseToast.success {
+  background-color: #1cc88a;
+}
+
+div#responseToast.danger {
+  background-color: #e74a3b;
+}
+
+div#responseToast.success::after {
+  content: '';
+  width: 0%;
+  height: 5px;
+  background-color: #13855c !important;
+  display: flex;
+}
+
+div#responseToast.danger::after {
+  content: '';
+  width: 0%;
+  height: 5px;
+  background-color: #be2617 !important;
+  display: flex;
+}
+
+.animate-progress::after {
+  animation: progressAnim 5200ms linear;
+}
+
+@keyframes progressAnim {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
