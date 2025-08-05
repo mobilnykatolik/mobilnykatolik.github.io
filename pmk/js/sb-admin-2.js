@@ -104,17 +104,14 @@ function showResponse(status, msg) {
   const div = document.getElementById('responseToast');
   if (status == 200) {
     responseToast.classList.add("success")
-    responseToast.classList.remove("danger")
     if (!msg) {
       msg = "Operacja przebiegła pomyślnie"
     }
   } else if (status == 403){
     responseToast.classList.add("danger")
-    responseToast.classList.remove("success")
     msg = "Nie masz wymaganych uprawnień!"
   } else {
     responseToast.classList.add("danger")
-    responseToast.classList.remove("success")
     if (!msg) {
       msg = `Wystąpił błąd! (Kod: ${status})`
     }

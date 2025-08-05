@@ -11397,6 +11397,14 @@ div.responseToast.danger {
   background-color: #e74a3b;
 }
 
+div.responseToast.warning {
+  background-color: #f6c23e;
+}
+
+div.responseToast.secondary {
+  background-color: #858796;
+}
+
 div.responseToast.success::after {
   content: '';
   width: 0%;
@@ -11413,8 +11421,26 @@ div.responseToast.danger::after {
   display: flex;
 }
 
+div.responseToast.warning::after {
+  content: '';
+  width: 0%;
+  height: 5px;
+  background-color: #dda20a !important;
+  display: flex;
+}
+
+div.responseToast.secondary::after {
+  content: '';
+  width: 0%;
+  height: 5px;
+  background-color: #60616f !important;
+  display: flex;
+}
+
+
+
 .animate-progress::after {
-  animation: progressAnim 5200ms linear;
+  animation: progressAnim 5s linear forwards;
 }
 
 @keyframes progressAnim {
