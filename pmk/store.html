@@ -1516,7 +1516,7 @@
                 var data = {
                     "id": document.getElementById("store-settings-name").value,
                     "displayname": document.getElementById("store-settings-displayname").value,
-                    "paymentinfo": document.getElementById("store-settings-paymentinfo").value,
+                    "paymentinfo": document.getElementById("store-settings-paymentinfo").value.replaceAll("\n", "<br>"),
                     "active": document.getElementById("store-settings-active").checked
                 }
             }
