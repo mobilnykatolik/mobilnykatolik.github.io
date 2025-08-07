@@ -16,18 +16,18 @@ function onLoad() {
         document.getElementById("redirect-error").style.display = "flex"
         document.getElementById("redirect-error").classList.add("show")
         document.getElementById("mainbox").style.opacity = "1"
-        return false;
+    } else {
+        document.getElementById("mainbox").style.width = widthData[0];
+        document.getElementById("mainbox").style.height = heightData[0];
+        document.getElementById("login").style.display = "flex"
+        document.getElementById("login").classList.add("show")
+        document.getElementById("mainbox").style.opacity = "1"
     }
-    document.getElementById("mainbox").style.width = widthData[0];
-    document.getElementById("mainbox").style.height = heightData[0];
-    document.getElementById("login").style.display = "flex"
-    document.getElementById("login").classList.add("show")
-    document.getElementById("mainbox").style.opacity = "1"
 }
 
 function switchPage(newPage) {
     if (switchingPage) { return false; }
-    if (window.opener == null) { return false; }
+    //if (window.opener == null) { return false; }
     switchingPage = true
     const oldPage = document.querySelector('#mainbox .show').id;
     let pageIndex = pages.indexOf(newPage)
