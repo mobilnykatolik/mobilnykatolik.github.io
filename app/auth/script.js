@@ -7,6 +7,7 @@ var switchingPage = false
 let ignoreRedirectError = true;
 
 function onLoad() {
+    document.querySelector(".splash").style.opacity = "0"
     for (page in pages) {
         heightData.push(`${document.getElementById(pages[page]).offsetHeight}px`)
         document.getElementById(pages[page]).style.display = "none"

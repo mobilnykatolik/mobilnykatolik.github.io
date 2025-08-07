@@ -12,18 +12,24 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    /*background: var(--bg);*/
-    background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 10%, var(--theme-gradient) 100%);
-    /*background: radial-gradient(circle,var(--theme-gradient) 0%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0.5) 100%);*/
+    background-image: url("src/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-@media (min-width: 575.98px) {
-    body {
-        background-image: url("src/bg.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
+.splash {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
 }
 
 a {
