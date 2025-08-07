@@ -56,7 +56,9 @@ input[type="checkbox"] {
     transition:
         opacity 0.5s ease,
         height 0.3s ease,
-        width 0.3s ease;
+        width 0.3s ease,
+        max-width 0.3s ease,
+        border-radius 0.3s ease;
 }
 
 .mainbox div {
@@ -66,8 +68,8 @@ input[type="checkbox"] {
 
 @media (max-width: 575.98px) {
     .mainbox {
-        max-width: calc(100vw - 150px)!important;
-        min-width: 15rem!important;
+        max-width: calc(100vw - 115px);
+        min-width: 15rem;
         /*box-shadow: none;*/
         /*border-radius: 0;*/
         /*height: calc(100vh - 80px);*/
@@ -77,6 +79,11 @@ input[type="checkbox"] {
         overflow: hidden;
         /*background: #ffffff;*/
     }
+}
+
+.mainbox.fullwidth {
+    max-width: 100%!important;
+    border-radius: 0;
 }
 
 .logo {

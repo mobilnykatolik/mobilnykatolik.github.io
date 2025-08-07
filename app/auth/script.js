@@ -42,6 +42,11 @@ function switchPage(newPage) {
         document.getElementById(newPage).style.display = "flex"
         document.getElementById(newPage).style.visibility = "hidden"
         heightData[pageIndex] = `${document.getElementById(newPage).offsetHeight}px`
+        //Rejestracja na urządzeniach mobilnych
+        if (document.querySelector("body").offsetWidth <= 576) {
+            heightData[1] = "calc(100vh - 80px)"
+            if (newPage == "register") { document.getElementById("mainbox").classList.add("fullwidth") } else { document.getElementById("mainbox").classList.remove("fullwidth") }
+        }
         document.getElementById("mainbox").style.height = heightData[pageIndex]
         document.getElementById("mainbox").style.width = widthData[pageIndex]
         document.getElementById(newPage).style.display = "none"
