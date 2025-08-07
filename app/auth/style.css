@@ -89,6 +89,15 @@ input[type="checkbox"] {
     background-repeat: no-repeat;
 }
 
+.error {
+    width: 6rem;
+    aspect-ratio: 1 / 1;
+    background-image: url(src/icons/error.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 input[type="email"], input[type="text"], input[type="number"], select {
     background-color: #ffffff;
     color: #000000;

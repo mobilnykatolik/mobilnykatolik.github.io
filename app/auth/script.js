@@ -1,4 +1,4 @@
-var pages = ["login", "register", "loading", "code", "success"]
+var pages = ["login", "register", "loading", "code", "success", "redirect-error"]
 var heightData = []
 var widthData = ["23rem", "30rem", "23rem"]
 
@@ -10,6 +10,14 @@ function onLoad() {
         document.getElementById(pages[page]).style.display = "none"
         document.getElementById(pages[page]).style.visibility = "visible"
     }
+    if (window.opener == null) {
+        document.getElementById("mainbox").style.width = widthData[5];
+        document.getElementById("mainbox").style.height = heightData[5];
+        document.getElementById("redirect-error").style.display = "flex"
+        document.getElementById("redirect-error").classList.add("show")
+        document.getElementById("mainbox").style.opacity = "1"
+        return false;
+    }
     document.getElementById("mainbox").style.width = widthData[0];
     document.getElementById("mainbox").style.height = heightData[0];
     document.getElementById("login").style.display = "flex"
@@ -19,6 +27,7 @@ function onLoad() {
 
 function switchPage(newPage) {
     if (switchingPage) { return false; }
+    if (window.opener == null) { return false; }
     switchingPage = true
     const oldPage = document.querySelector('#mainbox .show').id;
     let pageIndex = pages.indexOf(newPage)
