@@ -51,7 +51,7 @@ input[type="checkbox"] {
     border-radius: 12px;
     padding: 40px;
     min-width: 23rem;
-    max-width: calc(100vh - 150px);
+    max-width: calc(100vh - 115px);
     opacity: 0;
     transition:
         opacity 0.5s ease,
