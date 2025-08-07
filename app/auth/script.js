@@ -4,13 +4,15 @@ var widthData = ["23rem", "30rem", "23rem"]
 
 var switchingPage = false
 
+let testing = false;
+
 function onLoad() {
     for (page in pages) {
         heightData.push(`${document.getElementById(pages[page]).offsetHeight}px`)
         document.getElementById(pages[page]).style.display = "none"
         document.getElementById(pages[page]).style.visibility = "visible"
     }
-    if (window.opener == null) {
+    if (window.opener == null && testing == false) {
         document.getElementById("mainbox").style.width = widthData[5];
         document.getElementById("mainbox").style.height = heightData[5];
         document.getElementById("redirect-error").style.display = "flex"
