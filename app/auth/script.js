@@ -52,6 +52,7 @@ function switchPage(newPage) {
         document.getElementById("mainbox").style.width = widthData[pageIndex]
         document.getElementById(newPage).style.display = "none"
         document.getElementById(newPage).style.visibility = "visible"
+        document.querySelector(".splash").style.display = "none"
     }, 500)
     setTimeout(function() {
         document.getElementById(oldPage).style.display = "none"
