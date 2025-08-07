@@ -1,6 +1,6 @@
 var pages = ["login", "register", "loading", "code", "success", "redirect-error"]
 var heightData = []
-var widthData = ["23rem", "30rem", "23rem"]
+var widthData = ["23rem", "30rem", "23rem", "23rem", "23rem", "23rem"]
 
 var switchingPage = false
 
@@ -38,8 +38,14 @@ function switchPage(newPage) {
     document.getElementById(newPage).style.opacity = "0"
     document.getElementById(oldPage).classList.remove("show")
     setTimeout(function() {
+        //Ponowny pomiar
+        document.getElementById(newPage).style.display = "flex"
+        document.getElementById(newPage).style.visibility = "hidden"
+        heightData[pageIndex] = `${document.getElementById(newPage).offsetHeight}px`
         document.getElementById("mainbox").style.height = heightData[pageIndex]
         document.getElementById("mainbox").style.width = widthData[pageIndex]
+        document.getElementById(newPage).style.display = "none"
+        document.getElementById(newPage).style.visibility = "visible"
     }, 500)
     setTimeout(function() {
         document.getElementById(oldPage).style.display = "none"
@@ -127,13 +133,13 @@ function sendSignUpCode() {
                 switchPage("code")
             } else if (xhr.status == 403) {
                 switchPage("register")
-                document.getElementById("signup-notification").innerHTML = "Istnieje już konto z podanym adresem e-mail! Spróbuj się zalogować."
+                document.getElementById("signup-notification").innerHTML = "Istnieje już konto z podanym adresem e-mail!"
             } else if (xhr.status == 406) {
                 switchPage("register")
-                document.getElementById("signup-notification").innerHTML = "Konto na podane dane osobowe zostało już zarejestrowane! Spróbuj się zalogować."
+                document.getElementById("signup-notification").innerHTML = "Konto na podane dane osobowe zostało już zarejestrowane!"
             } else if (xhr.status == 404) {
                 switchPage("register")
-                document.getElementById("signup-notification").innerHTML = "Nie znaleziono na liście uczniów szkoły. Sprawdź, czy dane osobowe są wpisane prawidłowo."
+                document.getElementById("signup-notification").innerHTML = "Nie znaleziono na liście uczniów. Sprawdź poprawność danych."
             } else {
                 switchPage("register")
                 document.getElementById("signup-notification").innerHTML = "Wystąpił problem komunikacji z API. Spróbuj ponownie!"
