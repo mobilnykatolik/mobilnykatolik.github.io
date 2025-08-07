@@ -13,7 +13,7 @@ body {
     font-family: 'Inter', sans-serif;
     /*background: var(--bg);*/
     background-image: url("src/bg.png");
-    background-size: 150%;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -55,18 +55,19 @@ input[type="checkbox"] {
     transition: opacity 0.5s ease;
 }
 
+
 @media (max-width: 575.98px) {
     .mainbox {
-        width: calc(100vw - 80px)!important;
+        max-width: calc(100vw - 150px)!important;
         min-width: 15rem!important;
-        box-shadow: none;
-        border-radius: 0;
+        /*box-shadow: none;*/
+        /*border-radius: 0;*/
         /*height: calc(100vh - 80px);*/
-        padding-bottom: 10rem;
+        /*padding-bottom: 10rem;*/
     }
     body {
         overflow: hidden;
-        background: #ffffff;
+        /*background: #ffffff;*/
     }
 }
 
