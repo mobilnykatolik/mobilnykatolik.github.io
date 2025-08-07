@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <link rel="stylesheet" id="stylesheet" href="style-old.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="src/icons/192.png">
+  <link rel="shortcut icon" href="src/icons/192.png">
+  <meta name=”theme-color” content=”#ffffff″>
+  <title>
+    Mobilny Katolik | Logowanie
+  </title>
+  <link rel="icon" type="image/png" href="src/icons/192.png" />
+  <script src="https://connect.facebook.net/en_US/sdk.js"></script>
+</head>
+
+<body onLoad="onLoad();">
+
+<div style="z-index: 5000; width: 100%; height: 75px; background-color: #ffffff; background-image: url('src/icons/logo.png'); background-repeat: no-repeat; background-position: center; background-size: 65px; position: fixed;"></div>
+
+<div id="processing" class="auth-page">
+  <div style="height: 100%; width: 100%; display: flex; align-items: center; font-size: 30px; position: fixed;">
+    <div style="width: 100px; height: 100px; margin: auto; background-image: url(src/icons/processing.svg); background-repeat: no-repeat; background-size: 100%; background-position: center;"></div>
+  </div>
+</div>
+
+<div id="introduction" class="auth-page">
+  <div style="height: 250px; padding: 20px; margin-top: 75px; display: flex; align-items: center; font-size: 30px; position: fixed;">
+    <div>
+      Włącz Mobilny Katolik
+      <br>i <b style="color: #a80c2f;">bądź na bieżąco!</b>
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 0; width: 100%; margin-bottom: 20px;">
+    <div>
+      <div class="login-btn-1" onClick="loginWithFacebook();" style="display: none;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1365px-Facebook_f_logo_%282019%29.svg.png" style="height: 35px; vertical-align: middle; margin-right: 10px;">Kontynuuj przez Facebook</div>
+      <div class="login-btn-1" onClick="changeStep(1);">Zaloguj się</div>
+      <button class="login-btn-2" onClick="changeStep(2);">Utwórz konto za pomocą e-mail</button>
+    </div>
+    <div style="padding: 20px; font-size: 13px; color: #858585;">
+      Rejestrując się, akceptujesz nasze <a href="https://mobilnykatolik.notion.site/Zasady-u-ytkowania-8993f215289e482081b03ff539d7a312?pvs=4">Zasady użytkowania</a>
+    </div>
+  </div>
+</div>
+
+<div id="signin" class="auth-page">
+  <form onSubmit="return signIn();">
+  <div style="height: 250px; width: 100%; margin-top: 75px; font-size: 25px; position: fixed;">
+    <div style="padding: 20px;">
+      Wpisz swój adres e-mail
+      <input type="text" id="signin-email" class="login-input" placeholder="Adres e-mail" autocomplete="off">
+    </div>
+    <div style="padding: 0px 20px 0px 20px; font-size: 16px; color: #ff0000;" id="signin-notification">
+      
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%;">
+    <button type="button" class="small-btn-1" onClick="changeStep(0);" style="margin: 20px; float: left; position: relative;">Anuluj</button>
+    <input type="submit" class="small-btn-2" style="margin: 20px; float: right; position: relative;" value="Dalej">
+  </div>
+  </form>
+</div>
+
+<div id="signup" class="auth-page">
+  <form onSubmit="return signUp();">
+  <div style="width: 100%; margin-top: 75px; font-size: 25px; position: absolute; overflow: hidden;">
+    <div style="text-align: center; padding: 20px 20px 0px 20px;">
+      Cześć!
+    </div>
+    <div style="text-align: center; padding: 0px 20px 0px 20px; font-size: 20px;">
+      Stwórz swój Profil Mobilny
+    </div>
+    <div style="margin-top: 15px; padding: 0px 20px 0px 20px; font-size: 16px; color: #ff0000;" id="signup-notification">
+
+    </div>
+    <div style="padding: 0px 20px 20px 20px;">
+      <input type="text" id="signup-firstname" class="login-input" placeholder="Imię" autocomplete="off">
+      <input type="text" id="signup-lastname" class="login-input" placeholder="Nazwisko" autocomplete="off">
+      <input type="text" id="signup-email" class="login-input" placeholder="Adres e-mail" autocomplete="off">
+      <select id="signup-class" class="login-input">
+        <option value="" style="color: #a9a9a9;" selected hidden>Ładowanie klas, proszę czekać...</option>
+      </select>
+      <table style="margin-top: 15px;">
+        <tr>
+          <td style="vertical-align: middle;"><input type="checkbox" class="login-checkbox" id="signup-rodo"></td>
+          <td style="font-size: 15px; vertical-align: middle; padding-left: 7px;">Wyrażam zgodę na przetwarzanie moich danych osobowych <i style="color: #ff0000; font-style: normal;">*</i></td>
+        </tr>
+      </table>
+    </div>
+    <div style="padding: 20px; font-size: 13px; color: #858585; text-align: center;">
+      Administratorem danych osobowych jest Dyrektor Zespołu Szkół Katolickich im. Świętej Jadwigi Królowej w Tczewie
+      <br><a href="https://mobilnykatolik.notion.site/Polityka-prywatno-ci-be9350c6e553472b89064ad2b06b7e7e?pvs=4">Dowiedz się w jaki sposób przetwarzamy Twoje dane</a>
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%;">
+    <button type="button" class="small-btn-1" onClick="changeStep(0);" style="margin: 20px; float: left; position: relative;">Anuluj</button>
+    <input type="submit" class="small-btn-2" style="margin: 20px; float: right; position: relative;" value="Dalej">
+  </div>
+  </form>
+</div>
+
+<div id="code" class="auth-page">
+  <form onSubmit="return checkCode();">
+  <div style="height: 250px; width: 100%; margin-top: 75px; font-size: 25px; position: fixed;">
+    <div style="padding: 20px; text-align: center;" id="code-welcome">
+      
+    </div>
+    <div style="padding: 20px;">
+      Wpisz swój kod
+      <div style="padding: 5px 0px 0px 0px; font-size: 16px;" id="code-message">
+      
+      </div>
+      <input type="text" class="login-input" id="code-input" pattern="\d*" maxlength="4">
+    </div>
+    <div style="padding: 0px 20px 0px 20px; font-size: 16px; color: #ff0000;" id="code-notification">
+      
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%;">
+    <button type="button" class="small-btn-1" onClick="changeStep(0);" style="margin: 20px; float: left; position: relative;">Anuluj</button>
+    <input type="submit" class="small-btn-2" style="margin: 20px; float: right; position: relative;" value="Dalej">
+  </div>
+  </form>
+</div>
+
+
+
+</body>
+
+</html>
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '219990970585195',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v12.0'
+      });
+  
+      FB.AppEvents.logPageView();
+    };
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js"></script>
+<script src="script-old.js"></script>
