@@ -2059,6 +2059,14 @@ function startApplication(reload) {
             if (data.access >= 5) {
                 document.getElementById("access-5-only").style.display = "block";
             }
+            if (data.access < 1) {
+                document.getElementById("su-only").style.display = "none";
+                document.getElementById("pmk-banner").style.display = "none";
+                document.getElementById("joinsu-banner").style.display = "none";
+                document.getElementById("pmk-badge").style.display = "none";
+                document.getElementById("su-settings-section").style.display = "none";
+                document.getElementById("access-5-only").style.display = "none";
+            }
             if (data.orders != undefined) {
                 ordersdb = data.orders;
                 loadOrders();
