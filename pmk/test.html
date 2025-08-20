@@ -1,0 +1,25 @@
+<table id="myTable">
+  <thead>
+    <tr><th>#</th><th>Nazwa</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Jabłko</td></tr>
+    <tr><td>2</td><td>Gruszka</td></tr>
+    <tr><td>3</td><td>Śliwka</td></tr>
+    <tr><td>4</td><td>Banany</td></tr>
+  </tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+  new Sortable(document.querySelector("#myTable tbody"), {
+    animation: 150,
+    ghostClass: "highlight",
+  });
+</script>
+
+<style>
+  .highlight {
+    background: #f0ecf4;
+  }
+</style>

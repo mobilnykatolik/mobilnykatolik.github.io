@@ -834,6 +834,7 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
@@ -852,9 +853,9 @@
             dataTable.clear();
             dataTable.draw();
 
-            var prodTable = $('#productsTable').DataTable();
+            /*var prodTable = $('#productsTable').DataTable();
             prodTable.clear();
-            prodTable.draw();
+            prodTable.draw();*/
 
             var url = `https://api.mobilnykatolik.pl/pmk/order/list/${userID}/${userLoginID}`;
 
@@ -932,9 +933,13 @@
             document.getElementById("store-settings-paymentinfo").value = storesDB[store].paymentinfo.replaceAll("<br>", "\n")
             document.getElementById("store-settings-banner").value = storesDB[store].banner
             //Tabela produktów
-            var prodTable = $('#productsTable').DataTable();
+            /*var prodTable = $('#productsTable').DataTable();
             prodTable.clear();
-            prodTable.draw();
+            prodTable.draw();*/
+
+            prodTable = document.getElementById("products-list-table")
+            prodTable.innerHTML = ""
+            i = 1
 
             for (let prod in storesDB[store].products) {
                 let product = storesDB[store].products[prod]
@@ -943,7 +948,7 @@
                 } else {
                     ifChecked = "checked"
                 }
-                prodTable.row.add([
+                /*prodTable.row.add([
                     `(${prod.toUpperCase()}) ${product.name} <div class="badge bg-dark text-white">${product.badge}</div>`,
                     `${parseFloat(product.price).toFixed(2)} zł`,
                     `
@@ -953,7 +958,21 @@
                     </div>
                     `,
                     `<button class="btn btn-sm btn-primary" type="button" onClick="openManageItem('${prod}')">Zarządzaj</button>`
-                ]).draw();
+                ]).draw();*/
+                prodTable.innerHTML += `
+                <tr style="vertical-align: middle;">
+                    <td>${i}. (${prod.toUpperCase()}) ${product.name} <div class="badge bg-dark text-white">${product.badge}</div></td>
+                    <td>${parseFloat(product.price).toFixed(2)} zł</td>
+                    <td>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="prod-avail-${prod}" onChange="changeAvailability('${prod}', document.getElementById('prod-avail-${prod}').checked)" ${ifChecked}>
+                            <label class="custom-control-label" for="prod-avail-${prod}"></label>
+                        </div>    
+                    </td>
+                    <td><button class="btn btn-sm btn-primary" type="button" onClick="openManageItem('${prod}')">Zarządzaj</button></td>
+                </tr>
+                `
+                i += 1
             }
 
         }
@@ -1620,6 +1639,14 @@
         document.getElementById("product-price").addEventListener('input', () => {
             document.getElementById("product-price-disp").innerHTML = `${parseFloat(document.getElementById("product-price").value).toFixed(2)} zł`;
         })
+
+        new Sortable(document.querySelector("#products-list-table"), {
+            animation: 150,
+            ghostClass: "highlight",
+            onEnd: function (evt) {
+                showResponse(404, "Ustalanie kolejności produktów jest wyłączone!")
+            }
+        });
 
     </script>
 

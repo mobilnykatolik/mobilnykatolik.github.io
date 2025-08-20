@@ -1494,7 +1494,8 @@ pre code {
 .table th,
 .table td {
   padding: 0.75rem;
-  vertical-align: top;
+  /*vertical-align: top;*/
+  vertical-align: middle;
   border-top: 1px solid #e3e6f0;
 }
 
@@ -11450,4 +11451,8 @@ div.responseToast.secondary::after {
   100% {
     width: 100%;
   }
+}
+
+.highlight {
+  background-color: #eaecf4;
 }
