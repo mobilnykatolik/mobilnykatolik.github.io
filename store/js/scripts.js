@@ -48,6 +48,27 @@ function getStores() {
                 //productsDB = data["MERCHANDISE2024-2"].products;
                 updateCart();
                 runPage();
+                if (document.getElementById("store-carousel")) {
+                    ifFirst = "active"
+                    document.getElementById("store-carousel").innerHTML = ""
+                    for (store in storesDB) {
+                        if (!storesDB[store].active) { continue }
+                        if (storesDB[store].banner == undefined || storesDB[store].banner == "") { continue }
+                        document.getElementById("store-carousel").innerHTML += `
+                        <div class="carousel-item ${ifFirst}">
+                            <img src="${storesDB[store].banner}" class="d-block w-100" alt="...">
+                        </div>
+                        `
+                        ifFirst = ""
+                    }
+                    if (ifFirst == "active") {
+                        document.getElementById("store-carousel").innerHTML = `
+                        <div class="carousel-item active">
+                            <img src="assets/default-banner.png" class="d-block w-100" alt="...">
+                        </div>
+                        `
+                    }
+                }
             } else {
                 //Błąd
             }

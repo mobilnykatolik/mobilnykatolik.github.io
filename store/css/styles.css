@@ -10869,3 +10869,7 @@ textarea.form-control-lg {
   height: 3rem;
   width: 3rem;
 }
+
+#carousel div.carousel-item {
+  aspect-ratio: 32/9;
+}
