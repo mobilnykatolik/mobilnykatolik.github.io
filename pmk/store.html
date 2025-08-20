@@ -960,7 +960,7 @@
                     `<button class="btn btn-sm btn-primary" type="button" onClick="openManageItem('${prod}')">Zarządzaj</button>`
                 ]).draw();*/
                 prodTable.innerHTML += `
-                <tr style="vertical-align: middle;">
+                <tr style="vertical-align: middle;" id="prod-${prod}">
                     <td>${i}. (${prod.toUpperCase()}) ${product.name} <div class="badge bg-dark text-white">${product.badge}</div></td>
                     <td>${parseFloat(product.price).toFixed(2)} zł</td>
                     <td>
@@ -1644,7 +1644,21 @@
             animation: 150,
             ghostClass: "highlight",
             onEnd: function (evt) {
-                showResponse(404, "Ustalanie kolejności produktów jest wyłączone!")
+                showResponse(404, "Zmiany nie zostały zapisane!")
+                const rows = [...document.querySelectorAll("#products-list-table tr")];
+                const order = rows.map(row => row.id.substring(5)); // np. nazwy owoców
+                //console.log("Aktualna kolejność:", order);
+
+                selectedStore = document.getElementById("storeSelect").value;
+
+                let reordered = {};
+                order.forEach(id => {
+                if (storesDB[selectedStore].products[id]) {
+                    reordered[id] = storesDB[selectedStore].products[id];
+                }
+                });
+                storesDB[selectedStore].products = reordered
+                showProducts(selectedStore)
             }
         });
 
