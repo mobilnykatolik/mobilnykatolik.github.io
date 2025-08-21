@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Strona główna</title>
+    <title>Panel Mobilny Katolik - Wygląd</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -20,6 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 </head>
 
@@ -37,6 +39,14 @@
                     <img src="img/katolik_tczew_logo_lampa czarna.svg" alt="SVG Image" height="25px">
                 </div>
             </a>
+
+            <!-- Nav Item - Dashboard -->
+            <!--<li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Strona główna</span></a>
+            </li>-->
+
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -147,12 +157,11 @@
             </li>
 
             <!-- Nav Item - Design -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="design.html">
                     <i class="fas fa-paint-brush fa-fw"></i>
                     <span>Wygląd</span></a>
             </li>
-
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -217,145 +226,16 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid d-none">
+                <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Panel sterowania</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Wygląd aplikacji</h1>
                     </div>
-
-                    <div class="row">
-
-                        <!-- Collapsable Card Example -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-md-6">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Witaj w Panelu Mobilny Katolik</h6>
-                                </a>
-                                <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample">
-                                    <div class="card-body">
-                                        W razie problemów z systemem prosimy o kontakt z administratorem:
-                                        <br>
-                                        <b>Kuba Sałek (kuba.salek@icloud.com)</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Users count -->
-                        <div class="col-xl-4 col-md-5 mb-4" style="display: none;">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Liczba użytkowników</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="usersCount">-</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                    </div>
+                    
 
                 </div>
                 <!-- /.container-fluid -->
-
-                <div class="container-fluid">
-
-                    <div class="d-flex align-items-center justify-content-center flex-column mb-4">
-                        <h1 class="h3 mb-0 text-gray-800" id="welcome-text">Cześć!</h1>
-                        <p>Co chcesz zrobić?</p>
-                    </div>
-
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-10 col-lg-3 my-2">
-                            <div class="card shadow py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center justify-content-center flex-column">
-                                        <a href="events.html" class="btn btn-primary btn-circle mb-2">
-                                            <i class="fas fa-calendar"></i>
-                                        </a>
-                                        Zarządzaj wydarzeniami
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-lg-4 my-2">
-                            <div class="card shadow py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center justify-content-center flex-column">
-                                        <a href="scan-settings.html" class="btn btn-primary btn-circle mb-2">
-                                            <i class="fas fa-qrcode"></i>
-                                        </a>
-                                        Otwórz skaner
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-lg-3 my-2">
-                            <div class="card shadow py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center justify-content-center flex-column">
-                                        <a href="users-list.html" class="btn btn-primary btn-circle mb-2">
-                                            <i class="fas fa-user-cog"></i>
-                                        </a>
-                                        Zarządzaj użytkownikami
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-10 col-lg-5 mt-2">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Następne organizowane wydarzenie</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="nextEvent">Brak</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-lg-5 mt-2">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Organizujesz w tym roku</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="eventCount">0 wydarzeń</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-hand-holding-heart fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 
             </div>
             <!-- End of Main Content -->
@@ -364,9 +244,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>
-                            Powered by &copy; Mobilny Katolik API
-                        </span>
+                        <span>Powered by &copy; Mobilny Katolik API</span>
                     </div>
                 </div>
             </footer>
@@ -397,7 +275,7 @@
                 <div class="modal-body">Kliknij <b>Wyloguj się</b>, aby potwierdzić.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                    <a class="btn btn-primary" href="auth.html" onclick="sessionStorage.clear();">Wyloguj się</a>
+                    <a class="btn btn-primary" href="auth.html">Wyloguj się</a>
                 </div>
             </div>
         </div>
@@ -430,6 +308,197 @@
         </div>
     </div>
 
+    <!-- Manage Ticket Modal-->
+    <div class="modal fade" id="manageTicketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Zarządzanie biletem</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return manageTicket();">
+                    <div class="modal-body">
+                        <div class="form-group" style="display: block;">
+                            <label for="manageTicketID">ID biletu</label>
+                            <input type="text" class="form-control" id="manageTicketID" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageUserFirstname">Właściciel biletu</label>
+                            <input type="text" class="form-control" id="manageTicketOwner" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="manageTicketPaid">Wpłata</label>
+                            <input type="number" class="form-control" id="manageTicketPaid" min=0 step="0.01" required>
+                            <center>
+                                <button type="button" class="btn btn-sm btn-success mt-2" id="manageTicketSetAsPaid" onClick='document.getElementById("manageTicketPaid").value = parseFloat(ticketsDB[document.getElementById("manageTicketID").value].cost).toFixed(2)'>Oznacz jako opłacony</button>
+                            </center>
+                        </div>
+                        <div class="form-group" id="manageTicketConsentGroup">
+                            <input type="checkbox" class="custom-checkbox" id="manageTicketConsent">
+                            <label for="manageTicketConsent" style="margin-bottom: 0;">Zgoda dostarczona</label>
+                        </div>
+                        <div class="form-group" id="manageTicketUsedGroup">
+                            <input type="checkbox" class="custom-checkbox" id="manageTicketUsed">
+                            <label for="manageTicketUsed" style="margin-bottom: 0;">Bilet wykorzystany</label>
+                        </div>
+                        <center>
+                            <a onClick="deleteTicketModal();" class="btn btn-danger btn-sm btn-icon-split justify-content-end">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                                <span class="text">Usuń bilet</span>
+                            </a>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" id="manageTicketSave" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal-->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Czy na pewno chcesz usunąć ten bilet?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Kliknij potwierdź, aby usunąć bilet
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                    <a class="btn btn-success" data-dismiss="modal" href="#" onclick="manageTicket(true);">Potwierdź</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Ticket Modal-->
+    <div class="modal fade" id="addTicketModal" tabindex="-1" role="dialog" aria-labelledby="addTicketModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTicketModalLabel">Utwórz bilet</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form onSubmit="return addTicket();">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="addTicketEventID">Wydarzenie biletowane</label>
+                            <select id="addTicketEventID" class="form-control" required>
+                                <option value="" hidden selected disabled>Proszę czekać...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addTicketOwner">Właściciel biletu</label>
+                            <!--<input type="text" class="form-control" id="addTicketOwner" aria-describedby="addTicketOwnerHelp" required>-->
+                            <input type="text" class="form-control" id="addTicketOwner" aria-describedby="addTicketOwnerHelp"list="peopleList" placeholder="Imię i nazwisko, klasa" required>
+                            <datalist id="peopleList">
+                            </datalist>
+                            <small id="addTicketOwnerHelp" class="form-text text-muted">Imię, nazwisko i klasa (np. JAN KOWALSKI, 1LO)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="addTicketPaid">Wpłata</label>
+                            <input type="number" class="form-control" id="addTicketPaid" min=0 step="0.01" value="0.00" required>
+                            <center>
+                                <button type="button" class="btn btn-sm btn-success mt-2" onClick='document.getElementById("addTicketPaid").value = parseFloat(ticketEventsDB[document.getElementById("addTicketEventID").value].cost).toFixed(2)'>Oznacz jako opłacony</button>
+                            </center>
+                        </div>
+                        <div class="form-group" id="addTicketConsentGroup">
+                            <input type="checkbox" class="custom-checkbox" id="addTicketConsent">
+                            <label for="addTicketConsent" style="margin-bottom: 0;">Zgoda dostarczona</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fas fa-cloud-upload-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Proszę czekać...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insufficient Permissions Modal-->
+    <div class="modal fade" id="insufficientPermissionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Brak uprawnień</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Nie posiadasz wystarczającego poziomu uprawnień, aby tego dokonać!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Error Modal-->
+    <div class="modal fade" id="apiErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Błąd komunikacji z API</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Wystąpił błąd połączenia z API. Odśwież panel i spróbuj ponownie!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Response Modal-->
+    <div class="modal fade" id="apiResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Odpowiedź z serwera</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="apiResponse">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -442,89 +511,16 @@
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        document.getElementById("usersCount").innerHTML = usersCount;
-        var eventsdb;
-        var sortedEvents;
-
-        function reloadDB() {
-            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/events`;
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-
-            xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status == 200) {
-                    var data = JSON.parse(xhr.responseText);
-                    eventsdb = data;
-                    eventsdb = Object.fromEntries(
-                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
-                            const date1 = new Date(event1.startdate);
-                            const date2 = new Date(event2.startdate);
-                            return date1 - date2;
-                        })
-                    );
-                    getNextEvent();  
-                } else {
-                    showResponse(xhr.status)
-                }
-            }};
-
-            xhr.send();
-        }
-
-        reloadDB();
-
-        function getNextEvent() {
-            var today = new Date();
-            today = today.toISOString().split('T')[0];
-            console.log(eventsdb);
-            var eventCount = 0;
-            for (x in eventsdb) {
-                if (!eventsdb[x].by.includes(userID)) {
-                    continue;
-                }
-                console.log(eventsdb[x])
-                if (eventsdb[x].startdate.split('T')[0] < today) {
-                    continue;
-                } else {
-                    var eventDate = new Date(eventsdb[x].startdate.split('T')[0]).getTime();
-                    today = new Date(today).getTime();
-                    console.log(eventDate)
-                    console.log(today)
-                    var tillDays = Math.floor((eventDate - today) / 86400000);
-                    if (tillDays == 0) {
-                        tillDays = "dzisiaj"
-                    } else if (tillDays == 1) {
-                        tillDays = "jutro"
-                    } else {
-                        tillDays = `za ${String(tillDays)} dni`
-                    }
-                    document.getElementById("nextEvent").innerHTML = `${eventsdb[x].name} (${tillDays})`;
-                    break;
-                }
-            }
-            for (x in eventsdb) {
-                if (eventsdb[x].by.includes(userID)) {
-                    eventCount += 1
-                }
-            }
-            if (String(eventCount) == "0") {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzeń`
-            } else if (String(eventCount) == "1") {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzenie`
-            } else if (!String(eventCount).startsWith("1") && (String(eventCount).endsWith("2") || (String(eventCount).endsWith("3") || String(eventCount).endsWith("4")))) {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzenia`
-            } else {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzeń`
-            }
-        }
+        var userDB;
 
     </script>
 

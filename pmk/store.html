@@ -1644,7 +1644,7 @@
             animation: 150,
             ghostClass: "highlight",
             onEnd: function (evt) {
-                showResponse(404, "Zmiany nie zostały zapisane!")
+                showResponse(404, "Funkcja niedostępna!")
                 const rows = [...document.querySelectorAll("#products-list-table tr")];
                 const order = rows.map(row => row.id.substring(5)); // np. nazwy owoców
                 //console.log("Aktualna kolejność:", order);

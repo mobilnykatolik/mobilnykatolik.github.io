@@ -117,7 +117,7 @@ function showResponse(status, msg) {
       msg = `Wystąpił błąd! (Kod: ${status})`
     }
   }
-  toastBody.textContent = msg
+  toastBody.innerHTML = msg
 
   // Składamy całość
   responseToast.appendChild(toastBody);
