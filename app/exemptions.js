@@ -116,6 +116,7 @@ function loadWaitingExemptions() {
                 if (eventsdb[exDB[ex].event] != undefined) {
                     exDB[ex].event = eventsdb[exDB[ex].event].name
                 }
+                console.log(exDB[ex])
                 if (exDB[ex].status == 0) {
                     document.getElementById("waiting-exemptions").innerHTML += `
                         <div style="font-size: 15px; width: 100%; border-radius: 10px; background-color: var(--additional);">
