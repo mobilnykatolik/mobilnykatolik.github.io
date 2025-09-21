@@ -2026,7 +2026,10 @@ function startApplication(reload) {
     location.reload();
     return false;*/
     console.log("Uruchamiam aplikację");
-    if (!reload) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'showWaitingExemptions') {
+        window.location.href = "#exemptionsapp";
+    } else if (!reload) {
         window.location.href = "#home";
     }
     
@@ -2977,6 +2980,9 @@ navigator.serviceWorker.addEventListener('message', function(event) {
     console.log(`Wywołano akcję: ${message.action}`)
     if (message.action == "reload") {
         startApplication(true);
+    }
+    if (message.action == "showWaitingExemptions") {
+        window.open('#exemptionsapp', '_self')
     }
 });
 
