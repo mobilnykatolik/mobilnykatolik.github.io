@@ -86,7 +86,7 @@ function updateICSU() {
                     <div type="top" onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
-                            <br><i>${exDB[ex].date}</i>
+                            <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
                     </div>`
@@ -95,7 +95,7 @@ function updateICSU() {
                     <div type="bottom" onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
-                            <br><i>${exDB[ex].date}</i>
+                            <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
                     </div>`
@@ -104,7 +104,7 @@ function updateICSU() {
                     <div type="ind" onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
-                            <br><i>${exDB[ex].date}</i>
+                            <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
                     </div>`
@@ -113,7 +113,7 @@ function updateICSU() {
                     <div onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
-                            <br><i>${exDB[ex].date}</i>
+                            <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
                     </div>`

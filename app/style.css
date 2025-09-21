@@ -732,6 +732,7 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
     display: flex;
     flex-wrap: wrap;
     row-gap: 10px;
+    column-gap: 10px;
 }
 
 .ticket-section-bottom.danger {

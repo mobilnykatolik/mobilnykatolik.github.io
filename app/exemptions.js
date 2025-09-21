@@ -68,7 +68,7 @@ function openExemption(exID) {
         document.getElementById("exemption-large-status").innerHTML = `ZWOLNIENIE NIEWAŻNE<text id="exemption-current-date">-</text>`
         document.getElementById("exemption-by-visibility").style.display = "none"
     }
-    document.getElementById("exemption-date").innerHTML = exDB[exID].date
+    document.getElementById("exemption-date").innerHTML = `${exDB[exID].date[0]}<br>${exDB[exID].date[1]}`
     
 
     window.open('#exemptionapp', '_self')
@@ -126,7 +126,8 @@ function loadWaitingExemptions() {
                                         ${exDB[ex].for}
                                         <br>
                                         <small>
-                                            ${exDB[ex].date}
+                                            ${exDB[ex].date[0]}
+                                            <br>${exDB[ex].date[1]}
                                             <br>${exDB[ex].event}
                                         </small>
                                     </span>
@@ -144,7 +145,7 @@ function loadWaitingExemptions() {
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
                                 ${exDB[ex].for}
-                                <br><i>${exDB[ex].date}</i>
+                                <br><i>${exDB[ex].date[0]}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
                         </div>`
@@ -154,7 +155,7 @@ function loadWaitingExemptions() {
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
                                 ${exDB[ex].for}
-                                <br><i>${exDB[ex].date}</i>
+                                <br><i>${exDB[ex].date[0]}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
                         </div>`
