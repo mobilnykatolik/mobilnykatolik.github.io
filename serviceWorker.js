@@ -82,3 +82,26 @@ self.addEventListener("push", event => {
         });
     }
 })
+
+//Obsluga prosb o zwolenienie
+self.addEventListener('notificationclick', function(event) {
+  var context = event.data.text();
+  event.notification.close();
+
+  if (context.action == "showWaitingExemptions") {
+    event.waitUntil(
+      clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+        if (windowClients.length > 0) {
+          let client = windowClients[0];
+          client.focus();
+          client.postMessage({ action: 'showWaitingExemptions' });
+        } else {
+          // ✅ Jeśli appka zamknięta – otwórz nową zakładkę z "flagiem"
+          return clients.openWindow('/?action=showWaitingExemptions');
+        }
+      })
+    );
+  }
+
+  
+});
