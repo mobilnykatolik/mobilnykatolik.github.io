@@ -72,14 +72,22 @@
 function runPage() {
     let paymentInfo = []
     for (store in storesDB) {
+        let rules = ""
+        if (storesDB[store].rules != "" && storesDB[store].rules != undefined) {
+            rules = `
+            <br><br>
+            <a href="${storesDB[store].rules}" target="_blank" class="btn btn-primary">Zasady i regulamin sklepu</a>`
+        }
         if (storesDB[store].active) {
             paymentInfo.push(`
             <b>${storesDB[store].displayname}</b><br>
             ${storesDB[store].paymentinfo.replaceAll("[orderID]", "[NUMER ZAMÓWIENIA]")}
+            ${rules}
             `)
         }
     }
     document.getElementById("payment-info").innerHTML = paymentInfo.join("<hr>")
+    document.getElementById("payment-info").classList.remove("placeholder-wave")
 }
 
 </script>

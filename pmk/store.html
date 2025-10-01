@@ -391,6 +391,15 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="store-settings-regulations">Regulamin sklepu</label>
+                                                <input type="text" class="form-control" id="store-settings-regulations" required>
+                                                <small class="form-text text-muted my-0">Link do dokumentu (PDF)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="store-settings-banner">Baner</label>
                                                 <input type="text" class="form-control" id="store-settings-banner" required>
                                                 <small class="form-text text-muted my-0">Link do grafiki o wymiarach 1920x540px</small>
@@ -932,6 +941,7 @@
             document.getElementById("store-settings-name").value = store
             document.getElementById("store-settings-paymentinfo").value = storesDB[store].paymentinfo.replaceAll("<br>", "\n")
             document.getElementById("store-settings-banner").value = storesDB[store].banner
+            document.getElementById("store-settings-regulations").value = storesDB[store].rules
             //Tabela produktów
             /*var prodTable = $('#productsTable').DataTable();
             prodTable.clear();
@@ -1547,7 +1557,8 @@
                     "displayname": document.getElementById("store-settings-displayname").value,
                     "paymentinfo": document.getElementById("store-settings-paymentinfo").value.replaceAll("\n", "<br>"),
                     "active": document.getElementById("store-settings-active").checked,
-                    "banner": document.getElementById("store-settings-banner").value
+                    "banner": document.getElementById("store-settings-banner").value,
+                    "rules": document.getElementById("store-settings-regulations").value
                 }
             }
             
