@@ -132,11 +132,8 @@
                                 </div>
                             </div>
                         <h4 class="mt-4 mb-3">3. Oświadczenia</h4>
-                        <table>
-                            <tr>
-                                <td><input type="checkbox" class="form-check-input" id="agreement1" required></td>
-                                <td class="ps-2"><label for="agreement1"><span class="text-danger">*</span>Oświadczam, że zapoznałem(am) się ze szczegółami dostępnymi w zakładce <a href="info.html">Informacje</a>.</label></td>
-                            </tr>
+                        <table id="agreements">
+                            
                         </table>
                         </form>
                         
@@ -222,6 +219,22 @@ var cartPrice = 0;
 const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"))
 
 function runPage() {
+    //Generowanie oświadczeń
+    if (storesDB[store].rules != "" && storesDB[store].rules != undefined) {
+        document.getElementById("agreements").innerHTML += `
+        <tr>
+            <td><input type="checkbox" class="form-check-input" required></td>
+            <td class="ps-2"><label><span class="text-danger">*</span>Oświadczam, że zapoznałem(am) się z <a href="${storesDB[store].rules}" target="_blank">Regulaminem sprzedaży</a>.</label></td>
+        </tr>
+        `
+    } else {
+        document.getElementById("agreements").innerHTML += `
+        <tr>
+            <td><input type="checkbox" class="form-check-input" required></td>
+            <td class="ps-2"><label><span class="text-danger">*</span>Oświadczam, że zapoznałem(am) się z <a href="info.html" target="_blank">Najważniejszymi informacjami</a>.</label></td>
+        </tr>
+        `
+    }
     document.getElementById("cartList").innerHTML = ""
     cartPrice = 0;
     for (prod in cart) {
