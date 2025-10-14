@@ -312,7 +312,8 @@
                                         <tr>
                                             <th>Data</th>
                                             <th>Nazwa wydarzenia</th>
-                                            <th>Koordynatorzy</th>
+                                            <th style="width: 50%;">Koordynatorzy</th>
+                                            <th>Akcje</th>
                                         </tr>
                                     </thead>
                                     <tbody id="su-events-list-table">
@@ -627,7 +628,13 @@
                 if (xhrA.status == 200) {
                     userList = JSON.parse(xhrA.responseText);
                     for (x in userList) {
-                        document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
+                        //document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
+                        document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `
+                        <div class="badge badge-pill badge-light">
+                            <div class="badge-img" style="background-image: url('https://api.mobilnykatolik.pl/profilepic/get/${x}')"></div>
+                            <span>${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})</span>
+                        </div>
+                        `)
                     }   
                     document.getElementById("manageEventBy").innerHTML = "";
                     document.getElementById("suPeople").innerHTML = "";
@@ -725,7 +732,7 @@
                         if (currMonth != prevMonth) {
                             document.getElementById("su-events-list-table").innerHTML += `
                             <tr style="background-color: #f8f9fc;">
-                                <th colspan="3" style="text-align: center;">${months[currMonth]}</th>
+                                <th colspan="4" style="text-align: center;">${months[currMonth]}</th>
                             </tr>
                             `
                             prevMonth = currMonth;
@@ -775,7 +782,14 @@
                                 <td style="vertical-align: middle;">${date}</td>
                                 <td style="vertical-align: middle;">${sortedEvents[event].name}</td>
                                 <td style="vertical-align: middle;">
-                                    ${sortedEvents[event].by.join("<br>")}
+                                    <h5 style="margin: 0">
+                                    ${sortedEvents[event].by.join("")}
+                                    </h5>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <a onclick="confirmDelete('${event}'); event.stopPropagation();" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             `
@@ -799,7 +813,13 @@
                         }
                     }  
                     for (x in userList) {
-                        document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
+                        //document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
+                        document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `
+                        <div class="badge badge-pill badge-light">
+                            <div class="badge-img" style="background-image: url('https://api.mobilnykatolik.pl/profilepic/get/${x}')"></div>
+                            <span>${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})</span>
+                        </div>
+                        `)
                     }  
         }
 
