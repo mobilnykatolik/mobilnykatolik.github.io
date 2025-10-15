@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Panel Mobilny Katolik - Strona główna</title>
+    <title>Panel Mobilny Katolik - Edycja kart</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <!-- Custom fonts for this template-->
@@ -147,15 +147,15 @@
             </li>
 
             <!-- Nav Item - Strony i karty -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-design"
                     aria-expanded="true" aria-controls="collapse-users">
                     <i class="fas fa-edit fa-fw"></i>
                     <span>Strony i karty</span>
                 </a>
-                <div id="collapse-design" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapse-design" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="pages.html">Strony</a>
+                        <a class="collapse-item active" href="pages.html">Strony</a>
                         <a class="collapse-item" href="cards.html">Karty</a>
                     </div>
                 </div>
@@ -284,83 +284,9 @@
 
                 <div class="container-fluid">
 
-                    <div class="d-flex align-items-center justify-content-center flex-column mb-4">
-                        <h1 class="h3 mb-0 text-gray-800" id="welcome-text">Cześć!</h1>
-                        <p>Co chcesz zrobić?</p>
-                    </div>
-
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-10 col-lg-3 my-2">
-                            <div class="card shadow py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center justify-content-center flex-column">
-                                        <a href="events.html" class="btn btn-primary btn-circle mb-2">
-                                            <i class="fas fa-calendar"></i>
-                                        </a>
-                                        Zarządzaj wydarzeniami
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-lg-4 my-2">
-                            <div class="card shadow py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center justify-content-center flex-column">
-                                        <a href="scan-settings.html" class="btn btn-primary btn-circle mb-2">
-                                            <i class="fas fa-qrcode"></i>
-                                        </a>
-                                        Otwórz skaner
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-lg-3 my-2">
-                            <div class="card shadow py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center justify-content-center flex-column">
-                                        <a href="users-list.html" class="btn btn-primary btn-circle mb-2">
-                                            <i class="fas fa-user-cog"></i>
-                                        </a>
-                                        Zarządzaj użytkownikami
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-10 col-lg-5 mt-2">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Następne organizowane wydarzenie</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="nextEvent">Brak</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10 col-lg-5 mt-2">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Organizujesz w tym roku</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="eventCount">0 wydarzeń</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-hand-holding-heart fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Edycja kart</h1>
                     </div>
 
                 </div>
@@ -456,83 +382,6 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 
     <script>
-        document.getElementById("usersCount").innerHTML = usersCount;
-        var eventsdb;
-        var sortedEvents;
-
-        function reloadDB() {
-            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/events`;
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-
-            xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status == 200) {
-                    var data = JSON.parse(xhr.responseText);
-                    eventsdb = data;
-                    eventsdb = Object.fromEntries(
-                        Object.entries(eventsdb).sort(([key1, event1], [key2, event2]) => {
-                            const date1 = new Date(event1.startdate);
-                            const date2 = new Date(event2.startdate);
-                            return date1 - date2;
-                        })
-                    );
-                    getNextEvent();  
-                } else {
-                    showResponse(xhr.status)
-                }
-            }};
-
-            xhr.send();
-        }
-
-        reloadDB();
-
-        function getNextEvent() {
-            var today = new Date();
-            today = today.toISOString().split('T')[0];
-            console.log(eventsdb);
-            var eventCount = 0;
-            for (x in eventsdb) {
-                if (!eventsdb[x].by.includes(userID)) {
-                    continue;
-                }
-                console.log(eventsdb[x])
-                if (eventsdb[x].startdate.split('T')[0] < today) {
-                    continue;
-                } else {
-                    var eventDate = new Date(eventsdb[x].startdate.split('T')[0]).getTime();
-                    today = new Date(today).getTime();
-                    console.log(eventDate)
-                    console.log(today)
-                    var tillDays = Math.floor((eventDate - today) / 86400000);
-                    if (tillDays == 0) {
-                        tillDays = "dzisiaj"
-                    } else if (tillDays == 1) {
-                        tillDays = "jutro"
-                    } else {
-                        tillDays = `za ${String(tillDays)} dni`
-                    }
-                    document.getElementById("nextEvent").innerHTML = `${eventsdb[x].name} (${tillDays})`;
-                    break;
-                }
-            }
-            for (x in eventsdb) {
-                if (eventsdb[x].by.includes(userID)) {
-                    eventCount += 1
-                }
-            }
-            if (String(eventCount) == "0") {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzeń`
-            } else if (String(eventCount) == "1") {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzenie`
-            } else if (!String(eventCount).startsWith("1") && (String(eventCount).endsWith("2") || (String(eventCount).endsWith("3") || String(eventCount).endsWith("4")))) {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzenia`
-            } else {
-                document.getElementById("eventCount").innerHTML = `${eventCount} wydarzeń`
-            }
-        }
 
     </script>
 
