@@ -25,6 +25,7 @@
                         <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Wszystkie produkty</a></li>
                         <li class="nav-item"><a class="nav-link" href="info.html">Informacje</a></li>
                         <li class="nav-item"><a class="nav-link" href="check.html">Status zamówienia</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="check.html">FAQ</a></li>
                     </ul>
                     <form class="d-flex">
                         <a class="btn btn-outline-dark" href="cart.html">
@@ -41,28 +42,26 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Przyjęliśmy Twoje zamówienie</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Szczegóły wysłaliśmy na Twojego maila</p>
+                    <h1 class="display-4 fw-bolder">Często zadawane pytania</h1>
+                    <p class="lead fw-normal text-white-50 mb-0"></p>
                 </div>
             </div>
         </header>
 
         <!-- Section-->
         <section class="py-5 px-2 px-lg-5">
-            <div class="container px-2 px-lg-2 mt-2">
-                <h4 class="m-0 p-0">Dziękujemy za złożenie zamówienia!</h4>
-                <p>Numer Twojego zamówienia to <b id="orderID-1"></b>.</p>
-                
-                <p class="mb-0">Na podany adres e-mail wysłaliśmy informacje dotyczące płatności. Znajdziesz je również w zakładce <a href="info.html">Informacje</a>.</p>
-                <p class="mt-0"><span class="text-danger">Przed dokonaniem płatności upewnij się, że wybrałeś(-aś) prawidłowe produkty!</span></p>
-                
-                <p class="mb-0">Status zamówienia możesz sprawdzić w aplikacji Mobilny Katolik lub w zakładce Status zamówienia.</p>
-                <p class="mt-0">W razie pytań prosimy o kontakt na adres <a href="mailto:mobilnykatolik@gmail.com">mobilnykatolik@gmail.com</a>.</p>
-
-                <p class="mb-0 text-danger">UWAGA! Niektóre skrzynki pocztowe blokują maile z potwierdzeniem zamówienia.
-                    <br>Jeśli w ciągu 5 minut nie otrzymasz wiadomości potwierdzającej złożenie zamówienia, skontaktuj się z nami.
-                </p>
-                <p class="mt-0 text-danger">Dane do przelewu znajdziesz również w zakładce Status zamówienia.</p>
+            <div class="container px-2 px-lg-2 mt-2 placeholder-wave">
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-5"></span>
+                <br><br>
+                <span class="placeholder col-8"></span>
+                <span class="placeholder col-9"></span>
+                <span class="placeholder col-7"></span>
+                <br><br>
+                <span class="placeholder col-6"></span>
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-5"></span>
             </div>
         </section>
 
@@ -78,17 +77,9 @@
 </html>
 
 <script>
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const orderID = urlParams.get('id');
-
-document.getElementById("orderID-1").innerHTML = orderID.toUpperCase()
-document.getElementById("orderID-2").innerHTML = `Zamówienie SU nr ${orderID.toUpperCase()}`
 
 function runPage() {
-
+    
 }
-
-
 
 </script>
