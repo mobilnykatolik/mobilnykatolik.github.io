@@ -146,7 +146,7 @@ function sendSignUpCode() {
                 document.getElementById("signup-notification").innerHTML = "Konto na podane dane osobowe zostało już zarejestrowane!"
             } else if (xhr.status == 404) {
                 switchPage("register")
-                document.getElementById("signup-notification").innerHTML = "Nie znaleziono na liście uczniów. Sprawdź poprawność danych."
+                document.getElementById("signup-notification").innerHTML = "Nie znaleziono na liście uczniów. Sprawdź poprawność danych.<br>Jeśli uważasz, że to błąd, napisz do nas: mobilnykatolik@gmail.com."
             } else {
                 switchPage("register")
                 document.getElementById("signup-notification").innerHTML = "Wystąpił problem komunikacji z API. Spróbuj ponownie!"
