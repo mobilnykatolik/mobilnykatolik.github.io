@@ -119,7 +119,7 @@ function loadWaitingExemptions() {
                 console.log(exDB[ex])
                 if (exDB[ex].status == 0) {
                     document.getElementById("waiting-exemptions").innerHTML += `
-                        <div style="font-size: 15px; width: 100%; border-radius: 10px; background-color: var(--additional);">
+                        <div style="margin: 10px 0; font-size: 15px; width: 100%; border-radius: 10px; background-color: var(--additional);">
                             <div style="padding: 10px; display: flex; flex-direction: column;">
                                 <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                                     <span>
@@ -141,24 +141,24 @@ function loadWaitingExemptions() {
                         </div>`
                 }
                 if (exDB[ex].status == 1) {
-                    document.getElementById("accepted-exemptions").innerHTML += `
+                    document.getElementById("accepted-exemptions").innerHTML = `
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
                                 ${exDB[ex].for}
                                 <br><i>${exDB[ex].date[0]}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
-                        </div>`
+                        </div>` + document.getElementById("accepted-exemptions").innerHTML
                 }
                 if (exDB[ex].status == 2) {
-                    document.getElementById("rejected-exemptions").innerHTML += `
+                    document.getElementById("rejected-exemptions").innerHTML = `
                         <div type="ind" onClick="openExemption('${ex}')">
                             <span>
                                 ${exDB[ex].for}
                                 <br><i>${exDB[ex].date[0]}</i>
                                 <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                             </span>
-                        </div>`
+                        </div>` + document.getElementById("rejected-exemptions").innerHTML
                 }
             }
         }

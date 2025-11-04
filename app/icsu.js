@@ -82,41 +82,41 @@ function updateICSU() {
                 exDB[ex].for = `${userFirstName.toUpperCase()} ${userSurname.toUpperCase()}, ${userClass.toUpperCase()}`
                 exCount += 1
                 if (exCount == 1 && allExCount != 1) {
-                    document.getElementById("icsu-exemptions").innerHTML += `
-                    <div type="top" onClick="openExemption('${ex}')">
-                        <span>
-                            Zwolnienie
-                            <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
-                            <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
-                        </span>
-                    </div>`
-                } else if (exCount == allExCount && allExCount != 1) {
-                    document.getElementById("icsu-exemptions").innerHTML += `
+                    document.getElementById("icsu-exemptions").innerHTML = `
                     <div type="bottom" onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
                             <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
-                    </div>`
+                    </div>` + document.getElementById("icsu-exemptions").innerHTML
+                } else if (exCount == allExCount && allExCount != 1) {
+                    document.getElementById("icsu-exemptions").innerHTML = `
+                    <div type="top" onClick="openExemption('${ex}')">
+                        <span>
+                            Zwolnienie
+                            <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
+                            <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
+                        </span>
+                    </div>` + document.getElementById("icsu-exemptions").innerHTML
                 } else if (allExCount == 1) {
-                    document.getElementById("icsu-exemptions").innerHTML += `
+                    document.getElementById("icsu-exemptions").innerHTML = `
                     <div type="ind" onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
                             <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
-                    </div>`
+                    </div>` + document.getElementById("icsu-exemptions").innerHTML
                 } else {
-                    document.getElementById("icsu-exemptions").innerHTML += `
+                    document.getElementById("icsu-exemptions").innerHTML = `
                     <div onClick="openExemption('${ex}')">
                         <span>
                             Zwolnienie
                             <br><i>${exDB[ex].date[0]}<br>${exDB[ex].date[1]}</i>
                             <container class="${exColor[exDB[ex].status]}">${exStatus[exDB[ex].status]}</container>
                         </span>
-                    </div>`
+                    </div>` + document.getElementById("icsu-exemptions").innerHTML
                 }
             }
             document.getElementById("icsu").style.display = "block"

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilet na Wydarzenie</title>
+    <style>
+
+        :root {
+    --theme-color: #a80c2f;
+    --background: #f9f9f9;
+    --additional: #ffffff;
+    --additional2: #ececec;
+    --text: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #000000;
+        --additional: #1e1e1e;
+        --additional2: #121212;
+        --text: #ffffff;
+    }
+}
+
+h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 16px;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    font-size: 20px;
+}
+
+.page {
+    margin: 20px;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    width: 100%;
+    color: var(--text);
+    background-color: var(--background);
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+.ticket {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ticket-section {
+    background-color: var(--additional);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+.ticket-section-bottom.danger {
+    background-color: #e74a3b;
+    color: #f7a79e;
+    justify-content: center;
+    font-weight: 1000;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.ticket-section-bottom.success {
+    background-color: #1cc88a;
+    color: #a0e4c5;
+    justify-content: center;
+    font-weight: 1000;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.ticket-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: calc(100% - 20px); /* Dopasowanie szerokości do odległości od krawędzi */
+    height: 2px; /* Grubość linii */
+    border-radius: 0; /* Brak zaokrągleń */
+    border-bottom: var(--additional2) 1.5px dashed;
+}
+
+.ticket-section-bottom {
+    background-color: var(--additional);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.ticket h1 {
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.ticket p {
+    font-size: 12px;
+    opacity: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ticket span {
+    font-size: 11px;
+    opacity: 70%;
+}
+
+.ticket-qr {
+    background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=[ID_BILETU]");
+    width: 60%;
+    max-width: 225px;
+    aspect-ratio: 1/1;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ffffff;
+}
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="page-content" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="ticket">
+            <div class="ticket-section">
+                <div>
+                    <h1 id="ticket-name">[NAZWA]</h1>
+                    <p id="ticket-state">[STATUS]</p>
+                </div>
+            </div>
+            <div class="ticket-section">
+                <div style="width: 100%;">
+                    <p>Imię i nazwisko</p>
+                    <h1 id="ticket-place">[OWNER]</h1>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: space-between;">
+                <div style="max-width: 100%;">
+                    <p>Data</p>
+                    <h1 id="ticket-date">[DATA]</h1>
+                </div>
+                <div style="max-width: 100%;">
+                    <p>Godzina</p>
+                    <h1 id="ticket-time">[GODZINA]</h1>
+                </div>
+                <div style="max-width: 100%;">
+                    <p>Miejsce</p>
+                    <h1 id="ticket-place">[MIEJSCE]</h1>
+                </div>
+            </div>
+            <div class="ticket-section" style="justify-content: space-between;">
+                <div>
+                    <h1>Cena biletu</h1>
+                </div>
+                <div>
+                    <h1 id="ticket-price">[CENA]</h1>
+                </div>
+            </div>
+            <div class="ticket-section-bottom" style="justify-content: center;">
+               <div class="ticket-qr" id="ticket-qr"></div>
+            </div>
+            <!--
+            <div class="ticket-section" id="ticket-payment-info-section">
+                <span id="ticket-payment-info"></span>
+            </div>
+            <div class="ticket-section-bottom">
+                <a class="button" target="_blank" href="" id="ticket-consent">Pobierz zgodę</a>
+                <span id="ticket-info"></span>
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+</body>
+</html>
