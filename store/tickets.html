@@ -60,7 +60,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-9">
                         <h4 class="mb-3">Podsumowanie zamówienia</h4>
-                        <ul class="list-group list-group-flush w-75" id="cartList">
+                        <ul class="list-group list-group-flush w-100" id="cartList">
                             <li class="list-group-item row d-flex align-items-center">
                                 <div class="col-4 col-lg-3 placeholder-glow">
                                     <img class="w-100 placeholder" src="https://dummyimage.com/600x700/858e96/858e96.jpg">
@@ -232,6 +232,7 @@ function runPage() {
             </div>
             <div class="col-8 col-lg-7">
                 <h5 class="fw-bolder">${cart[prod].name}</h5>
+                <p class="small">${cart[prod].info}</p>
                 <h5>${parseFloat(cart[prod].cost).toFixed(2)} zł</h5>
             </div>
         </li>
