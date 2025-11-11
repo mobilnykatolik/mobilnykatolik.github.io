@@ -144,7 +144,7 @@ body::-webkit-scrollbar{
 }
 
 .ticket-qr {
-    background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=[ID_BILETU]");
+    background-image: url("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=[TICKET_ID]");
     width: 60%;
     max-width: 225px;
     aspect-ratio: 1/1;
@@ -161,7 +161,7 @@ body::-webkit-scrollbar{
         <div class="ticket">
             <div class="ticket-section">
                 <div>
-                    <h1 id="ticket-name">[NAZWA]</h1>
+                    <h1 id="ticket-name">[NAME]</h1>
                     <p id="ticket-state">[STATUS]</p>
                 </div>
             </div>
@@ -174,15 +174,15 @@ body::-webkit-scrollbar{
             <div class="ticket-section" style="justify-content: space-between;">
                 <div style="max-width: 100%;">
                     <p>Data</p>
-                    <h1 id="ticket-date">[DATA]</h1>
+                    <h1 id="ticket-date">[DATE]</h1>
                 </div>
                 <div style="max-width: 100%;">
                     <p>Godzina</p>
-                    <h1 id="ticket-time">[GODZINA]</h1>
+                    <h1 id="ticket-time">[TIME]</h1>
                 </div>
                 <div style="max-width: 100%;">
                     <p>Miejsce</p>
-                    <h1 id="ticket-place">[MIEJSCE]</h1>
+                    <h1 id="ticket-place">[PLACE]</h1>
                 </div>
             </div>
             <div class="ticket-section" style="justify-content: space-between;">
@@ -190,11 +190,14 @@ body::-webkit-scrollbar{
                     <h1>Cena biletu</h1>
                 </div>
                 <div>
-                    <h1 id="ticket-price">[CENA]</h1>
+                    <h1 id="ticket-price">[PRICE]</h1>
                 </div>
             </div>
-            <div class="ticket-section-bottom" style="justify-content: center;">
+            <div class="ticket-section-bottom" style="justify-content: center; flex-direction: column;">
                <div class="ticket-qr" id="ticket-qr"></div>
+               <div>
+                    <h1 style="margin-top: -25px;">[TICKET_ID]</h1>
+                </div>
             </div>
             <!--
             <div class="ticket-section" id="ticket-payment-info-section">

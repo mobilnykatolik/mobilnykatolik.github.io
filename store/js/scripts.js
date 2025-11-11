@@ -8,6 +8,7 @@
 
 var productsDB = {}
 var storesDB = {}
+var TEDB = {}
 
 /*fetch('products/data.json')
     .then(response => {
@@ -30,6 +31,37 @@ var storesDB = {}
         console.error('There was a problem with the fetch operation:', error);
         //runPage() //USUNAC TA LINIJKE
     });*/
+
+function getTickets() {
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+        if (req.readyState == XMLHttpRequest.DONE) {
+            if (req.status == 200) {
+                //Sukces
+                var data = JSON.parse(req.responseText)
+                TEDB = data
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const TEID = urlParams.get('id');
+                cart = []
+                localStorage.removeItem("cart");
+                if (TEDB[TEID] != undefined) {
+                    TEDB[TEID].id = TEID;
+                    cart.push(TEDB[TEID]);
+                    document.getElementById("cart-section-3").classList.remove("d-none");
+                    document.getElementById("summary-box").classList.remove("d-none");
+                }
+                runPage();
+            } else {
+                //Błąd
+            }
+        }
+    };
+
+    req.open("GET", `https://api.mobilnykatolik.pl/tickets/getall`, true);
+    req.send();
+}
 
 function getStores() {
     let req = new XMLHttpRequest();
@@ -78,10 +110,13 @@ function getStores() {
     req.open("GET", `https://api.mobilnykatolik.pl/store/getall`, true);
     req.send();
 }
-    
-getStores();
 
 
+if (window.location.href.includes("tickets")) {
+    getTickets()
+} else {
+    getStores();
+}
 
 var cart = localStorage.getItem("cart")
 if (cart == null || cart == undefined) {
@@ -94,7 +129,11 @@ function updateCart() {
     let newCart = []
     let selectedStore;
     if (cart.length != 0) {
-        selectedStore = cart[cart.length - 1].store
+        try {
+            selectedStore = cart[cart.length - 1].store
+        } catch (err) {
+            cart = []
+        } 
     }
     console.log(`Wybrany sklep: ${selectedStore}`)
     for (prod in cart) {

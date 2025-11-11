@@ -5,25 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>eTicket - Mobilny katolik</title>
+        <title>Bilety -  Mobilny Katolik</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
 
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light d-none">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="tickets.html">eTicket - Mobilny Katolik</a>
+                <a class="navbar-brand" href="index.html">Sklep Mobilny Katolik</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <!--
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Wszystkie produkty</a></li>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Wszystkie produkty</a></li>
                         <li class="nav-item"><a class="nav-link" href="info.html">Informacje</a></li>
                         <li class="nav-item"><a class="nav-link" href="check.html">Status zamówienia</a></li>
                     </ul>
@@ -35,112 +34,94 @@
                         </a>
                     </form>
                 </div>
-                -->
             </div>
         </nav>
 
-        <header class="">
-            <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="store-carousel">
-                    <div class="carousel-item active">
-                        <img src="assets/default-banner.png" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </header>
-
         <!-- Header-->
-        <header class="py-5 bg-cristal d-none">
+        <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Zupełnie NOWA KOLEKCJA!</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Sprawdź tegoroczne nowości</p>
+                    <h1 class="display-4 fw-bolder">eTicket</h1>
                 </div>
             </div>
         </header>
 
+        <!-- Section -->
+        <section id="cart-empty" class="py-5 d-none mb-5">
+            <div class="container px-2 text-center">
+                <h4>Trochę tu... pusto 👀</h4>
+                <p>Wejdź w zakładkę Wszystkie produkty i dodaj interesujące Cię artykuły do koszyka</p>
+            </div>
+        </section>
+
         <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="text-center d-none" id="no-products">Brak produktów do wyświetlenia!</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productList">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="placeholder-glow">
-                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
-                            </div>
-                            
-                            <div class="card-body p-4">
-                                <div class="text-center placeholder-wave">
-                                    <h5 class="placeholder fw-bolder col-9"></h5>
-                                    <span class="placeholder col-6"></span>
+        <section id="cart-section-1" class="py-5" style="width: 80%; margin: auto;">
+            <div class="container px-2 px-lg-2 mt-2">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-9">
+                        <h4 class="mb-3">Podsumowanie zamówienia</h4>
+                        <ul class="list-group list-group-flush w-75" id="cartList">
+                            <li class="list-group-item row d-flex align-items-center">
+                                <div class="col-4 col-lg-3 placeholder-glow">
+                                    <img class="w-100 placeholder" src="https://dummyimage.com/600x700/858e96/858e96.jpg">
+                                </div>
+                                <div class="col-8 col-lg-7 placeholder-wave">
+                                    <h5 class="fw-bolder placeholder col-3"></h5><br>
+                                    <span class="placeholder col-4"></span><br>
+                                    <span class="placeholder col-5"></span><br>
+                                    <span class="placeholder col-2"></span><br><br>
+                                    <h5 class="fw-bolder placeholder col-1"></h5>
+                                </div>
+                            </li>
+                        </ul>
+                        <h4 class="mt-4 mb-3">Twoje dane</h4>
+                        <form onSubmit="return makeOrder();" id="cartForm">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="customer-firstName" placeholder=" " required>
+                                        <label>Imię</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="customer-lastName" placeholder=" " required>
+                                        <label>Nazwisko</label>
+                                    </div>
                                 </div>
                             </div>
-        
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
-                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control" id="customer-email" placeholder=" " required>
+                                        <label>Adres e-mail</label>
+                                        <small>Na podany adres wyślemy bilet w formie dokumentu PDF wraz ze szczegółami dotyczącymi płatności. Upewnij się, że jest poprawny!</small>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                        
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="placeholder-glow">
-                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
-                            </div>
-                            
-                            <div class="card-body p-4">
-                                <div class="text-center placeholder-wave">
-                                    <h5 class="placeholder fw-bolder col-9"></h5>
-                                    <span class="placeholder col-6"></span>
+                    <div class="col-lg-3 d-none" id="summary-box">
+                        <div class="row d-none d-lg-flex" style="position: sticky; top: 5rem;">
+                            <div class="card p-3">
+                                <div class="row fs-6 justify-content-between">
+                                    <p class="w-50 text-muted m-0">
+                                        Do zapłaty:
+                                    </p>
+                                    <p class="w-50 text-end m-0">
+                                        <span id="cartPrice2">0.00</span> zł
+                                    </p>
                                 </div>
-                            </div>
-        
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
-                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="placeholder-glow">
-                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
-                            </div>
-                            
-                            <div class="card-body p-4">
-                                <div class="text-center placeholder-wave">
-                                    <h5 class="placeholder fw-bolder col-9"></h5>
-                                    <span class="placeholder col-6"></span>
+                                <hr>
+                                <div class="row">
+                                    <div class="col d-flex justify-content-center">
+                                        <button class="btn btn-success" type="submit" form="cartForm">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            Kup bilet
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-        
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
-                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="placeholder-glow">
-                                <span class="card-img-top placeholder col-12" style="aspect-ratio: 6/7;"></span>
-                            </div>
-                            
-                            <div class="card-body p-4">
-                                <div class="text-center placeholder-wave">
-                                    <h5 class="placeholder fw-bolder col-9"></h5>
-                                    <span class="placeholder col-6"></span>
-                                </div>
-                            </div>
-        
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent placeholder-wave">
-                                <div class="text-center"><a class="btn btn-outline-dark placeholder mt-auto col-7"></a></div>
                             </div>
                         </div>
                     </div>
@@ -148,6 +129,79 @@
             </div>
         </section>
 
+        <!-- Section -->
+        <section id="cart-section-2" class="py-5 d-none">
+            <div class="container px-2 text-center">
+                <h4>Upewnij się, że wybrałeś(-aś) prawidłowe produkty.</h4>
+                <p>Zapoznaj się z zasadami sprzedaży, aby dowiedzieć się więcej na temat zwrotów czy wymiany.</p>
+            </div>
+        </section>
+
+        <!-- Section -->
+        <section id="cart-section-3" class="pb-5 px-lg-5 d-none">
+            <div class="container px-2">
+                <div class="row mt-3">
+                    <div class="col d-flex justify-content-center">
+                        <button class="btn btn-lg btn-outline-success" type="submit" form="cartForm">
+                        <i class="bi-cart-fill me-1"></i>
+                        Kup bilet (<span id="cartPrice">0.00</span> zł)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Making order -->
+        <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <h5 class="mb-0">Finalizowanie Twojego zamówienia</h5>
+                    <small class="d-block mb-0">Prosimy o chwilę cierpliwości</small>
+                    <div class="spinner-border mt-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Success modal -->
+        <div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <i class="bi bi-bag-check text-success display-4"></i>
+                    <h5 class="mb-2 mt-3">Transakcja przebiegła pomyślnie!</h5>
+                    <small class="d-block mb-0">
+                        Wszystkie informacje przesłaliśmy na podany adres e-mail.
+                        <br>Jeśli nie otrzymałeś/-aś żadnej wiadomości, skontaktuj się z nami.
+                    </small>
+                    <button class="btn btn-sm btn-outline-primary mt-4" type="button" data-bs-dismiss="modal">
+                        Zamknij
+                    </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Error modal -->
+        <div class="modal fade" id="errorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <i class="bi bi-exclamation-circle text-danger display-4"></i>
+                    <h5 class="mb-2 mt-3">Wystąpił błąd!</h5>
+                    <small class="d-block mb-0" id="error-details">
+                        
+                    </small>
+                    <button class="btn btn-sm btn-outline-primary mt-4" type="button" data-bs-dismiss="modal">
+                        Zamknij
+                    </button>
+                </div>
+              </div>
+            </div>
+        </div>
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
@@ -161,51 +215,82 @@
 </html>
 
 <script>
+var cartPrice = 0;
+
+const loadingModal = new bootstrap.Modal(document.getElementById("loadingModal"))
+const successModal = new bootstrap.Modal(document.getElementById("successModal"))
+const errorModal = new bootstrap.Modal(document.getElementById("errorModal"))
 
 function runPage() {
+    document.getElementById("cartList").innerHTML = ""
+    cartPrice = 0;
+    for (prod in cart) {
+        document.getElementById("cartList").innerHTML += `
+        <li class="list-group-item row d-flex align-items-center">
+            <div class="col-4 col-lg-3">
+                <img class="w-100" src="${cart[prod].icon_url}">
+            </div>
+            <div class="col-8 col-lg-7">
+                <h5 class="fw-bolder">${cart[prod].name}</h5>
+                <h5>${parseFloat(cart[prod].cost).toFixed(2)} zł</h5>
+            </div>
+        </li>
+        `
+        cartPrice += parseFloat(cart[prod].cost);
+    }
+    document.getElementById("cartPrice").innerHTML = cartPrice.toFixed(2)
+    document.getElementById("cartPrice2").innerHTML = cartPrice.toFixed(2)
+}
+
+function makeOrder() {
+    if (cart.length == 0) {
+        window.alert("Koszyk jest pusty!")
+        return false;
+    }
+
+    
+    var orderData = {
+        "userid": `${document.getElementById("customer-firstName").value.toUpperCase()} ${document.getElementById("customer-lastName").value.toUpperCase()}`,
+        "email": document.getElementById("customer-email").value,
+        "ticket_event_id": `${cart[0].id}`
+    }
+
+    console.log(orderData);
+
+    loadingModal.show()
+
+    var url = `https://api.mobilnykatolik.pl/tickets/add`;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status == 200) {
+                localStorage.removeItem("cart");
+                loadingModal.hide();
+                setTimeout(function() {
+                    successModal.show()
+                    document.getElementById("customer-firstName").value = ""
+                    document.getElementById("customer-lastName").value = ""
+                    document.getElementById("customer-email").value = ""
+                }, 200)
+            } else {
+                loadingModal.hide()
+                document.getElementById("error-details").innerText = xhr.responseText;
+                setTimeout(function() {
+                    errorModal.show()
+                }, 200)
+            }
+        };
+    };
+    setTimeout(function() {
+        xhr.send(JSON.stringify(orderData));
+    }, 1000)
+    
+
     return false;
-    console.log(productsDB)
-    document.getElementById("productList").innerHTML = ""
-    var prodCounter = 0
-    for (prod in productsDB) {
-        var product = productsDB[prod];
-        if (product.disabled) {
-            continue;
-        }
-        if (product.oop) {
-            continue;
-        }
-        var list = "productList"
-        /*
-        if (product.collection == "CLASSICS") { list = "productListClassics"}
-        if (product.collection == "XMAS") { list = "productListChristmas"}
-        if (product.collection == "VALENTINES") { list = "productListValentines"}
-        */
-        document.getElementById(list).innerHTML += `
-            <div class="col mb-5">
-                <div class="card h-100">
-
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">${product.badge}</div>
-
-                    <img class="card-img-top" src="${product.img}" alt="..." />
-
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h5 class="fw-bolder">${product.name}</h5>
-                            <span>${parseFloat(product.price).toFixed(2)} zł</span>
-                        </div>
-                    </div>
-
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="item.html?id=${prod}">Wyświetl</a></div>
-                    </div>
-                </div>
-            </div>`
-        prodCounter += 1
-    }
-    if (prodCounter == 0) {
-        document.getElementById("no-products").classList.remove("d-none")
-    }
 }
 
 </script>
