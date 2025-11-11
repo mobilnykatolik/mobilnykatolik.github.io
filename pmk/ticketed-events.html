@@ -487,9 +487,14 @@
                             </a>
                         </center>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
-                        <input type="submit" class="btn btn-primary" value="Zapisz">
+                    <div class="modal-footer justify-content-between">
+                        <div>
+                            <a id="eticket_url" href="https://mobilnykatolik.github.io/store/tickets.html?id=" target="_blank" class="btn btn-primary">Strona eTicket</a>
+                        </div>
+                        <div>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Anuluj</button>
+                            <input type="submit" class="btn btn-primary" value="Zapisz">
+                        </div>
                     </div>
                 </form>
             </div>
@@ -731,6 +736,7 @@
                 $('#manageEventTicketModal').modal('show')
             }
             if (teid != undefined) { //Modifying event
+                document.getElementById("eticket_url").href = `https://mobilnykatolik.github.io/store/tickets.html?id=${teid}`
                 document.getElementById("manageEventTicketDelete").style.display = "inline-flex";
                 document.getElementById("manageEventTicketModalLabel").innerHTML = "Modyfikuj wydarzenie biletowane"
                 document.getElementById("manageEventTicketID").value = teid;
@@ -761,6 +767,7 @@
                 }});
                 updateEventTicketDisplay();
             } else { //New event
+                document.getElementById("eticket_url").href = ``
                 document.getElementById("manageEventTicketDelete").style.display = "none";
                 document.getElementById("manageEventTicketModalLabel").innerHTML = "Nowe wydarzenie biletowane"
                 document.getElementById("manageEventTicketID").value = "";
