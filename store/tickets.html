@@ -232,6 +232,11 @@ function runPage() {
             </div>
             <div class="col-8 col-lg-7">
                 <h5 class="fw-bolder">${cart[prod].name}</h5>
+                <p class="small">
+                    <b>Data:</b> ${cart[prod].date}, ${cart[prod].time}
+                    <br>
+                    <b>Miejsce:</b> ${cart[prod].place}
+                    </p>
                 <p class="small">${cart[prod].info}</p>
                 <h5>${parseFloat(cart[prod].cost).toFixed(2)} zł</h5>
             </div>
