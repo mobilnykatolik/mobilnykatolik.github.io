@@ -38,7 +38,7 @@ div.splash-screen {
     z-index: 998;
     transition: opacity 0.5s linear;
     background-color: var(--background);
-    background-image: url("xmas-bg.png");
+    /*background-image: url("xmas-bg.png");*/
     background-position: bottom center;
     background-size: 150%;
     background-repeat: no-repeat;
