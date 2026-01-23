@@ -1965,7 +1965,7 @@ function openLoginPopup() {
     waitForLogin = true;
     var left = (screen.width/2)-(500/2);
     var top = (screen.height/2)-(650/2);
-    loginPopup = window.open("auth/index.html", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
+    loginPopup = window.open("auth/index.html?redirect=mobilnykatolikapp", "_blank", `toolbar=no,scrollbars=no,resizable=no,top=${top},left=${left},width=500,height=650`);
 }
 
 function changeColor(color) {
