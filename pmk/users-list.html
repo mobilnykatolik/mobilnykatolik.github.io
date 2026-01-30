@@ -1027,7 +1027,7 @@
                     if (xhr.status == 200) { reloadDB(); }
                     setTimeout(function() {
                         $('#loadingModal').modal('hide')
-                    }, 500)
+                    }, 1000)
                 }
             };
             xhr.send(JSON.stringify(data));
@@ -1083,7 +1083,7 @@
                     showResponse(xhr.status, xhr.responseText)
                     setTimeout(function() {
                         $('#loadingModal').modal('hide')
-                    }, 500)
+                    }, 1000)
                 }
             };
             xhr.send(JSON.stringify(data));
@@ -1158,12 +1158,12 @@
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
                             reloadDB(data.userid);
-                        }, 500)
+                        }, 1000)
                     } else {
                         showResponse(xhr.status)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)
+                        }, 1000)
                     }
                     
                 }
@@ -1284,18 +1284,18 @@
                         showResponse(403)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)  
+                        }, 1000)  
                     } else if (xhr.status == 406) {
                         document.getElementById("deleteAccountsOWR").classList.add("is-invalid")
                         $('#deleteConfirmModal').modal('show')
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)  
+                        }, 1000)  
                     } else {
                         showResponse(xhr.status)
                         setTimeout(function() {
                             $('#loadingModal').modal('hide')
-                        }, 500)  
+                        }, 1000)  
                     }
                 }
             };
