@@ -88,7 +88,9 @@ function getStores() {
                         if (storesDB[store].banner == undefined || storesDB[store].banner == "") { continue }
                         document.getElementById("store-carousel").innerHTML += `
                         <div class="carousel-item ${ifFirst}">
-                            <img src="${storesDB[store].banner}" class="d-block w-100" alt="...">
+                            <a href="#${store}">
+                                <img src="${storesDB[store].banner}" class="d-block w-100" alt="...">
+                            </a>
                         </div>
                         `
                         ifFirst = ""
