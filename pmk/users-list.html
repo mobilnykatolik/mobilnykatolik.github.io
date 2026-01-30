@@ -1012,7 +1012,7 @@
                 return false;
             }
 
-            $('#loadingModal').modal('show')
+            //$('#loadingModal').modal('show')
             console.log(data);
             
             var url = `https://api.mobilnykatolik.pl/pmk/manageusers/${userID}/${userLoginID}`;
@@ -1024,13 +1024,22 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     showResponse(xhr.status, xhr.responseText)
-                    if (xhr.status == 200) { reloadDB(); }
-                    setTimeout(function() {
+                    if (xhr.status == 200) { 
+                        $('#dataTable').DataTable().clear()
+                        $('#dataTable').DataTable().destroy()
+                        setTimeout(function() {
+                            reloadDB();
+                        }, 500)
+                    }
+                    /*setTimeout(function() {
                         $('#loadingModal').modal('hide')
-                    }, 1000)
+                    }, 1000)*/
                 }
             };
-            xhr.send(JSON.stringify(data));
+            setTimeout(function() {
+                xhr.send(JSON.stringify(data));
+            }, 500)
+            
         }
 
         function openSendNotificationModal(userid) {

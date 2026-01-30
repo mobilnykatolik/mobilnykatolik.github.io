@@ -1651,27 +1651,57 @@
             document.getElementById("product-price-disp").innerHTML = `${parseFloat(document.getElementById("product-price").value).toFixed(2)} zł`;
         })
 
-        new Sortable(document.querySelector("#products-list-table"), {
-            animation: 150,
-            ghostClass: "highlight",
-            onEnd: function (evt) {
-                showResponse(404, "Funkcja niedostępna!")
-                const rows = [...document.querySelectorAll("#products-list-table tr")];
-                const order = rows.map(row => row.id.substring(5)); // np. nazwy owoców
-                //console.log("Aktualna kolejność:", order);
+        if (window.innerWidth >= 768) {
+            const sortowanie = new Sortable(document.querySelector("#products-list-table"), {
+                animation: 150,
+                ghostClass: "highlight",
+                onEnd: function (evt) {
+                    //showResponse(404, "Funkcja niedostępna!")
+                    const rows = [...document.querySelectorAll("#products-list-table tr")];
+                    const order = rows.map(row => row.id.substring(5));
+                    console.log("Aktualna kolejność:", order);
 
-                selectedStore = document.getElementById("storeSelect").value;
+                    selectedStore = document.getElementById("storeSelect").value;
 
-                let reordered = {};
-                order.forEach(id => {
-                if (storesDB[selectedStore].products[id]) {
-                    reordered[id] = storesDB[selectedStore].products[id];
+                    let reordered = {};
+                    order.forEach(id => {
+                    if (storesDB[selectedStore].products[id]) {
+                        reordered[id] = storesDB[selectedStore].products[id];
+                    }
+                    });
+                    storesDB[selectedStore].products = reordered
+                    showProducts(selectedStore)
+
+                    var data = {
+                        neworder: order
+                    };
+
+                    var url = `https://api.mobilnykatolik.pl/pmk/product/order/${userID}/${userLoginID}`;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", url);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status == 200) {
+                                showResponse(xhr.status, xhr.responseText)
+                            } else {
+                                showResponse(xhr.status, xhr.responseText)
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+
                 }
-                });
-                storesDB[selectedStore].products = reordered
-                showProducts(selectedStore)
-            }
-        });
+            });
+        } else {
+            setTimeout(function() {
+                showResponse(100, "<b>INFO:</b> Ustawianie kolejności przedmiotów w sklepie jest dostępne tylko na większych urządzeniach.")
+            }, 500);
+        }
+
+        
 
     </script>
 

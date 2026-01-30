@@ -111,6 +111,8 @@ function showResponse(status, msg) {
   } else if (status == 403){
     responseToast.classList.add("danger")
     msg = "Nie masz wymaganych uprawnień!"
+  } else if (status == 100) {
+    responseToast.classList.add("secondary")
   } else {
     responseToast.classList.add("danger")
     if (!msg) {
