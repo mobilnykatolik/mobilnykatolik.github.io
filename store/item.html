@@ -236,6 +236,10 @@ function runPage() {
 function addToCart() {
     var product = productsDB[itemID];
     //console.log(product)
+    if (storesDB[product.store].active == false) {
+        window.alert("Nie możesz dodać tego produktu do koszyka!")
+        return false;
+    }
     if (product.oop) {
         window.alert("Nie możesz dodać tego produktu do koszyka!")
         return false;
