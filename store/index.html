@@ -171,6 +171,7 @@ function runPage() {
     var currentList;
     for (prod in productsDB) {
         var product = productsDB[prod];
+        // Ukrywanie na stronie głównej produktów z nieaktywnych sklepów
         if (storesDB[product.store].active == false) {
             continue;
         }
