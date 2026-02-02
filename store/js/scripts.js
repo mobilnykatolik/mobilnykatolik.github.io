@@ -147,6 +147,14 @@ function updateCart() {
             continue;
         }
 
+        if (storesDB[cart[prod].store].active == false) {
+            continue;
+        }
+
+        if (productsDB[cart[prod].id].disabled == true) {
+            continue;
+        }
+
         //cart[prod].price = productsDB[cart[prod].id].price NIE MOZEMY BO WTEDY FINAL PRICE SIE NIE ZGADZA
         cart[prod].name = productsDB[cart[prod].id].name
         cart[prod].store = productsDB[cart[prod].id].store
