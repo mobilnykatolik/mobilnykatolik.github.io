@@ -171,6 +171,9 @@ function runPage() {
     var currentList;
     for (prod in productsDB) {
         var product = productsDB[prod];
+        if (storesDB[product.store].active == false) {
+            continue;
+        }
         if (product.disabled) {
             continue;
         }
