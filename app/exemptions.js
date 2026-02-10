@@ -41,8 +41,9 @@ function sendExemptionAsk() {
 }
 
 function openExemption(exID) {
-    document.getElementById("exemption-heading").innerHTML = `Zwolnienie dla ${exDB[exID].for}`
-    document.getElementById("exemption-status").innerHTML = `${exStatus[exDB[exID].status]}`
+    //document.getElementById("exemption-heading").innerHTML = `Zwolnienie`
+    document.getElementById("exemption-for").innerHTML = exDB[exID].for;
+    //document.getElementById("exemption-status").innerHTML = `${exStatus[exDB[exID].status]}`
     if (eventsdb[exDB[exID].event] != undefined) {
         document.getElementById("exemption-project").innerHTML = eventsdb[exDB[exID].event].name
     } else {
@@ -68,6 +69,8 @@ function openExemption(exID) {
         document.getElementById("exemption-large-status").innerHTML = `ZWOLNIENIE NIEWAŻNE<text id="exemption-current-date">-</text>`
         document.getElementById("exemption-by-visibility").style.display = "none"
     }
+    let currentDate = getFormattedDate()
+    document.getElementById("exemption-current-date").innerHTML = currentDate
     document.getElementById("exemption-date").innerHTML = `${exDB[exID].date[0]}<br>${exDB[exID].date[1]}`
     
 

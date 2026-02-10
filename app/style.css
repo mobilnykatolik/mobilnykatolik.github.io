@@ -736,8 +736,9 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
 }
 
 .ticket-section-bottom.danger {
-    background-color: #e74a3b;
-    color: #f7a79e;
+    /*background-color: #e74a3b;
+    color: #f7a79e;*/
+    color: #e74a3b;
     justify-content: center;
     font-weight: 1000;
     letter-spacing: 3px;
@@ -745,8 +746,9 @@ table.luckynumber, table.luckynumber tr, table.luckynumber td {
 }
 
 .ticket-section-bottom.success {
-    background-color: #1cc88a;
-    color: #a0e4c5;
+    /*background-color: #1cc88a;
+    color: #a0e4c5;*/
+    color: #1cc88a;
     justify-content: center;
     font-weight: 1000;
     letter-spacing: 3px;
