@@ -412,13 +412,7 @@
                         <div class="form-group">
                             <label for="manageUserAccess">Poziom uprawnień</label>
                             <select class="form-control" id="manageUserAccess" aria-describedby="manageUserAccessHelp">
-                                <option value="">Bez zmian</option>
-                                <option value=0>0 - użytkownik</option>
-                                <option value=1>1 - członek SU</option>
-                                <option value=2>2</option>
-                                <option value=3>3</option>
-                                <option value=4>4</option>
-                                <option value=5>5 - administrator aplikacji</option>
+                                <option value="" disabled id="manageUserAccessDefault">Bez zmian</option>
                             </select>
                             <small id="manageUserAccessHelp" class="form-text text-muted">Obecny poziom uprawnień: </small>
                         </div>
@@ -705,6 +699,11 @@
 
         var selectedRows = []
 
+        const accessLevels = ["Członek SU", "Członek SU - dostęp do skanowania biletów", "Koordynator wyd. biletowanych", "Koordynator sprzedaży", "Administrator aplikacji"]
+        for (i = 0; i < accessLevels.length; ++i) {
+            document.getElementById("manageUserAccess").innerHTML += `<option value=${i+1}>(${i+1}) ${accessLevels[i]}</option>`
+        }
+
         function getClasses() {
             //Pobieranie klas
             var url = `https://api.mobilnykatolik.pl/getclasses`;
@@ -716,7 +715,7 @@
                 if (xhrB.status == 200) {
                     classes = xhrB.responseText;
                     classes = classes.split(";")
-                    document.getElementById("manageUserClass").innerHTML = '<option value="">Bez zmian</option>';
+                    document.getElementById("manageUserClass").innerHTML = '<option value="" id="manageUserClassDefault" disabled>Bez zmian</option>';
                     for (x in classes) {
                         document.getElementById("manageUserClass").innerHTML += `
                         <option value="${classes[x]}">${classes[x].toUpperCase()}</option>
@@ -959,10 +958,12 @@
                 document.getElementById("manageUserNickname").placeholder = userdb[userid].nickname;
                 document.getElementById("manageUserNickname").value = "";
 
-                document.getElementById("manageUserClass").value = userdb[userid].class;
+                document.getElementById("manageUserClass").value = "";
+                document.getElementById("manageUserClassDefault").innerHTML = userdb[userid].class.toUpperCase();
 
-                document.getElementById("manageUserAccessHelp").innerHTML = `Obecny poziom uprawnień: ${userdb[userid].access}`
+                document.getElementById("manageUserAccessHelp").innerHTML = ``
                 document.getElementById("manageUserAccess").value = "";
+                document.getElementById("manageUserAccessDefault").innerHTML = `(${parseInt(userdb[userid].access)}) ${accessLevels[parseInt(userdb[userid].access)-1]}`
             } else { //Modyfikacja wielu użytkowników
 
                 document.getElementById("manageUserModalLabel").innerHTML = `Modyfikacja ${selectedRows.length} użytkowników`
@@ -970,9 +971,11 @@
                 document.getElementById("single-user-modify").style.display = "none"
 
                 document.getElementById("manageUserClass").value = "";
+                document.getElementById("manageUserClassDefault").innerHTML = "Bez zmian";
 
                 document.getElementById("manageUserAccessHelp").innerHTML = ""
                 document.getElementById("manageUserAccess").value = "";
+                document.getElementById("manageUserAccessDefault").innerHTML = "Bez zmian"
             }
 
             if (userAccess >= 5) {
