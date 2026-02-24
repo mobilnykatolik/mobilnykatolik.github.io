@@ -64,6 +64,8 @@ var userlastName = sessionStorage.getItem("userlname");
 var userAccess = parseInt(sessionStorage.getItem("useraccess"));
 var usersCount = sessionStorage.getItem("userscount");
 
+const accessLevels = ["Użytkownik", "Członek SU", "Członek SU - dostęp do skanowania biletów", "Koordynator wyd. biletowanych", "Koordynator sprzedaży", "Administrator aplikacji"]
+
   
 if (userID == undefined) {
     window.location = "auth.html";
@@ -74,7 +76,7 @@ if (userLoginID == undefined) {
 
 document.getElementById("profile-fullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
 document.getElementById("profileModalFullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
-document.getElementById("profileModalAccess").innerHTML = sessionStorage.useraccess;
+document.getElementById("profileModalAccess").innerHTML = accessLevels[parseInt(sessionStorage.useraccess)];
 document.getElementById("img-profile").src = `https://api.mobilnykatolik.pl/profilepic/get/${userID}`
 
 var imgProfile = document.getElementById("img-profile")

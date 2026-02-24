@@ -699,9 +699,8 @@
 
         var selectedRows = []
 
-        const accessLevels = ["Członek SU", "Członek SU - dostęp do skanowania biletów", "Koordynator wyd. biletowanych", "Koordynator sprzedaży", "Administrator aplikacji"]
         for (i = 0; i < accessLevels.length; ++i) {
-            document.getElementById("manageUserAccess").innerHTML += `<option value=${i+1}>(${i+1}) ${accessLevels[i]}</option>`
+            document.getElementById("manageUserAccess").innerHTML += `<option value=${i}>(${i}) ${accessLevels[i]}</option>`
         }
 
         function getClasses() {
@@ -963,7 +962,7 @@
 
                 document.getElementById("manageUserAccessHelp").innerHTML = ``
                 document.getElementById("manageUserAccess").value = "";
-                document.getElementById("manageUserAccessDefault").innerHTML = `(${parseInt(userdb[userid].access)}) ${accessLevels[parseInt(userdb[userid].access)-1]}`
+                document.getElementById("manageUserAccessDefault").innerHTML = `(${parseInt(userdb[userid].access)}) ${accessLevels[parseInt(userdb[userid].access)]}`
             } else { //Modyfikacja wielu użytkowników
 
                 document.getElementById("manageUserModalLabel").innerHTML = `Modyfikacja ${selectedRows.length} użytkowników`
