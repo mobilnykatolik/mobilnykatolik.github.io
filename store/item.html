@@ -12,6 +12,12 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <meta property="og:type" content="og:product">
+        <meta property="og:title" id="md-title" content="">
+        <meta property="og:description" id="md-description" content="">
+        <meta property="og:image" id="md-image" content="">
+        <meta property="og:url" id="md-url" content="">
+        <meta property="og:site_name" content="Sklep Mobilny Katolik">
     </head>
     <body>
 
@@ -162,6 +168,12 @@ function getItem(itemID) {
     document.getElementById("item-desc").innerHTML = product.desc;
     document.getElementById("item-img").src = product.img;
     productsDB[itemID].finalprice = parseFloat(product.price)
+
+    //Metadata
+    document.getElementById("md-title").content = product.name;
+    document.getElementById("md-description").content = product.desc;
+    document.getElementById("md-image").content = product.img;
+    document.getElementById("md-url").content = `https://mobilnykatolik.github.io/item.html?id=${itemID}`;
 
     for (option in product.options) {
         if (product.options[option] == "UNREQUIRED") {
