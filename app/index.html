@@ -132,7 +132,7 @@
         <div class="introduction-page" id="introduction-step-4">
             <p style="color: darkgray; font-size: 17px;">Czy chcesz otrzymywać powiadomienia z aplikacji?</p>
             <div style="position: fixed; bottom: 0; margin-bottom: 20px; width: 100%; left: 0;">
-                <button class="introduction-button-next" onclick="introductionNextStep();">Pomiń</button>
+                <button class="introduction-button-next" onclick="moveStartupLogoBack()">Pomiń</button>
             </div>
         </div>
         <div class="introduction-page" id="introduction-step-5">
@@ -141,7 +141,7 @@
                 <button class="introduction-button-next" onclick="introductionNextStep();">Dalej</button>
             </div>
         </div>
-        <div class="introduction-page" id="introduction-step-6">
+        <div class="introduction-page" id="introduction-step-5">
             <p style="color: darkgray; font-size: 17px; text-align: center;">Twój Mobilny Katolik jest już gotowy</p>
             <p style="color: darkgray; font-size: 12px; text-align: center;">Aplikacja zostanie uruchomiona ponownie<br>w celu zapisania zmian</p>
             <button type="button" class="introduction-button-next" style="display: block; margin: auto; margin-top: 20px; float: unset;" onClick="moveStartupLogoBack();">Zaczynamy!</button>
@@ -1801,7 +1801,7 @@ function changeLightMode(newLightMode) {
 
 //Introduction
 var introductionStep = 1;
-const introductionSteps = 6;
+const introductionSteps = 4;
 document.getElementById("introduction-progress-bar").style.width = String(introductionStep/introductionSteps*100)+"%";
 var loginPopup;
 var waitForLogin = false;
@@ -1934,7 +1934,8 @@ function askForPermission() {
         })
         .then((subscription) => {
             console.log('Subscribed! Endpoint:', JSON.stringify(subscription.toJSON()));
-            introductionNextStep();
+            //introductionNextStep();
+            moveStartupLogoBack()
             var data = {
                 "push": subscription.toJSON(),
                 "userid": localStorage.getItem("id"),
@@ -1959,7 +1960,8 @@ function askForPermission() {
         })
         .catch((error) => {
             console.log('Subscription failed, error:', error);
-            introductionNextStep();
+            //introductionNextStep();
+            moveStartupLogoBack()
         });
     });
 }
