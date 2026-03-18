@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-    --theme: #a80c2f;
+    --theme: #053ba6;
     --theme-gradient: rgba(168, 12, 47, 0.5);
     --bg: #fcfcfc;
     --shadow16: 0 0 2px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.14);
@@ -12,7 +12,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-image: url("src/bg.png");
+    background-image: url("src/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -95,7 +95,7 @@ input[type="checkbox"] {
 .logo {
     width: 3.5rem;
     aspect-ratio: 1791/1097;
-    background-image: url("src/icons/logo.png");
+    background-image: url("src/icons/logo.svg");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -103,8 +103,8 @@ input[type="checkbox"] {
 
 .loader {
     width: 8rem;
-    aspect-ratio: 2 / 1;
-    background-image: url(src/loading.svg);
+    aspect-ratio: 1 / 1;
+    background-image: url(src/loading-blue.svg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -139,7 +139,7 @@ select {
 }
 
 input[type="email"]:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus {
-  border-bottom: 1px solid #a80c2f;
+  border-bottom: 1px solid var(--theme);
   transition: border-bottom 0.25s ease;
 }
 

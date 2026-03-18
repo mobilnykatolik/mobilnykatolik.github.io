@@ -4,7 +4,7 @@ var widthData = ["23rem", "30rem", "23rem", "23rem", "23rem", "23rem"]
 
 var switchingPage = false
 
-let ignoreRedirectError = false;
+let ignoreRedirectError = true;
 
 function onLoad() {
     document.querySelector(".splash").style.opacity = "0"
