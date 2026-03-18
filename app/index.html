@@ -92,9 +92,13 @@
         <div class="introduction-page" id="introduction-step-3">
             <p style="color: darkgray; font-size: 17px;">Możesz wybrać motyw aplikacji</p>
             <div class="buttons-section" type="theme" style="margin-top: 20px;">
-                <div type="top" onclick="changeTheme('a80c2f');">
-                    <aside id="introduction-theme-a80c2f" style="background-color: #a80c2f;"></aside>
+                <div type="top" onclick="changeTheme('053ba6');">
+                    <aside id="introduction-theme-053ba6" style="background-color: #053ba6;"></aside>
                     <span>Domyślny</span>
+                </div>
+                <div onclick="changeTheme('a80c2f');">
+                    <aside id="introduction-theme-a80c2f" style="background-color: #a80c2f;"></aside>
+                    <span>Klasyczny</span>
                 </div>
                 <div onclick="changeTheme('1e6091');">
                     <aside id="introduction-theme-1e6091" style="background-color: #1e6091;"></aside>
@@ -1198,9 +1202,13 @@
         <p style="font-size: 18px;">Motyw aplikacji</p>
         <p style="font-size: 14px; opacity: 60%;">Wybierz kolor przewodni</p>
         <div class="buttons-section" type="theme" style="margin-top: 10px; margin-bottom: 20px">
-            <div type="top" onclick="changeTheme('a80c2f');">
-                <aside id="theme-a80c2f" style="background-color: #a80c2f;"></aside>
+            <div type="top" onclick="changeTheme('053ba6');">
+                <aside id="theme-053ba6" style="background-color: #053ba6;"></aside>
                 <span>Domyślny</span>
+            </div>
+            <div onclick="changeTheme('a80c2f');">
+                <aside id="theme-a80c2f" style="background-color: #a80c2f;"></aside>
+                <span>Klasyczny</span>
             </div>
             <div onclick="changeTheme('1e6091');">
                 <aside id="theme-1e6091" style="background-color: #1e6091;"></aside>
@@ -1727,8 +1735,8 @@ window.addEventListener("hashchange", function(event) {
 
 //App settings
 var theme = localStorage.getItem("theme");
-if (theme == null) {
-    theme = "a80c2f";
+if (theme == null || document.getElementById(`introduction-theme-${theme}`) == undefined) {
+    theme = "053ba6";
 }
 document.getElementById(`introduction-theme-${theme}`).classList.add("selected");
 document.getElementById(`theme-${theme}`).classList.add("selected");
