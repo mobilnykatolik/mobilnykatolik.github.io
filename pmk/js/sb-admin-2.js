@@ -77,7 +77,7 @@ if (userLoginID == undefined) {
 document.getElementById("profile-fullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
 document.getElementById("profileModalFullname").innerHTML = `${sessionStorage.userfname} ${sessionStorage.userlname}`;
 document.getElementById("profileModalAccess").innerHTML = accessLevels[parseInt(sessionStorage.useraccess)];
-document.getElementById("img-profile").src = `https://api.mobilnykatolik.pl/profilepic/get/${userID}`
+document.getElementById("img-profile").src = `https://api.mobilnykatolik.pl/user/avatar/${userID}`
 
 var imgProfile = document.getElementById("img-profile")
 

@@ -209,6 +209,7 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
+                    console.log(xhr.responseText);
                     if (xhr.status == 200) {
                         loginID = JSON.parse(xhr.responseText).loginid
                         logIn();
