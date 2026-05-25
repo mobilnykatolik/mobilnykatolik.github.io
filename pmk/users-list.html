@@ -251,6 +251,7 @@
                                             <th>ID</th>
                                             <th>Upr.</th>
                                             <th>WR</th>
+                                            <th>Ost. akt.</th>
                                             <th>Akcje</th>
                                         </tr>
                                     </thead>
@@ -793,6 +794,8 @@
                                     data[entry].access = `${data[entry].access}<span style="display: none;">#SU</span>`
                                 }
 
+                                let lastActivityInd = Math.round((Date.now() - data[entry].lastactivity)/(1000*60*60*24))
+
                                 document.getElementById("users-list-table").innerHTML += `
                                     <tr id="${entry}">
                                         <td>${data[entry].firstname}</td>
@@ -801,6 +804,7 @@
                                         <td>${entry}</td>
                                         <td>${data[entry].access}</td>
                                         <td>${points}</td>
+                                        <td>${lastActivityInd}d</td>
                                         <td>
                                             <!--<div class="dropdown">
                                                 <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
