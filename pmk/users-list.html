@@ -248,10 +248,8 @@
                                             <th>Imię</th>
                                             <th>Nazwisko</th>
                                             <th>Klasa</th>
-                                            <th>ID</th>
-                                            <th>Upr.</th>
-                                            <th>WR</th>
-                                            <th>Ost. akt.</th>
+                                            <th>Punkty</th>
+                                            <th></th>
                                             <th>Akcje</th>
                                         </tr>
                                     </thead>
@@ -790,21 +788,25 @@
                                     var points = 0
                                 }
 
-                                if (data[entry].access != 0) {
+                                /*if (data[entry].access != 0) {
                                     data[entry].access = `${data[entry].access}<span style="display: none;">#SU</span>`
-                                }
+                                }*/
 
                                 let lastActivityInd = Math.round((Date.now() - data[entry].lastactivity)/(1000*60*60*24))
+                                let lastActivityString = new Date(data[entry].lastactivity);
+                                lastActivityString = lastActivityString.toString();
 
                                 document.getElementById("users-list-table").innerHTML += `
                                     <tr id="${entry}">
                                         <td>${data[entry].firstname}</td>
                                         <td>${data[entry].lastname}</td>
                                         <td><span style="display: none;">KLASA:</span>${data[entry].class.toUpperCase()}</td>
-                                        <td>${entry}</td>
-                                        <td>${data[entry].access}</td>
                                         <td>${points}</td>
-                                        <td>${lastActivityInd}</td>
+                                        <td>
+                                            ${data[entry].access > 0 ? `<div class="badge badge-primary">${accessLevels[data[entry].access]}</div><span style="display: none;">#SU #UPR${data[entry].access}</span>` : ""}
+                                            <div class="badge badge-secondary">ID: ${entry}</div>
+                                            ${lastActivityInd >= 180 ? ` <div title="${lastActivityString}" class="badge badge-danger">Ost. akt.: >180d</div>` : ` <div title="${lastActivityString}" class="badge badge-secondary">Ost. akt.: ${lastActivityInd}d</div>`}
+                                        </td>
                                         <td>
                                             <!--<div class="dropdown">
                                                 <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
