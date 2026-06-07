@@ -136,7 +136,7 @@ function sendSignUpCode() {
                 var response = JSON.parse(xhr.responseText);
                 document.getElementById("code-instruction").innerHTML = response.message
                 document.getElementById("fullname").innerHTML = response.fullname
-                document.getElementById("profilepic").src = `https://api.mobilnykatolik.pl/profilepic/get/${response.userid}`
+                document.getElementById("profilepic").src = `https://api.mobilnykatolik.pl/user/avatar/${response.userid}`
                 switchPage("code")
             } else if (xhr.status == 403) {
                 switchPage("register")
@@ -167,7 +167,7 @@ function sendSignInCode() {
             var response = JSON.parse(xhr.responseText);
             document.getElementById("code-instruction").innerHTML = response.message
             document.getElementById("fullname").innerHTML = response.fullname
-            document.getElementById("profilepic").src = `https://api.mobilnykatolik.pl/profilepic/get/${response.userid}`
+            document.getElementById("profilepic").src = `https://api.mobilnykatolik.pl/user/avatar/${response.userid}`
             switchPage("code")
         } else if (xhr.status == 400) {
             switchPage("login")
