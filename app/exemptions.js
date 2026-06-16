@@ -18,7 +18,7 @@ function sendExemptionAsk() {
         "end": document.getElementById("newExemption4").value,
     }
     console.log(data);
-    var url = `https://api.mobilnykatolik.pl/pmk/exemptions/new`;
+    var url = `https://apimk.salek.it/pmk/exemptions/new`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -98,7 +98,7 @@ var timeUpdate = setInterval(function() {
 }, 1000)
 
 function loadWaitingExemptions() {
-    var url = `https://api.mobilnykatolik.pl/pmk/exemptions/list/${userID}/${loginID}/`;
+    var url = `https://apimk.salek.it/pmk/exemptions/list/${userID}/${loginID}/`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -186,7 +186,7 @@ function exemptionApproval(exID, approval) {
         "accept": approval
     }
     console.log(data);
-    var url = `https://api.mobilnykatolik.pl/pmk/exemptions/manage/${userID}/${loginID}`;
+    var url = `https://apimk.salek.it/pmk/exemptions/manage/${userID}/${loginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");

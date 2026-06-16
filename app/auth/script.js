@@ -88,7 +88,7 @@ function getClasses() {
         }
     };
 
-    req.open("GET", `https://api.mobilnykatolik.pl/getclasses`, true);
+    req.open("GET", `https://apimk.salek.it/getclasses`, true);
     req.send();
 }
 getClasses();
@@ -125,7 +125,7 @@ function sendSignUpCode() {
         "class": document.getElementById("signup-class").value,
         "email": email
     }
-    var url = "https://api.mobilnykatolik.pl/register";
+    var url = "https://apimk.salek.it/register";
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -136,7 +136,7 @@ function sendSignUpCode() {
                 var response = JSON.parse(xhr.responseText);
                 document.getElementById("code-instruction").innerHTML = response.message
                 document.getElementById("fullname").innerHTML = response.fullname
-                document.getElementById("profilepic").src = `https://api.mobilnykatolik.pl/user/avatar/${response.userid}`
+                document.getElementById("profilepic").src = `https://apimk.salek.it/user/avatar/${response.userid}`
                 switchPage("code")
             } else if (xhr.status == 403) {
                 switchPage("register")
@@ -158,7 +158,7 @@ function sendSignUpCode() {
 }
 
 function sendSignInCode() {
-    var url = `https://api.mobilnykatolik.pl/login/${email}`;
+    var url = `https://apimk.salek.it/login/${email}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -167,7 +167,7 @@ function sendSignInCode() {
             var response = JSON.parse(xhr.responseText);
             document.getElementById("code-instruction").innerHTML = response.message
             document.getElementById("fullname").innerHTML = response.fullname
-            document.getElementById("profilepic").src = `https://api.mobilnykatolik.pl/user/avatar/${response.userid}`
+            document.getElementById("profilepic").src = `https://apimk.salek.it/user/avatar/${response.userid}`
             switchPage("code")
         } else if (xhr.status == 400) {
             switchPage("login")
@@ -185,7 +185,7 @@ function checkCode() {
     document.getElementById("code-notification").innerHTML = " "
     switchPage("loading")
     code = document.getElementById("code-input").value.replaceAll(" ", "")
-    var url = `https://api.mobilnykatolik.pl/code/${email}/${code}`;	
+    var url = `https://apimk.salek.it/code/${email}/${code}`;	
     var xhr = new XMLHttpRequest();	
     xhr.open("GET", url);	
     xhr.onreadystatechange = function() {	

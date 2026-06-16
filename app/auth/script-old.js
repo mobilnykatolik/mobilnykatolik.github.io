@@ -61,7 +61,7 @@ function signIn() {
 }
 
 function sendSignInCode() {
-    var url = `https://api.mobilnykatolik.pl/login/${email}`;
+    var url = `https://apimk.salek.it/login/${email}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -136,7 +136,7 @@ function signUp() {
 }
 
 function sendSignUpCode(firstname, lastname, userclass) {
-    var url = "https://api.mobilnykatolik.pl/register";
+    var url = "https://apimk.salek.it/register";
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -193,7 +193,7 @@ function checkCode() {
 
 
 function sendCodeToAPI(code) {	
-    var url = `https://api.mobilnykatolik.pl/code/${email}/${code}`;	
+    var url = `https://apimk.salek.it/code/${email}/${code}`;	
     var xhr = new XMLHttpRequest();	
     xhr.open("GET", url);	
     xhr.onreadystatechange = function() {	
@@ -237,7 +237,7 @@ function getClasses() {
         }
     };
 
-    req.open("GET", `https://api.mobilnykatolik.pl/getclasses`, true);
+    req.open("GET", `https://apimk.salek.it/getclasses`, true);
     req.send();
 }
 getClasses();

@@ -498,7 +498,7 @@
             dataTable.clear();
             dataTable.draw();
 
-            var url = `https://api.mobilnykatolik.pl/pmk/order/list/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/order/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -624,7 +624,7 @@
 
             $('#loadingModal').modal('show')
             
-            var url = `https://api.mobilnykatolik.pl/pmk/order/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/order/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

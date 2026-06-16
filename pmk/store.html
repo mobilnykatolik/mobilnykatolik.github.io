@@ -866,7 +866,7 @@
             prodTable.clear();
             prodTable.draw();*/
 
-            var url = `https://api.mobilnykatolik.pl/pmk/order/list/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/order/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -889,7 +889,7 @@
         }
 
         function getStores() {
-            var url = `https://api.mobilnykatolik.pl/pmk/store/list/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/store/list/${userID}/${userLoginID}`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -1105,7 +1105,7 @@
 
             $('#loadingModal').modal('show')
             
-            var url = `https://api.mobilnykatolik.pl/pmk/order/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/order/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1450,7 +1450,7 @@
 
             $('#loadingModal').modal('show')
             
-            var url = `https://api.mobilnykatolik.pl/pmk/product/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/product/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1493,7 +1493,7 @@
             //$('#loadingModal').modal('show')
             console.log(data)
             
-            var url = `https://api.mobilnykatolik.pl/pmk/product/availability/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/product/availability/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1563,7 +1563,7 @@
             }
             
             
-            var url = `https://api.mobilnykatolik.pl/pmk/store/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/store/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1589,7 +1589,7 @@
                 "id": document.getElementById("createStoreID").value
             }
             
-            var url = `https://api.mobilnykatolik.pl/pmk/store/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/store/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1676,7 +1676,7 @@
                         neworder: order
                     };
 
-                    var url = `https://api.mobilnykatolik.pl/pmk/product/order/${userID}/${userLoginID}`;
+                    var url = `https://apimk.salek.it/pmk/product/order/${userID}/${userLoginID}`;
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", url);
                     xhr.setRequestHeader("Content-Type", "application/json");

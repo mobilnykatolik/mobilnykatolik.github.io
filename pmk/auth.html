@@ -147,7 +147,7 @@
             document.getElementById("formSubmit").disabled = "disabled";
             document.getElementById("pm-login").classList.add("disabled")
 
-                var url = `https://api.mobilnykatolik.pl/sync/${loginID}`;
+                var url = `https://apimk.salek.it/sync/${loginID}`;
 
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", url);
@@ -201,7 +201,7 @@
                 login: document.getElementById("formLogin").value,
                 pass: document.getElementById("formPassword").value
             }
-            var url = `https://api.mobilnykatolik.pl/pmk/cred/login`;
+            var url = `https://apimk.salek.it/pmk/cred/login`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

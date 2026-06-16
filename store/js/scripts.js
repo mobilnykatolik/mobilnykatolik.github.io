@@ -59,7 +59,7 @@ function getTickets() {
         }
     };
 
-    req.open("GET", `https://api.mobilnykatolik.pl/tickets/getall`, true);
+    req.open("GET", `https://apimk.salek.it/tickets/getall`, true);
     req.send();
 }
 
@@ -109,7 +109,7 @@ function getStores() {
         }
     };
 
-    req.open("GET", `https://api.mobilnykatolik.pl/store/getall`, true);
+    req.open("GET", `https://apimk.salek.it/store/getall`, true);
     req.send();
 }
 

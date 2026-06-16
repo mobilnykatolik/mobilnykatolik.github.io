@@ -75,7 +75,7 @@ function sendReview() {
         "answers": answersData
     }
     console.log(data);
-    var url = `https://api.mobilnykatolik.pl/pmk/reviews/new/${userID}/${loginID}`;
+    var url = `https://apimk.salek.it/pmk/reviews/new/${userID}/${loginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");

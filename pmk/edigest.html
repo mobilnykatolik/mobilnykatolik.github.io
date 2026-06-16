@@ -497,7 +497,7 @@ function getPeopleList() {
         document.getElementById("choosePersonInput").innerHTML = `<option value="">Nie masz wystarczających uprawnień</option>`
         return false;
     }
-    var url = `https://api.mobilnykatolik.pl/pmk/su/userlist/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/su/userlist/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 
@@ -523,7 +523,7 @@ function updateICSU(UID) {
     } else {
         checkedUserID = UID
     }
-    var url = `https://api.mobilnykatolik.pl/icsu/${userID}/${userLoginID}/${checkedUserID}`;
+    var url = `https://apimk.salek.it/icsu/${userID}/${userLoginID}/${checkedUserID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 

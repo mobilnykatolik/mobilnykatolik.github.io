@@ -303,7 +303,7 @@ function makeOrder() {
 
     loadingModal.show()
 
-    var url = `https://api.mobilnykatolik.pl/order/make`;
+    var url = `https://apimk.salek.it/order/make`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -353,7 +353,7 @@ function getClasses() {
         }
     };
 
-    req.open("GET", `https://api.mobilnykatolik.pl/getclasses`, true);
+    req.open("GET", `https://apimk.salek.it/getclasses`, true);
     req.send();
 }
 

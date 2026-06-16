@@ -600,7 +600,7 @@
         var userDB = {}
 
         function reloadDB() {
-            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/coupons`;
+            var url = `https://apimk.salek.it/pmk/db/${userID}/${userLoginID}/events/coupons`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -612,7 +612,7 @@
                     couponsDB = data;
 
                     //Pobieranie listy kuponów
-                    var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
+                    var url = `https://apimk.salek.it/pmk/db/${userID}/${userLoginID}/events/eventCoupons`;
                     var xhrA = new XMLHttpRequest();
                     xhrA.open("GET", url);
 
@@ -644,7 +644,7 @@
                     xhrA.send();
 
                     //Pobieranie listy klas
-                    var url = `https://api.mobilnykatolik.pl/getclasses`;
+                    var url = `https://apimk.salek.it/getclasses`;
                     var xhrB = new XMLHttpRequest();
                     xhrB.open("GET", url);
 
@@ -665,7 +665,7 @@
                     xhrB.send();
 
                     //Pobieranie użytkowników
-                    var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/userdb/users`;
+                    var url = `https://apimk.salek.it/pmk/db/${userID}/${userLoginID}/userdb/users`;
                     var xhrC = new XMLHttpRequest();
                     xhrC.open("GET", url);
 
@@ -766,7 +766,7 @@
             }
             $('#loadingModal').modal('show')
             
-            var url = `https://api.mobilnykatolik.pl/pmk/points/coupons/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/points/coupons/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -819,7 +819,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://api.mobilnykatolik.pl/pmk/points/coupons/manage/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/points/coupons/manage/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -890,7 +890,7 @@
                 "cid": couponID
             }
             
-            var url = `https://api.mobilnykatolik.pl/coupons/return`;
+            var url = `https://apimk.salek.it/coupons/return`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -929,7 +929,7 @@
                 "userid": document.getElementById("grantCouponOwner").value
             }
             
-            var url = `https://api.mobilnykatolik.pl/pmk/points/coupons/grant/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/points/coupons/grant/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

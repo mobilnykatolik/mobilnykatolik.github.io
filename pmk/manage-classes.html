@@ -499,7 +499,7 @@
 
         function reloadDB() {
             document.getElementById("manageClassCards").innerHTML = "";
-            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/userdb/people`;
+            var url = `https://apimk.salek.it/pmk/db/${userID}/${userLoginID}/userdb/people`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -593,7 +593,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://api.mobilnykatolik.pl/pmk/manageclass/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/manageclass/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");

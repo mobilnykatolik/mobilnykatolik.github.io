@@ -8,7 +8,7 @@ const exColor = ["warning", "success", "danger", "secondary"]
 
 function updateICSU() {
     resetDigest()
-    var url = `https://api.mobilnykatolik.pl/icsu/${userID}/${loginID}/true`;
+    var url = `https://apimk.salek.it/icsu/${userID}/${loginID}/true`;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
 

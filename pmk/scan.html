@@ -528,7 +528,7 @@ function scanTicket(ticketID) {
         "ticketid": ticketID
     }
 
-    var url = `https://api.mobilnykatolik.pl/pmk/tickets/scan/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/tickets/scan/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -569,7 +569,7 @@ function scanCoupon(couponID) {
         "couponid": couponID
     }
 
-    var url = `https://api.mobilnykatolik.pl/pmk/coupons/scan/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/coupons/scan/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -623,7 +623,7 @@ function scanUser(userid) {
     }
     
 
-    var url = `https://api.mobilnykatolik.pl/pmk/scan/user/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/scan/user/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -696,7 +696,7 @@ function scanPoints(userid) {
     }
     
 
-    var url = `https://api.mobilnykatolik.pl/pmk/points/modify/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/points/modify/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -740,7 +740,7 @@ function posConnect(code) {
         "code": code
     }
 
-    var url = `https://api.mobilnykatolik.pl/pmk/posconnect/connect/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/posconnect/connect/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -769,7 +769,7 @@ function scanPOS(scan) {
         "sessionid": POS
     }
 
-    var url = `https://api.mobilnykatolik.pl/pmk/posconnect/scan/${userID}/${userLoginID}`;
+    var url = `https://apimk.salek.it/pmk/posconnect/scan/${userID}/${userLoginID}`;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/json");

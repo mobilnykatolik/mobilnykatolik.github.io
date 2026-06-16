@@ -619,7 +619,7 @@
 
         function reloadDB() {
             //Pobieranie listy członków SU
-            var url = `https://api.mobilnykatolik.pl/pmk/su/userlist/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/su/userlist/${userID}/${userLoginID}`;
             var xhrA = new XMLHttpRequest();
             xhrA.open("GET", url);
 
@@ -631,7 +631,7 @@
                         //document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
                         document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `
                         <div class="badge badge-pill badge-light">
-                            <div class="badge-img" style="background-image: url('https://api.mobilnykatolik.pl/profilepic/get/${x}')"></div>
+                            <div class="badge-img" style="background-image: url('https://apimk.salek.it/profilepic/get/${x}')"></div>
                             <span>${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})</span>
                         </div>
                         `)
@@ -652,7 +652,7 @@
             xhrA.send();
 
             //Pobieranie klas
-            var url = `https://api.mobilnykatolik.pl/getclasses`;
+            var url = `https://apimk.salek.it/getclasses`;
             var xhrB = new XMLHttpRequest();
             xhrB.open("GET", url);
 
@@ -673,7 +673,7 @@
 
             xhrB.send();
 
-            var url = `https://api.mobilnykatolik.pl/pmk/db/${userID}/${userLoginID}/events/events`;
+            var url = `https://apimk.salek.it/pmk/db/${userID}/${userLoginID}/events/events`;
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url);
@@ -816,7 +816,7 @@
                         //document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})`)
                         document.getElementById("su-events-list-table").innerHTML = document.getElementById("su-events-list-table").innerHTML.replaceAll(x, `
                         <div class="badge badge-pill badge-light">
-                            <div class="badge-img" style="background-image: url('https://api.mobilnykatolik.pl/profilepic/get/${x}')"></div>
+                            <div class="badge-img" style="background-image: url('https://apimk.salek.it/profilepic/get/${x}')"></div>
                             <span>${userList[x].firstname} ${userList[x].lastname} (${userList[x].class.toUpperCase()})</span>
                         </div>
                         `)
@@ -993,7 +993,7 @@
             $('#loadingModal').modal('show')
             console.log(data);
             
-            var url = `https://api.mobilnykatolik.pl/pmk/events/modify/${userID}/${userLoginID}`;
+            var url = `https://apimk.salek.it/pmk/events/modify/${userID}/${userLoginID}`;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -1061,7 +1061,7 @@
                 if (option.selected) {
                     document.getElementById("manageEventByList").innerHTML += `
                     <div class="badge badge-pill badge-light person" onClick="removePerson('${option.value}')">
-                        <div class="badge-img" style="background-image: url('https://api.mobilnykatolik.pl/profilepic/get/${option.value}')"></div>
+                        <div class="badge-img" style="background-image: url('https://apimk.salek.it/profilepic/get/${option.value}')"></div>
                         <span>${option.innerHTML}</span>
                     </div>
                     `
